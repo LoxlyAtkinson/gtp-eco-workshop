@@ -92,6 +92,7 @@ async function requestReport(request,env,headers){
 }
 
 async function contactByToken(secret,env){if(!/^[0-9a-f]{64}$/.test(secret))return null;return env.DB.prepare('SELECT c.id,c.scan_id,c.name,c.email,c.marketing_consent,c.created_at,c.expires_at,c.delivery_status,s.report_json FROM contacts c JOIN scans s ON s.id=c.scan_id WHERE c.report_hash=?').bind(await digest(secret)).first()}
+async function tokenBody(request,headers){try{const body=await boundedBody(request);return {token:String(body?.token||'')}}catch(e){return {response:error(e.message,400,headers)}}}
 async function getReport(secret,env,headers){const row=await contactByToken(secret,env);if(!row||row.expires_at<now()||row.delivery_status!=='sent')return error('The private report link is invalid or expired.',404,headers);return reply({report:JSON.parse(row.report_json),contact:{name:row.name,marketingConsent:Boolean(row.marketing_consent)},expiresAt:row.expires_at},200,headers)}
 async function optOut(request,env,headers){let body;try{body=await boundedBody(request)}catch(e){return error(e.message,400,headers)}const row=await contactByToken(String(body?.token||''),env);if(!row)return error('The link is invalid or expired.',404,headers);await env.DB.prepare('UPDATE contacts SET marketing_consent=0 WHERE id=?').bind(row.id).run();return reply({message:'Marketing preference turned off.'},200,headers)}
 async function deleteReport(secret,env,headers){const row=await contactByToken(secret,env);if(!row)return error('The link is invalid or expired.',404,headers);await env.DB.batch([env.DB.prepare('DELETE FROM contacts WHERE id=?').bind(row.id),env.DB.prepare('DELETE FROM scans WHERE id=?').bind(row.scan_id)]);return reply({message:'Your report and contact record were deleted.'},200,headers)}
@@ -106,11 +107,10 @@ export default {
     try{
       if(path==='/v1/scans'&&request.method==='POST')return await scan(request,env,headers);
       if(path==='/v1/reports/request'&&request.method==='POST')return await requestReport(request,env,headers);
+      if(path==='/v1/reports/read'&&request.method==='POST'){const parsed=await tokenBody(request,headers);return parsed.response||await getReport(parsed.token,env,headers)}
+      if(path==='/v1/reports/delete'&&request.method==='POST'){const parsed=await tokenBody(request,headers);return parsed.response||await deleteReport(parsed.token,env,headers)}
       if(path==='/v1/reports/opt-out'&&request.method==='POST')return await optOut(request,env,headers);
       if(path==='/v1/admin/contacts'&&request.method==='GET')return await admin(request,env,headers);
-      const reportMatch=path.match(/^\/v1\/reports\/([0-9a-f]{64})$/);
-      if(reportMatch&&request.method==='GET')return await getReport(reportMatch[1],env,headers);
-      if(reportMatch&&request.method==='DELETE')return await deleteReport(reportMatch[1],env,headers);
       return error('Route not found.',404,headers);
     }catch(e){console.error('Request failed',e?.name||'Error');return error('The service could not complete this request. Please try again.',500,headers)}
   },

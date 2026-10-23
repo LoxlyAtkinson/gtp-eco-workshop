@@ -10,7 +10,7 @@
   const overview=document.getElementById('overviewDialog');
   const grid=document.getElementById('overviewGrid');
   let index=Math.max(0,Math.min(scenes.length-1,Number(location.hash.slice(1))-1||0));
-  const titleOf=s=>s.querySelector('h1,h2').textContent.replace(/\s+/g,' ').trim();
+  const titleOf=s=>s.querySelector('h1,h2').innerText.replace(/\s+/g,' ').trim();
   grid.innerHTML=scenes.map((s,i)=>`<button type="button" data-goto="${i}"><span>${String(i+1).padStart(2,'0')} · ${s.dataset.stage.toUpperCase()}</span>${titleOf(s)}</button>`).join('');
   function show(to,focus=false){
     index=Math.max(0,Math.min(scenes.length-1,to));

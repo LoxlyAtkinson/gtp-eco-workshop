@@ -21,8 +21,8 @@ test('scan, requested email, private report and admin choice remain distinct',as
     const denied=await worker.fetch(req('/v1/admin/contacts','GET'),env);assert.equal(denied.status,401);
     const delivery=await worker.fetch(req('/v1/reports/request','POST',{scanId:preview.scanId,name:'Test Owner',email:'owner@example.com',marketingConsent:false,noticeVersion:'v1'}),env);assert.equal(delivery.status,200);assert.equal(db.contacts.size,1);assert.equal([...db.contacts.values()][0].marketing_consent,0);assert.equal(sent.to[0],'owner@example.com');
     const token=sent.text.match(/#([0-9a-f]{64})/)?.[1];assert.ok(token);
-    const report=await worker.fetch(req('/v1/reports/'+token),env);assert.equal(report.status,200);assert.equal((await report.json()).report.business.name,'Example Lunches');
+    const report=await worker.fetch(req('/v1/reports/read','POST',{token}),env);assert.equal(report.status,200);assert.equal((await report.json()).report.business.name,'Example Lunches');
     const admin=await worker.fetch(req('/v1/admin/contacts','GET',undefined,{authorization:'Bearer private-admin-token'}),env);assert.equal(admin.status,200);assert.equal((await admin.json()).contacts[0].marketingConsent,false);
-    const deletion=await worker.fetch(req('/v1/reports/'+token,'DELETE'),env);assert.equal(deletion.status,200);assert.equal(db.contacts.size,0);assert.equal(db.scans.size,0);
+    const deletion=await worker.fetch(req('/v1/reports/delete','POST',{token}),env);assert.equal(deletion.status,200);assert.equal(db.contacts.size,0);assert.equal(db.scans.size,0);
   }finally{globalThis.fetch=oldFetch}
 });
