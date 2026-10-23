@@ -1,28 +1,31 @@
 # GTP ECO workshop
 
-An original 60-minute web presentation for small-business owners and a participant business-analysis tool. The public presentation and form are static GitHub Pages files; the protected scanner, contact storage, email delivery and admin API are a separate Cloudflare Worker.
+An original 60-minute web presentation for small-business owners and a participant business-analysis tool. The public presentation and form are static GitHub Pages files; the protected scanner, contact storage, email delivery and admin API are prepared for Supabase Edge Functions/Postgres and Resend.
 
 ## Current release state
 
-The presentation and participant interfaces run locally. The protected Worker is implemented but **live data collection is disabled** until the organiser identity, notice, retention, accounts, service costs and end-to-end checks are completed. `tool/config.js` has no live API URL. Source files and unit tests do not prove public scan or inbox delivery.
+The presentation and participant interfaces run locally. The Supabase function and migration are prepared but **live data collection is disabled** until the existing Supabase project, GTP contact address, verified sender, provider costs and end-to-end checks are resolved. `tool/config.js` has no live API URL. Source files and unit tests do not prove public scan or inbox delivery. GTP is the organiser and records are retained for 30 days.
 
 ## Local preview
 
 From this folder, run `python -m http.server 8765 --bind 127.0.0.1` and open `http://127.0.0.1:8765/`. The tool is at `/tool/`, the private report shell at `/tool/report/`, and organiser shell at `/tool/admin/`. Without a configured API, the tool explains that scanning is unavailable.
 
-Run `node --test api/*.test.js` with Node 22+ for the analysis and protected-flow tests. The full browser and provider checks remain required.
+Run `node --test api/*.test.js` with Node 22+ for the existing analysis and protected-flow prototype tests. Run `deno check --node-modules-dir=auto supabase/functions/eco-api/index.ts` for the Supabase function. The full browser, database and provider checks remain required.
 
 ## Public deployment
 
 The workflow in `.github/workflows/pages.yml` assembles only the presentation and `tool/` into the Pages artifact. The intended URL is `https://loxlyatkinson.github.io/gtp-eco-workshop/`; it must be verified after the dedicated repository and GitHub Pages are created. No backend secret or contact record goes into Pages.
 
-## Protected Worker setup
+## Protected Supabase setup
 
-1. Create a Cloudflare D1 database and copy `api/wrangler.example.toml` to `api/wrangler.toml`, inserting the real database ID. Keep `DATA_COLLECTION_ENABLED = "false"` while preparing.
-2. Apply `api/schema.sql` to the D1 database and deploy `api/worker.js` through Wrangler. Configure encrypted secrets for `RATE_LIMIT_SALT`, `FIRECRAWL_API_KEY`, `RESEND_API_KEY`, `MAIL_FROM`, `ADMIN_TOKEN`, and optionally `APIFY_API_TOKEN`. Set an Apify charge ceiling if enabling its sampled public-post adapter. Check service accounts and spending before enabling any paid call.
-3. Complete the public privacy notice with organiser identity, contact, processors and retention; update `NOTICE_VERSION` and the matching value in `tool/tool.js`. The marketing checkbox must remain unchecked by default.
-4. Set the deployed Worker origin in `tool/config.js` and restrict `FRONTEND_ORIGIN` to `https://loxlyatkinson.github.io`. Verify CORS, input validation, mobile intake, real source links, inbox delivery, private report, denied/allowed admin, opt-out, deletion and retention.
-5. Only after those checks, set `DATA_COLLECTION_ENABLED = "true"` and publish the final Pages revision. Recheck the live public journey and independent experience verdict.
+1. Choose the user's existing Supabase project. Inspect its current migrations, extensions, Cron jobs and data before linking this folder. The GTP tables use a separate `gtp_eco_` prefix and Row Level Security.
+2. Apply `supabase/migrations/202610230001_gtp_eco.sql`, then install and verify `supabase/retention-job.sql`. Deploy `supabase/functions/eco-api/index.ts` with `verify_jwt = false`; this function enforces exact CORS, report tokens and an admin credential internally. Keep `DATA_COLLECTION_ENABLED=false` until checks pass.
+3. Set protected function secrets for `RATE_LIMIT_SALT`, `FIRECRAWL_API_KEY`, `RESEND_API_KEY`, `MAIL_FROM`, `ADMIN_TOKEN`, `NOTICE_VERSION`, `FRONTEND_ORIGIN`, `FRONTEND_REPORT_URL`, and optionally `APIFY_API_TOKEN`, `APIFY_ENABLED` and `APIFY_MAX_CHARGE_USD`. Supabase provides its own URL and service-role key to the function. Never commit secret values. Confirm provider spend before enabling any paid calls.
+4. Complete the public notice with GTP's contact email, Supabase, Firecrawl, Resend and optional Apify, plus 30-day retention. Match `NOTICE_VERSION` in the function and `tool/tool.js`; the marketing checkbox must remain unchecked.
+5. Set the deployed function URL in `tool/config.js`. Restrict `FRONTEND_ORIGIN` to `https://loxlyatkinson.github.io`. Verify CORS, input validation, mobile intake, real source links, inbox delivery, private report, denied/allowed admin, opt-out, deletion and Cron retention.
+6. Only after those checks, set `DATA_COLLECTION_ENABLED=true` and publish the final Pages revision. Recheck the live public journey and independent experience verdict.
+
+The earlier Cloudflare Worker files under `api/` are a local prototype and are **not** the selected deployment target. Shared analysis and social-sampling rules currently live there; the Supabase function imports them. Do not deploy both backends.
 
 The scanner checks only bounded public evidence. Candidate competitors need owner confirmation; sampled public social posts are not sales proof. Keyword suggestions are hypotheses without Search Console/search-volume data. The report explicitly marks backlink and AI-answer visibility as unknown when no suitable source is connected.
 
@@ -30,4 +33,4 @@ The scanner checks only bounded public evidence. Candidate competitors need owne
 
 The workshop applies ECO: Engage, Convert, Optimize, followed by Attract and Interact. The reference sites linked in the deck are examples for discussion; Oryzo is a fictional/satirical product. The acceptance contract and progress record are in `experience/`.
 
-Provider implementations follow the official [Firecrawl scrape](https://docs.firecrawl.dev/api-reference/endpoint/scrape) and [search](https://docs.firecrawl.dev/api-reference/endpoint/search), [Apify Actor API](https://docs.apify.com/api/v2), [Resend email API](https://resend.com/docs/api-reference/emails/send-email), [Cloudflare D1 and secrets](https://developers.cloudflare.com/workers/wrangler/configuration/), and [GitHub Pages publishing](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) documentation. Verify pricing and service policy in the selected accounts before launch.
+Provider implementations follow the official [Firecrawl scrape](https://docs.firecrawl.dev/api-reference/endpoint/scrape) and [search](https://docs.firecrawl.dev/api-reference/endpoint/search), [Apify Actor API](https://docs.apify.com/api/v2), [Resend email API](https://resend.com/docs/api-reference/emails/send-email), [Supabase Edge Functions](https://supabase.com/docs/guides/functions), [Supabase Cron](https://supabase.com/docs/guides/cron), and [GitHub Pages publishing](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) documentation. Verify pricing and service policy in the selected accounts before launch.

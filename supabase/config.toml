@@ -1,0 +1,5 @@
+[functions.eco-api]
+# Public intake is validated and rate limited inside the function. Admin and
+# report routes enforce their own credentials; no service key reaches Pages.
+verify_jwt = false
+

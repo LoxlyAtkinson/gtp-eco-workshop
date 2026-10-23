@@ -1,6 +1,6 @@
 # Experience progress
 
-2026-10-23: Contract created at `experience/contract-and-section-map.md`. The project has plans but no tested UI, browser captures or independent verdict. Latest verdict: none. First unresolved step: build the 15-scene deck and tool intake, then inspect rendered desktop/phone states. Evidence goes in `experience/evidence/`; raw independent verdicts go in `experience/reviews/`.
+2026-10-23: Contract at `experience/contract-and-section-map.md`. Fifteen scenes and the tool shell are implemented. The local browser showed scenes 1, 7, 11 and 14 and form recovery; `experience/evidence/scene-07-local.png` is a provisional capture from an earlier source revision. Latest independent verdict: none. Final rendered evidence and reviewer verdict remain outstanding. Evidence goes in `experience/evidence/`; raw independent verdicts go in `experience/reviews/`.
 
 ## Outcome
 
@@ -9,12 +9,15 @@ Participants complete the live presentation and analysis journey; organiser sees
 ## Verified progress
 
 - [x] User outcomes, roles, entries, viewports and section map recorded.
+- [x] Local presentation and tool routes rendered in a browser; some navigation and validation observed.
+- [x] Dedicated public repository exists; Pages deployment is still disabled.
 
 ## Outstanding work
 
-- [ ] Implementation and real browser journey.
+- [ ] Complete all-scene, 1366×768 projector and 390×844 phone browser journeys on the final revision.
+- [ ] Connect and verify Supabase/Resend scan and private report journey.
 - [ ] Captures, independent review, repairs and acceptance checker.
 
 ## Next action
 
-- Build and run the deck and tool on local desktop/mobile browser. Preserve any raw findings.
+- Select the existing Supabase project and sender, finish the GTP notice, then run the protected journey and final browser captures. Preserve any raw findings; do not treat the provisional capture as final evidence.

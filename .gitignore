@@ -8,6 +8,7 @@ experience/evidence/
 experience/reviews/
 _site/
 *.log
+supabase/.temp/
 gtp-presentation-plan.md
 web-presentation-plan.md
 participant-tool-plan.md
