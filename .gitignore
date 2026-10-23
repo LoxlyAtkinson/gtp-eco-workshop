@@ -1,0 +1,13 @@
+node_modules/
+.dev.vars
+.env
+.env.*
+api/wrangler.toml
+.claude/
+experience/evidence/
+experience/reviews/
+_site/
+*.log
+gtp-presentation-plan.md
+web-presentation-plan.md
+participant-tool-plan.md
