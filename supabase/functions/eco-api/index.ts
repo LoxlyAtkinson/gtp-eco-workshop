@@ -39,8 +39,18 @@ async function limited(req: Request, kind: string, max: number) {
   return data === true;
 }
 
-async function websitePage(url: string) {
-  const res = await fetch('https://api.firecrawl.dev/v2/scrape', { method: 'POST', headers: { authorization: `Bearer ${env('FIRECRAWL_API_KEY')}`, 'content-type': 'application/json' }, body: JSON.stringify({ url, formats: ['rawHtml', 'markdown'], timeout: 20000 }), signal: AbortSignal.timeout(25000) });
+async function dailyBudget() {
+  const configured = Number(env('DAILY_SCAN_LIMIT'));
+  if (!Number.isInteger(configured) || configured < 1 || configured > 1000) throw new Error('Daily scan budget is not configured.');
+  const bucket = `${new Date().toISOString().slice(0, 10)}T00:00:00.000Z`;
+  const key = await hash(`${env('RATE_LIMIT_SALT')}:global-scan-budget`);
+  const { data, error } = await db().rpc('gtp_eco_claim_rate_limit', { p_key: key, p_bucket: bucket, p_limit: configured });
+  if (error) throw new Error('Daily budget storage unavailable.');
+  return data === true;
+}
+
+async function websitePage(url: string, timeout = 20000) {
+  const res = await fetch('https://api.firecrawl.dev/v2/scrape', { method: 'POST', headers: { authorization: `Bearer ${env('FIRECRAWL_API_KEY')}`, 'content-type': 'application/json' }, body: JSON.stringify({ url, formats: ['rawHtml', 'markdown'], timeout }), signal: AbortSignal.timeout(timeout + 5000) });
   if (!res.ok) throw new Error(`Website reader returned HTTP ${res.status}.`);
   const response = await res.json();
   if (!response.success || !response.data) throw new Error('The website reader could not read the page.');
@@ -63,19 +73,23 @@ async function competitorCandidates(input: any) {
 }
 
 async function scan(req: Request, headers: object) {
-  if (!need('FIRECRAWL_API_KEY', 'RATE_LIMIT_SALT', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY')) return error('The scan service is not fully configured.', 503, headers);
+  if (!need('FIRECRAWL_API_KEY', 'RATE_LIMIT_SALT', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'DAILY_SCAN_LIMIT')) return error('The scan service is not fully configured.', 503, headers);
   if (!await limited(req, 'scan', 5)) return error('Scan limit reached for this hour. Please try later.', 429, headers);
   const input = inputOf(await bodyOf(req));
   if (!input) return error('Check the business name, public website, location, offer and goal.', 400, headers);
+  if (!await dailyBudget()) return error('Today’s scan capacity is full. Please try again tomorrow.', 429, headers);
   let page;
   try { page = await websitePage(input.website); } catch (e) { return error(`The website could not be read: ${e instanceof Error ? e.message : 'unknown error'}`, 422, headers); }
-  const [candidateResult, socialResult] = await Promise.allSettled([
+  const secondaryUrls = (page.internalUrls || []).filter((url): url is string => typeof url === 'string').filter((url) => /\/(service|product|menu|shop|pricing|faq|blog|about|contact)/i.test(new URL(url).pathname)).slice(0, 2);
+  const [candidateResult, socialResult, pageResult] = await Promise.allSettled([
     competitorCandidates(input),
-    samplePublicSocial(input.socialProfiles, { APIFY_ENABLED: env('APIFY_ENABLED'), APIFY_API_TOKEN: env('APIFY_API_TOKEN'), APIFY_MAX_CHARGE_USD: env('APIFY_MAX_CHARGE_USD') })
+    samplePublicSocial(input.socialProfiles, { APIFY_ENABLED: env('APIFY_ENABLED'), APIFY_API_TOKEN: env('APIFY_API_TOKEN'), APIFY_MAX_CHARGE_USD: env('APIFY_MAX_CHARGE_USD') }),
+    Promise.allSettled(secondaryUrls.map((url: string) => websitePage(url, 12000)))
   ]);
   const competitors = candidateResult.status === 'fulfilled' ? candidateResult.value : [];
   const social = socialResult.status === 'fulfilled' ? socialResult.value : { samples: [], status: 'The public social sample was unavailable.' };
-  const report = buildAssessment(input, page, { competitors, socialStatus: social.status, socialSamples: social.samples });
+  const pages = pageResult.status === 'fulfilled' ? pageResult.value.filter((item: PromiseSettledResult<any>) => item.status === 'fulfilled').map((item: PromiseFulfilledResult<any>) => item.value) : [];
+  const report = buildAssessment(input, page, { pages, competitors, socialStatus: social.status, socialSamples: social.samples });
   const id = crypto.randomUUID();
   const { error: dbError } = await db().from('gtp_eco_scans').insert({ id, input_json: input, report_json: report, expires_at: expires() });
   if (dbError) throw new Error('Could not save scan.');

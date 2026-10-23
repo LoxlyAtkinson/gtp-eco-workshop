@@ -4,7 +4,7 @@ An original 60-minute web presentation for small-business owners and a participa
 
 ## Current release state
 
-The presentation and participant interfaces run locally. The Supabase function and migration are prepared but **live data collection is disabled** until the existing Supabase project, GTP contact address, verified sender, provider costs and end-to-end checks are resolved. `tool/config.js` has no live API URL. Source files and unit tests do not prove public scan or inbox delivery. GTP is the organiser and records are retained for 30 days.
+The presentation and participant interfaces run locally. The Supabase function and migration are prepared but **live data collection is disabled** until the selected `smmartaisolutions` Supabase project is accessible, the Resend sender `loxly@smartaisolutions.co.za` is verified, provider costs are bounded, and end-to-end checks pass. `tool/config.js` has no live API URL. Source files and unit tests do not prove public scan or inbox delivery. GTP is the organiser and records have 30-day expiry with an hourly purge job prepared.
 
 ## Local preview
 
@@ -18,10 +18,10 @@ The workflow in `.github/workflows/pages.yml` assembles only the presentation an
 
 ## Protected Supabase setup
 
-1. Choose the user's existing Supabase project. Inspect its current migrations, extensions, Cron jobs and data before linking this folder. The GTP tables use a separate `gtp_eco_` prefix and Row Level Security.
+1. Connect the user's `smmartaisolutions` Supabase project, which is not listed by the current CLI login. Inspect its current migrations, extensions, Cron jobs and data before linking this folder. The GTP tables use a separate `gtp_eco_` prefix and Row Level Security.
 2. Apply `supabase/migrations/202610230001_gtp_eco.sql`, then install and verify `supabase/retention-job.sql`. Deploy `supabase/functions/eco-api/index.ts` with `verify_jwt = false`; this function enforces exact CORS, report tokens and an admin credential internally. Keep `DATA_COLLECTION_ENABLED=false` until checks pass.
-3. Set protected function secrets for `RATE_LIMIT_SALT`, `FIRECRAWL_API_KEY`, `RESEND_API_KEY`, `MAIL_FROM`, `ADMIN_TOKEN`, `NOTICE_VERSION`, `FRONTEND_ORIGIN`, `FRONTEND_REPORT_URL`, and optionally `APIFY_API_TOKEN`, `APIFY_ENABLED` and `APIFY_MAX_CHARGE_USD`. Supabase provides its own URL and service-role key to the function. Never commit secret values. Confirm provider spend before enabling any paid calls.
-4. Complete the public notice with GTP's contact email, Supabase, Firecrawl, Resend and optional Apify, plus 30-day retention. Match `NOTICE_VERSION` in the function and `tool/tool.js`; the marketing checkbox must remain unchecked.
+3. Set protected function secrets for `RATE_LIMIT_SALT`, `DAILY_SCAN_LIMIT`, `FIRECRAWL_API_KEY`, `RESEND_API_KEY`, `MAIL_FROM`, `ADMIN_TOKEN`, `NOTICE_VERSION`, `FRONTEND_ORIGIN`, `FRONTEND_REPORT_URL`, and optionally `APIFY_API_TOKEN`, `APIFY_ENABLED` and `APIFY_MAX_CHARGE_USD`. Supabase provides its own URL and service-role key to the function. Never commit secret values. Choose the daily scan ceiling from the participant count and provider budget before enabling paid calls.
+4. Verify the public notice with GTP's `loxly@smartaisolutions.co.za` contact, Supabase, Firecrawl, Resend and optional Apify, plus 30-day retention. Set `NOTICE_VERSION=gtp-eco-v1-2026-10-23` in the protected function; `tool/tool.js` sends the matching version. The marketing checkbox must remain unchecked.
 5. Set the deployed function URL in `tool/config.js`. Restrict `FRONTEND_ORIGIN` to `https://loxlyatkinson.github.io`. Verify CORS, input validation, mobile intake, real source links, inbox delivery, private report, denied/allowed admin, opt-out, deletion and Cron retention.
 6. Only after those checks, set `DATA_COLLECTION_ENABLED=true` and publish the final Pages revision. Recheck the live public journey and independent experience verdict.
 

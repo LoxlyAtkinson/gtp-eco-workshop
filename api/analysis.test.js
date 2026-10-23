@@ -23,3 +23,12 @@ test('missing HTML evidence does not become a false positive',()=>{
   assert.ok(result.findings.some(f=>f.title==='A contact route was not found'&&f.confidence==='medium'));
   assert.ok(result.findings.some(f=>f.title==='The homepage needs a clear title'));
 });
+
+test('supporting pages stay on the business domain and carry their own evidence',()=>{
+  const home=extractPage('<title>Home</title><a href="/services">Services</a><a href="https://other.example/blog">Elsewhere</a>','https://example.co.za/');
+  assert.deepEqual(home.internalUrls,['https://example.co.za/services']);
+  const services=extractPage('<title>Meeting lunches</title><h1>Office catering</h1>','https://example.co.za/services');
+  const result=buildAssessment({businessName:'Amina',website:home.url,location:'Johannesburg',businessType:'meeting lunches',mainGoal:'more-inquiries'},home,{pages:[services]});
+  assert.ok(result.findings.some(f=>f.title==='A supporting page was checked'&&f.sourceUrl===services.url));
+  assert.ok(result.sources.some(s=>s.url===services.url));
+});

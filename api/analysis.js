@@ -20,8 +20,8 @@ export function extractPage(html,url){
   const hrefs=[...limited.matchAll(/href\s*=\s*["']([^"']+)["']/gi)].map(x=>x[1]).slice(0,100);
   const contact=hrefs.some(x=>/^(mailto:|tel:|https?:\/\/(?:api\.whatsapp\.com|wa\.me)\/)/i.test(x)||/(contact|quote|book|enquir|inquir)/i.test(x));
   const structured=/<script\b[^>]*type=["']application\/ld\+json["']/i.test(limited);
-  const internalLinks=hrefs.filter(x=>{try{return new URL(x,url).hostname===new URL(url).hostname}catch{return false}}).length;
-  return {url,title,h1,description,text,contact,structured,internalLinks,checkedAt:new Date().toISOString(),source:'public-html'};
+  const internalUrls=[...new Set(hrefs.map(x=>{try{const u=new URL(x,url);u.hash='';u.search='';return u.hostname===new URL(url).hostname&&['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}}).filter(Boolean))].slice(0,30);
+  return {url,title,h1,description,text,contact,structured,internalLinks:internalUrls.length,internalUrls,checkedAt:new Date().toISOString(),source:'public-html'};
 }
 
 export function buildAssessment(input,page,extra={}){
@@ -37,6 +37,10 @@ export function buildAssessment(input,page,extra={}){
   if(page.contact)finding('Convert','A contact route is visible','The homepage HTML contains a contact, quote, booking, email, phone or WhatsApp link.','Test the route on a phone and measure the time to a helpful reply.');
   else finding('Convert','A contact route was not found','No obvious contact or quote link was found in the fetched HTML. JavaScript-rendered controls may not be visible to this check.','Add or clarify one next action, then test it in a browser.','medium');
   if(page.structured)finding('Engage','Structured data is present','A JSON-LD script was found in the fetched page.','Validate that its business details match the visible page.');
+  const supporting=(extra.pages||[]).filter(x=>x?.url);
+  for(const secondary of supporting.slice(0,2)){
+    finding('Engage','A supporting page was checked',`The page “${cleanText(secondary.title||secondary.h1||secondary.url,110)}” was readable.`, 'Check that it answers a specific buyer question, names the offer clearly and points to one next action.','medium',secondary.url);
+  }
   if(input.location&&page.text&&!page.text.toLowerCase().includes(input.location.toLowerCase()))finding('Engage','Location is not visible in fetched copy',`“${cleanText(input.location,70)}” was not found in the extracted homepage text. This does not prove it is absent from all pages.`, 'If location matters to buyers, add a truthful service-area statement and relevant local page.','medium');
   if(extra.socialStatus)finding('Engage','Social source availability',extra.socialStatus,'Review any supplied public profile manually before prioritizing a platform.','low',extra.socialSource||page.url);
   for(const sample of (extra.socialSamples||[]).slice(0,3)){if(sample.caption)finding('Engage',`Public ${sample.platform} post sample`,`A sampled post says “${cleanText(sample.caption,150)}”. This does not establish why it performed or whether it generated sales.`,'Compare this theme with actual customer questions and inquiries before using it in the content plan.','low',sample.url)}
@@ -59,5 +63,5 @@ export function buildAssessment(input,page,extra={}){
       'Ask customers for honest reviews after delivery and review the next 90-day priorities.'
     ]
   };
-  return {version:'0.1',business:{name:input.businessName,website:input.website,location:input.location,type:input.businessType,goal:input.mainGoal},summary:`A first public-page check for ${input.businessName}. It can identify visible website signals, but it cannot see private sales, search rankings, backlinks or all AI answers.`,findings:facts,candidateCompetitors:extra.competitors||[],socialSamples:extra.socialSamples||[],keywordIdeas:keywordIdeas.map(query=>({query,status:'research hypothesis',source:'owner-supplied offer and location; no search-volume data'})),plan,unknowns:['Actual ideal customer and sales conversion require the owner’s order/inquiry data.','Keyword demand and rankings require an authorized search data source.','Backlink quality requires a dedicated backlink index.','AI-answer citations vary by query, engine, place and time; no comprehensive check was run.','Public social engagement is not proof of sales.','Suggested competitors are search candidates, not verified direct competition or performance evidence.'],sources:[{url:page.url,checkedAt,method:page.source}],createdAt:new Date().toISOString()};
+  return {version:'0.2',business:{name:input.businessName,website:input.website,location:input.location,type:input.businessType,goal:input.mainGoal},summary:`A bounded public-page check for ${input.businessName}. It can identify visible website signals, but it cannot see private sales, search rankings, backlinks or all AI answers.`,findings:facts,candidateCompetitors:extra.competitors||[],socialSamples:extra.socialSamples||[],keywordIdeas:keywordIdeas.map(query=>({query,status:'research hypothesis',source:'owner-supplied offer and location; no search-volume data'})),plan,unknowns:['Actual ideal customer and sales conversion require the owner’s order/inquiry data.','Keyword demand and rankings require an authorized search data source.','Backlink quality requires a dedicated backlink index.','AI-answer citations vary by query, engine, place and time; no comprehensive check was run.','Public social engagement is not proof of sales.','Suggested competitors are search candidates, not verified direct competition or performance evidence.'],sources:[page,...supporting].map(x=>({url:x.url,checkedAt:x.checkedAt||checkedAt,method:x.source||page.source})),createdAt:new Date().toISOString()};
 }

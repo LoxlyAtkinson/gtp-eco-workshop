@@ -33,7 +33,7 @@
   document.getElementById('overviewButton').addEventListener('click',()=>overview.showModal());
   document.getElementById('closeOverview').addEventListener('click',()=>overview.close());
   grid.addEventListener('click',e=>{const b=e.target.closest('[data-goto]');if(!b)return;overview.close();show(Number(b.dataset.goto),true)});
-  window.addEventListener('keydown',e=>{if(overview.open||/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1,true)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1,true)}});
+  window.addEventListener('keydown',e=>{if(overview.open||/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;if(e.key===' '&&document.activeElement.closest('button,a,[role="button"]'))return;if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1,true)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1,true)}});
   window.addEventListener('hashchange',()=>{const n=Number(location.hash.slice(1));if(Number.isInteger(n)&&n>=1&&n<=scenes.length)show(n-1)});
   show(index);
 })();

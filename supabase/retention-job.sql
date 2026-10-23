@@ -3,8 +3,8 @@
 create extension if not exists pg_cron;
 select cron.schedule(
   'gtp-eco-30-day-purge',
-  '17 2 * * *',
+  '17 * * * *',
   $$ select public.gtp_eco_purge_expired(); $$
 );
 
--- Verify installation and daily success in cron.job and cron.job_run_details.
+-- Verify installation and hourly success in cron.job and cron.job_run_details.
