@@ -19,7 +19,7 @@ jobs:
       - name: Assemble public site
         run: |
           mkdir -p _site
-          cp index.html styles.css presentation.js _site/
+          cp index.html styles.css presentation.js presentation-qr.svg _site/
           cp -R tool _site/tool
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
