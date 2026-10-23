@@ -17,7 +17,7 @@ Audience: small-business owners. Example: **Amina’s Kitchen**, a fictional Joh
 | 11. Attract | 3 | Show Oryzo and House Down as visual references; ask what is noticed first. | One attention principle |
 | 12. Interact | 3 | Show an original mock page; ask what the visitor can do next. | One interaction improvement |
 | 13. Teach AI taste | 3 | Show Refero for design patterns; explain how to describe why an example works. | Two brand rules |
-| 14. Tool | 4 | Demonstrate the participant scan only after live acceptance; otherwise show a labelled sample report. | Tool visit or saved URL |
+| 14. Tool | 4 | Explain the four-part report preview on the slide; the live scan remains inactive. | Saved presentation or tool-preview URL |
 | 15. Close | 3 | Ask for one customer, channel, action and measure for the next seven days. | Seven-day commitment |
 
 Total: **60 minutes**. Use the scene overview to jump and the arrow keys to move. If behind schedule, shorten the technical detail in scene 7 before removing an audience exercise.
@@ -53,4 +53,4 @@ Keep the human edit visible. Check prices, availability, service areas, testimon
 - [House Down Studio](https://housedownstudios.co.za/) is a live portfolio example. Discuss proof and route to quote/WhatsApp. The geometric mini portfolio shown in scene 11 is an original teaching illustration, not their work; use it and scene 12's original mock if the live site is unavailable.
 - [Refero styles](https://styles.refero.design/) is a reference library. Extract principles; do not copy assets.
 - The “Last 30 Days” trend skill can supply current public conversation themes when available. Show the source and date, and treat social discussion as a signal rather than a proven customer need.
-- If the participant API is not released, say so clearly. Use a labelled sample ECO report and invite participants to return to the link after verification. Do not demonstrate a mock as a live scan.
+- The participant API is not released. Say so clearly and use slide 14's four-part report preview to explain the planned analysis. Do not demonstrate the preview as a live scan.
