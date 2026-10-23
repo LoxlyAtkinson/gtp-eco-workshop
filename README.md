@@ -14,7 +14,7 @@ Run `node --test api/*.test.js` with Node 22+ for the existing analysis and prot
 
 ## Public deployment
 
-The workflow in `.github/workflows/pages.yml` assembles the presentation, its QR code and `tool/` into the Pages artifact. GitHub Pages is configured for `https://loxlyatkinson.github.io/gtp-eco-workshop/`; the live deployment still needs verification. The closing slide's QR code points to the presentation, while the participant tool is clearly labelled as a preview. No backend secret or contact record goes into Pages.
+The workflow in `.github/workflows/pages.yml` assembles the presentation, its QR code and `tool/` into the Pages artifact. The public presentation is live at [loxlyatkinson.github.io/gtp-eco-workshop](https://loxlyatkinson.github.io/gtp-eco-workshop/) from commit `c31e608`. The closing slide's QR code points to that presentation; its rendered phone and projector captures decoded to the correct URL. The participant tool is clearly labelled as a preview and its submit control is disabled. No backend secret or contact record goes into Pages.
 
 ## Protected Supabase setup
 

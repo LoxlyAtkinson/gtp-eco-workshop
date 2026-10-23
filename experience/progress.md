@@ -1,6 +1,6 @@
 # Experience progress
 
-2026-10-23: Contract at `experience/contract-and-section-map.md`. Fifteen scenes and the tool shell are implemented. The initial independent raw verdict is `experience/reviews/initial-design-review.md` (FAIL with five findings). A fresh focused raw review at `experience/reviews/review-adf3468.md` passed those repairs on phone and projector. The closing slide now has a QR code for the presentation; its latest focused review is pending. The participant tool is labelled as a preview at the user's direction to finish the presentation first. Final public route and full journey evidence remain outstanding; live service proof is deferred.
+2026-10-23: Contract at `experience/contract-and-section-map.md`; presentation release scope at `experience/presentation-release-contract.md`. Fifteen scenes and the tool shell are implemented. The initial independent raw verdict is `experience/reviews/initial-design-review.md` (FAIL with five findings). Focused reviews at `experience/reviews/review-adf3468.md` and `experience/reviews/review-qr-136px.md` passed the repaired findings and decodable QR at phone/projector. The public Pages workflow passed from commit `c31e608`. The live root, QR asset and `/tool/` route loaded in the browser; the tool remained disabled as promised. Final scoped independent acceptance is pending. Live protected-service proof is deferred at the user's direction.
 
 ## Outcome
 
@@ -10,17 +10,17 @@ Participants complete the live presentation and analysis journey; organiser sees
 
 - [x] User outcomes, roles, entries, viewports and section map recorded.
 - [x] Local presentation and tool routes rendered in a browser; some navigation and validation observed.
-- [x] Dedicated public repository and Pages configuration exist; deployment is still unverified.
+- [x] Dedicated public repository and Pages deployment verified at the github.io root from `c31e608`.
 - [x] Raw initial independent findings preserved; all five were addressed in local source and targeted browser checks.
 
 ## Outstanding work
 
 - [ ] Complete all-scene, 1366×768 projector and 390×844 phone browser journeys on the final revision.
-- [ ] Publish the presentation at the github.io route and verify the QR destination.
+- [x] Published presentation, QR asset and inactive participant-tool preview loaded on the live route; rendered QR decoded on phone and projector.
 - [ ] Connect and verify Supabase/Resend scan and private report journey after the presentation release.
 - [ ] Captures, independent review, repairs and acceptance checker.
 - [ ] Fresh independent verdict on the repaired revision; no final checker can pass yet.
 
 ## Next action
 
-- Finish the closing-scene review, publish the deck, and verify the public route and QR target in a browser. Then capture final presentation evidence and obtain a scoped raw independent verdict. Preserve the initial FAIL and focused repair reviews. Resume the protected service only after the presentation is released.
+- Obtain the final independent presentation-only verdict and run the mandatory checker against its JSON. Preserve the initial FAIL and focused repair reviews. Resume the protected service only when the user is ready to return to it.
