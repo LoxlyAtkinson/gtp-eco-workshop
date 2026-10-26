@@ -18,7 +18,9 @@ for(const viewport of [{width:1366,height:768,label:'projector'},{width:390,heig
   for(let n=1;n<=15;n++){
     for(const p of [0,.5,.9]){
       await page.evaluate(({n,p})=>{const s=document.querySelector(`.scene[data-scene="${String(n).padStart(2,'0')}"]`);const travel=Math.max(0,s.offsetHeight-innerHeight);scrollTo({top:s.getBoundingClientRect().top+scrollY+p*travel,behavior:'auto'});},{n,p});
-      await page.waitForTimeout(100);
+      // The presentation writes a shareable beat hash 320 ms after scrolling stops.
+      // Wait for that public URL state so the captured frame and route describe the same scene.
+      await page.waitForFunction(expected=>location.hash.startsWith(expected),`#${String(n).padStart(2,'0')}-`,{timeout:2500});
       const data=await page.evaluate(({n,p})=>{const s=document.querySelector(`.scene[data-scene="${String(n).padStart(2,'0')}"]`),h=s.querySelector('h1,h2'),footer=document.querySelector('.deck-controls');return {scene:n,progress:p,route:location.hash,scrollY,observedProgress:Number(s.style.getPropertyValue('--p')),viewport:{width:innerWidth,height:innerHeight},horizontalOverflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,heading:h.getBoundingClientRect().toJSON(),footer:footer.getBoundingClientRect().toJSON(),stage:s.querySelector('.scene__stage').getBoundingClientRect().toJSON()};},{n,p});
       const file=`${viewport.label}-${String(n).padStart(2,'0')}-${String(Math.round(p*100)).padStart(2,'0')}.png`;
       await page.screenshot({path:join(out,file)});

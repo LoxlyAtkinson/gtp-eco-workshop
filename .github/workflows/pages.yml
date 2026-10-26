@@ -20,12 +20,13 @@ jobs:
           fetch-depth: 0
       - name: Assemble public site
         run: |
-          mkdir -p _site
-          git archive c31e608 index.html styles.css presentation.js presentation-qr.svg tool | tar -x -C _site
-          mkdir -p _site/candidate/assets
+          mkdir -p _site/assets _site/candidate
+          cp index.html styles.css cinematic.css scroll-experience.css scroll-presentation.js presentation-qr.svg _site/
+          cp assets/eco-compass.png assets/amina-lunch-3d.webp assets/amina-ad-motion.mp4 assets/amina-ad-motion-poster.jpg _site/assets/
+          cp -R tool _site/tool
           cp index.html styles.css cinematic.css scroll-experience.css scroll-presentation.js presentation-qr.svg _site/candidate/
-          cp assets/eco-compass.png assets/amina-lunch-3d.webp assets/amina-ad-motion.mp4 assets/amina-ad-motion-poster.jpg _site/candidate/assets/
-          cp -R tool _site/candidate/tool
+          cp -R _site/assets _site/candidate/assets
+          cp -R _site/tool _site/candidate/tool
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
