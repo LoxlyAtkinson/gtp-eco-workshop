@@ -108,6 +108,11 @@
       const travel=Math.max(1,rect.height-innerHeight);
       const progress=Math.max(0,Math.min(1,-rect.top/travel));
       scenes[i].style.setProperty('--p',progress.toFixed(4));
+      if(scenes[i].dataset.scene==='04'){
+        scenes[i].style.setProperty('--channel-decision',ease(.52,.82,progress).toFixed(4));
+        scenes[i].classList.toggle('is-channel-decision',progress>.68);
+        scenes[i].querySelector('.channel-decision').setAttribute('aria-hidden',String(progress<=.68&&innerWidth>900));
+      }
       if(scenes[i].dataset.scene==='06'){
         scenes[i].style.setProperty('--voice-focus',ease(.16,.45,progress).toFixed(4));
         scenes[i].style.setProperty('--voice-week',ease(.61,.79,progress).toFixed(4));
@@ -129,7 +134,12 @@
         adStage.style.setProperty('--ad-transit-one',(progress<.5?transit:0).toFixed(4));
         adStage.style.setProperty('--ad-transit-two',(progress>=.5?transit:0).toFixed(4));
       }
-      if(scenes[i].dataset.scene==='07')scenes[i].classList.toggle('is-late-beat',progress>.6);
+      if(scenes[i].dataset.scene==='07'){
+        scenes[i].classList.toggle('is-late-beat',progress>.6);
+        scenes[i].classList.toggle('is-website-final',progress>.76);
+        scenes[i].style.setProperty('--website-zoom',ease(.52,.9,progress).toFixed(4));
+        scenes[i].querySelector('.website-world').setAttribute('aria-hidden',String(progress<=.76&&innerWidth>900));
+      }
       if(scenes[i].dataset.scene==='03'){
         scenes[i].classList.toggle('is-icp-sorting',progress>.27);
         scenes[i].classList.toggle('is-icp-revealed',progress>.61);

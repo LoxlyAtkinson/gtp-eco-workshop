@@ -7,10 +7,10 @@ Audience: small-business owners. Example: **Amina’s Kitchen**, a fictional Joh
 | 1. Opening | 2 | Ask where marketing time is being lost. | One frustration |
 | 2. ECO map | 3 | Click Engage, Convert and Optimize on the compass map to explain the repeating loop. | One business goal |
 | 3. Who | 5 | Reveal the last-ten-orders evidence and contrast it with the owner’s assumption. | Customer hypothesis plus evidence source |
-| 4. Where | 5 | Select channel cards to discuss buying intent, effort and response capacity. | One discovery channel, one inquiry route |
+| 4. Where | 5 | Select channel cards, then scroll into Amina’s order evidence → provisional Search/Maps choice → seven-day answer-to-quote test. | One first channel test and one inquiry route |
 | 5. What | 5 | Scroll from feed post through the product-led “make it move” beat to the 8-second vertical storyboard, then through “make it findable” to the illustrative organic search result. Pause on each complete example. Explain the fictional competitor-content gap without treating engagement as sales. | One content question |
 | 6. AI with a voice | 5 | Apply the brand brief, compare the generic draft with the human edit, then scroll to the worked Monday–Friday content habit and human review gate. | One edited caption |
-| 7. Website rhythm | 6 | Review the 30/60/90-day cards, then scroll to indexing, listing, source and link checks. Explain SEO, AEO and GEO without ranking promises. | One page or search priority |
+| 7. Website rhythm | 6 | Review the 30/60/90-day cards, source checks and Amina’s finished answer page. Explain SEO, AEO and GEO without ranking promises. | One page or search priority |
 | 8. Conversion path | 5 | Trace source → destination → CTA → reply. | One clear CTA |
 | 9. Follow-up | 4 | Walk an inquiry through answer, quote, agreed follow-up, delivery and review. | One missing stage |
 | 10. Optimize | 4 | Select a metric and discuss the change it would prompt; separate impressions from qualified inquiries, quotes and sales. | One weekly measure |
@@ -28,7 +28,7 @@ Ask owners to review their last ten orders or inquiries. Record: customer type, 
 
 ## Channel decision
 
-Give each candidate channel a simple 1–3 score for (1) customer presence, (2) buying intent, (3) content effort they can sustain, and (4) ability to respond. Discuss the trade-off; the score is a decision aid, not a universal platform ranking. Choose one primary discovery channel and one inquiry route for a 30-day test.
+Give each candidate channel a simple 1–3 score for (1) customer presence, (2) buying intent, (3) content effort they can sustain, and (4) ability to respond. Discuss the trade-off; the score is a decision aid, not a universal platform ranking. Amina’s six office-meeting orders suggest a question people may search locally, but the buyer role is unknown. Start with the illustrated Search/Maps answer-to-quote test, ask each qualified lead how they found the business, and retain that channel only if inquiries and sales support it. Choose one primary discovery channel and one inquiry route for a 30-day test.
 
 ## AI demonstration prompts
 

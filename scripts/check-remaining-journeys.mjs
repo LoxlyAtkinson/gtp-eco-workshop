@@ -28,10 +28,12 @@ for(const viewport of [{label:'projector',width:1366,height:768},{label:'phone',
   await page.screenshot({path:join(out,`${viewport.label}-metric.png`)});
   await page.locator('#overviewButton').click();
   record(`${viewport.label}-overview-open`,await page.locator('#overviewDialog').evaluate(el=>el.open),{});
+  await page.screenshot({path:join(out,`${viewport.label}-overview-open.png`)});
   await page.keyboard.press('Escape');
   record(`${viewport.label}-overview-escape`,!(await page.locator('#overviewDialog').evaluate(el=>el.open)),{});
   await page.locator('#notesButton').click();
   record(`${viewport.label}-notes`,await page.locator('#notesButton').getAttribute('aria-pressed')==='true',{});
+  await page.screenshot({path:join(out,`${viewport.label}-notes-open.png`)});
   await page.locator('#motionButton').click();
   record(`${viewport.label}-motion-paused`,await page.locator('#motionButton').getAttribute('aria-pressed')==='true',{});
   await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange',{bubbles:true}))});

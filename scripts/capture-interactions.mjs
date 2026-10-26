@@ -8,8 +8,8 @@ const browser=await chromium.launch({headless:true,executablePath:'C:/Program Fi
 const log=[];
 const base=process.env.GTP_BASE_URL||'http://127.0.0.1:8767/';
 async function save(page,label){
-  await page.waitForTimeout(180);
-  const state=await page.evaluate(()=>({route:location.hash,viewport:{width:innerWidth,height:innerHeight},scrollY,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,scene:document.body.dataset.scene}));
+  await page.waitForTimeout(520);
+  const state=await page.evaluate(()=>({route:location.hash,viewport:{width:innerWidth,height:innerHeight},scrollY,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,scene:document.body.dataset.scene,selectedAd:document.querySelector('[data-ad][aria-pressed="true"]')?.getAttribute('data-ad')||null,promptOpen:document.querySelector('.taste-prompt')?.open||false,visibleBridge:[...document.querySelectorAll('.scene-bridge')].map(el=>({name:el.className,rect:el.getBoundingClientRect()})).filter(({rect})=>rect.bottom>70&&rect.top<innerHeight-70).map(({name})=>name),visibleScene:[...document.querySelectorAll('.scene[data-scene]')].map(el=>({name:el.dataset.scene,rect:el.getBoundingClientRect()})).filter(({rect})=>rect.bottom>70&&rect.top<innerHeight-70).map(({name})=>name)}));
   await page.screenshot({path:join(out,`${label}.png`)});
   log.push({label,...state});
 }
