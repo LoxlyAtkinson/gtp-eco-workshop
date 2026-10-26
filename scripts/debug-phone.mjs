@@ -1,0 +1,14 @@
+import {chromium} from 'playwright-core';
+const b=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});
+const p=await b.newPage({viewport:{width:390,height:844}});
+await p.goto('http://127.0.0.1:8767/#01',{waitUntil:'networkidle'});
+await p.evaluate(()=>document.documentElement.style.scrollBehavior='auto');
+const get=()=>p.evaluate(()=>({y:scrollY,all:[...document.querySelectorAll('.scene')].slice(2,6).map(s=>({n:s.dataset.scene,top:s.getBoundingClientRect().top+scrollY,h:s.offsetHeight}))}));
+console.log('initial',await get());
+await p.evaluate(()=>{const s=document.querySelector('.scene[data-scene="04"]');scrollTo({top:s.getBoundingClientRect().top+scrollY+.9*(s.offsetHeight-innerHeight),behavior:'auto'})});
+console.log('scene04 90',await get());
+await p.evaluate(()=>{const s=document.querySelector('.scene[data-scene="05"]');scrollTo({top:s.getBoundingClientRect().top+scrollY,behavior:'auto'})});
+console.log('scene05 00',await get());
+await p.waitForTimeout(150);
+console.log('settled',await get());
+await b.close();

@@ -1,0 +1,11 @@
+import {chromium} from 'playwright-core';
+import {mkdirSync} from 'node:fs';
+import {join} from 'node:path';
+const out=join(process.cwd(),'experience','evidence',process.env.GTP_EVIDENCE_DIR||'scroll-repair');
+const base=process.env.GTP_BASE_URL||'http://127.0.0.1:8767/';
+mkdirSync(out,{recursive:true});
+const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});
+const page=await browser.newPage({viewport:{width:1366,height:768}});
+await page.goto(base,{waitUntil:'networkidle'});
+await page.pdf({path:join(out,'print.pdf'),format:'A4',printBackground:true});
+await browser.close();

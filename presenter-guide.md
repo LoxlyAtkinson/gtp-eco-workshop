@@ -1,26 +1,26 @@
 # GTP ECO — 60-minute presenter guide
 
-Audience: small-business owners. Example: **Amina’s Kitchen**, a fictional Johannesburg catering business. Keep the example clearly illustrative; no sales or demographic figures are real research. The on-screen deck is the audience view. Each scene also has a speaker note toggle.
+Audience: small-business owners. Example: **Amina’s Kitchen**, a fictional Johannesburg catering business. Keep the example clearly illustrative; no sales or demographic figures are real research. The on-screen experience is the audience view. Native scrolling is the timeline: pause at a scene, then scroll through its visual change and the object-led handoffs between all 15 scenes. The footer arrows and Overview jump directly between numbered scenes. Use Cinema for full screen, Notes for speaker prompts and Pause motion for decorative movement; reduced-motion settings present the same teaching content without motion. On phones, scroll naturally through each scene and its controls.
 
 | Scene | Minutes | Facilitation move | Participant output |
 | --- | ---: | --- | --- |
 | 1. Opening | 2 | Ask where marketing time is being lost. | One frustration |
-| 2. ECO map | 3 | Explain Engage → Convert → Optimize as a repeatable loop. | One business goal |
-| 3. Who | 5 | Contrast the owner’s assumption with last orders/inquiries. | Customer hypothesis plus evidence source |
-| 4. Where | 5 | Score Google/Maps, Facebook, Instagram/TikTok and WhatsApp by customer intent, effort and response capacity. | One discovery channel, one inquiry route |
-| 5. What | 5 | Turn a real question into a useful post/page. Examine public competitor signals and gaps without copying. | One content question |
-| 6. AI with a voice | 5 | Show brief → generic draft → human edit. Invite a rewrite. | One edited caption |
-| 7. Website rhythm | 6 | Explain SEO, AEO and GEO, then map 30/60/90 days. | One page or search priority |
+| 2. ECO map | 3 | Click Engage, Convert and Optimize on the compass map to explain the repeating loop. | One business goal |
+| 3. Who | 5 | Reveal the last-ten-orders evidence and contrast it with the owner’s assumption. | Customer hypothesis plus evidence source |
+| 4. Where | 5 | Select channel cards to discuss buying intent, effort and response capacity. | One discovery channel, one inquiry route |
+| 5. What | 5 | Scroll from feed post through the product-led “make it move” beat to the 8-second vertical storyboard, then through “make it findable” to the illustrative organic search result. Pause on each complete example. Explain the fictional competitor-content gap without treating engagement as sales. | One content question |
+| 6. AI with a voice | 5 | Apply the brand brief, compare the generic draft with the human edit, then scroll to the worked Monday–Friday content habit and human review gate. | One edited caption |
+| 7. Website rhythm | 6 | Review the 30/60/90-day cards, then scroll to indexing, listing, source and link checks. Explain SEO, AEO and GEO without ranking promises. | One page or search priority |
 | 8. Conversion path | 5 | Trace source → destination → CTA → reply. | One clear CTA |
 | 9. Follow-up | 4 | Walk an inquiry through answer, quote, agreed follow-up, delivery and review. | One missing stage |
-| 10. Optimize | 4 | Separate impressions from qualified inquiries, quotes and sales. | One weekly measure |
-| 11. Attract | 3 | Show Oryzo and House Down as visual references; ask what is noticed first. | One attention principle |
-| 12. Interact | 3 | Show an original mock page; ask what the visitor can do next. | One interaction improvement |
-| 13. Teach AI taste | 3 | Show Refero for design patterns; explain how to describe why an example works. | Two brand rules |
+| 10. Optimize | 4 | Select a metric and discuss the change it would prompt; separate impressions from qualified inquiries, quotes and sales. | One weekly measure |
+| 11. Attract | 3 | Compare the same fictional Amina ad before and after hierarchy, image and CTA changes; use Oryzo and House Down as optional reference lenses. | One attention principle |
+| 12. Interact | 3 | Open the fictional menu, switch to the local quote preview and follow the request to the helpful reply. No details leave the browser. | One interaction improvement |
+| 13. Teach AI taste | 3 | Show Refero for design patterns. At the real AI motion draft, ask what is wrong: a salmon plate and landscape frame do not match Amina’s meeting-lunch trays or vertical brief. Reveal the approved example, then open the reusable AI brief and human check. | Two brand rules and a checked prompt |
 | 14. Tool | 4 | Explain the four-part report preview on the slide; the live scan remains inactive. | Saved presentation or tool-preview URL |
 | 15. Close | 3 | Ask for one customer, channel, action and measure for the next seven days. | Seven-day commitment |
 
-Total: **60 minutes**. Use the scene overview to jump and the arrow keys to move. If behind schedule, shorten the technical detail in scene 7 before removing an audience exercise.
+Total: **60 minutes**. If behind schedule, shorten the technical detail in scene 7 before removing an audience exercise. These on-screen interactions are local teaching demonstrations; they do not call an AI model or submit visitor information.
 
 ## Hands-on exercise: customer evidence
 
@@ -49,8 +49,8 @@ Keep the human edit visible. Check prices, availability, service areas, testimon
 
 ## Examples and contingency
 
-- [Oryzo](https://oryzo.ai/) is fictional and satirical. Discuss its striking idea and hierarchy, never repeat its product claims as facts. The orange-and-teal mini ad shown in scene 11 is an original teaching illustration, not an Oryzo screenshot.
-- [House Down Studio](https://housedownstudios.co.za/) is a live portfolio example. Discuss proof and route to quote/WhatsApp. The geometric mini portfolio shown in scene 11 is an original teaching illustration, not their work; use it and scene 12's original mock if the live site is unavailable.
+- [Oryzo](https://oryzo.ai/) is fictional and satirical. Discuss its striking idea and hierarchy, never repeat its product claims as facts. Scene 11 compares two original Amina ad treatments; it does not reproduce Oryzo.
+- [House Down Studio](https://housedownstudios.co.za/) is a live portfolio example. Discuss proof and route to quote/WhatsApp. Scene 11 uses an original Amina before/after example, while scene 12 provides a local interaction mock if the live site is unavailable.
 - [Refero styles](https://styles.refero.design/) is a reference library. Extract principles; do not copy assets.
 - The “Last 30 Days” trend skill can supply current public conversation themes when available. Show the source and date, and treat social discussion as a signal rather than a proven customer need.
 - The participant API is not released. Say so clearly and use slide 14's four-part report preview to explain the planned analysis. Do not demonstrate the preview as a live scan.

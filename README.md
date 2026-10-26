@@ -1,10 +1,10 @@
 # GTP ECO workshop
 
-An original 60-minute web presentation for small-business owners and a participant business-analysis tool. The public presentation and form are static GitHub Pages files; the protected scanner, contact storage, email delivery and admin API are prepared for Supabase Edge Functions/Postgres and Resend.
+An original 60-minute cinematic ECO web presentation for small-business owners and a participant business-analysis tool. The public presentation and form are static GitHub Pages files; the protected scanner, contact storage, email delivery and admin API are prepared for Supabase Edge Functions/Postgres and Resend.
 
 ## Current release state
 
-The presentation and participant interfaces run locally. The Supabase function and migration are prepared but **live data collection is disabled** until the selected `smmartaisolutions` Supabase project is accessible, the Resend sender `loxly@smartaisolutions.co.za` is verified, provider costs are bounded, and end-to-end checks pass. `tool/config.js` has no live API URL. Source files and unit tests do not prove public scan or inbox delivery. GTP is the organiser and records have 30-day expiry with an hourly purge job prepared.
+The current local revision is a 15-scene native-scroll journey with an original ECO compass, fourteen object-led scene handoffs, illustrated ad specimens, a fictional ICP exercise, a brand-voice comparison, a weekly content habit, a 30/60/90 website audit and a local no-network quote preview. This revision has not yet replaced the earlier accepted public deck at c31e608. The Supabase function and migration are prepared but **live data collection is disabled** until the selected `smmartaisolutions` Supabase project is accessible, the Resend sender `loxly@smartaisolutions.co.za` is verified, provider costs are bounded, and end-to-end checks pass. `tool/config.js` has no live API URL. Source files and unit tests do not prove public scan or inbox delivery. GTP is the organiser and records have 30-day expiry with an hourly purge job prepared.
 
 ## Local preview
 
@@ -14,7 +14,7 @@ Run `node --test api/*.test.js` with Node 22+ for the existing analysis and prot
 
 ## Public deployment
 
-The workflow in `.github/workflows/pages.yml` assembles the presentation, its QR code and `tool/` into the Pages artifact. The public presentation is live at [loxlyatkinson.github.io/gtp-eco-workshop](https://loxlyatkinson.github.io/gtp-eco-workshop/) from commit `c31e608`. The closing slide's QR code points to that presentation; its rendered phone and projector captures decoded to the correct URL. The participant tool is clearly labelled as a preview and its submit control is disabled. No backend secret or contact record goes into Pages.
+The workflow in `.github/workflows/pages.yml` assembles the presentation, original compass artwork, QR code and `tool/` into the Pages artifact. The public URL is [loxlyatkinson.github.io/gtp-eco-workshop](https://loxlyatkinson.github.io/gtp-eco-workshop/). The closing scene's QR code points to the presentation. The participant tool is clearly labelled as a preview and its submit control is disabled. No backend secret or contact record goes into Pages. The previous static deck was accepted at commit `c31e608`; the cinematic revision needs its own browser and independent acceptance before release.
 
 ## Protected Supabase setup
 

@@ -1,0 +1,32 @@
+import { chromium } from 'playwright-core';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+const root=process.cwd();
+const out=join(root,'experience','evidence',process.env.GTP_EVIDENCE_DIR||'scroll-build');
+const base=process.env.GTP_BASE_URL||'http://127.0.0.1:8767/';
+mkdirSync(out,{recursive:true});
+const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-features=OverscrollHistoryNavigation']});
+const observations=[];
+for(const viewport of [{width:1366,height:768,label:'projector'},{width:390,height:844,label:'phone'}]){
+  const page=await browser.newPage({viewport:{width:viewport.width,height:viewport.height},deviceScaleFactor:1,reducedMotion:'no-preference'});
+  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  await page.goto(new URL('#01',base).href,{waitUntil:'networkidle'});
+  await page.locator('.scene-handoff--after-14').waitFor({state:'attached',timeout:10000});
+  await page.evaluate(()=>document.fonts.ready);
+  await page.evaluate(()=>{document.documentElement.style.scrollBehavior='auto'});
+  for(let n=1;n<=15;n++){
+    for(const p of [0,.5,.9]){
+      await page.evaluate(({n,p})=>{const s=document.querySelector(`.scene[data-scene="${String(n).padStart(2,'0')}"]`);const travel=Math.max(0,s.offsetHeight-innerHeight);scrollTo({top:s.getBoundingClientRect().top+scrollY+p*travel,behavior:'auto'});},{n,p});
+      await page.waitForTimeout(100);
+      const data=await page.evaluate(({n,p})=>{const s=document.querySelector(`.scene[data-scene="${String(n).padStart(2,'0')}"]`),h=s.querySelector('h1,h2'),footer=document.querySelector('.deck-controls');return {scene:n,progress:p,route:location.hash,scrollY,observedProgress:Number(s.style.getPropertyValue('--p')),viewport:{width:innerWidth,height:innerHeight},horizontalOverflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,heading:h.getBoundingClientRect().toJSON(),footer:footer.getBoundingClientRect().toJSON(),stage:s.querySelector('.scene__stage').getBoundingClientRect().toJSON()};},{n,p});
+      const file=`${viewport.label}-${String(n).padStart(2,'0')}-${String(Math.round(p*100)).padStart(2,'0')}.png`;
+      await page.screenshot({path:join(out,file)});
+      observations.push({...data,file,errors:[...errors]});
+    }
+  }
+  await page.close();
+}
+writeFileSync(join(out,'browser-log.json'),JSON.stringify(observations,null,2));
+await browser.close();
+console.log(JSON.stringify({captures:observations.length,errors:observations.filter(x=>x.errors.length).length,overflow:observations.filter(x=>x.horizontalOverflow>1).length,output:out}));
