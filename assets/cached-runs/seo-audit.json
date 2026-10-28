@@ -1,0 +1,45 @@
+{
+  "kind": "seo-audit",
+  "skill": "seo-audit",
+  "business": "GTP ECO workshop (owner own public site)",
+  "label": "Scan target: the workshop's own published deck, a stand-in because the Amberkloof demo site does not exist yet",
+  "recorded_at": "2026-10-27T20:46:15.463Z",
+  "request": {
+    "business": "GTP ECO workshop (owner own public site)",
+    "category": "small-business marketing workshop",
+    "area": "South Africa",
+    "url": "https://loxlyatkinson.github.io/gtp-eco-workshop/",
+    "target": "business-site"
+  },
+  "target": {
+    "type": "stand-in site",
+    "url": "https://loxlyatkinson.github.io/gtp-eco-workshop/",
+    "owner": "the presenter (his own public workshop deck)",
+    "note": "Not Amberkloof. The hero brand has no website yet (D9), so the site kinds scan the owner's own published deck."
+  },
+  "text": "**Assumptions:** the scan is markdown only, so I couldn't see `<head>` tags (title, meta description, canonical, schema). Those are marked \"verify\". Goal: get found by South African small-business owners.\n\n**Top 5 issues**\n\n1. **No robots.txt and no sitemap (High).**\n   - Evidence: both `/robots.txt` and `/sitemap.xml` returned 404.\n   - Fix: add `sitemap.xml` listing `/` and `/tool/`. Add a `robots.txt` with `Sitemap: https://loxlyatkinson.github.io/gtp-eco-workshop/sitemap.xml`. Submit the sitemap in Search Console.\n   - Note: on a project-site path, GitHub Pages serves robots.txt only from the domain root. A custom domain would fix that.\n\n2. **Target keywords are missing from the page (High).**\n   - Evidence: the H1 is \"Be found. Be chosen. Keep learning.\" The word \"workshop\" appears only in a \"60-minute workshop\" label. There is no \"small business marketing workshop South Africa\" phrase and no location or date.\n   - Fix: make the H1 or its subhead keyword-led, for example \"Small-business marketing workshop, South Africa\". Add a visible section with the date, venue or online format, price, and a booking link.\n\n3. **Mostly illustrative Johannesburg catering content (High).**\n   - Evidence: nearly all copy is the fictional Amina's Kitchen case, with \"Johannesburg\" repeated. The page never says who runs GTP or how to book.\n   - Fix: add a short \"About GTP\" section with the host's name, credentials, and contact details (E-E-A-T). Cut or collapse the demo copy.\n\n4. **Unclear titles, weak internal links, and no `<head>` signals (Medium).**\n   - Evidence: the nav has an anchor \"Skip to presentation\" and \"Preview the business scan ↗\". The \"Live scans are being prepared\" copy suggests `/tool/` is thin. The first image has an empty alt (`![]`).\n   - Fix, **verify first**: confirm a unique title of 50–60 characters, a meta description of 150–160 characters, a self-canonical, and Open Graph tags. Give `/tool/` real content or noindex it until it's ready. Write descriptive alt text for `eco-compass.png`.\n\n5. **Heavy, scroll-driven page with no static fallback (Medium).**\n   - Evidence: \"scroll or use the arrows\", a \"Cinema\" mode, and large `.webp` and `.png` assets. About 15 scenes of content sit in one page.\n   - Fix: run PageSpeed Insights for LCP, INP and CLS. Make sure all text is in the static HTML. Use real H2s per scene, lazy-load below-the-fold images, and add `LocalBusiness` or `Event` JSON-LD. Check it with the Rich Results Test, not curl.\n\n**Next:** create `sitemap.xml` in the repo root (about 2 minutes), then submit it in Search Console.",
+  "source_log": "experience/evidence/g02-runs/cached/seo-audit-2026-10-27T20-46-15-443Z.stream.jsonl",
+  "cached_run": {
+    "tag": "cached run",
+    "what": "A real recorded run of the named skill, replayed when the live run fails, cannot reach the runner, or has no complete result 20 s after the scene reveal.",
+    "recorded_at": "2026-10-27T20:46:15.463Z",
+    "recorded_via": "live-runner/run-once.mjs (the same code path as live-runner/server.mjs)",
+    "claude_code_version": "2.1.311",
+    "model": "claude-sonnet-5-5",
+    "tools_offered": [
+      "Skill",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "wall_ms": 40104,
+    "num_turns": 5,
+    "firecrawl_scan": {
+      "ok": true,
+      "bytes": 24000
+    },
+    "skill_marker": "stream line 4: \"Base directory for this skill\" for seo-audit",
+    "timing_file": "experience/evidence/g02-runs/cached/seo-audit-2026-10-27T20-46-15-443Z.timing.json",
+    "result_file": "experience/evidence/g02-runs/cached/seo-audit-2026-10-27T20-46-15-443Z.result.md",
+    "prompt_sha256": "d021e631e5a84a74e0b7ea64049d1d474b5db7bd512a881b17be3bee3155caf4"
+  }
+}

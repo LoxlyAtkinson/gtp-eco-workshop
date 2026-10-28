@@ -23,10 +23,28 @@ jobs:
           mkdir -p _site/assets _site/candidate
           cp index.html styles.css cinematic.css scroll-experience.css scroll-presentation.js presentation-qr.svg _site/
           cp assets/eco-compass.png assets/amina-lunch-3d.webp assets/amina-ad-motion.mp4 assets/amina-ad-motion-poster.jpg _site/assets/
+          cp -R vendor _site/vendor
           cp -R tool _site/tool
+          cp -R motion-examples _site/motion-examples
+          rm -f _site/motion-examples/BRIEF.md
+          # Chapter rebuilds 04-15, generated media, cached demo runs, the browser live-run client and the skills pack.
+          # Media only: MANIFEST.md and VIDEO-LOCK.md stay in the repo. Never ship experience/ or live-runner server code.
+          cp -R chapters _site/chapters
+          mkdir -p _site/assets/gen _site/assets/cached-runs _site/live-runner
+          cp assets/gen/*.webp assets/gen/*.jpg assets/gen/*.mp4 _site/assets/gen/
+          cp assets/cached-runs/*.json _site/assets/cached-runs/
+          cp live-runner/client.js _site/live-runner/
+          cp -R skills _site/skills
           cp index.html styles.css cinematic.css scroll-experience.css scroll-presentation.js presentation-qr.svg _site/candidate/
           cp -R _site/assets _site/candidate/assets
+          cp -R _site/vendor _site/candidate/vendor
           cp -R _site/tool _site/candidate/tool
+          cp -R _site/motion-examples _site/candidate/motion-examples
+          cp -R _site/chapters _site/candidate/chapters
+          cp -R _site/live-runner _site/candidate/live-runner
+          cp -R _site/skills _site/candidate/skills
+          # Rule G6: the owner's reference clips (assets/ref/) are stage-deck only. Never re-host them.
+          rm -rf _site/assets/ref _site/candidate/assets/ref
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

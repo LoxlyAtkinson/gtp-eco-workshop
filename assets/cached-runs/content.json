@@ -1,0 +1,39 @@
+{
+  "kind": "content",
+  "skill": "social",
+  "business": "Amberkloof",
+  "label": "Demo data: Amberkloof is an invented brand · category-only request, no website",
+  "recorded_at": "2026-10-27T20:45:23.189Z",
+  "request": {
+    "business": "Amberkloof",
+    "category": "small-batch botanical body care (marula face oil, rooibos body butter)",
+    "area": "Pretoria East, Gauteng, South Africa",
+    "target": "category-provisional"
+  },
+  "target": {
+    "type": "category-only",
+    "note": "The hero brand Amberkloof is invented and has no website; the request names its category and area only (PROVISIONAL, spine D-06)."
+  },
+  "text": "Assumptions: no website, so I used the two products you named. The audience is local women 25–45, the tone is warm, and the goals are awareness and DM orders. I left out claims about sourcing, certifications and results.\n\n## Post Ideas\n\n1. **Instagram Reel:** Show a 20-second pour and press of the marula face oil. Overlay the text \"3 drops. That's the whole routine.\"\n2. **Facebook:** Post \"Pretoria East, what's your winter skin struggle?\" Then offer a rooibos body butter sample to one commenter. This works well in local community groups.\n3. **Instagram carousel:** \"Small batch, explained.\" Slide 1 shows the ingredients, slide 2 the mixing, slide 3 the jar being filled, and slide 4 the batch label and a DM-to-order call to action.\n\n## Instagram Caption\n\nDry Highveld air doesn't care about your schedule. 🌿\n\nOur marula face oil is three drops pressed into damp skin, and that's all it takes. The rooibos body butter melts in without any sticky film. Both are made in small batches here in Pretoria East.\n\nWhich one are you reaching for first? Tell us below, or DM to order.\n\n#Amberkloof #SmallBatch #MarulaOil #RooibosBodyButter #PretoriaEast #SouthAfricanMade\n\n## Product Description\n\n**Amberkloof Marula Face Oil**\nA light, small-batch face oil made with marula. Press 2–3 drops into damp skin morning or night. It sinks in quickly, so you can use it under makeup or on its own. Made in Pretoria East.\n\nNext: pick post idea 1 and film the pour shot today. It takes about 15 minutes.",
+  "source_log": "experience/evidence/g02-runs/cached/content-2026-10-27T20-45-23-181Z.stream.jsonl",
+  "cached_run": {
+    "tag": "cached run",
+    "what": "A real recorded run of the named skill, replayed when the live run fails, cannot reach the runner, or has no complete result 20 s after the scene reveal.",
+    "recorded_at": "2026-10-27T20:45:23.189Z",
+    "recorded_via": "live-runner/run-once.mjs (the same code path as live-runner/server.mjs)",
+    "claude_code_version": "2.1.311",
+    "model": "claude-sonnet-5-5",
+    "tools_offered": [
+      "Skill",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "wall_ms": 21878,
+    "num_turns": 3,
+    "firecrawl_scan": null,
+    "skill_marker": "stream line 4: \"Base directory for this skill\" for social",
+    "timing_file": "experience/evidence/g02-runs/cached/content-2026-10-27T20-45-23-181Z.timing.json",
+    "result_file": "experience/evidence/g02-runs/cached/content-2026-10-27T20-45-23-181Z.result.md",
+    "prompt_sha256": "8a7611c5ede65178caf213d0bed076754a8a7651e9bb828ddd2099968b53c46a"
+  }
+}

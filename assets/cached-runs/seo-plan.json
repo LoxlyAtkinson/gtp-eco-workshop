@@ -1,0 +1,39 @@
+{
+  "kind": "seo-plan",
+  "skill": "seo-plan",
+  "business": "Amberkloof",
+  "label": "Demo data: Amberkloof is an invented brand · category-only request, no website",
+  "recorded_at": "2026-10-27T20:45:23.547Z",
+  "request": {
+    "business": "Amberkloof",
+    "category": "small-batch botanical body care (marula face oil, rooibos body butter)",
+    "area": "Pretoria East, Gauteng, South Africa",
+    "target": "category-provisional"
+  },
+  "target": {
+    "type": "category-only",
+    "note": "The hero brand Amberkloof is invented and has no website; the request names its category and area only (PROVISIONAL, spine D-06)."
+  },
+  "text": "**Assumptions:** No site yet, so this is a new build. The template is e-commerce with a local flavour. Budget is small, with the owner doing the work. There are no named competitors, so I'm using generic ones: Pretoria boutique brands, Faithful to Nature and Takealot sellers. I did no live research, so every keyword is a hypothesis to check in Search Console and Keyword Planner.\n\n**Goal:** more enquiries and orders from Google and AI assistants.\n\n| Window | Priorities | Pages to fix or build | Target keywords |\n|---|---|---|---|\n| **Days 1–30: Foundation** | Build a fast, mobile-first shop (Shopify or WooCommerce). Claim and complete the Google Business Profile for Pretoria East. Set up GA4, Search Console and a WhatsApp enquiry button. Allow AI crawlers in robots.txt. | Home, Shop, Marula face oil, Rooibos body butter, About (maker story and ingredient sourcing), Contact/Delivery, FAQ. Add Product, Organization, LocalBusiness and FAQ schema. | \"marula oil face oil South Africa\", \"rooibos body butter\", \"natural skincare Pretoria\", \"handmade body care Pretoria East\" |\n| **Days 31–60: Expansion** | Collect reviews and show them on product pages. Add ingredient and \"who it's for\" detail. Publish answer-first guides that AI assistants can quote. List on local directories and Google Merchant Center (free listings). | 4 guides: \"Marula oil benefits for skin\", \"Rooibos for dry skin and eczema-prone skin\", \"Marula oil vs argan oil\", \"How to use body butter\". Add a Pretoria East delivery and collection page and a gift sets page. | \"marula oil benefits for skin\", \"marula oil vs argan oil\", \"rooibos skincare benefits\", \"natural skincare gifts South Africa\" |\n| **Days 61–90: Scale** | Earn links and mentions from SA beauty bloggers, markets, and \"best of\" lists. Add a Google Business Profile post cadence. Check the AI-citation baseline by asking ChatGPT, Perplexity and Gemini the target queries monthly. Improve pages by impressions and click-through rate. | Collection pages by concern (dry skin, mature skin, sensitive skin). Ingredient glossary. Wholesale/stockist page. Comparison and \"best of\" pages. | \"best natural face oil South Africa\", \"small batch skincare Gauteng\", \"handmade skincare gift Pretoria\", \"wholesale natural skincare SA\" |\n\n**Targets by day 90:** 15 to 20 indexed pages, 10 or more reviews, GBP live, and the first non-branded clicks in Search Console.\n\n**Next:** Decide the platform (Shopify or WooCommerce), then build the Marula face oil product page first.",
+  "source_log": "experience/evidence/g02-runs/cached/seo-plan-2026-10-27T20-45-23-540Z.stream.jsonl",
+  "cached_run": {
+    "tag": "cached run",
+    "what": "A real recorded run of the named skill, replayed when the live run fails, cannot reach the runner, or has no complete result 20 s after the scene reveal.",
+    "recorded_at": "2026-10-27T20:45:23.547Z",
+    "recorded_via": "live-runner/run-once.mjs (the same code path as live-runner/server.mjs)",
+    "claude_code_version": "2.1.311",
+    "model": "claude-sonnet-5-5",
+    "tools_offered": [
+      "Skill",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "wall_ms": 22154,
+    "num_turns": 3,
+    "firecrawl_scan": null,
+    "skill_marker": "stream line 4: \"Base directory for this skill\" for seo-plan",
+    "timing_file": "experience/evidence/g02-runs/cached/seo-plan-2026-10-27T20-45-23-540Z.timing.json",
+    "result_file": "experience/evidence/g02-runs/cached/seo-plan-2026-10-27T20-45-23-540Z.result.md",
+    "prompt_sha256": "f9efb987c6bab29ae9be4a95461312d5a53e73788d66d3eff8d33c5c186be4ac"
+  }
+}

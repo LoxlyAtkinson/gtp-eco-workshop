@@ -1,0 +1,39 @@
+{
+  "kind": "keywords",
+  "skill": "competitor-keyword-decoder",
+  "business": "Amberkloof",
+  "label": "Demo data: Amberkloof is an invented brand · category-only request, no website",
+  "recorded_at": "2026-10-27T20:43:17.154Z",
+  "request": {
+    "business": "Amberkloof",
+    "category": "small-batch botanical body care (marula face oil, rooibos body butter)",
+    "area": "Pretoria East, Gauteng, South Africa",
+    "target": "category-provisional"
+  },
+  "target": {
+    "type": "category-only",
+    "note": "The hero brand Amberkloof is invented and has no website; the request names its category and area only (PROVISIONAL, spine D-06)."
+  },
+  "text": "**Assumptions:** Path B with web search only. No GSC, since no site was given. No volume or difficulty data, so intent and fit are judgement calls from public pages. The Pretoria-East angle is a local-modifier test. Competitors found: Afrakari (via Skinmiles), Essentially Natural (via PriceCheck) and Wolkewinkel.\n\n| # | Keyword target | Intent | Why it fits Amberkloof | Competitor source |\n|---|---|---|---|---|\n| 1 | pure marula oil South Africa | Transactional | Core product. Afrakari lists R900 pure oil. | [Afrakari](https://skinmiles.com/product/afrakari-pure-marula-oil/) |\n| 2 | marula face oil Pretoria | Transactional, local | Skinmiles offers Pretoria collection. Amberkloof is a true local. | [Skinmiles](https://skinmiles.com/product/afrakari-pure-marula-oil-cape-chamomile/) |\n| 3 | cold pressed marula oil 100ml | Transactional | A size-specific query, and Essentially Natural targets it. Small batch lets you stress \"cold-pressed\". | [PriceCheck](https://www.pricecheck.co.za/offers/146143174/Marula+Oil+-+Cold+Pressed+-+100ML) |\n| 4 | marula oil for face | Informational/commercial | Essentially Natural pitches one oil for face, body and hair. You can own \"face-specific\". | [PriceCheck](https://www.pricecheck.co.za/offers/172183125) |\n| 5 | marula oil cape chamomile | Commercial | Blend-style query. Shows demand for botanical pairings. | [Afrakari](https://skinmiles.com/product/afrakari-pure-marula-oil-cape-chamomile/) |\n| 6 | rooibos body butter | Transactional | Core product. Wolkewinkel ranks with scent variants. | [Wolkewinkel](https://wolkewinkel.shopstar.co.za/products/rooibos-tea-body-butter) |\n| 7 | rooibos body butter South Africa | Transactional | Country-level version. Black African Organics lists R140 for 250ml. | [Beauty on Tapp](https://beautyontapp.com/products/black-african-organics-triple-african-body-butter-with-rooibos) |\n| 8 | handmade rooibos skincare | Commercial | Marice Mercuur is the only explicit \"handmade\" claim I found. Amberkloof can match it. | [Bizcommunity](https://www.Bizcommunity.com/Company/MariceMercuur) |\n| 9 | shea cocoa butter body butter rooibos | Commercial | An ingredient-led long-tail query. It suits a comparison page. | [Beauty on Tapp](https://beautyontapp.com/products/black-african-organics-triple-african-body-butter-with-rooibos) |\n| 10 | small batch natural body care South Africa | Commercial | Brand-positioning term. Bulk Body Care targets it. | [Bulk Body Care](https://bulkbodycare.co.za/body-and-beauty) |\n\n**Gap:** I found no Pretoria-East-specific competitor page for rooibos body butter. Rows 2 and 6 combined with \"Pretoria East\" look like the easiest local wins.\n\n**Next:** Build a \"marula face oil Pretoria\" landing page first. It takes about 30 minutes.\n\nSources:\n- [Afrakari Pure Marula Oil](https://skinmiles.com/product/afrakari-pure-marula-oil/)\n- [Afrakari + Cape Chamomile](https://skinmiles.com/product/afrakari-pure-marula-oil-cape-chamomile/)\n- [PriceCheck 100ml](https://www.pricecheck.co.za/offers/146143174/Marula+Oil+-+Cold+Pressed+-+100ML)\n- [PriceCheck 50ml](https://www.pricecheck.co.za/offers/172183125)\n- [Wolkewinkel](https://wolkewinkel.shopstar.co.za/products/rooibos-tea-body-butter)\n- [Beauty on Tapp](https://beautyontapp.com/products/black-african-organics-triple-african-body-butter-with-rooibos)\n- [Bizcommunity](https://www.Bizcommunity.com/Company/MariceMercuur)\n- [Bulk Body Care](https://bulkbodycare.co.za/body-and-beauty)",
+  "source_log": "experience/evidence/g02-runs/cached/keywords-2026-10-27T20-43-17-147Z.stream.jsonl",
+  "cached_run": {
+    "tag": "cached run",
+    "what": "A real recorded run of the named skill, replayed when the live run fails, cannot reach the runner, or has no complete result 20 s after the scene reveal.",
+    "recorded_at": "2026-10-27T20:43:17.154Z",
+    "recorded_via": "live-runner/run-once.mjs (the same code path as live-runner/server.mjs)",
+    "claude_code_version": "2.1.311",
+    "model": "claude-sonnet-5-5",
+    "tools_offered": [
+      "Skill",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "wall_ms": 43181,
+    "num_turns": 6,
+    "firecrawl_scan": null,
+    "skill_marker": "stream line 5: \"Base directory for this skill\" for competitor-keyword-decoder",
+    "timing_file": "experience/evidence/g02-runs/cached/keywords-2026-10-27T20-43-17-147Z.timing.json",
+    "result_file": "experience/evidence/g02-runs/cached/keywords-2026-10-27T20-43-17-147Z.result.md",
+    "prompt_sha256": "6a1f2e6833d017337e9dc772c22f2647ba1307a446dfdfdbf59f2d57fb89f852"
+  }
+}
