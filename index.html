@@ -250,42 +250,342 @@
       <aside class="speaker-note">5:30 · Let the title build, and say it with it: “Engage… with who?” Then ask the room: “Who here knows exactly who their best customer is?” If you do, kudos to you. Most of us don’t, and I include myself. The card on screen is what most of us carry around: a feeling. A guess. And a guess is a fine place to start, as long as we test it against our records. Read the line on screen word for word: “Start with the people who actually buy, inquire, and come back.” Gather first: every sale, every inquiry, every repeat order adds a row. A short, optional checkout survey fills in age group, sex and what it’s for. No data? Then we’re guessing. And nothing goes into a public AI, only counts with no names. Then the exercise, 40 seconds: write down your last ten customers and one thing they have in common. The timer starts by itself and holds the page. At zero it moves on. Space skips it. Now watch the records land: buy, inquire, come back. They pour into the bottle’s label and become the table. Group: the rows sort into three groups. Notice the biggest group isn’t who the owner guessed. Describe: the card at the end is the ideal customer profile, the ICP. Age group, sex as a split from the survey (71% men in this sample), area, circumstances, and where they found us. Race only if customers tell us themselves. Under POPIA it’s special personal information, so we never guess it. Tap any group to open its card. Test: check the next ten orders against the card. Tap B2B to show the same method for Tumelo Print &amp; Pack.</aside>
     </section>
 
-    <section class="scene" data-scene="04" data-stage="engage" aria-labelledby="s04-title">
-      <div class="scene__eyebrow"><span class="eyebrow-line"></span> ENGAGE · WHERE</div>
-      <h2 id="s04-title">Choose the channel<br>that fits the <em>buying moment.</em></h2>
-      <p class="lede">Score each option against customer behaviour, intent, effort and your ability to respond.</p>
-      <div class="channel-world"><div class="channel-world__compass" aria-hidden="true"></div><div class="channel-grid"><button type="button" class="channel-card" data-channel="visual" aria-pressed="false"><span>DISCOVERY</span><h3>Instagram / TikTok</h3><p>Show the product in use. Strong when visuals and regular creation matter.</p></button><button type="button" class="channel-card" data-channel="community" aria-pressed="false"><span>COMMUNITY</span><h3>Facebook</h3><p>Useful where local groups and recommendations influence choice.</p></button><button type="button" class="channel-card" data-channel="search" aria-pressed="false"><span>INTENT</span><h3>Google / Maps</h3><p>Help people who are already looking for your service nearby.</p></button><button type="button" class="channel-card" data-channel="reply" aria-pressed="false"><span>INQUIRY</span><h3>WhatsApp</h3><p>Make it easy to ask, quote and follow up promptly.</p></button></div></div>
-      <div class="channel-decision" aria-label="Amina's provisional channel decision" aria-hidden="true"><span class="channel-decision__label">AMINA'S FIRST CHANNEL TEST · ILLUSTRATIVE</span><div class="channel-decision__path"><div><b>ORDER EVIDENCE</b><strong>6 of 10</strong><p>Office meeting lunches. “Office organiser” is a buyer-role hypothesis until the next inquiries confirm who chose and paid.</p></div><span class="channel-decision__arrow" aria-hidden="true">→</span><div><b>STARTING HYPOTHESIS</b><strong>Search / Maps</strong><p>A meeting-lunch organiser may search locally. Ask the next five how they found Amina; change course if another route dominates.</p></div><span class="channel-decision__arrow" aria-hidden="true">→</span><div><b>7-DAY TEST</b><strong>Answer → quote</strong><p>Put one useful lunch-for-20 answer on the service page and Business Profile. Count qualified quote requests. Ask each customer how they found it.</p></div></div><small>Use visual posts as supporting proof and WhatsApp as a reply route. Keep the channel only if real inquiries and sales support it.</small></div>
-      <div class="scene__takeaway" id="channelFeedback" role="status">Choose a channel to see when it earns a place in the plan.</div>
-      <aside class="speaker-note">5:40 · Participant channel vote. Show Amina’s six office-meeting orders, then ask where the person arranging that lunch may look and how they would ask for help. Invite a quick vote between Search/Maps, visual social posts and Facebook. Explain that WhatsApp can be the inquiry route. Click the chosen channel card. Amina’s Search/Maps answer-to-quote path is a seven-day hypothesis, not a proven universal ranking. Have each owner write one discovery channel and one route for replying to inquiries.</aside>
+    <section class="scene c47 c47-04" data-scene="04" data-stage="engage" data-audience="b2c" data-beats="04-1:35,04-2:25,04-3:15,04-4:30,04-5:15,04-6:30,04-7:30,04-9:25,04-10:25,04-11:20" aria-labelledby="s04-title">
+      <header class="c4-head">
+        <p class="c47-kicker"><b>ENGAGE</b> · WHERE?</p>
+        <h2 id="s04-title">Where do they <em>spend their time?</em></h2>
+        <p class="c4-head__line" data-on="04-5..04-9">Don't try to be everywhere. Pick 2 or 3 places, and know why.</p>
+      </header>
+
+      <div class="c4-plate c4-consent" data-on="04-1">
+        <div class="c47-glass c4-consent__card" role="group" aria-labelledby="c4-consent-title">
+          <span class="c47-tag">VOLUNTEER · BEFORE ANYTHING RUNS</span>
+          <h3 id="c4-consent-title">May we look at your business?</h3>
+          <p>We'll scan your public pages and socials and use your questionnaire answers about your business. Anthropic (Claude), Firecrawl and Apify process them to run the tools; Tool A's notice adds Supabase and Resend. No customer contact details. Deleted after 30 days.</p>
+          <div class="c4-consent__actions"><button type="button" class="c47-btn c47-btn--go" data-consent="yes">The volunteer agrees</button><button type="button" class="c47-btn" data-consent="no">Not today</button></div>
+          <p class="c4-consent__state" id="c4ConsentState" role="status">Nothing runs until the volunteer agrees.</p>
+        </div>
+      </div>
+
+      <div class="c4-plate c4-quiz" data-on="04-2">
+        <form class="c47-glass c4-quiz__form" id="c4Quiz" aria-labelledby="c4-quiz-title" novalidate>
+          <span class="c47-tag">QUESTIONNAIRE · ANSWERED AT THE DOOR</span>
+          <h3 id="c4-quiz-title">Six answers about the business</h3>
+          <div class="c4-quiz__grid">
+            <label>Business and website<input name="business" autocomplete="off" data-demo="Amberkloof · amberkloof.example"></label>
+            <label>What you sell<input name="category" autocomplete="off" data-demo="Botanical body care: face oil, body butter, gift sets"></label>
+            <label>Who buys most<input name="buyers" autocomplete="off" data-demo="35-49 · about 70% men · gift buyers"></label>
+            <label>Area<input name="area" autocomplete="off" data-demo="Pretoria East, Midrand, Centurion"></label>
+            <label>Where they find you<input name="found" autocomplete="off" data-demo="Instagram, markets, word of mouth"></label>
+            <label>B2B or B2C<select name="mode"><option value="b2c">B2C: people</option><option value="b2b">B2B: businesses</option><option value="both">Both</option></select></label>
+          </div>
+          <p class="c4-quiz__demo" id="c4QuizDemo" hidden>Demo answers: Amberkloof is an invented brand.</p>
+          <button type="submit" class="c47-btn c47-btn--go" id="c4Start" disabled>Start the runs</button>
+        </form>
+        <ol class="c47-glass c4-tray" id="c4Tray" aria-label="Runs started from the questionnaire">
+          <li data-kind="competitor-scan"><b>Competitor scan</b><small>Skill loaded: competitor-analysis.</small><i>waiting</i></li>
+          <li data-kind="b2b-find"><b>B2B find</b><small>Skill loaded: Apify Google Maps scraper + enrichment.</small><i>waiting</i></li>
+          <li data-kind="content"><b>Content</b><small>Skill loaded: social.</small><i>waiting</i></li>
+          <li data-kind="last30days"><b>Last 30 Days</b><small>Skill loaded: last30days.</small><i>waiting</i></li>
+          <li data-kind="keywords"><b>Keywords</b><small>Skill loaded: competitor-keyword-decoder.</small><i>waiting</i></li>
+          <li data-kind="seo-audit"><b>SEO check</b><small>Skill loaded: seo-audit.</small><i>waiting</i></li>
+          <li data-kind="backlink-analyzer"><b>Backlinks</b><small>Skill loaded: backlink-analyzer.</small><i>waiting</i></li>
+          <li data-kind="geo-citability"><b>Citations</b><small>Skill loaded: geo-citability.</small><i>waiting</i></li>
+          <li data-kind="seo-plan"><b>30/60/90 plan, part 1</b><small>Skill loaded: seo-plan.</small><i>waiting</i></li>
+          <li data-kind="blog-calendar"><b>30/60/90 plan, part 2</b><small>Skill loaded: blog-calendar.</small><i>waiting</i></li>
+        </ol>
+      </div>
+
+      <div class="c4-plate c4-hub" data-on="04-3..04-11" aria-hidden="false">
+        <div class="c4-hubchip"><span class="c47-tag" data-b2c>THE GIFT PLANNER</span><span class="c47-tag" data-b2b>THE LAUNCHING FOUNDER · TUMELO</span><strong data-b2c>35-49 · Midrand and Centurion · buys twice a year</strong><strong data-b2b>Founder of a small product brand · Gauteng · 500-2,000 units</strong><small id="c4AnswersChip">Volunteer answers: waiting</small></div>
+        <p class="c4-wheel__note">Text wordmarks · logo pending brand-terms acceptance</p>
+        <div class="c4-wheel" id="c4Wheel" role="group" aria-label="Seven platforms. Click a platform to bring it alive">
+          <svg class="c4-cursor" viewBox="0 0 40 52" aria-hidden="true"><path d="M4 2L4 40L14 31L21 48L28 45L21 28L35 28Z" fill="#fff" stroke="#1e1a17" stroke-width="3" stroke-linejoin="round"/></svg>
+          <i class="c4-ring" aria-hidden="true"></i>
+          <button type="button" class="c4-tile" data-platform="instagram" style="--i:0"><span>Instagram</span></button>
+          <button type="button" class="c4-tile" data-platform="whatsapp" style="--i:1"><span>WhatsApp</span></button>
+          <button type="button" class="c4-tile" data-platform="gbp" style="--i:2"><span>Google Business Profile</span></button>
+          <button type="button" class="c4-tile" data-platform="facebook" style="--i:3"><span>Facebook</span></button>
+          <button type="button" class="c4-tile" data-platform="tiktok" style="--i:4"><span>TikTok</span></button>
+          <button type="button" class="c4-tile" data-platform="linkedin" style="--i:5"><span>LinkedIn</span></button>
+          <button type="button" class="c4-tile" data-platform="web" style="--i:6"><span>Website / Google Search</span></button>
+        </div>
+        <div class="c4-phone" aria-live="polite">
+          <div class="c4-phone__glass">
+            <div class="c4-screen c4-screen--idle is-shown"><span>Pick a platform</span></div>
+            <div class="c4-screen c4-screen--instagram" data-screen="instagram"><header><i></i><b>amberkloof</b><small>Pretoria East</small></header><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M20" src="./assets/gen/B2-M20.webp" alt="The Amberkloof gift set with the face oil bottle, studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><p class="c4-ig__row"><span>♥ 212</span><span>✉ 9</span><span>⚑ Save</span></p><p><b>amberkloof</b> The gift set, wrapped and ready for Friday. Order on WhatsApp.</p></div>
+            <div class="c4-screen c4-screen--whatsapp" data-screen="whatsapp"><header><i></i><b>Amberkloof</b><small>Business account</small></header><ol class="c4-chat"><li class="in">Hi, is the gift set still available for Friday?</li><li class="out">It is. Wrapped, with a card. Shall I keep one for you?</li><li class="in">Yes please. One.</li><li class="out">Done. I'll send the payment link now.</li></ol><span class="c47-demo">Demo chat</span></div>
+            <div class="c4-screen c4-screen--gbp" data-screen="gbp"><p class="c4-search">⌕ gift shop near me</p><div class="c4-map"><figure class="c47-media"><img data-media-slot="B2-M24" src="./assets/gen/B2-M24.webp" alt="A small workshop shopfront in a Pretoria East suburb, amber-lit window" loading="lazy"></figure><i class="c4-pin" aria-hidden="true"></i></div><div class="c4-listing"><b>Amberkloof</b><small>Natural skin care · Pretoria East</small><small>Open until 17:00 · Directions · Call</small></div><span class="c47-demo">Demo listing</span></div>
+            <div class="c4-screen c4-screen--facebook" data-screen="facebook"><header><i></i><b>Amberkloof</b><small>Sponsored</small></header><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M22" src="./assets/gen/B2-M22.webp" alt="A birthday table with a wrapped gift set being handed over" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><p>Birthday next week? We wrap it and deliver it.</p></div>
+            <div class="c4-screen c4-screen--tiktok" data-screen="tiktok"><figure class="c47-media c47-media--tall"><video data-media-slot="B2-M21" muted loop playsinline preload="none" aria-label="Macro of one drop of oil on the back of a hand"><source src="./assets/gen/B2-M21.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure><p>One drop. Watch it sink in.</p></div>
+            <div class="c4-screen c4-screen--linkedin" data-screen="linkedin"><header><i class="is-b2b"></i><b>Tumelo Print &amp; Pack</b><small>Label and carton printer · Johannesburg</small></header><figure class="c47-media c47-media--wide"><img data-media-slot="B2-M23" src="./assets/gen/B2-M23.webp" alt="Kraft cartons stacking off a small press" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><p>500 kraft gift boxes for a market date. Printed, folded and delivered in six working days.</p></div>
+            <div class="c4-screen c4-screen--web" data-screen="web"><p class="c4-search" data-b2c>⌕ natural face oil Pretoria</p><p class="c4-search" data-b2b>⌕ custom product labels Johannesburg</p><div class="c4-result" data-b2c><small>amberkloof.example</small><b>Marula Face Oil · Amberkloof, Pretoria East</b><span>Small-batch face oil. Two drops at night. Collect or delivery.</span></div><div class="c4-result" data-b2b><small>tumelo.example</small><b>Custom labels and gift boxes · Tumelo Print &amp; Pack</b><span>Short runs from 500. Proof in 24 hours.</span></div><figure class="c47-media c47-media--wide"><img data-media-slot="B2-M25" src="./assets/gen/B2-M25.webp" alt="The Amberkloof website hero: the bottle on a plinth" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure><span class="c47-demo">Demo result</span></div>
+          </div>
+        </div>
+        <div class="c47-glass c4-why" id="c4Why" role="status"><span class="c47-tag">WHY IT FITS</span><strong>Click to burst the platforms.</strong><p>Then the dial picks one, and it comes alive on the phone.</p></div>
+      </div>
+
+      <div class="c4-plate c4-research" data-on="04-4">
+        <div class="c47-glass c4-research__card">
+          <span class="c47-tag">WE ASKED AI: WHERE DO THEY LIVE ONLINE?</span>
+          <ul class="c4-bars" aria-label="Share of active social media users in South Africa who use each platform">
+            <li style="--v:93.8"><b>WhatsApp</b><i></i><span>93.8%</span></li>
+            <li style="--v:88.6"><b>Facebook</b><i></i><span>88.6%</span></li>
+            <li style="--v:76.9"><b>TikTok</b><i></i><span>76.9%</span></li>
+            <li style="--v:71.4"><b>Instagram</b><i></i><span>71.4%</span></li>
+          </ul>
+          <p class="c4-research__stat"><b>91.75%</b> of searches in South Africa go through Google. <b>62%</b> research products on search, <b>58%</b> on social.</p>
+          <p class="c4-research__persona"><b>Gift Planner:</b> searches Google, scrolls Facebook and TikTok, orders on WhatsApp.</p>
+          <p class="c4-research__persona c4-research__persona--b2b"><b>Tumelo's founder buyer:</b> searches Google for suppliers, checks LinkedIn, asks for a quote on WhatsApp.</p>
+          <p class="c47-flag">AI research: check it against your own data</p>
+          <p class="c47-source">Real customer-research run. Sources: Meltwater Digital 2025 (share of active social users), StatCounter Sept 2026, GWI via Time Out Nov 2025, DataReportal Digital 2026.</p>
+        </div>
+      </div>
+
+      <div class="c4-plate c4-verdict" data-on="04-10..04-11">
+        <div class="c47-glass c4-verdict__card">
+          <span class="c47-tag">VERDICT · AMBERKLOOF</span>
+          <strong>Instagram to be seen. WhatsApp to sell. Google Business to be found. TikTok later.</strong>
+          <ul class="c4-verdict__list">
+            <li class="yes"><b>Instagram</b> gift planners found you here</li>
+            <li class="yes"><b>WhatsApp</b> where the order happens</li>
+            <li class="yes"><b>Google Business</b> regulars search nearby</li>
+            <li><b>Website</b> where every other channel points</li>
+            <li class="later"><b>TikTok</b> later, once you can film weekly</li>
+            <li class="later"><b>Facebook</b> birthday reminders, not first</li>
+            <li class="no"><b>LinkedIn</b> not these buyers</li>
+          </ul>
+          <div class="c47-gva">
+            <div class="c47-gva__avg"><span>AVERAGE</span><div class="c4-copies" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p>The same post copied to all 7.</p></div>
+            <div class="c47-gva__good"><span>GOOD</span><div class="c4-picks" aria-hidden="true"><i>IG</i><i>WA</i><i>G</i></div><p>2 or 3 places, each with a reason.</p></div>
+          </div>
+          <p class="c4-vote" data-on="04-11">Room vote: which 2 or 3 fit the volunteer? Tap any platform.</p>
+        </div>
+      </div>
+      <div class="c47-compat" hidden aria-hidden="true"><div class="channel-decision"></div></div>
+      <aside class="speaker-note">4:10 · Bring the volunteer up. Read the consent card out loud, word for word. When they agree, click “The volunteer agrees”. Nothing runs before that. They answered the six questions at the door, so the answers are already in. Click “Start the runs”. Every tool starts now and works in the background while we talk; the results show up in the next scenes. Now the headline: where do they spend their time? We asked AI. Read the bars: WhatsApp, Facebook, TikTok, Instagram, Google. Then the catch: AI says the Gift Planner scrolls Facebook and TikTok, but Amberkloof's own records say they found us on Instagram. When the two disagree, trust your records and test. Click to burst the seven platforms. The dial lands on Instagram: the post comes alive and the card says why. Then WhatsApp, where the order happens. Google Business comes alive if you click it. Toggle to Tumelo: LinkedIn and Google Search. Verdict: Instagram to be seen, WhatsApp to sell, Google Business to be found, TikTok later. Average is the same post copied to all seven. Good is two or three, each with a reason. Ask the room to vote for the volunteer's two or three.</aside>
     </section>
 
-    <section class="scene" data-scene="05" data-stage="engage" aria-labelledby="s05-title">
-      <div class="scene__eyebrow"><span class="eyebrow-line"></span> ENGAGE · WHAT</div>
-      <h2 id="s05-title">One question.<br><em>Three ways to be seen.</em></h2>
-      <p class="ad-intro">In this fictional research exercise, rival posts show lunch photos but leave one question unanswered: “How should I plan lunch for a 20-person meeting?” Here are three illustrative ways Amina could answer it. Engagement is a clue, not proof of competitors’ sales.</p>
-      <a class="motion-studies-link motion-studies-link--mobile" href="./motion-examples/" target="_blank" rel="noopener">Open motion examples <span aria-hidden="true">↗</span></a>
-      <div class="ad-stage" data-ad-state="feed"><div class="ad-device" aria-label="Original 3D catering illustration emerging from a mobile ad frame"><div class="ad-device__phone"><span>AMINA'S KITCHEN · EXAMPLE</span><strong>Meeting lunch,<br>sorted.</strong><small>Johannesburg</small></div><img src="./assets/amina-lunch-3d.webp" width="1254" height="1254" alt="Illustrative 3D trays of catered chicken, rice and vegetables emerging from a phone"><span class="ad-device__shadow" aria-hidden="true"></span><div class="ad-video-visual" aria-label="Original three-frame vertical video storyboard"><div class="ad-video-visual__frame"><b>00–02s</b><strong>Lunch for 20?</strong><span>Start with one main per guest.</span></div><div class="ad-video-visual__frame ad-video-visual__frame--product"><b>02–05s</b><strong>20 mains to start.</strong><span>Count dietary options within 20.</span></div><div class="ad-video-visual__frame"><b>05–08s</b><strong>Check the meal type.</strong><span>Then request a tailored quote →</span></div></div><div class="ad-search-visual" aria-label="Illustrative search and business listing layout"><div class="ad-search-visual__bar">⌕ <span>meeting lunches Johannesburg</span></div><div class="ad-search-visual__result"><small>ILLUSTRATIVE BUSINESS RESULT · NOT A LIVE RANKING</small><strong>Amina’s Kitchen · Meeting lunches</strong><p>For 20 guests, start with 20 mains, including dietary options. Confirm meal type before ordering.</p><span>Menu · Service area · Request a quote ↗</span></div></div></div><div class="ad-story"><div class="ad-tabs" role="group" aria-label="Choose an illustrative content placement"><button type="button" data-ad="feed" aria-pressed="true">Feed post</button><button type="button" data-ad="vertical" aria-pressed="false">Short video</button><button type="button" data-ad="search" aria-pressed="false">Search result</button><a class="motion-studies-link" href="./motion-examples/" target="_blank" rel="noopener">Motion examples <span aria-hidden="true">↗</span></a></div><article class="ad-specimen" data-ad-panel="feed"><span>INSTAGRAM / FACEBOOK · FICTIONAL SAMPLE</span><h3>How much lunch for 20 people?</h3><p>Start with 20 main portions, counting vegetarian options within that total. Check whether it is a full lunch or a light meeting, then tell us the date and dietary needs so we can confirm a suitable option.</p><strong>CTA: Ask for a quote →</strong><small>Destination: meeting-lunch quote page. Visual: original catering product image.</small></article><article class="ad-specimen" data-ad-panel="vertical" hidden><span>VERTICAL VIDEO · 8-SECOND STORYBOARD</span><h3>“Lunch for 20?”</h3><p><b>0–2s</b> Empty meeting table and “20 guests?” <b>2–5s</b> Show 20 main portions as a starting point, including dietary alternatives. <b>5–8s</b> “Full lunch or light meeting? Tell us the date and needs for a tailored quote.”</p><strong>CTA: Get a lunch suggestion →</strong><small>Destination: meeting-lunch quote page. This scroll-driven sequence is an original storyboard, not a published video ad.</small></article><article class="ad-specimen" data-ad-panel="search" hidden><span>GOOGLE BUSINESS / SEARCH · ILLUSTRATIVE RESULT</span><h3>Meeting lunches in Johannesburg | Amina’s Kitchen</h3><p>Planning for 20? Start with 20 mains, including dietary options. Confirm whether it is a full lunch or a light meeting before choosing quantities.</p><strong>CTA: Request a meeting-lunch quote →</strong><small>Destination: service page. This is an organic Business/search listing example, not a paid ad, actual result or ranking claim.</small></article><p class="ad-anatomy"><b>HOOK</b> names the portion question. <b>PROOF</b> shows the offer clearly. <b>ACTION</b> asks only for useful quote details.</p></div></div>
-      <aside class="speaker-note">4:45 · Practical ad comparison. Show the finished fictional feed post, short-video storyboard and search result one at a time. Ask which would answer a customer's question on the channel they chose, and where each CTA goes. Read the opening line. Check what the image shows. Then point to the action each post asks for. A competitor worksheet may suggest unanswered questions, but visible engagement does not prove sales. Do not copy creative assets.</aside>
+    <section class="scene c47 c47-05" data-scene="05" data-stage="engage" data-beats="05-1:10,05-2:30,05-3:60,05-4:50,05-5:30,05-6:35,05-7:35,05-8:15" aria-labelledby="s05-title">
+      <header class="c5-head">
+        <p class="c47-kicker"><b>ENGAGE</b> · WHAT?</p>
+        <h2 id="s05-title">What are they <em>engaging with?</em></h2>
+        <p class="c5-recap" aria-label="Recap"><span class="is-done">Who</span><span class="is-done">Where</span><span class="is-now">What</span></p>
+      </header>
+
+      <div class="c5-plate c5-mix" data-on="05-1..05-2">
+        <div class="c5-shelf"><figure class="c5-post c47-glass"><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M20" src="./assets/gen/B2-M20.webp" alt="The Amberkloof gift set post from Instagram" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><figcaption>Amberkloof's post, alone on the shelf</figcaption></figure></div>
+        <div class="c47-glass c5-mix__card" data-on="05-2">
+          <span class="c47-tag">WHAT DO YOU GIVE THEM?</span>
+          <div class="c47-toggle" role="group" aria-label="Type of post"><button type="button" data-mix="edu" aria-pressed="true">Education</button><button type="button" data-mix="promo" aria-pressed="false">Promotion</button></div>
+          <p class="c5-mix__ex" data-mix-ex="edu"><b>Oil or moisturiser first?</b> Moisturiser first. Then two drops of oil on top.</p>
+          <p class="c5-mix__ex" data-mix-ex="promo"><b>Gift set, wrapped, delivered Friday.</b> Order by Wednesday on WhatsApp.</p>
+          <div class="c47-toggle" role="group" aria-label="Audience"><button type="button" data-aud="self" aria-pressed="true">Self-care regulars</button><button type="button" data-aud="gift" aria-pressed="false">Gift planners</button></div>
+          <p class="c5-mix__aud" data-aud-ex="self">Regulars respond to <b>education</b>: how to use it, what's in it.</p>
+          <p class="c5-mix__aud" data-aud-ex="gift">Gift planners respond to <b>promotion</b>: wrapped, ready, on time.</p>
+          <p class="c47-source">Illustrative mix for the demo brand. Your own results decide it.</p>
+        </div>
+      </div>
+
+      <div class="c5-plate c5-scan" data-on="05-3..05-5">
+        <div class="c5-scan__head"><span class="c47-tag">COMPETITOR SCAN · FROM THE QUESTIONNAIRE</span><p class="c47-runline" data-slot-line="competitor-scan">Waiting for the run</p></div>
+        <div class="c5-cards" id="c5Cards" data-slot="competitor-scan" aria-live="polite"></div>
+        <div class="c5-recipe" data-on="05-4" aria-label="The top post split into its recipe">
+          <p class="c5-recipe__q">What really drives their engagement?</p>
+          <ol class="c5-layers" id="c5Layers"></ol>
+          <div class="c5-weak c47-glass" id="c5Weak"></div>
+        </div>
+        <div class="c5-gaps" data-on="05-5">
+          <span class="c47-tag">GAPS · WHAT NONE OF THEM DO</span>
+          <ol id="c5Gaps"></ol>
+          <div class="c5-slot" aria-hidden="true"><i class="c5-slot__glow"></i><svg class="c5-slot__bottle" viewBox="0 0 200 440"><use href="#g1-bottle"/></svg></div>
+        </div>
+      </div>
+
+      <div class="c5-plate c5-b2b" data-on="05-6">
+        <div class="c47-glass c5-b2b__card">
+          <span class="c47-tag">B2B FIND · TWO STEPS</span>
+          <ol class="c5-steps"><li><b>Step 1 · Google scrape</b><span>Apify's Google Maps scraper lists businesses near the volunteer that could buy from them.</span></li><li><b>Step 2 · Apify enrichment</b><span>Each one gets its website, socials and size.</span></li></ol>
+          <p class="c47-blocked">Not run yet: needs the Apify key. No live or cached result exists.</p>
+          <p class="c5-b2b__tumelo"><b>For Tumelo:</b> the competitors are other label printers. The gap: nobody shows turnaround times.</p>
+          <p class="c47-flag">POPIA: use a lead list only within the direct-marketing rules.</p>
+        </div>
+      </div>
+
+      <div class="c5-plate c5-rule" data-on="05-7..05-8">
+        <p class="c5-rule__pre">B2B or B2C: it doesn't matter.</p>
+        <p class="c5-rule__line"><span>Copy what works.</span> <span>Then fill the gap.</span></p>
+        <div class="c47-gva">
+          <div class="c47-gva__avg"><span>AVERAGE</span><p>Copy their post.</p></div>
+          <div class="c47-gva__good"><span>GOOD</span><p>Their recipe, plus the gap they leave.</p></div>
+        </div>
+        <div class="c5-canvas" data-on="05-8" aria-hidden="true"><i></i><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><span>Blank post</span></div>
+      </div>
+      <div class="c47-compat" hidden aria-hidden="true"><div class="ad-stage"><div class="ad-device"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt=""></div></div></div>
+      <aside class="speaker-note">4:25 · Who and where are done. Now: what do we give them? Two kinds of post. Education teaches something: oil or moisturiser first. Promotion sells something: the gift set, wrapped, on Friday. Flip the audience: regulars want education, gift planners want promotion. Then the competitor scan that started in scene 04. Read the source line: live, or a tagged cached run. Walk two of the three cards: where they post, what they say. Watch the top card split into its recipe: hook, body, offer, format, platform. Then a weak one, where nothing is visible. Now the gaps: what none of them do. A gap is a post nobody else is making. The bottle slides into that slot. B2B works the same: Google scrape, then enrichment. That run needs a key, so say so. Close with the line: copy what works, then fill the gap.</aside>
     </section>
 
-    <section class="scene" data-scene="06" data-stage="engage" aria-labelledby="s06-title">
-      <div class="scene__eyebrow"><span class="eyebrow-line"></span> ENGAGE · CREATE WITH AI</div>
-      <h2 id="s06-title">AI drafts faster.<br><em>You make it yours.</em></h2>
-      <div class="voice-flow"><div class="voice-comparison"><div class="voice-grid"><div class="voice-card"><span>GIVE AI THE BRIEF</span><p>“We make generous, reliable meeting lunches in Johannesburg. Six of ten sample orders are for office meetings. The buyer role still needs checking. We sound warm, direct and helpful. Never promise same-day delivery.”</p></div><div class="voice-card voice-card--generic"><span>GENERIC DRAFT</span><p>“Elevate your corporate catering experience with our premium culinary solutions!”</p><button type="button" id="voiceRewrite" aria-pressed="false">Apply the brand brief <span aria-hidden="true">↗</span></button></div><div class="voice-card voice-card--real"><span>HUMAN EDIT</span><p>“For 20 guests, start with 20 mains, including dietary options. Tell us the date and whether it is a full lunch. We’ll confirm what travels well.”</p></div></div>
-      <div class="voice-finished"><span>FINISHED CAPTION · FICTIONAL EXAMPLE</span><strong class="voice-finished__empty">Apply the brand brief to turn the checked edit into a usable caption.</strong><strong class="voice-finished__copy">Lunch for 20? Start with 20 mains, including dietary options. Tell us the date and whether it is a full lunch. We’ll confirm a suitable option. Ask for a quote.</strong></div>
-      <div class="scene__takeaway" id="voiceFeedback" role="status">Apply the brief to compare the generic draft with the edited voice.</div></div><div class="voice-week"><span>ONE REPEATABLE WEEK · FICTIONAL AMINA EXAMPLE</span><div class="voice-week__steps"><div><b>MON</b><strong>Listen</strong><p>Write down one buyer question: “How much lunch for 20?”</p></div><div><b>TUE</b><strong>Draft</strong><p>Ask AI for a post idea, caption, product description and 8-second video script.</p></div><div><b>WED</b><strong>Check</strong><p>Verify portions, prices, availability and sources. Remove customer details.</p></div><div><b>THU</b><strong>Publish</strong><p>Edit in Amina’s voice. Share one useful answer where buyers look.</p></div><div><b>FRI</b><strong>Learn</strong><p>Log qualified inquiries, replies and questions for next week.</p></div></div><strong class="voice-week__gate">Human review gate: accurate facts · own voice · permission to use data and images. No automatic publishing.</strong></div></div>
-      <aside class="speaker-note">7:15 · Live AI demonstration. Use the fictional Amina brief in the presenter guide to request a caption in an available AI chat. Never paste participant or private customer records. Ask the audience what sounds generic or unverified. Then click Apply the brand brief and compare the deck's human edit, including the quote action. If the model or network fails, use the generic draft already on screen. Show AI two genuine brand examples and give it voice rules. Before publishing, a person still checks the claims and the images.</aside>
+    <section class="scene c47 c47-06" data-scene="06" data-stage="engage" data-beats="06-1:10,06-2:60,06-3:20,06-4:10,06-5:20,06-6:25,06-7:35,06-8:30,06-9:20,06-10:20,06-11:20,06-13:30,06-14:30,06-15:10" aria-labelledby="s06-title">
+      <header class="c6-head">
+        <p class="c47-kicker"><b>ENGAGE</b> · MAKE IT YOURS</p>
+        <h2 id="s06-title">AI drafts fast. <em>You make it yours.</em></h2>
+      </header>
+
+      <div class="c6-plate c6-burst" data-on="06-1..06-2">
+        <div class="c6-core" aria-hidden="true"><i class="c6-core__glow"></i><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg></div>
+        <div class="c6-orbit" id="c6Orbit" data-slot="content" aria-live="polite">
+          <article class="c6-out c47-glass" style="--k:0"><span class="c47-tag">3 POST IDEAS</span><ol data-fill="ideas"><li>Waiting for the content run</li></ol></article>
+          <article class="c6-out c47-glass" style="--k:1"><span class="c47-tag">CAPTION</span><p data-fill="caption">Waiting for the content run</p></article>
+          <article class="c6-out c47-glass" style="--k:2"><span class="c47-tag">PRODUCT DESCRIPTION</span><p data-fill="product">Waiting for the content run</p></article>
+          <article class="c6-out c47-glass" style="--k:3"><span class="c47-tag">SIMPLE VISUAL</span><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26b" src="./assets/gen/B2-M26b.webp" alt="The face oil bottle floating with marula and rooibos, studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></article>
+          <article class="c6-out c47-glass" style="--k:4"><span class="c47-tag">8 S SHORT VIDEO</span><figure class="c47-media c47-media--tall"><video data-media-slot="B2-M27" muted loop playsinline preload="none" aria-label="The gift box lid lifts and the products rise and float"><source src="./assets/gen/B2-M27.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure></article>
+        </div>
+        <p class="c47-runline c6-runline" data-slot-line="content">Waiting for the run</p>
+      </div>
+
+      <div class="c6-plate c6-how" data-on="06-3..06-4">
+        <div class="c6-how__pair">
+          <div class="c47-glass c6-how__card"><span class="c47-tag">CLAUDE</span><strong>The app and the chat.</strong><p>Paste a skill's link and say: “Follow this skill, please.”</p></div>
+          <div class="c47-glass c6-how__card"><span class="c47-tag">CLAUDE CODE</span><strong>The same assistant on your computer.</strong><p>Copy the skill folder into <code>~/.claude/skills</code>. It runs the skill for you.</p></div>
+        </div>
+        <p class="c6-how__plan">A normal Claude Pro plan is enough.</p>
+        <div class="c6-chef" data-on="06-4"><p><b>Ingredients:</b> your brand, your photos, your customer data.</p><p><b>Recipe:</b> a skill.</p><p class="c6-chef__vs">A bare prompt has neither.</p></div>
+      </div>
+
+      <div class="c6-plate c6-studio" data-on="06-5..06-6">
+        <p class="c6-prompt c47-glass"><span id="c6Typed" data-text="Make me a launch video">Make me a launch video</span><i aria-hidden="true"></i></p>
+        <div class="c6-same" data-on="06-5" aria-label="Three results from the same one-line prompt">
+          <div class="c6-same__card"><span>THEIRS</span><em>Big text</em><em>A gradient</em><em>A fade</em></div>
+          <div class="c6-same__card"><span>YOURS</span><em>Big text</em><em>A gradient</em><em>A fade</em></div>
+          <div class="c6-same__card"><span>EVERYONE'S</span><em>Same as everyone</em></div>
+        </div>
+        <div class="c6-media-flip" data-on="06-5"><div class="c47-toggle" role="group" aria-label="Graphics or with media"><button type="button" data-flip="graphic" aria-pressed="true">Graphics</button><button type="button" data-flip="media" aria-pressed="false">With media</button></div><div class="c6-flip"><div class="c6-flip__graphic" data-flip-ex="graphic"><b>LAUNCH</b><span>Marula Face Oil</span></div><figure class="c47-media c47-media--sq c6-flip__media" data-flip-ex="media"><img data-media-slot="B2-M26b" src="./assets/gen/B2-M26b.webp" alt="The real product photo used in the same layout" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><figcaption>LAUNCH · Marula Face Oil</figcaption></figure></div></div>
+        <ol class="c6-habits" data-on="06-6" aria-label="Five habits from the claude-video-studio skill"><li><b>Style</b><span>pick one look</span></li><li><b>References</b><span>use real ones</span></li><li><b>Numbers</b><span>write the brief in numbers</span></li><li><b>Loop</b><span>decide if it loops</span></li><li><b>Frames</b><span>check frames, not code</span></li></ol>
+        <figure class="c47-media c47-media--tall c6-clip" data-on="06-6"><video data-media-slot="B2-M29" muted loop playsinline preload="none" aria-label="A short clip rendered with claude-video-studio"><source src="./assets/gen/B2-M29.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><figcaption>claude-video-studio clip</figcaption></figure>
+      </div>
+
+      <div class="c6-plate c6-system" data-on="06-7">
+        <div class="c6-flow">
+          <div class="c47-glass c6-flow__in"><span class="c47-tag">WHAT YOU HAVE NOW</span><ul><li>Posts</li><li>Labels</li><li>Website</li></ul></div>
+          <i class="c6-flow__arrow" aria-hidden="true"></i>
+          <div class="c47-glass c6-flow__sys"><span class="c47-tag">CLAUDE DESIGN SYSTEM · GUIDELINE</span><div class="c6-swatches" aria-label="Brand colours"><i style="--c:#B8692A" title="Amber glass"></i><i style="--c:#C9A57A" title="Kraft"></i><i style="--c:#F3EAD8" title="Marula cream"></i><i style="--c:#153C2F" title="Buchu green"></i><i style="--c:#1E1A17" title="Espresso"></i><i style="--c:#BEAB97" title="Sand"></i><i style="--c:#A79887" title="Stone"></i><i style="--c:#9F836B" title="Taupe"></i><i style="--c:#AA7B55" title="Caramel"></i></div><p class="c6-type"><b>Fraunces</b> for headlines · DM Sans for text</p><ul class="c6-rules"><li>Short sentences. “You” more than “we”.</li><li>Gentle is fine. “Heals” never is.</li><li>No logo drawn. The name is set in type.</li></ul></div>
+          <i class="c6-flow__arrow" aria-hidden="true"></i>
+          <div class="c6-flow__out c6-asset"><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26b" src="./assets/gen/B2-M26b.webp" alt="An on-brand Amberkloof post made from the guideline" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure><p class="c6-asset__line">Two drops at night. That's it.</p><span class="c47-tag">ONE ON-BRAND POST</span></div>
+        </div>
+        <p class="c6-system__line">This is how AI learns your look and your voice.</p>
+        <p class="c47-source">Real run: Amberkloof Design System, built on the Claude Design System type (private artifact, 14 colour tokens, 2 type families).</p>
+      </div>
+
+      <div class="c6-plate c6-ads" data-on="06-8">
+        <div class="c6-adwall">
+          <article class="c6-ad" data-yt="jWRmaxUJAwY"><button type="button" class="c6-ad__play" aria-label="Play the Oh So Heavenly body gel oil ad"><img src="https://i.ytimg.com/vi/jWRmaxUJAwY/hqdefault.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"><b aria-hidden="true">▶</b></button><p>Ad by Oh So Heavenly · YouTube · published 4 Aug 2026 · seen 27 Oct 2026</p><small>Body gel oil with marula</small></article>
+          <article class="c6-ad" data-yt="EQ0C2oLxHAk"><button type="button" class="c6-ad__play" aria-label="Play the Oh So Heavenly glow spot"><img src="https://i.ytimg.com/vi/EQ0C2oLxHAk/hqdefault.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"><b aria-hidden="true">▶</b></button><p>Ad by Oh So Heavenly · YouTube · published 5 Oct 2026 · seen 27 Oct 2026</p><small>An 18 s glow spot</small></article>
+          <article class="c6-ad" data-yt="zrd2zKRyZhU"><button type="button" class="c6-ad__play" aria-label="Play the Feel Silki body oil gel ad"><img src="https://i.ytimg.com/vi/zrd2zKRyZhU/hqdefault.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"><b aria-hidden="true">▶</b></button><p>Ad by Feel Silki · YouTube · published 13 Apr 2025 · seen 27 Oct 2026</p><small>One body oil gel, two scents</small></article>
+          <article class="c6-ad c6-ad--b2b" data-yt="yjkoIPBf3y8"><button type="button" class="c6-ad__play" aria-label="Play the Dash Labels and Digital ad"><img src="https://i.ytimg.com/vi/yjkoIPBf3y8/hqdefault.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"><b aria-hidden="true">▶</b></button><p>Ad by Dash Labels &amp; Digital · YouTube · published 12 Feb 2025 · seen 27 Oct 2026</p><small>B2B: a custom label printer</small></article>
+        </div>
+        <div class="c47-gva c6-ownpair">
+          <div class="c47-gva__avg"><span>AVERAGE · FLAT PHOTO</span><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26a" src="./assets/gen/B2-M26a.webp" alt="The bottle on a cluttered kitchen counter, flat phone snapshot" loading="lazy"><svg class="c47-standin c47-standin--flat" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></div>
+          <div class="c47-gva__good"><span>GOOD · FLOATING PRODUCT</span><figure class="c47-media c47-media--sq c6-float"><img data-media-slot="B2-M26b" src="./assets/gen/B2-M26b.webp" alt="The bottle floating with its botanicals, warm studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></div>
+        </div>
+        <p class="c47-source c6-ads__src">Real ads play from YouTube's own player. Nothing is downloaded. Tap a card to play.</p>
+      </div>
+
+      <div class="c6-plate c6-slop" data-on="06-9..06-11">
+        <p class="c6-slop__name"><b>slopmonster</b> lints AI copy, rewrites it in your voice, has a rival model clean it, then lints again.</p>
+        <div class="c6-pair" data-on="06-9" data-pair="1">
+          <div class="c6-pane c6-pane--without"><span class="c47-tag">WITHOUT · INSTAGRAM CAPTION · deslop 5/5</span><p>Two drops. <mark>One little night-time ritual. ✨</mark></p><p><mark>Meet Amberkloof Marula Face Oil 🌿</mark> Made in small batches in Pretoria East with <mark>locally loved marula</mark>, and bottled in a 30 ml amber glass dropper. Warm two drops between your fingertips and press them onto your face before bed. 🌙</p><p><mark>A little piece of South Africa for your evening routine. 🇿🇦</mark></p><p class="c6-tags">#Amberkloof #MarulaFaceOil <mark>#SouthAfricanSkincare #BotanicalSkincare #SmallBatchSkincare</mark> #PretoriaEast</p></div>
+          <div class="c6-pane c6-pane--with"><span class="c47-tag">WITH · deslop 5/5</span><p>Two drops at night. <ins>That's it.</ins></p><p>Our Marula Face Oil is made in small batches in Pretoria East. Each amber glass dropper bottle holds 30 ml. Warm two drops between your fingertips, press them onto your face and go to bed. <ins>Honestly, that's plenty. Marula does the quiet work.</ins></p><p class="c6-tags">#Amberkloof #MarulaFaceOil #PretoriaEast</p></div>
+          <ul class="c6-diff"><li>Cute filler cut: “one little ritual”, “a little piece of South Africa”</li><li>4 emoji to 0, 6 hashtags to 3</li><li>Rhythm added: “That's it.” “Honestly, that's plenty.”</li></ul>
+        </div>
+        <div class="c6-pair" data-on="06-10" data-pair="2">
+          <div class="c6-pane c6-pane--without"><span class="c47-tag">WITHOUT · PRODUCT DESCRIPTION · deslop 5/5</span><p>## Amberkloof Marula Face Oil (30 ml)</p><p><mark>Give your evening routine a little South African glow.</mark> Amberkloof Marula Face Oil <mark>helps moisturise and soften skin, leaving it feeling smooth and looking radiant by morning.</mark> Its simple, two-drop ritual makes it easy to add a <mark>nourishing finish</mark> to your nighttime skincare.</p><p>Made by Amberkloof, a small-batch botanical body care brand from Pretoria East, this face oil comes in a 30 ml amber glass dropper bottle.</p><p>**How to use:** At night, warm two drops between your fingertips and gently press onto clean skin.</p></div>
+          <div class="c6-pane c6-pane--with"><span class="c47-tag">WITH · deslop 5/5</span><p>Marula Face Oil, 30 ml</p><p>Two drops at night. That's the whole routine.</p><p>Warm them between your fingertips and press them onto clean skin before bed. No ten-step routine. <ins>No promises about how you'll look by morning.</ins></p><p>We make it in small batches in Pretoria East with marula, one of the South African botanicals the whole Amberkloof range is built on. The amber glass bottle has a dropper, so you can <ins>count your two drops in the dark.</ins></p></div>
+          <ul class="c6-diff"><li>Invented benefit claims cut: “radiant by morning”</li><li>Stock phrases cut: “South African glow”, “nourishing finish”</li><li>A real detail added: count your drops in the dark</li></ul>
+        </div>
+        <div class="c6-pair" data-on="06-11" data-pair="3">
+          <div class="c6-pane c6-pane--without"><span class="c47-tag">WITHOUT · WHATSAPP FOLLOW-UP · deslop 4/5</span><p>Hi Sipho! It’s Amberkloof 🌿 We hope your wife had a lovely birthday and enjoyed her gift set. How did she like the Marula Face Oil, Rooibos Body Butter and Baobab Lip Balm?</p><p>If you have a moment, we’d love it if you could leave us a review. <mark>Your feedback means a lot</mark> to our small-batch Pretoria East team. And whenever you’re ready to treat her<mark class="c6-tell">&#8212;</mark>or yourself<mark class="c6-tell">&#8212;</mark>again, just message us here. 💛</p></div>
+          <div class="c6-pane c6-pane--with"><span class="c47-tag">WITH · deslop 5/5</span><p>Hi Sipho, Amberkloof here.</p><p>How was the birthday? Did your wife like the gift set?</p><p>If she's tried the face oil, the body butter or the lip balm, <ins>I'd love to know which one she reached for first.</ins> And if you've got a minute, <ins>a short review helps a two-person business like ours a lot.</ins></p><p>When you want another one, for her or for you, just reply here. I'll sort it out.</p></div>
+          <ul class="c6-diff"><li>The double dash the linter flagged is gone</li><li>“We” became “I”: one person writing</li><li>Generic thanks became a real reason to review</li></ul>
+        </div>
+        <p class="c47-source">Real runs, verbatim. Without: one plain prompt to GPT. With: slopmonster rewrite, rival-model cleanse, re-lint. Scores from deslop.py.</p>
+      </div>
+
+      <div class="c6-plate c6-trend" data-on="06-13">
+        <div class="c47-glass c6-brief">
+          <span class="c47-tag">LAST 30 DAYS · DAILY BRIEF</span>
+          <strong>What people talk about. What they complain about.</strong>
+          <p>The skill reads Reddit, YouTube and social posts about your niche, with dates and sources, and hands you one brief a day.</p>
+          <div class="c6-brief__cols"><div><b>Talking about</b><i></i><i></i><i></i></div><div><b>Complaining about</b><i></i><i></i><i></i></div><div><b>One post idea</b><i></i></div></div>
+          <p class="c47-blocked">Not run yet: the tool is in review and needs a ScrapeCreators key. No live or cached brief exists.</p>
+        </div>
+      </div>
+
+      <div class="c6-plate c6-week" data-on="06-14..06-15">
+        <span class="c47-tag c6-week__tag">THE HABIT · EVERY WEEKDAY MORNING, 15 MINUTES</span>
+        <p class="c6-week__steps"><b>Brief</b> 5 min · <b>Draft</b> 4 min · <b>Your edit</b> 4 min · <b>Schedule</b> 2 min</p>
+        <ol class="c6-days">
+          <li><b>MON</b><strong>Education</strong><span>from the trend brief</span></li>
+          <li><b>TUE</b><strong>Stories</strong><span>behind the batch</span></li>
+          <li><b>WED</b><strong>The gap</strong><span>from the competitor scan</span></li>
+          <li><b>THU</b><strong>Stories</strong><span>a market question</span></li>
+          <li class="c6-days__fri"><b>FRI</b><strong>Promotion</strong><span>the gift set</span></li>
+        </ol>
+        <p class="c6-query" data-on="06-15" aria-label="A customer types a question"><span id="c6Query" data-text="How much would a gift set for 20 guests cost?">How much would a gift set for 20 guests cost?</span><i aria-hidden="true"></i></p>
+        <p class="c47-source">Real run: content-strategy, 4-week plan for 2 to 27 Nov 2026.</p>
+      </div>
+      <div class="c47-compat" hidden aria-hidden="true"><div class="voice-comparison"><div class="voice-grid"></div><button type="button" id="voiceRewrite">Apply</button><p id="voiceFeedback"></p></div></div>
+      <aside class="speaker-note">5:40 · AI drafts fast, you make it yours. The content run started in scene 04: five outputs burst around the bottle. Three post ideas, a caption, a product description, a simple visual and a short video. How did we make that? Claude is the app. Claude Code is the same assistant on your computer. Paste a skill link and say “Follow this skill, please.” Think of a chef: your brand and photos are the ingredients, a skill is the recipe. Now the same one-line prompt, three times: it gives everyone the same big text, gradient and fade. Flip to With media: your real product photo changes it. Five habits from claude-video-studio light up. Then the brand guideline: your posts, labels and site go into the Claude Design System, and it hands back a guideline for your look and your voice, then one post that follows it. Next, four real ads. Tap one to play. Our own pair: flat photo versus floating product. Then slopmonster, three real pairs. Read one marked difference per pair; the generic pane shatters. Last 30 Days gives a daily brief of what people talk and complain about; it still needs a key. Then the week: brief, draft, your edit, schedule. Friday's post gets a question back.</aside>
     </section>
 
-    <section class="scene" data-scene="07" data-stage="engage" aria-labelledby="s07-title">
-      <div class="scene__eyebrow"><span class="eyebrow-line"></span> ENGAGE · WEBSITE PRACTICE</div>
-      <h2 id="s07-title">Your website needs<br>a <em>90-day rhythm.</em></h2>
-      <div class="website-world" aria-hidden="true"><div class="website-world__browser"><span>AMINA’S KITCHEN · ANSWER PAGE</span><strong>How much lunch for 20?</strong><small>Portions · Dietary options · Ask for a quote ↗</small><div class="website-world__body"><p>Start with 20 main portions, counting dietary alternatives within that total. Confirm whether this is a full lunch or a light meeting.</p><b>Tell us the date and dietary needs → Request a quote</b><em>Phrase to validate: “meeting lunches Johannesburg” · Measure qualified inquiries, not assumed rankings.</em></div></div><div class="website-world__meal"></div></div>
-      <div class="website-work"><div class="roadmap"><button type="button" data-roadmap="0" aria-pressed="true"><span>01–30 DAYS</span><h3>Find the gaps</h3><p>Week 1: review customer questions and Search Console queries if available. Week 2: choose one buyer phrase. Week 3: improve one offer page. Week 4: publish one useful FAQ.</p></button><button type="button" data-roadmap="1" aria-pressed="false"><span>31–60 DAYS</span><h3>Publish the answers</h3><p>Week 5: blog article, “How much lunch for 20?” with real portions and sources. Week 6: FAQ on dietary options. Week 7: link both to the service and quote page. Week 8: test on a phone and log qualified inquiries.</p></button><button type="button" data-roadmap="2" aria-pressed="false"><span>61–90 DAYS</span><h3>Measure and refresh</h3><p>Weeks 9–12: recheck indexing, listings, citations and sources. Compare qualified inquiries by page. Refresh weak answers, invite honest reviews and set the next topics.</p></button></div>
-      <div class="website-audit"><span>TECHNICAL AND SOURCE CHECKS · BEFORE YOU CLAIM VISIBILITY</span><div><b>01 / INDEX</b><strong>Can Google reach the page?</strong><p>Inspect URL and indexing in Search Console. Fix blocked or missing pages.</p></div><div><b>02 / LOCAL</b><strong>Is the listing accurate?</strong><p>Check name, area, hours and service details on Business Profile and relevant listings.</p></div><div><b>03 / SOURCES</b><strong>Can claims be checked?</strong><p>Open cited references. Correct stale facts and broken links on the page.</p></div><div><b>04 / LINKS</b><strong>Who genuinely refers to you?</strong><p>Review relevant earned links and citations. Record source and quality, never invent a score.</p></div></div></div><div class="website-example"><span>AMINA’S KITCHEN · WORKED DECISION</span><strong>“Meeting lunches Johannesburg” → one service page → quote requests</strong><p>Test this phrase against actual query data. Without it, the keyword is a hypothesis, not a ranking promise.</p></div>
-      <p class="fine-print">SEO helps pages be found. AEO makes answers useful. GEO checks a sample of AI answers. AI citations and backlinks require actual sources, not a guessed score.</p>
-      <aside class="speaker-note">5:25 · Website planning demonstration. Ask which real customer question their site fails to answer. Walk Amina’s 30/60/90 cards: find an observed query and repair one offer page, publish an answer and FAQ with sources, then measure qualified inquiries and refresh. Show the finished “How much lunch for 20?” answer page and its quote action. Define SEO as findable, usable pages. AEO as directly answering questions. GEO as checking sampled AI mentions/citations. Do not promise rankings or invent keyword volumes or backlinks. Each owner chooses one page or search question for the first 30 days.</aside>
+    <section class="scene c47 c47-07" data-scene="07" data-stage="engage" data-beats="07-1:10,07-2:30,07-3:30,07-4:25,07-5:25,07-6:25,07-7:25,07-8:30,07-9:75,07-10:15,07-11:15" aria-labelledby="s07-title">
+      <header class="c7-head">
+        <p class="c47-kicker"><b>ENGAGE</b> · BE FOUND</p>
+        <h2 id="s07-title">Be found <em>where people ask.</em></h2>
+        <p class="c7-ask" aria-label="The customer's question"><span>⌕</span> How much would a gift set for 20 guests cost?</p>
+      </header>
+
+      <div class="c7-plate c7-tunnel" data-on="07-1..07-2">
+        <canvas class="c7-tunnel__lines" aria-hidden="true"></canvas>
+        <div class="c7-orbit" aria-label="Where people ask: Google, ChatGPT, Copilot, Gemini, Claude, Perplexity">
+          <svg class="c7-orbit__ring" viewBox="0 0 600 200" aria-hidden="true"><ellipse cx="300" cy="100" rx="290" ry="80"/><circle class="c7-orbit__dot" r="6" cx="590" cy="100"/></svg>
+          <span style="--a:0">Google</span><span style="--a:1">ChatGPT</span><span style="--a:2">Copilot</span><span style="--a:3">Gemini</span><span style="--a:4">Claude</span><span style="--a:5">Perplexity</span>
+        </div>
+        <div class="c7-trust" data-on="07-2"><p class="c7-trust__line">They trust what they bring back.</p><blockquote>“AI cannot go into social media all by itself.”</blockquote><p class="c7-trust__sub">It mostly reads the web. So the website carries your proof.</p><div class="c7-wall" aria-hidden="true"><i>Post</i><i>Reel</i><i>Story</i><b></b></div></div>
+      </div>
+
+      <div class="c7-plate c7-words" data-on="07-3">
+        <div class="c7-word"><b>SEO</b><span>Google ranks you.</span></div>
+        <div class="c7-word"><b>AEO</b><span>An AI answers with you.</span></div>
+        <div class="c7-word"><b>GEO</b><span>An AI cites you.</span></div>
+      </div>
+
+      <div class="c7-plate c7-checks" data-on="07-4..07-7">
+        <span class="c47-tag c7-checks__tag">FOUR CHECKS · STARTED IN SCENE 04</span>
+        <div class="c7-panel c47-glass" data-on="07-4..07-7" data-slot="keywords"><svg class="c47-trace" aria-hidden="true"><rect x="1" y="1" width="99%" height="99%" rx="14" pathLength="100"/></svg><span class="c47-tag">KEYWORDS · competitor-keyword-decoder</span><strong>The words to rank for</strong><div class="c7-panel__body" data-fill="keywords"></div><p class="c47-runline" data-slot-line="keywords">Waiting for the run</p></div>
+        <div class="c7-panel c47-glass" data-on="07-5..07-7" data-slot="seo-audit"><svg class="c47-trace" aria-hidden="true"><rect x="1" y="1" width="99%" height="99%" rx="14" pathLength="100"/></svg><span class="c47-tag">SEO CHECK · Firecrawl + seo-audit</span><strong>What blocks being found</strong><div class="c7-panel__body" data-fill="seo-audit"></div><p class="c47-runline" data-slot-line="seo-audit">Waiting for the run</p></div>
+        <div class="c7-panel c47-glass" data-on="07-6..07-7" data-slot="backlink-analyzer"><svg class="c47-trace" aria-hidden="true"><rect x="1" y="1" width="99%" height="99%" rx="14" pathLength="100"/></svg><span class="c47-tag">BACKLINKS · backlink-analyzer</span><strong>A backlink is another site pointing to you</strong><div class="c7-panel__body" data-fill="backlink-analyzer"></div><p class="c47-runline" data-slot-line="backlink-analyzer">Waiting for the run</p></div>
+        <div class="c7-panel c47-glass" data-on="07-7" data-slot="geo-citability"><svg class="c47-trace" aria-hidden="true"><rect x="1" y="1" width="99%" height="99%" rx="14" pathLength="100"/></svg><span class="c47-tag">CITATIONS · geo-citability</span><strong>Citations: who the AI quotes. References: the sources your page names.</strong><div class="c7-panel__body" data-fill="geo-citability"></div><p class="c47-runline" data-slot-line="geo-citability">Waiting for the run</p></div>
+      </div>
+
+      <div class="c7-plate c7-ways" data-on="07-8">
+        <p class="c7-ways__q">Two ways to show up</p>
+        <div class="c47-gva c7-pages">
+          <div class="c47-gva__avg"><span>AVERAGE · HOMEPAGE</span><div class="c7-page c7-page--avg"><b>We are the best natural skincare</b><i></i><i></i><small>Shop now</small></div><p>Answers nothing anyone asked.</p></div>
+          <div class="c47-gva__good"><span>GOOD · ANSWER PAGE</span><div class="c7-page c7-page--good"><b>Gift sets for 20 guests: what they cost</b><p>One price table for three sizes, and the delivery dates. Sources named. An FAQ. Then “Get a quote on WhatsApp.”</p><small>FAQ · Price table · Ask us</small></div><p>Proves you know your niche.</p></div>
+        </div>
+        <p class="c7-ways__two"><b>1. Authority:</b> your site answers the questions in your niche. <b>2. Social:</b> post where competitors post, in the format that works for them.</p>
+      </div>
+
+      <div class="c7-plate c7-plan" data-on="07-9..07-10">
+        <div class="c7-plan__head"><span class="c47-tag">30/60/90 PLAN · seo-plan + blog-calendar</span><div class="c47-toggle" role="group" aria-label="Plan window"><button type="button" data-win="30" aria-pressed="true">Days 1-30</button><button type="button" data-win="60" aria-pressed="false">31-60</button><button type="button" data-win="90" aria-pressed="false">61-90</button></div></div>
+        <div class="c7-track" data-slot="seo-plan" aria-live="polite"><div class="c7-track__goal" data-fill="seo-plan"></div><ol class="c7-track__items" data-fill="blog-calendar"></ol></div>
+        <p class="c47-runline" data-slot-line="blog-calendar">Waiting for the run</p>
+        <div class="c47-glass c7-b2b" data-on="07-10"><span class="c47-tag">B2B · TUMELO</span><strong>“custom product labels Johannesburg”</strong><p>Same plan. Authority comes from LinkedIn articles on short runs and turnaround, linked back to the site.</p></div>
+      </div>
+
+      <div class="c7-plate c7-punch" data-on="07-11" aria-hidden="true"><div class="c7-punch__card"><b>Gift sets for 20 guests</b><span>Get a quote on WhatsApp</span></div></div>
+      <div class="c47-compat" hidden aria-hidden="true"><div class="website-world"></div></div>
+      <aside class="speaker-note">5:05 · Friday's post got a question back, and the customer typed it straight into a search bar. People still start on Google, or they ask ChatGPT, Copilot, Gemini, Claude or Perplexity. They trust what comes back. In my words: AI cannot go into social media all by itself. It mostly reads the web, so your website has to carry your proof. If asked: public posts can show up through Google, but AI doesn't scroll your feed or read your DMs. Three words. SEO: Google ranks you. AEO: an AI answers with you. GEO: an AI cites you. These four checks started in scene 04. Keywords: the words to rank for. SEO check: what blocks you. Backlinks: other sites pointing to you. Citations: who the AI quotes. Read each source line: live, or a tagged cached run. Two ways to show up: be the authority with an answer page, and post where competitors post, in the format that works. Then the plan: tap 30, 60 and 90. For Tumelo it is the same plan, with LinkedIn articles as authority. The answer card carries us into the next scene.</aside>
     </section>
 
     <section class="scene" data-scene="08" data-stage="convert" aria-labelledby="s08-title">
@@ -368,5 +668,7 @@
 
   <footer class="deck-controls" aria-label="Presentation controls"><div class="deck-controls__stage"><span id="stageLabel">START</span><div class="progress-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1"><span id="progressFill"></span></div><span id="sceneCount">01 / 15</span></div><div class="deck-controls__actions"><span id="autoStatus" class="auto-status" role="status" aria-live="polite" data-state="running"><i aria-hidden="true"></i><span id="autoStatusText">Moving</span></span><label class="speed-control" title="Auto-scroll speed (keys - and +)">Speed <select id="speedSelect" aria-label="Auto-scroll speed"><option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label><button type="button" id="overviewButton" aria-label="Open scene overview">Overview</button><button type="button" id="notesButton" aria-label="Toggle speaker notes" aria-pressed="false">Notes</button><button type="button" id="prevButton" aria-label="Previous scene">←</button><button type="button" id="nextButton" aria-label="Next scene">Next <span aria-hidden="true">→</span></button></div></footer>
   <dialog id="overviewDialog" class="overview-dialog" aria-labelledby="overviewTitle"><div class="overview-dialog__top"><h2 id="overviewTitle">All scenes</h2><button type="button" id="closeOverview" aria-label="Close overview">✕</button></div><div id="overviewGrid" class="overview-grid"></div></dialog>
+  <link rel="stylesheet" href="./chapters/ch-0407.css?v=1">
+  <script defer src="./chapters/ch-0407.js?v=1"></script>
 </body>
 </html>
