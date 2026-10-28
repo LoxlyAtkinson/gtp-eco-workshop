@@ -17,8 +17,8 @@
   // state, status chip and Space key stay the single source of truth.
   let pausedByUs = false;
   const autoState = () => document.getElementById('autoStatus')?.dataset.state;
-  function holdScroll() { if (autoState() === 'running') { document.getElementById('motionButton')?.click(); pausedByUs = true; } }
-  function releaseScroll() { if (pausedByUs && autoState() === 'paused') document.getElementById('motionButton')?.click(); pausedByUs = false; }
+  function holdScroll() { if (autoState() === 'running') { window.deckHold ? window.deckHold() : document.getElementById('motionButton')?.click(); pausedByUs = true; } }
+  function releaseScroll() { if (pausedByUs && ['paused', 'held'].includes(autoState())) document.getElementById('motionButton')?.click(); pausedByUs = false; }
 
   // ---- Media slots: generated media replaces the stand-in when it exists ----
   const ready = el => el.parentElement.classList.add('has-media');

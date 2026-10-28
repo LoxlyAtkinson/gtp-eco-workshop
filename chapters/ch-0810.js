@@ -34,7 +34,7 @@
   // ---- A click on an in-scene control holds the auto-scroll, like scene 02.
   // Uses the engine's own Pause control; Space or Next resumes.
   const statusEl = document.getElementById('autoStatus'), pauseBtn = document.getElementById('motionButton');
-  const hold = () => { if (statusEl?.dataset.state === 'running') pauseBtn?.click(); };
+  const hold = () => { if (statusEl?.dataset.state === 'running') window.deckHold ? window.deckHold() : pauseBtn?.click(); };
 
   // ---- Real embeds load only on a click (no third-party request before the presenter asks).
   qa(document, '.cx [data-cx-embed]').forEach(box => {

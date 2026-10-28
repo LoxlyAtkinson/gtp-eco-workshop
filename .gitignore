@@ -17,3 +17,6 @@ participant-tool-plan.md
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 /graft/
+
+# Reference clips from the owner's Pinterest and Instagram pins: local stage deck only, never committed or published (rule G6).
+assets/ref/

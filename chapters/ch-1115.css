@@ -551,3 +551,9 @@ a.c15-sitecard:hover{border-color:var(--c15-amber)}
 @media (max-width:900px){.c15-words--close{font-size:clamp(2rem,10vw,3rem)}.c15-qrcard{width:min(11rem,46%);padding:.7rem}.c15-qrcard img,.c15-qrcard__none{width:100%}.c15-qrs{flex-wrap:nowrap;gap:.6rem}}
 @media (prefers-reduced-motion:reduce){.c15-trace rect,.c15-reel__sweep,.c15-tap i{animation:none}}
 @media print{.c15 .scene__stage{position:static;height:auto;overflow:visible}.c15-beat{position:static!important;visibility:visible!important;opacity:1!important;transform:none!important}}
+
+/* Scene 11 hold: the shop-window photo drifts slowly so the held frame keeps moving. */
+@keyframes c15-drift{from{transform:scale(1.03) translate(0,0)}to{transform:scale(1.12) translate(-2%,-1.5%)}}
+html:not(.reduced) .c15-window.has-media>.c15-media{animation:c15-drift 12s ease-in-out infinite alternate}
+@media (prefers-reduced-motion:reduce){.c15-window.has-media>.c15-media{animation:none}}
+body.motion-paused .c15-window>.c15-media{animation-play-state:paused}

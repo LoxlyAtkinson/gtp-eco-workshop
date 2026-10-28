@@ -202,7 +202,9 @@
     if(event.key==='-'||event.key==='_')stepSpeed(-1);
     if(event.key==='='||event.key==='+')stepSpeed(1);
   });
-  addEventListener('hashchange',restoreSceneHash);
+  addEventListener('hashchange',()=>restoreSceneHash());
+  // Chapter scripts hold the scroll like scene 02's clicks: scroll stops, ambient motion keeps running.
+  window.deckHold=()=>{if(auto.state==='running')setAuto('held','click')};
   motionButton.addEventListener('click',()=>togglePause('button'));
   cinemaButton.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{cinemaButton.textContent='Full-screen unavailable'}});
   document.addEventListener('fullscreenchange',()=>{const full=Boolean(document.fullscreenElement);cinemaButton.setAttribute('aria-pressed',String(full));cinemaButton.setAttribute('aria-label',full?'Exit full-screen presentation':'Enter full-screen presentation');cinemaButton.innerHTML=`${full?'Exit cinema':'Cinema'} <span aria-hidden="true">${full?'↙':'⛶'}</span>`});

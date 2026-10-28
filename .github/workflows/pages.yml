@@ -43,6 +43,8 @@ jobs:
           cp -R _site/chapters _site/candidate/chapters
           cp -R _site/live-runner _site/candidate/live-runner
           cp -R _site/skills _site/candidate/skills
+          # Rule G6: the owner's reference clips (assets/ref/) are stage-deck only. Never re-host them.
+          rm -rf _site/assets/ref _site/candidate/assets/ref
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

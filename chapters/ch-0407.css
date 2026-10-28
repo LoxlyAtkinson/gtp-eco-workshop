@@ -591,3 +591,23 @@ html:not(.c47-motion) .c7-checks{grid-template-columns:1fr}
 @media screen and (max-width:900px) and (max-height:700px){.c47-motion .c4-research__card .c4-research__persona{display:none}}
 
 @media screen{.c47-motion .c7-punch.is-on .c7-punch__card b,.c47-motion .c7-punch.is-on .c7-punch__card span{animation:c47-float 3.6s 3.8s ease-in-out infinite}}
+
+/* Owner feedback 0400 (2026-10-28): stage-0800 side findings.
+   s04 hold: the verdict card no longer covers the platform wheel during the room vote.
+   s07 hold: the answer card lands below the headline and the search pill. */
+@media screen and (min-width:901px){
+  .c47-motion .c47-04[data-beat="04-11"] .c4-verdict__card{width:min(340px,25vw)}
+  .c47-motion .c47-04[data-beat="04-11"] .c4-verdict__list,.c47-motion .c47-04[data-beat="04-11"] .c4-verdict__card .c47-gva{display:none}
+  .c47-motion .c47-04[data-beat="04-11"] .c4-wheel{left:52%}
+  .c47-motion .c7-punch__card b{font-size:1.9rem}
+}
+@keyframes c47-punch{0%{transform:translateY(10vh) scale(.2);opacity:0}25%{opacity:1}100%{transform:translateY(14vh) scale(1.5);opacity:1}}
+
+/* s07 ways beat: the longer three-step line needs its own row under the two page cards (desktop). */
+@media screen and (min-width:901px){
+  .c47-motion .c7-ways__q{top:16.2rem}
+  .c47-motion .c7-pages{top:18.8rem}
+  .c47-motion .c7-page--avg i{display:none}
+  .c47-motion .c7-page__hero{max-height:64px;object-fit:cover}
+  .c47-motion .c7-ways__two{bottom:.8rem;font-size:.98rem}
+}

@@ -1525,3 +1525,7 @@ body[data-scene="01"] .chapter-rail:hover,body[data-scene="01"] .chapter-rail:fo
   .g1 *{transform:none!important;translate:none!important;scale:none!important}
   .g1-post__img>svg,.g1-sample__slot svg,.g1-thumb__slot svg,.g1-persona__hand svg{visibility:visible!important}
 }
+
+/* Owner feedback 0400 (2026-10-28): scene 03 title reads "Engage / Who's making the decision?" */
+.g1-who__with{font-size:.56em;letter-spacing:-.03em;line-height:1}
+.g1-who__q{font-size:1.3em}

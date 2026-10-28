@@ -22,7 +22,7 @@
   function hold() {
     if (!motion()) return;
     const st = document.getElementById('autoStatus');
-    if (st && st.dataset.state === 'running') document.getElementById('motionButton')?.click();
+    if (st && st.dataset.state === 'running') window.deckHold ? window.deckHold() : document.getElementById('motionButton')?.click();
   }
 
   // ---- beats: p-ranges from talk seconds, 0 to 0.92 (auto-scroll stops at 0.92) ----
@@ -78,12 +78,12 @@
   qa(document, '.c47 .c47-media').forEach((fig) => {
     const img = q(fig, 'img[data-media-slot]'), vid = q(fig, 'video[data-media-slot]');
     if (img) {
-      if (!(img.complete && img.naturalWidth)) fig.classList.add('is-missing');
+      if (!img.getAttribute('src') || (img.complete && !img.naturalWidth)) fig.classList.add('is-missing');
       img.addEventListener('load', () => fig.classList.remove('is-missing'));
       img.addEventListener('error', () => fig.classList.add('is-missing'));
     }
     if (vid) {
-      fig.classList.add('is-missing');
+      if (vid.readyState < 2) fig.classList.add('is-missing');
       vid.addEventListener('loadeddata', () => fig.classList.remove('is-missing'));
       q(vid, 'source')?.addEventListener('error', () => { fig.classList.add('is-missing'); vid.dataset.dead = '1'; });
     }

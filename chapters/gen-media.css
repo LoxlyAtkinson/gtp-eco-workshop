@@ -43,3 +43,6 @@ html.has-gen-media .g1-standin{display:none}
 
 /* Speaker notes follow experience/presentation-script.md line by line. */
 .speaker-note,#presenterNotesText{white-space:pre-line}
+
+/* Stage: builder notes about pending media are not for the audience. */
+.g1-standin{display:none!important}

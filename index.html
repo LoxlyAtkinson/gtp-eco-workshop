@@ -13,7 +13,7 @@
   <script defer src="./vendor/gsap.min.js"></script>
   <script defer src="./vendor/ScrollTrigger.min.js"></script>
   <script defer src="./vendor/Flip.min.js"></script>
-  <script defer src="./scroll-presentation.js?v=4"></script>
+  <script defer src="./scroll-presentation.js?v=5"></script>
 </head>
 <body class="deck-page">
   <a class="skip-link" href="#presentation">Skip to presentation</a>
@@ -185,7 +185,7 @@
     </section>
 
     <section class="scene g1 g1-who" data-scene="03" data-stage="engage" data-audience="b2c" data-persona="gift" aria-labelledby="s03-title">
-      <p class="g1-who__title" aria-label="Engage: with who?"><span class="g1-who__engage">Engage</span><span class="g1-who__with">with who</span><span class="g1-who__q" aria-hidden="true">?</span></p>
+      <p class="g1-who__title" aria-label="Engage: who's making the decision?"><span class="g1-who__engage">Engage</span><span class="g1-who__with">Who's making the decision</span><span class="g1-who__q" aria-hidden="true">?</span></p>
       <div class="g1-method" role="group" aria-label="How a persona is built. Jump to a step"><button type="button" data-step="gather" data-seek="0.25">Gather</button><button type="button" data-step="group" data-seek="0.6">Group</button><button type="button" data-step="describe" data-seek="0.845">Describe</button><button type="button" data-step="test" data-seek="0.93">Test</button></div>
       <div class="g1-who__hero" aria-hidden="true"><i class="g1-who__glow"></i><svg class="g1-who__bottle" data-media-slot="B1-M03" viewBox="0 0 200 440"><use href="#g1-bottle"/><image class="g1-photo" data-media-slot="amber-hero" href="./assets/gen/amber-hero.webp" x="-321" y="0" width="660" height="440" preserveAspectRatio="none" clip-path="url(#g1-capsule)"/></svg></div>
       <div class="g1-panel g1-panel--doubt">
@@ -204,7 +204,7 @@
       <p class="g1-keep"><span>Start with the people who actually <b data-verb="buy">buy</b>, <b data-verb="inquire">inquire</b>, and <b data-verb="back">come back</b>.</span></p>
       <div class="g1-panel g1-panel--gather" aria-label="The capture process">
         <div class="g1-loop" aria-label="Every sale, inquiry and repeat adds a row"><span class="g1-loop__ring" aria-hidden="true"></span><span class="g1-loop__orbit" aria-hidden="true"></span><b>Sale</b><b>Inquiry</b><b>Repeat</b><strong>+1 row</strong></div>
-        <div class="g1-survey" aria-label="Optional three-question checkout survey"><span>Optional checkout survey</span><p>Your age group? <output>35-49</output></p><p>Male or female? <output>Male</output></p><p>What’s it for? <output>A birthday gift</output></p></div>
+        <div class="g1-survey" aria-label="Optional three-question checkout survey"><span>Checkout survey: what a receipt can't tell you</span><p>Your age group? <output>35-49</output></p><p>Male or female? <output>Male</output></p><p>What’s it for? <output>A birthday gift</output></p></div>
         <div class="g1-guess-note"><p class="g1-guessing">No data? You’re guessing.</p><small class="g1-privacy">Nothing goes into a public AI. Anonymised counts only, no names.</small></div>
       </div>
       <div class="g1-write" aria-label="40-second exercise: write down your last ten customers">
@@ -261,7 +261,7 @@
           <div class="g1-audience" role="group" aria-label="Switch the example between a product brand and a business buyer"><button type="button" data-audience="b2c" aria-pressed="true">B2C · Amberkloof</button><button type="button" data-audience="b2b" aria-pressed="false">B2B · Tumelo</button></div>
         </div>
         <div class="g1-test" aria-label="Test it: check your next 10 orders against the card"><p><b>Test it</b> on your next 10 orders.</p><span class="g1-test__orders" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
-        <div class="g1-know-them"><p>Get to know them from your records.</p></div>
+        <div class="g1-know-them"><p>A receipt shows what sold. It can't show who decided to buy. The persona does.</p></div>
         <p class="g1-industries"><b>Works in any industry.</b> A salon: bookings and rebookings. A plumber: call-outs and repeat clients. A label printer: quotes and reorders.</p>
       </div>
       <p class="g1-standin g1-standin--scene">Code-drawn stand-ins · B1-M03, B1-M11a · media pending owner approval</p>
@@ -376,9 +376,9 @@ Right, your turn. I know, writing things down in a workshop feels like school. I
           <span class="c47-tag">VERDICT · AMBERKLOOF</span>
           <strong>Instagram to be seen. WhatsApp to sell. Google Business to be found. TikTok later.</strong>
           <ul class="c4-verdict__list">
-            <li class="yes"><b>Instagram</b> gift planners found you here</li>
-            <li class="yes"><b>WhatsApp</b> where the order happens</li>
-            <li class="yes"><b>Google Business</b> regulars search nearby</li>
+            <li class="yes"><b>Instagram</b> 4 in 10 orders found us here, so show the gift set here</li>
+            <li class="yes"><b>WhatsApp</b> the order happens here, so the price lives here</li>
+            <li class="yes"><b>Google Business</b> regulars search nearby, so keep hours and directions here</li>
             <li><b>Website</b> where every other channel points</li>
             <li class="later"><b>TikTok</b> later, once you can film weekly</li>
             <li class="later"><b>Facebook</b> birthday reminders, not first</li>
@@ -414,12 +414,12 @@ Consent line (read word for word): "We'll scan your public website and your publ
     <section class="scene c47 c47-05" data-scene="05" data-stage="engage" data-beats="05-1:10,05-2:30,05-3:60,05-4:50,05-5:30,05-6:35,05-7:35,05-8:15" aria-labelledby="s05-title">
       <header class="c5-head">
         <p class="c47-kicker"><b>ENGAGE</b> · WHAT?</p>
-        <h2 id="s05-title">What are they <em>engaging with?</em></h2>
+        <h2 id="s05-title">What are they <em>asking?</em></h2>
         <p class="c5-recap" aria-label="Recap"><span class="is-done">Who</span><span class="is-done">Where</span><span class="is-now">What</span></p>
       </header>
 
       <div class="c5-plate c5-mix" data-on="05-1..05-2">
-        <div class="c5-shelf"><figure class="c5-post c47-glass"><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M20" src="./assets/gen/platform-scene-instagram.webp" alt="The Amberkloof gift set post from Instagram" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><figcaption>Amberkloof's post, alone on the shelf</figcaption></figure></div>
+        <div class="c5-shelf"><figure class="c5-post c47-glass"><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M20" src="./assets/gen/platform-scene-instagram.webp" alt="The Amberkloof gift set post from Instagram" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><figcaption>The post the order came from: Amberkloof on Instagram</figcaption></figure></div>
         <div class="c47-glass c5-mix__card" data-on="05-2">
           <span class="c47-tag">WHAT DO YOU GIVE THEM?</span>
           <div class="c47-toggle" role="group" aria-label="Type of post"><button type="button" data-mix="edu" aria-pressed="true">Education</button><button type="button" data-mix="promo" aria-pressed="false">Promotion</button></div>
@@ -433,7 +433,7 @@ Consent line (read word for word): "We'll scan your public website and your publ
       </div>
 
       <div class="c5-plate c5-scan" data-on="05-3..05-5">
-        <div class="c5-scan__head"><span class="c47-tag">COMPETITOR SCAN · FROM THE QUESTIONNAIRE</span><p class="c47-runline" data-slot-line="competitor-scan">Waiting for the run</p></div>
+        <div class="c5-scan__head"><span class="c47-tag">COMPETITOR ANALYSIS · DONE WITH AI</span><p class="c47-runline" data-slot-line="competitor-scan">Waiting for the run</p></div>
         <div class="c5-cards" id="c5Cards" data-slot="competitor-scan" aria-live="polite"></div>
         <div class="c5-recipe" data-on="05-4" aria-label="The top post split into its recipe">
           <p class="c5-recipe__q">What really drives their engagement?</p>
@@ -498,8 +498,8 @@ Consent line (read word for word): "We'll scan your public website and your publ
           <article class="c6-out c47-glass" style="--k:0"><span class="c47-tag">3 POST IDEAS</span><ol data-fill="ideas"><li>Waiting for the content run</li></ol></article>
           <article class="c6-out c47-glass" style="--k:1"><span class="c47-tag">CAPTION</span><p data-fill="caption">Waiting for the content run</p></article>
           <article class="c6-out c47-glass" style="--k:2"><span class="c47-tag">PRODUCT DESCRIPTION</span><p data-fill="product">Waiting for the content run</p></article>
-          <article class="c6-out c47-glass" style="--k:3"><span class="c47-tag">SIMPLE VISUAL</span><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26b" src="./assets/gen/amber-family.webp" alt="The face oil bottle floating with marula and rooibos, studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></article>
-          <article class="c6-out c47-glass" style="--k:4"><span class="c47-tag">8 S SHORT VIDEO</span><figure class="c47-media c47-media--tall"><video data-media-slot="B2-M27" muted loop playsinline preload="auto" poster="./assets/gen/vid-ad-good-poster.jpg" aria-label="The gift box lid lifts and the products rise and float"><source src="./assets/gen/vid-ad-good.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure></article>
+          <article class="c6-out c47-glass" style="--k:3"><span class="c47-tag">FEED POST · STILL IMAGE</span><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26b" src="./assets/gen/amber-family.webp" alt="The face oil bottle floating with marula and rooibos, studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></article>
+          <article class="c6-out c47-glass" style="--k:4"><span class="c47-tag">8 S VIDEO · TIKTOK, REELS</span><figure class="c47-media c47-media--tall"><video data-media-slot="B2-M27" muted loop playsinline preload="auto" poster="./assets/gen/vid-ad-good-poster.jpg" aria-label="The gift box lid lifts and the products rise and float"><source src="./assets/gen/vid-ad-good.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure></article>
         </div>
         <p class="c47-runline c6-runline" data-slot-line="content">Waiting for the run</p>
       </div>
@@ -522,7 +522,7 @@ Consent line (read word for word): "We'll scan your public website and your publ
         </div>
         <div class="c6-media-flip" data-on="06-5"><div class="c47-toggle" role="group" aria-label="Graphics or with media"><button type="button" data-flip="graphic" aria-pressed="true">Graphics</button><button type="button" data-flip="media" aria-pressed="false">With media</button></div><div class="c6-flip"><div class="c6-flip__graphic" data-flip-ex="graphic"><b>LAUNCH</b><span>Marula Face Oil</span></div><figure class="c47-media c47-media--sq c6-flip__media" data-flip-ex="media"><img data-media-slot="B2-M26b" src="./assets/gen/amber-family.webp" alt="The real product photo used in the same layout" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><figcaption>LAUNCH · Marula Face Oil</figcaption></figure></div></div>
         <ol class="c6-habits" data-on="06-6" aria-label="Five habits from the claude-video-studio skill"><li><b>Style</b><span>pick one look</span></li><li><b>References</b><span>use real ones</span></li><li><b>Numbers</b><span>write the brief in numbers</span></li><li><b>Loop</b><span>decide if it loops</span></li><li><b>Frames</b><span>check frames, not code</span></li></ol>
-        <figure class="c47-media c47-media--tall c6-clip" data-on="06-6"><video data-media-slot="B2-M29" muted loop playsinline preload="none" aria-label="A short clip rendered with claude-video-studio"><source data-pending-src="./assets/gen/B2-M29.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><figcaption>claude-video-studio clip</figcaption></figure>
+        <figure class="c47-media c47-media--tall c6-clip" data-on="06-6"><video data-media-slot="B2-M29" muted loop playsinline preload="none" poster="./assets/gen/vid-amber-float-poster.jpg" aria-label="A short product clip made with AI"><source src="./assets/gen/vid-amber-float.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><figcaption>Short clip made with AI</figcaption></figure>
       </div>
 
       <div class="c6-plate c6-system" data-on="06-7">
@@ -533,7 +533,7 @@ Consent line (read word for word): "We'll scan your public website and your publ
           <i class="c6-flow__arrow" aria-hidden="true"></i>
           <div class="c6-flow__out c6-asset"><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26b" src="./assets/gen/amber-family.webp" alt="An on-brand Amberkloof post made from the guideline" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure><p class="c6-asset__line">Two drops at night. That's it.</p><span class="c47-tag">ONE ON-BRAND POST</span></div>
         </div>
-        <p class="c6-system__line">This is how AI learns your look and your voice.</p>
+        <p class="c6-system__line">Give AI your own posts and your voice rules. Then it writes like you.</p>
         <p class="c47-source">Real run: Amberkloof Design System, built on the Claude Design System type (private artifact, 14 colour tokens, 2 type families).</p>
       </div>
 
@@ -582,8 +582,8 @@ Consent line (read word for word): "We'll scan your public website and your publ
       </div>
 
       <div class="c6-plate c6-week" data-on="06-14..06-15">
-        <span class="c47-tag c6-week__tag">THE HABIT · EVERY WEEKDAY MORNING, 15 MINUTES</span>
-        <p class="c6-week__steps"><b>Brief</b> 5 min · <b>Draft</b> 4 min · <b>Your edit</b> 4 min · <b>Schedule</b> 2 min</p>
+        <span class="c47-tag c6-week__tag">ONE QUICK LOOP · MINUTES, NOT A WEEK OF WORK</span>
+        <p class="c6-week__steps"><b>Listen</b> → <b>Write the question</b> → <b>Draft with AI</b> → <b>Check</b> → <b>Post in your voice</b> → <b>Measure</b></p>
         <ol class="c6-days">
           <li><b>MON</b><strong>Education</strong><span>from the trend brief</span></li>
           <li><b>TUE</b><strong>Stories</strong><span>behind the batch</span></li>
@@ -650,16 +650,16 @@ Consent line (read word for word): "We'll scan your public website and your publ
       </div>
 
       <div class="c7-plate c7-ways" data-on="07-8">
-        <p class="c7-ways__q">Two ways to show up</p>
+        <p class="c7-ways__q">Which page gets found?</p>
         <div class="c47-gva c7-pages">
           <div class="c47-gva__avg"><span>AVERAGE · HOMEPAGE</span><div class="c7-page c7-page--avg"><img class="c7-page__hero" data-media-slot="average-site-hero" src="./assets/gen/average-site-hero.webp" alt="" loading="lazy" onerror="this.remove()"><b>We are the best natural skincare</b><i></i><i></i><small>Shop now</small></div><p>Answers nothing anyone asked.</p></div>
-          <div class="c47-gva__good"><span>GOOD · ANSWER PAGE</span><div class="c7-page c7-page--good"><b>Gift sets for 20 guests: what they cost</b><p>One price table for three sizes, and the delivery dates. Sources named. An FAQ. Then “Get a quote on WhatsApp.”</p><small>FAQ · Price table · Ask us</small></div><p>Proves you know your niche.</p></div>
+          <div class="c47-gva__good"><span>GOOD · ANSWER PAGE</span><div class="c7-page c7-page--good"><b>Gift sets for 20 guests: what they cost</b><p>The answer sits at the top: prices for three sizes and the delivery dates. Then an FAQ, and “Get a quote on WhatsApp.”</p><small>FAQ · Price table · Ask us</small></div><p>Proves you know your niche.</p></div>
         </div>
-        <p class="c7-ways__two"><b>1. Authority:</b> your site answers the questions in your niche. <b>2. Social:</b> post where competitors post, in the format that works for them.</p>
+        <p class="c7-ways__two"><b>1. Research</b> what people ask Google and AI. <b>2. Answer near the top</b>, so people and AI find it fast. <b>3. Measure and refresh:</b> SEO takes months to sink in. A post fades once people stop seeing it. A page keeps working.</p>
       </div>
 
       <div class="c7-plate c7-plan" data-on="07-9..07-10">
-        <div class="c7-plan__head"><span class="c47-tag">30/60/90 PLAN · seo-plan + blog-calendar</span><div class="c47-toggle" role="group" aria-label="Plan window"><button type="button" data-win="30" aria-pressed="true">Days 1-30</button><button type="button" data-win="60" aria-pressed="false">31-60</button><button type="button" data-win="90" aria-pressed="false">61-90</button></div></div>
+        <div class="c7-plan__head"><span class="c47-tag">90-DAY WEBSITE PLAN · BLOGS AND LANDING PAGES · ADJUST AS THE MARKET SHIFTS</span><div class="c47-toggle" role="group" aria-label="Plan window"><button type="button" data-win="30" aria-pressed="true">Days 1-30</button><button type="button" data-win="60" aria-pressed="false">31-60</button><button type="button" data-win="90" aria-pressed="false">61-90</button></div></div>
         <div class="c7-track" data-slot="seo-plan" aria-live="polite"><div class="c7-track__goal" data-fill="seo-plan"></div><ol class="c7-track__items" data-fill="blog-calendar"></ol></div>
         <p class="c47-runline" data-slot-line="blog-calendar">Waiting for the run</p>
         <div class="c47-glass c7-b2b" data-on="07-10"><span class="c47-tag">B2B · TUMELO</span><strong>“custom product labels Johannesburg”</strong><p>Same plan. Authority comes from LinkedIn articles on short runs and turnaround, linked back to the site.</p></div>
@@ -745,7 +745,7 @@ Consent line (read word for word): "We'll scan your public website and your publ
           <label>Email <output data-type="lerato.d@example.com">lerato.d@example.com</output></label>
           <label>WhatsApp <output data-type="082 000 0000">082 000 0000</output></label>
         </form>
-        <p class="cx08-helper__line" data-at="0.33">It answered her question before it asked for anything.</p>
+        <p class="cx08-helper__line" data-at="0.33">It answered her question before it asked for anything. This works on your website, not in a social media ad.</p>
       </div>
 
       <div class="cx08-dwell" data-in="0.375" data-out="0.475" aria-label="Dwell-time offer of help">
@@ -865,7 +865,7 @@ Consent line (read word for word): "We'll scan your public website and your publ
       </div>
 
       <div class="cx09-clock" data-in="0.207" data-out="0.295" aria-label="Response clock: a helpful reply in minutes against a vague reply in days">
-        <p class="cx-kicker">Reply fast, and say something useful</p>
+        <p class="cx-kicker">Interact with the correct answer, fast</p>
         <p class="cx09-clock__ask cx-bubble cx-bubble--me">How much is the gift set? I need it by Friday.</p>
         <div class="cx09-clock__pair">
           <div class="cx09-dial cx09-dial--good cx-glass"><i class="cx09-dial__face" aria-hidden="true"><i></i></i><b>2 minutes</b><p class="cx09-dial__reply">"R450, wrapped. Order by Thursday noon and it arrives Friday in Pretoria. Shall I send the payment link?"</p><span class="cx-verdict-tag cx-verdict-tag--good">Good</span></div>
@@ -1090,6 +1090,17 @@ Consent line (read word for word): "We'll scan your public website and your publ
       <div class="c15-beat c15-pullback" data-beat="11-10">
         <aside class="c15-ref"><span>Reference R5 · the look we studied</span><strong>A floating-product ad pinned by the presenter</strong><a href="https://pin.it/2vF0x5b22" target="_blank" rel="noopener noreferrer">pin.it/2vF0x5b22 ↗</a><small>Ideas, not assets. Our stage is drawn fresh.</small></aside>
         <div class="c15-window" data-media-slot="B4-M44"><img class="c15-media" src="./assets/gen/platform-scene-google.webp" alt="" loading="lazy"><div class="c15-window__standin" aria-hidden="true"><i class="c15-window__glow"></i><i class="c15-window__step"></i><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div><span class="c15-window__label">Dusk. The stage was a shop window all along.</span></div>
+        <section class="rc-strip" aria-labelledby="rc-title">
+          <p class="rc-strip__head"><strong id="rc-title">What good looks like</strong><span>Five clips the presenter pinned · tap one to play it large</span></p>
+          <ul class="rc-tiles">
+            <li><figure class="rc-tile" data-src="./assets/ref/r1.mp4" data-tile="./assets/ref/r1-tile.mp4" data-poster="./assets/ref/r1.jpg" data-url="https://www.instagram.com/reel/DXY10quRTFX/"><button type="button" class="rc-tile__play" aria-label="Play the iAnanas furniture reel large"></button><figcaption><b>Products float out of the phone in one slow camera move</b><small>Instagram reel posted by @iananaseu (iAnanas). Video maker not named.</small><a href="https://www.instagram.com/reel/DXY10quRTFX/" target="_blank" rel="noopener noreferrer">Source ↗</a></figcaption></figure></li>
+            <li><figure class="rc-tile" data-src="./assets/ref/r2.mp4" data-tile="./assets/ref/r2-tile.mp4" data-poster="./assets/ref/r2.jpg" data-url="https://pin.it/nLmUKwOs8"><button type="button" class="rc-tile__play" aria-label="Play the brand carousel clip large"></button><figcaption><b>Each click walks you to the next set of brands</b><small>Pinterest pin, reposted by RCALL Services (@rcall_services). Original maker unclear.</small><a href="https://pin.it/nLmUKwOs8" target="_blank" rel="noopener noreferrer">Source ↗</a></figcaption></figure></li>
+            <li><figure class="rc-tile" data-src="./assets/ref/r3.mp4" data-tile="./assets/ref/r3-tile.mp4" data-poster="./assets/ref/r3.jpg" data-url="https://pin.it/3NZhbCHeH"><button type="button" class="rc-tile__play" aria-label="Play the Eirmon Solutions agency ad large"></button><figcaption><b>The story is told through the transitions</b><small>Pinterest pin uploaded by Eirmon Solutions (@eirmonsolution).</small><a href="https://pin.it/3NZhbCHeH" target="_blank" rel="noopener noreferrer">Source ↗</a></figcaption></figure></li>
+            <li><figure class="rc-tile" data-src="./assets/ref/r4.mp4" data-tile="./assets/ref/r4-tile.mp4" data-poster="./assets/ref/r4.jpg" data-url="https://pin.it/9JJqfW1Yx"><button type="button" class="rc-tile__play" aria-label="Play the lead-generating website ad large"></button><figcaption><b>How each frame flows into the next</b><small>Pinterest pin uploaded by mrwebsolutionsofficial.</small><a href="https://pin.it/9JJqfW1Yx" target="_blank" rel="noopener noreferrer">Source ↗</a></figcaption></figure></li>
+            <li><figure class="rc-tile" data-src="./assets/ref/r5.mp4" data-tile="./assets/ref/r5-tile.mp4" data-poster="./assets/ref/r5.jpg" data-url="https://pin.it/2vF0x5b22"><button type="button" class="rc-tile__play" aria-label="Play the 3D fashion app clip large"></button><figcaption><b>3D products floating, one hero at a time</b><small>Pinterest pin uploaded by emaniqbal540. Made with Google Flow (AI).</small><a href="https://pin.it/2vF0x5b22" target="_blank" rel="noopener noreferrer">Source ↗</a></figcaption></figure></li>
+          </ul>
+          <p class="rc-strip__fine">Shown in the room to teach. Each clip belongs to the account named under it; tap Source for the original.</p>
+        </section>
       </div>
       <p class="g1-standin c15-standin">Stand-ins until media lands · B4-M40, M41, M42, M44, M46, M47, M48</p>
       <aside class="speaker-note">4:05 · • New here: the second AI. Attract and Interact. Why people choose what looks good, and the five layers that turn a flat photo into an ad people stop for.
@@ -1414,13 +1425,15 @@ Be found. Be chosen. Keep learning. Thank you."
 
   <footer class="deck-controls" aria-label="Presentation controls"><div class="deck-controls__stage"><span id="stageLabel">START</span><div class="progress-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1"><span id="progressFill"></span></div><span id="sceneCount">01 / 15</span></div><div class="deck-controls__actions"><span id="autoStatus" class="auto-status" role="status" aria-live="polite" data-state="running"><i aria-hidden="true"></i><span id="autoStatusText">Moving</span></span><label class="speed-control" title="Auto-scroll speed (keys - and +)">Speed <select id="speedSelect" aria-label="Auto-scroll speed"><option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label><button type="button" id="overviewButton" aria-label="Open scene overview">Overview</button><button type="button" id="notesButton" aria-label="Toggle speaker notes" aria-pressed="false">Notes</button><button type="button" id="prevButton" aria-label="Previous scene">←</button><button type="button" id="nextButton" aria-label="Next scene">Next <span aria-hidden="true">→</span></button></div></footer>
   <dialog id="overviewDialog" class="overview-dialog" aria-labelledby="overviewTitle"><div class="overview-dialog__top"><h2 id="overviewTitle">All scenes</h2><button type="button" id="closeOverview" aria-label="Close overview">✕</button></div><div id="overviewGrid" class="overview-grid"></div></dialog>
-  <link rel="stylesheet" href="./chapters/ch-0407.css?v=2">
-  <script defer src="./chapters/ch-0407.js?v=1"></script>
+  <link rel="stylesheet" href="./chapters/ch-0407.css?v=3">
+  <script defer src="./chapters/ch-0407.js?v=3"></script>
   <link rel="stylesheet" href="./chapters/ch-0810.css?v=2">
-  <script defer src="./chapters/ch-0810.js?v=1"></script>
-  <link rel="stylesheet" href="./chapters/ch-1115.css?v=2">
-  <script defer src="./chapters/ch-1115.js?v=1"></script>
-  <link rel="stylesheet" href="./chapters/gen-media.css?v=1">
+  <script defer src="./chapters/ch-0810.js?v=2"></script>
+  <link rel="stylesheet" href="./chapters/ch-1115.css?v=3">
+  <script defer src="./chapters/ch-1115.js?v=2"></script>
+  <link rel="stylesheet" href="./chapters/gen-media.css?v=2">
   <script defer src="./chapters/gen-media.js?v=1"></script>
+  <link rel="stylesheet" href="./chapters/ref-clips.css?v=1">
+  <script defer src="./chapters/ref-clips.js?v=1"></script>
 </body>
 </html>
