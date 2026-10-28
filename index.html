@@ -13,7 +13,7 @@
   <script defer src="./vendor/gsap.min.js"></script>
   <script defer src="./vendor/ScrollTrigger.min.js"></script>
   <script defer src="./vendor/Flip.min.js"></script>
-  <script defer src="./scroll-presentation.js?v=3"></script>
+  <script defer src="./scroll-presentation.js?v=4"></script>
 </head>
 <body class="deck-page">
   <a class="skip-link" href="#presentation">Skip to presentation</a>
@@ -36,6 +36,7 @@
         <linearGradient id="g1-bulb" x1="0" x2="1"><stop offset="0" stop-color="#5e3313"/><stop offset=".45" stop-color="#c27c3e"/><stop offset="1" stop-color="#4f2a10"/></linearGradient>
         <linearGradient id="g1-kraft" x1="0" x2="1"><stop offset="0" stop-color="#a3845b"/><stop offset=".5" stop-color="#dcc196"/><stop offset="1" stop-color="#977851"/></linearGradient>
         <radialGradient id="g1-gold" cx=".4" cy=".6" r=".7"><stop offset="0" stop-color="#ffe9a8"/><stop offset=".6" stop-color="#e3a63c"/><stop offset="1" stop-color="#9c5f12"/></radialGradient>
+        <clipPath id="g1-capsule"><rect x="2" y="2" width="196" height="436" rx="98"/></clipPath>
         <clipPath id="g1-label-clip"><rect x="22" y="250" width="156" height="92"/></clipPath>
       </defs>
       <symbol id="g1-bottle" viewBox="0 0 200 440">
@@ -75,6 +76,7 @@
         <div class="g1-open__opener"><span>Show of hands</span><strong>Who posted this month and still can’t say which post brought in a customer?</strong></div>
       </div>
       <figure class="g1-hero" aria-label="Amberkloof Marula Face Oil, a made-up demo product that follows us through the hour">
+        <video class="g1-gen g1-gen--hero" data-media-slot="vid-hero-loop" src="./assets/gen/vid-hero-loop.mp4" poster="./assets/gen/amber-hero.webp" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
         <div class="g1-hero__plinth" aria-hidden="true"></div>
         <div class="g1-hero__orbit" aria-hidden="true"><i data-eco-dot="engage">E</i><i data-eco-dot="convert">C</i><i data-eco-dot="optimize">O</i></div>
         <svg class="g1-hero__bottle" data-media-slot="B1-M03" data-media-alt-slot="B1-M04" viewBox="0 0 200 440" aria-hidden="true">
@@ -105,13 +107,22 @@
         <figcaption class="g1-brandtag"><b>Amberkloof</b> Marula Face Oil · a demo brand made up for today</figcaption>
       </figure>
       <p class="g1-standin g1-standin--scene">Code-drawn stand-ins · B1-M01, M03, M09a-c, M10 · media pending owner approval</p>
-      <aside class="speaker-note">2:00 · Pick an opener. We choose the final one together. (A) A question: “Quick show of hands. Who’s posted on three platforms this month and still can’t tell you which one brought in a customer? Keep your hand up for a second. Look around. If your hand is up, mine would be too. That’s what the next hour is for.” (B) The product: “This bottle isn’t real. Amberkloof is a brand we made up for today. In the next hour we’ll work out who buys it and where those people spend their time. We’ll trace how a like turns into a sale. Then we do it for real, with one of your businesses.” (C) A challenge: “Hands up if you know who your best customer is. Now keep it up if you could prove it from your records. Orders, WhatsApp messages, people who came back. Okay. If your hand came down, you’re in good company. That gap is what we’re working on today.” Then just talk. The page moves on its own. It stops just before “Growth is a loop” and waits for you. Press Next when you’re ready. Space pauses it, and Space again starts it.</aside>
+      <aside class="speaker-note">2:00 · • New here: the promise of the hour, and the one product that carries it.
+• On screen: the bottle on a stone plinth in a dark warm studio; "Sales, Marketing and AI" top left; the three lines land one by one.
+01-1 · 0:10 [Arrive. Say nothing for three seconds. Let the bottle land.]
+01-2 · 0:29 "Morning, everyone. I'm [your name]. Today is about sales, marketing and AI, for businesses like yours. Three lines on the screen. Be found. Be chosen. Keep learning. If you walk out knowing how to do those three for your own business, this was worth your morning."
+01-3 · 0:33 [The bottle turns.] "And this is our guest for the hour. Amberkloof marula face oil, from a small body-care brand in Pretoria East. Two people and a part-time packer. It's a brand we made up for today, so nobody's real secrets are on the screen. Watch this bottle. It follows us all the way through."
+[If you picked opener B, say B here instead, and use A's show of hands at 01-4.]
+01-4 · 0:26 [The opener card fades up.] Say your opener (A or C).
+• [ASK] The opener is this scene's question.
+01-5 · 0:22 [E, C and O start to orbit the bottle.] "So how does a business get found, get chosen, and keep getting better at it? It's a loop. Three letters. E, C, O. Let's open it up."
+[NEXT when the page stops.]</aside>
     </section>
 
     <section class="scene g1 g1-eco" data-scene="02" data-stage="map" aria-labelledby="s02-title">
       <div class="g1-eco__head"><h2 id="s02-title">Growth is a loop.<br><em>Make each turn useful.</em></h2></div>
       <div class="g1-eco__ring" aria-hidden="true"><i class="g1-eco__track"></i><i class="g1-eco__comet"></i></div>
-      <div class="g1-eco__corebox" aria-hidden="true"><svg class="g1-eco__core" data-media-slot="B1-M03" viewBox="0 0 200 440"><use href="#g1-bottle"/></svg></div>
+      <div class="g1-eco__corebox" aria-hidden="true"><svg class="g1-eco__core" data-media-slot="B1-M03" viewBox="0 0 200 440"><use href="#g1-bottle"/><image class="g1-photo" data-media-slot="amber-hero" href="./assets/gen/amber-hero.webp" x="-321" y="0" width="660" height="440" preserveAspectRatio="none" clip-path="url(#g1-capsule)"/></svg></div>
       <p class="g1-eco__hint" aria-hidden="true"><i></i>Click a word</p>
       <div class="g1-eco__words" role="group" aria-label="Choose Engage, Convert or Optimize">
         <button type="button" class="g1-word" data-eco="engage" aria-pressed="false"><small>01</small><span>Engage</span></button>
@@ -128,7 +139,7 @@
             <div class="g1-catalyst"><b>A story</b><i>→</i><span class="g1-react"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z" fill="currentColor"/></svg>Save</span></div>
           </div>
           <figure class="g1-post" aria-label="Example Amberkloof post with a customer comment">
-            <div class="g1-post__img" data-core-slot="engage"><svg viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><span class="g1-floaters" aria-hidden="true"><i class="g1-fl g1-fl--like"></i><i class="g1-fl g1-fl--comment"></i><i class="g1-fl g1-fl--like"></i><i class="g1-fl g1-fl--save"></i><i class="g1-fl g1-fl--msg"></i></span></div>
+            <div class="g1-post__img" data-core-slot="engage"><img class="g1-gen g1-gen--post" data-media-slot="platform-scene-instagram" src="./assets/gen/platform-scene-instagram.webp" alt="" loading="lazy"><svg viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><span class="g1-floaters" aria-hidden="true"><i class="g1-fl g1-fl--like"></i><i class="g1-fl g1-fl--comment"></i><i class="g1-fl g1-fl--like"></i><i class="g1-fl g1-fl--save"></i><i class="g1-fl g1-fl--msg"></i></span></div>
             <figcaption><b>amberkloof</b> Two drops at night. That’s it.</figcaption>
             <p class="g1-post__stats" aria-label="Illustrative reactions: 240 likes, 18 comments, 11 messages"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21 3.5 12.5A5 5 0 0 1 12 6a5 5 0 0 1 8.5 6.5z" fill="currentColor"/></svg><b data-count="240">240</b></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="currentColor"/></svg><b data-count="18">18</b></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4l18 8-18 8 3-8z" fill="currentColor"/></svg><b data-count="11">11</b></span></p>
             <p class="g1-post__comment"><b>@thandi.m</b> Is this OK for sensitive skin?</p>
@@ -163,13 +174,20 @@
       </div>
       <div class="g1-sr-only" id="ecoFeedback" role="status">All three are connected. Select one to bring it into focus.</div>
       <p class="g1-standin g1-standin--scene">Code-drawn stand-in · B1-M03 · media pending owner approval</p>
-      <aside class="speaker-note">3:00 · Start with all three words on screen: Engage, Convert, Optimize. The scroll moves Engage to the middle first, or you click it. Engage: what makes people respond? So ask the room what their customers react to. A question answered, a striking picture, an offer, a story. Point at the comment: “Is this OK for sensitive skin?” That’s engagement. Click Convert. Engagement got their attention, so while we have it, we give them a clear next step. And here’s the catch: we can’t convert people we don’t know. Start small: name, surname, email. Two tactics. One, get their details while they’re engaging. Two, offer something of value, like Amberkloof’s free 5 ml sample. Click Optimize. We measure both ends. Failures: posts nobody engaged with, and posts people liked but nobody asked about. Successes: posts that did both. Then ask why it worked, and to whom. To whom is the one that matters most. A click holds the scene on that word. Press Next when you’re done with Optimize.</aside>
+      <aside class="speaker-note">3:00 · • New here: the ECO loop. Engage, Convert, Optimize, and what each one means.
+• On screen: the three words orbit the bottle on a ring; each one swings to the centre when clicked.
+02-1 · 0:23 "Growth is a loop. Make each turn useful. We call it ECO. Engage, Convert, Optimize. Every business already runs this loop, whether they know it or not. Today we run it on purpose."
+02-2 · 0:55 [CLICK Engage, or let it swing in.] "Engage first. Engagement is anything that makes people respond to you. A like. A comment. A save. A message. And what makes them respond? Usually one of four things. A question answered. A striking picture. An offer. A story. Look at that comment: 'Is this OK for sensitive skin?' That's engagement. Somebody cared enough to ask."
+• [ASK] "Think of your last post that did well. What did people react to? The question, the picture, the offer or the story? Shout it out."
+02-3 · 0:59 [CLICK Convert.] "Convert comes right after. Engagement got their attention. So while you have it, give them a clear next step. And here's the catch. You can't convert people you don't know. So it starts small. A name. A surname. An email. Two ways to get it. One, ask for their details while they're engaging with you. Two, give them something worth having. Amberkloof gives a free 5 ml sample for an email address. Fair swap."
+02-4 · 0:43 [CLICK Optimize.] "Then Optimize. We measure both ends. Failures: the posts nobody engaged with. And the sneaky ones, the posts people liked, but nobody bought from. Successes: the posts that did both. Then two questions. Why did it work? And to whom? To whom is the big one. So that's where we start."
+[NEXT. The "to whom" chip punches through into the next scene.]</aside>
     </section>
 
     <section class="scene g1 g1-who" data-scene="03" data-stage="engage" data-audience="b2c" data-persona="gift" aria-labelledby="s03-title">
       <p class="g1-who__title" aria-label="Engage: with who?"><span class="g1-who__engage">Engage</span><span class="g1-who__with">with who</span><span class="g1-who__q" aria-hidden="true">?</span></p>
       <div class="g1-method" role="group" aria-label="How a persona is built. Jump to a step"><button type="button" data-step="gather" data-seek="0.25">Gather</button><button type="button" data-step="group" data-seek="0.6">Group</button><button type="button" data-step="describe" data-seek="0.845">Describe</button><button type="button" data-step="test" data-seek="0.93">Test</button></div>
-      <div class="g1-who__hero" aria-hidden="true"><i class="g1-who__glow"></i><svg class="g1-who__bottle" data-media-slot="B1-M03" viewBox="0 0 200 440"><use href="#g1-bottle"/></svg></div>
+      <div class="g1-who__hero" aria-hidden="true"><i class="g1-who__glow"></i><svg class="g1-who__bottle" data-media-slot="B1-M03" viewBox="0 0 200 440"><use href="#g1-bottle"/><image class="g1-photo" data-media-slot="amber-hero" href="./assets/gen/amber-hero.webp" x="-321" y="0" width="660" height="440" preserveAspectRatio="none" clip-path="url(#g1-capsule)"/></svg></div>
       <div class="g1-panel g1-panel--doubt">
         <div class="g1-doubt__text"><h2 id="s03-title">Do you really know who buys from you?</h2><p class="g1-doubt__sub">You probably don’t know your ideal customer yet. Most owners don’t.</p><p class="g1-doubt__icp">Your ideal customer profile (ICP) comes from your records, not a feeling.</p></div>
       </div>
@@ -221,7 +239,7 @@
       </div>
       <div class="g1-panel g1-panel--persona">
         <div class="g1-persona" aria-live="polite">
-          <div class="g1-persona__pic" data-media-slot="B1-M11a" role="img" aria-label="Placeholder for a customer picture: a man in his forties at an office desk with a wrapped gift box"><span class="g1-persona__halo" aria-hidden="true"></span><i class="g1-persona__head"></i><i class="g1-persona__body"></i><span class="g1-persona__hand" aria-hidden="true"><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></span><span class="g1-standin g1-standin--pic">Picture pending · B1-M11a</span></div>
+          <div class="g1-persona__pic" data-media-slot="B1-M11a" role="img" aria-label="Placeholder for a customer picture: a man in his forties at an office desk with a wrapped gift box"><span class="g1-persona__halo" aria-hidden="true"></span><img class="g1-gen g1-gen--persona" data-persona-pic="gift" data-media-slot="persona-gift-planner" src="./assets/gen/persona-gift-planner.webp" alt=""><img class="g1-gen g1-gen--persona" data-persona-pic="self" data-media-slot="persona-selfcare-regular" src="./assets/gen/persona-selfcare-regular.webp" alt=""><img class="g1-gen g1-gen--persona" data-persona-pic="spa" data-media-slot="persona-guesthouse" src="./assets/gen/persona-guesthouse.webp" alt=""><img class="g1-gen g1-gen--persona" data-persona-pic="b2b" data-media-slot="tumelo-hero" src="./assets/gen/tumelo-hero.webp" alt=""><i class="g1-persona__head"></i><i class="g1-persona__body"></i><span class="g1-persona__hand" aria-hidden="true"><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></span><span class="g1-standin g1-standin--pic">Picture pending · B1-M11a</span></div>
           <div class="g1-persona__body-copy" data-audience-card="b2c" data-persona-card="gift">
             <span>ICP · Illustrative sample, not research</span><h3>The Gift Planner</h3>
             <dl><div><dt>Age group</dt><dd>35-49</dd></div><div><dt>Sex</dt><dd><span class="g1-split" style="--split:71%" role="img" aria-label="Men 71 percent, women 29 percent"><i></i></span>Men 71% · Women 29% <small>checkout survey</small></dd></div><div><dt>Area</dt><dd>Midrand and Centurion</dd></div><div><dt>Circumstances</dt><dd>Busy, buys gifts twice a year, wants it wrapped and delivered</dd></div><div><dt>Found us on</dt><dd>Instagram, orders on WhatsApp</dd></div><div class="g1-race"><dt>Race</dt><dd>Only if they tell you</dd></div></dl>
@@ -247,7 +265,18 @@
         <p class="g1-industries"><b>Works in any industry.</b> A salon: bookings and rebookings. A plumber: call-outs and repeat clients. A label printer: quotes and reorders.</p>
       </div>
       <p class="g1-standin g1-standin--scene">Code-drawn stand-ins · B1-M03, B1-M11a · media pending owner approval</p>
-      <aside class="speaker-note">5:30 · Let the title build, and say it with it: “Engage… with who?” Then ask the room: “Who here knows exactly who their best customer is?” If you do, kudos to you. Most of us don’t, and I include myself. The card on screen is what most of us carry around: a feeling. A guess. And a guess is a fine place to start, as long as we test it against our records. Read the line on screen word for word: “Start with the people who actually buy, inquire, and come back.” Gather first: every sale, every inquiry, every repeat order adds a row. A short, optional checkout survey fills in age group, sex and what it’s for. No data? Then we’re guessing. And nothing goes into a public AI, only counts with no names. Then the exercise, 40 seconds: write down your last ten customers and one thing they have in common. The timer starts by itself and holds the page. At zero it moves on. Space skips it. Now watch the records land: buy, inquire, come back. They pour into the bottle’s label and become the table. Group: the rows sort into three groups. Notice the biggest group isn’t who the owner guessed. Describe: the card at the end is the ideal customer profile, the ICP. Age group, sex as a split from the survey (71% men in this sample), area, circumstances, and where they found us. Race only if customers tell us themselves. Under POPIA it’s special personal information, so we never guess it. Tap any group to open its card. Test: check the next ten orders against the card. Tap B2B to show the same method for Tumelo Print &amp; Pack.</aside>
+      <aside class="speaker-note">5:45 · • New here: you probably don't know your best customer yet. Gather the data, group it, and the customer profile comes from records, not a feeling.
+• On screen: ENGAGE, WITH WHO, a giant question mark; the assumption card; the data table; three groups; the persona card.
+03-1 · 0:43 [Let the title build and say it with it.] "Engage... with who? [Let the question mark land.] Before we post anything, we need to know who we're talking to. The proper name is your ideal customer profile. ICP. All it means is a clear picture of the people who buy from you."
+03-2 · 0:43 "So let me ask. Do you really know who buys from you? If you do, kudos to you. Most of us don't, and I include myself. Amberkloof's owner was sure. 'Our customer is women 25 to 34 who love natural skincare.' [The stamp lands.] That's a feeling. A guess. And a guess is a fine place to start, as long as we test it."
+03-3 · 1:15 "So how do we test it? Read it with me. 'Start with the people who actually buy, inquire, and come back.' Buy. Inquire. Come back. [The streams pour in.] Every order. Every WhatsApp question. Every repeat customer. They all go into one simple table. What they bought. Their area. Where they found us. Did they come back? Age group. Sex. And their circumstances, meaning what's going on in their life when they buy. Race only if they tell us themselves. We never guess it. Simple enough, right?"
+03-4 · 1:27 (47 s talk, then the 40 s write) "Now, where does that data come from? We gather it. Every sale adds a row. Every inquiry adds a row. Every repeat adds a row. And at checkout, three quick questions, all optional: age group, sex, and who it's for. No data? You're guessing.
+Right, your turn. I know, writing things down in a workshop feels like school. It's forty seconds. Write down your last ten customers. Names are fine, it's your own paper. Next to them, one thing they have in common. Go."
+[The timer holds the page and keeps the motion alive. At zero it moves on. SPACE skips it.]
+03-5 · 1:01 "Now watch Amberkloof's rows sort themselves. Sixty orders, an illustrative sample. Three groups. Gift planners, 24. Self-care regulars, 21. Guesthouses and spas, 15. [The assumption card cracks.] Look who's biggest. Not women 25 to 34. Gift planners. Mostly men, by the survey, 35 to 49, buying a present twice a year. The feeling was wrong. The answer was in the records all along."
+• [ASK] "Look at your own list. Is your biggest group the one you would have guessed? Hands up if it isn't."
+03-6 · 0:36 "And that group becomes a person. Meet the Gift Planner. 35 to 49. Midrand and Centurion. Busy. Wants it wrapped and delivered. Finds us on Instagram, orders on WhatsApp. That's an ICP, and it works in any business. A salon counts bookings and rebookings. A plumber counts call-outs and repeat clients. [TAP B2B] And if you sell to other businesses, here's Tumelo Print &amp; Pack, the printer that makes Amberkloof's gift box. Their best customer is the Launching Founder. A small product brand, one to ten staff, about to launch, needing 500 to 2,000 boxes before a market date."
+[NEXT. The "found us on" field pops off and becomes the hub of the platform wheel.]</aside>
     </section>
 
     <section class="scene c47 c47-04" data-scene="04" data-stage="engage" data-audience="b2c" data-beats="04-1:35,04-2:25,04-3:15,04-4:30,04-5:15,04-6:30,04-7:30,04-9:25,04-10:25,04-11:20" aria-labelledby="s04-title">
@@ -313,13 +342,13 @@
         <div class="c4-phone" aria-live="polite">
           <div class="c4-phone__glass">
             <div class="c4-screen c4-screen--idle is-shown"><span>Pick a platform</span></div>
-            <div class="c4-screen c4-screen--instagram" data-screen="instagram"><header><i></i><b>amberkloof</b><small>Pretoria East</small></header><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M20" src="./assets/gen/B2-M20.webp" alt="The Amberkloof gift set with the face oil bottle, studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><p class="c4-ig__row"><span>♥ 212</span><span>✉ 9</span><span>⚑ Save</span></p><p><b>amberkloof</b> The gift set, wrapped and ready for Friday. Order on WhatsApp.</p></div>
+            <div class="c4-screen c4-screen--instagram" data-screen="instagram"><header><i></i><b>amberkloof</b><small>Pretoria East</small></header><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M20" src="./assets/gen/platform-scene-instagram.webp" alt="The Amberkloof gift set with the face oil bottle, studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><p class="c4-ig__row"><span>♥ 212</span><span>✉ 9</span><span>⚑ Save</span></p><p><b>amberkloof</b> The gift set, wrapped and ready for Friday. Order on WhatsApp.</p></div>
             <div class="c4-screen c4-screen--whatsapp" data-screen="whatsapp"><header><i></i><b>Amberkloof</b><small>Business account</small></header><ol class="c4-chat"><li class="in">Hi, is the gift set still available for Friday?</li><li class="out">It is. Wrapped, with a card. Shall I keep one for you?</li><li class="in">Yes please. One.</li><li class="out">Done. I'll send the payment link now.</li></ol><span class="c47-demo">Demo chat</span></div>
-            <div class="c4-screen c4-screen--gbp" data-screen="gbp"><p class="c4-search">⌕ gift shop near me</p><div class="c4-map"><figure class="c47-media"><img data-media-slot="B2-M24" src="./assets/gen/B2-M24.webp" alt="A small workshop shopfront in a Pretoria East suburb, amber-lit window" loading="lazy"></figure><i class="c4-pin" aria-hidden="true"></i></div><div class="c4-listing"><b>Amberkloof</b><small>Natural skin care · Pretoria East</small><small>Open until 17:00 · Directions · Call</small></div><span class="c47-demo">Demo listing</span></div>
-            <div class="c4-screen c4-screen--facebook" data-screen="facebook"><header><i></i><b>Amberkloof</b><small>Sponsored</small></header><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M22" src="./assets/gen/B2-M22.webp" alt="A birthday table with a wrapped gift set being handed over" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><p>Birthday next week? We wrap it and deliver it.</p></div>
-            <div class="c4-screen c4-screen--tiktok" data-screen="tiktok"><figure class="c47-media c47-media--tall"><video data-media-slot="B2-M21" muted loop playsinline preload="none" aria-label="Macro of one drop of oil on the back of a hand"><source src="./assets/gen/B2-M21.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure><p>One drop. Watch it sink in.</p></div>
-            <div class="c4-screen c4-screen--linkedin" data-screen="linkedin"><header><i class="is-b2b"></i><b>Tumelo Print &amp; Pack</b><small>Label and carton printer · Johannesburg</small></header><figure class="c47-media c47-media--wide"><img data-media-slot="B2-M23" src="./assets/gen/B2-M23.webp" alt="Kraft cartons stacking off a small press" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><p>500 kraft gift boxes for a market date. Printed, folded and delivered in six working days.</p></div>
-            <div class="c4-screen c4-screen--web" data-screen="web"><p class="c4-search" data-b2c>⌕ natural face oil Pretoria</p><p class="c4-search" data-b2b>⌕ custom product labels Johannesburg</p><div class="c4-result" data-b2c><small>amberkloof.example</small><b>Marula Face Oil · Amberkloof, Pretoria East</b><span>Small-batch face oil. Two drops at night. Collect or delivery.</span></div><div class="c4-result" data-b2b><small>tumelo.example</small><b>Custom labels and gift boxes · Tumelo Print &amp; Pack</b><span>Short runs from 500. Proof in 24 hours.</span></div><figure class="c47-media c47-media--wide"><img data-media-slot="B2-M25" src="./assets/gen/B2-M25.webp" alt="The Amberkloof website hero: the bottle on a plinth" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure><span class="c47-demo">Demo result</span></div>
+            <div class="c4-screen c4-screen--gbp" data-screen="gbp"><p class="c4-search">⌕ gift shop near me</p><div class="c4-map"><figure class="c47-media"><img data-media-slot="B2-M24" src="./assets/gen/platform-scene-google.webp" alt="A small workshop shopfront in a Pretoria East suburb, amber-lit window" loading="lazy"></figure><i class="c4-pin" aria-hidden="true"></i></div><div class="c4-listing"><b>Amberkloof</b><small>Natural skin care · Pretoria East</small><small>Open until 17:00 · Directions · Call</small></div><span class="c47-demo">Demo listing</span></div>
+            <div class="c4-screen c4-screen--facebook" data-screen="facebook"><header><i></i><b>Amberkloof</b><small>Sponsored</small></header><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M22" src="./assets/gen/platform-scene-facebook.webp" alt="A birthday table with a wrapped gift set being handed over" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><p>Birthday next week? We wrap it and deliver it.</p></div>
+            <div class="c4-screen c4-screen--tiktok" data-screen="tiktok"><figure class="c47-media c47-media--tall"><img data-media-slot="B2-M21" src="./assets/gen/platform-scene-tiktok.webp" alt="Macro of one drop of oil on the back of a hand" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure><p>One drop. Watch it sink in.</p></div>
+            <div class="c4-screen c4-screen--linkedin" data-screen="linkedin"><header><i class="is-b2b"></i><b>Tumelo Print &amp; Pack</b><small>Label and carton printer · Johannesburg</small></header><figure class="c47-media c47-media--wide"><img data-media-slot="B2-M23" src="./assets/gen/platform-scene-linkedin.webp" alt="Kraft cartons stacking off a small press" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><p>500 kraft gift boxes for a market date. Printed, folded and delivered in six working days.</p></div>
+            <div class="c4-screen c4-screen--web" data-screen="web"><p class="c4-search" data-b2c>⌕ natural face oil Pretoria</p><p class="c4-search" data-b2b>⌕ custom product labels Johannesburg</p><div class="c4-result" data-b2c><small>amberkloof.example</small><b>Marula Face Oil · Amberkloof, Pretoria East</b><span>Small-batch face oil. Two drops at night. Collect or delivery.</span></div><div class="c4-result" data-b2b><small>tumelo.example</small><b>Custom labels and gift boxes · Tumelo Print &amp; Pack</b><span>Short runs from 500. Proof in 24 hours.</span></div><figure class="c47-media c47-media--wide"><img data-media-slot="B2-M25" src="./assets/gen/platform-scene-website.webp" alt="The Amberkloof website hero: the bottle on a plinth" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure><span class="c47-demo">Demo result</span></div>
           </div>
         </div>
         <div class="c47-glass c4-why" id="c4Why" role="status"><span class="c47-tag">WHY IT FITS</span><strong>Click to burst the platforms.</strong><p>Then the dial picks one, and it comes alive on the phone.</p></div>
@@ -362,8 +391,24 @@
           <p class="c4-vote" data-on="04-11">Room vote: which 2 or 3 fit the volunteer? Tap any platform.</p>
         </div>
       </div>
-      <div class="c47-compat" hidden aria-hidden="true"><div class="channel-decision"></div></div>
-      <aside class="speaker-note">4:10 · Bring the volunteer up. Read the consent card out loud, word for word. When they agree, click “The volunteer agrees”. Nothing runs before that. They answered the six questions at the door, so the answers are already in. Click “Start the runs”. Every tool starts now and works in the background while we talk; the results show up in the next scenes. Now the headline: where do they spend their time? We asked AI. Read the bars: WhatsApp, Facebook, TikTok, Instagram, Google. Then the catch: AI says the Gift Planner scrolls Facebook and TikTok, but Amberkloof's own records say they found us on Instagram. When the two disagree, trust your records and test. Click to burst the seven platforms. The dial lands on Instagram: the post comes alive and the card says why. Then WhatsApp, where the order happens. Google Business comes alive if you click it. Toggle to Tumelo: LinkedIn and Google Search. Verdict: Instagram to be seen, WhatsApp to sell, Google Business to be found, TikTok later. Average is the same post copied to all seven. Good is two or three, each with a reason. Ask the room to vote for the volunteer's two or three.</aside>
+      <aside class="speaker-note">4:10 · • New here: don't try to be everywhere. Pick two or three platforms where your customer already spends time, and know why. AI can research where they are, but your records win.
+• On screen: the volunteer's consent card; the run tray; the "where do they live online" infographic; seven platform tiles burst out of a mouse click and spin like a carousel; the phone comes alive on the chosen platform.
+04-1 · 0:35 [VOLUNTEER] "Now I need some help. [Name] from [business] agreed to be our real business for today. Come on up. Give them a hand.
+Before anything runs on your business, here's what you're saying yes to. I'll read it out so everyone hears it."
+Consent line (read word for word): "We'll scan your public website and your public social pages, and use the answers you gave us about your business. Claude from Anthropic, Firecrawl and Apify do that work. Tool A, at the end, also uses Supabase and Resend. We don't touch any of your customers' details. And we delete all of it after 30 days. Are you happy with that?"
+[Wait for a clear yes. CLICK Accept. Nothing runs before this click.]
+[If they say no: "That's completely fine, thank you." They sit down. Run everything on Amberkloof.]
+04-2 · 0:25 "[Name] answered six questions at the door. What they sell, who buys most, their area, where people find them, and whether they sell to businesses or the public. [Read two of their answers aloud.] [CLICK Submit] That's every tool starting at once, on [business]. Some take a minute or two, so they get a head start now. You'll see the results land one by one as we go."
+04-3 · 0:15 "Back to our Gift Planner. We know who. Now, where do they spend their time?"
+04-4 · 0:30 "We asked AI to research where these people live online, with sources. Google still handles more than nine in ten searches in South Africa. And of South Africans on social media, about 94 in every 100 use WhatsApp. For our Gift Planner, it says: searches Google, scrolls Facebook and TikTok, orders on WhatsApp. But our own records said they found us on Instagram. When the research and your records disagree, your records win. That's why the tag says: check it against your own data."
+04-5 · 0:15 [The mouse clicks; seven tiles burst into an arc.] "Seven places you could be. WhatsApp. Facebook. Instagram. TikTok. LinkedIn. Google Business Profile. And your website on Google search. Most of us try to be on all seven. Let's not."
+04-6 · 0:30 [CLICK to spin.] "Let's spin it for the Gift Planner. [It lands on Instagram.] Instagram. Why? Because that's where our records say they found us, and people find gift ideas by browsing pictures. So this is where Amberkloof gets seen."
+04-7 · 0:30 [Next landing: WhatsApp.] "WhatsApp. Why? Because that's where they buy. Nobody wants a checkout form for a birthday present. They want to send a message and have it sorted."
+[Google Business Profile comes alive only if you click it: "And Google Business, for the self-care regulars who search for something nearby."]
+04-9 · 0:25 [B2B swap.] "Same wheel for Tumelo. [It lands.] Google search and LinkedIn. A founder searches Google for a printer, then checks them out on LinkedIn before asking for a quote."
+04-10 · 0:25 "So here's Amberkloof's verdict. Instagram to be seen. WhatsApp to sell. Google Business to be found. TikTok, later. Average is the same post copied to all seven, and calling that being everywhere. Good is two or three, each with a reason you can say out loud. Fewer places. Better reasons."
+04-11 · 0:20 - [ASK] "Now [business]. Their customers are [read their 'who buys most' answer]. Which two or three would you pick for them? Hands up for... [point at the tiles one by one]." [Any tile can be clicked.]
+[NEXT. The Instagram post slides off the phone onto a shelf.]</aside>
     </section>
 
     <section class="scene c47 c47-05" data-scene="05" data-stage="engage" data-beats="05-1:10,05-2:30,05-3:60,05-4:50,05-5:30,05-6:35,05-7:35,05-8:15" aria-labelledby="s05-title">
@@ -374,7 +419,7 @@
       </header>
 
       <div class="c5-plate c5-mix" data-on="05-1..05-2">
-        <div class="c5-shelf"><figure class="c5-post c47-glass"><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M20" src="./assets/gen/B2-M20.webp" alt="The Amberkloof gift set post from Instagram" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><figcaption>Amberkloof's post, alone on the shelf</figcaption></figure></div>
+        <div class="c5-shelf"><figure class="c5-post c47-glass"><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M20" src="./assets/gen/platform-scene-instagram.webp" alt="The Amberkloof gift set post from Instagram" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure><figcaption>Amberkloof's post, alone on the shelf</figcaption></figure></div>
         <div class="c47-glass c5-mix__card" data-on="05-2">
           <span class="c47-tag">WHAT DO YOU GIVE THEM?</span>
           <div class="c47-toggle" role="group" aria-label="Type of post"><button type="button" data-mix="edu" aria-pressed="true">Education</button><button type="button" data-mix="promo" aria-pressed="false">Promotion</button></div>
@@ -421,8 +466,24 @@
         </div>
         <div class="c5-canvas" data-on="05-8" aria-hidden="true"><i></i><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><span>Blank post</span></div>
       </div>
-      <div class="c47-compat" hidden aria-hidden="true"><div class="ad-stage"><div class="ad-device"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt=""></div></div></div>
-      <aside class="speaker-note">4:25 · Who and where are done. Now: what do we give them? Two kinds of post. Education teaches something: oil or moisturiser first. Promotion sells something: the gift set, wrapped, on Friday. Flip the audience: regulars want education, gift planners want promotion. Then the competitor scan that started in scene 04. Read the source line: live, or a tagged cached run. Walk two of the three cards: where they post, what they say. Watch the top card split into its recipe: hook, body, offer, format, platform. Then a weak one, where nothing is visible. Now the gaps: what none of them do. A gap is a post nobody else is making. The bottle slides into that slot. B2B works the same: Google scrape, then enrichment. That run needs a key, so say so. Close with the line: copy what works, then fill the gap.</aside>
+      <aside class="speaker-note">4:25 · • New here: the mix of education and promotion depends on the group. A competitor's post has a recipe you can read. The gap, what nobody posts, is where you fit. B2B buyers can be found the same way.
+• On screen: the shelf; the education and promotion toggle; competitor cards ignite one by one as an electric line traces each glass frame; one post splits open into its recipe; the gap slot.
+05-1 · 0:10 "We know who, and we know where. Now, what do we give them?"
+05-2 · 0:30 "Two kinds of post. Education, and promotion. [TOGGLE] Education answers a real question, like: 'Can I use face oil under my make-up?' Promotion makes an offer: 'Gift set, wrapped, delivered Friday.' [TOGGLE the audience.] And each group wants a different mix. The self-care regulars want the answers. The Gift Planners want the offer. So the mix follows the person."
+05-3 · 1:00 [LIVE: competitor scan]
+• Live: "Remember the runs we started? The first one's back. This is a competitor scan on [business]. AI went looking for their competitors, where they post, what they say, and which of their posts people respond to. [Read two of the three cards: the name, the platform, the main message.]"
+• Cached: "So this is Amberkloof. It found African Botanics and Afrakari, among others. And look, where it isn't sure, it says 'inferred'. Good. A tool that tells you where it's guessing is a tool you can trust."
+• Not running: "This scan didn't come back today. Here's what it would show: their competitors, where each one posts, and what works."
+05-4 · 0:50 "Let's open their best post and see how it's built. [It splits apart.] The hook, the first line that stops your thumb. The body. The offer, or the giveaway. The format: a video, a photo, a carousel. And the platform. Now a weak post, split the same way. [Point.] See the difference? Usually one or two of these pieces carry the whole post."
+05-5 · 0:30 "Now the useful bit. The same scan looks for gaps. Things none of them do. [Read the gaps on screen, for example: nobody shows the gift wrapped.] That gap is exactly where Amberkloof fits. [The bottle slides into the slot.]"
+• [ASK] "What's one thing your competitors never post about? Think of it now. That's your gap."
+05-6 · 0:35 [LIVE: B2B find] "If you sell to businesses, AI can find buyers too. Two steps. Step one, it collects every business on Google Maps in your area that could buy from you. Step two, a tool called Apify fills in each one's website, social pages and size."
+• Not running (expected today, it needs a key): "This one needs a key that isn't switched on today, so you're seeing the two steps, not results."
+• Live: "[Read the first two rows. The names are blurred on the public deck.]"
+• Always say: "One rule. A list like this is for research. Before you market to anyone on it, POPIA's direct-marketing rules apply. Consent first."
+05-7 · 0:35 "And this is the bit I care about most. B2B or B2C, it doesn't matter. The method is the same. Copy what works. Then fill the gap. Average is copying their post. Good is copying their recipe, then doing the thing they're not doing."
+05-8 · 0:15 [A spotlight finds the bottle in the gap.] "So that empty slot? That's our next post."
+[NEXT. The slot becomes a blank post canvas.]</aside>
     </section>
 
     <section class="scene c47 c47-06" data-scene="06" data-stage="engage" data-beats="06-1:10,06-2:60,06-3:20,06-4:10,06-5:20,06-6:25,06-7:35,06-8:30,06-9:20,06-10:20,06-11:20,06-13:30,06-14:30,06-15:10" aria-labelledby="s06-title">
@@ -437,8 +498,8 @@
           <article class="c6-out c47-glass" style="--k:0"><span class="c47-tag">3 POST IDEAS</span><ol data-fill="ideas"><li>Waiting for the content run</li></ol></article>
           <article class="c6-out c47-glass" style="--k:1"><span class="c47-tag">CAPTION</span><p data-fill="caption">Waiting for the content run</p></article>
           <article class="c6-out c47-glass" style="--k:2"><span class="c47-tag">PRODUCT DESCRIPTION</span><p data-fill="product">Waiting for the content run</p></article>
-          <article class="c6-out c47-glass" style="--k:3"><span class="c47-tag">SIMPLE VISUAL</span><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26b" src="./assets/gen/B2-M26b.webp" alt="The face oil bottle floating with marula and rooibos, studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></article>
-          <article class="c6-out c47-glass" style="--k:4"><span class="c47-tag">8 S SHORT VIDEO</span><figure class="c47-media c47-media--tall"><video data-media-slot="B2-M27" muted loop playsinline preload="none" aria-label="The gift box lid lifts and the products rise and float"><source src="./assets/gen/B2-M27.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure></article>
+          <article class="c6-out c47-glass" style="--k:3"><span class="c47-tag">SIMPLE VISUAL</span><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26b" src="./assets/gen/amber-family.webp" alt="The face oil bottle floating with marula and rooibos, studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></article>
+          <article class="c6-out c47-glass" style="--k:4"><span class="c47-tag">8 S SHORT VIDEO</span><figure class="c47-media c47-media--tall"><video data-media-slot="B2-M27" muted loop playsinline preload="auto" poster="./assets/gen/vid-ad-good-poster.jpg" aria-label="The gift box lid lifts and the products rise and float"><source src="./assets/gen/vid-ad-good.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></figure></article>
         </div>
         <p class="c47-runline c6-runline" data-slot-line="content">Waiting for the run</p>
       </div>
@@ -459,9 +520,9 @@
           <div class="c6-same__card"><span>YOURS</span><em>Big text</em><em>A gradient</em><em>A fade</em></div>
           <div class="c6-same__card"><span>EVERYONE'S</span><em>Same as everyone</em></div>
         </div>
-        <div class="c6-media-flip" data-on="06-5"><div class="c47-toggle" role="group" aria-label="Graphics or with media"><button type="button" data-flip="graphic" aria-pressed="true">Graphics</button><button type="button" data-flip="media" aria-pressed="false">With media</button></div><div class="c6-flip"><div class="c6-flip__graphic" data-flip-ex="graphic"><b>LAUNCH</b><span>Marula Face Oil</span></div><figure class="c47-media c47-media--sq c6-flip__media" data-flip-ex="media"><img data-media-slot="B2-M26b" src="./assets/gen/B2-M26b.webp" alt="The real product photo used in the same layout" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><figcaption>LAUNCH · Marula Face Oil</figcaption></figure></div></div>
+        <div class="c6-media-flip" data-on="06-5"><div class="c47-toggle" role="group" aria-label="Graphics or with media"><button type="button" data-flip="graphic" aria-pressed="true">Graphics</button><button type="button" data-flip="media" aria-pressed="false">With media</button></div><div class="c6-flip"><div class="c6-flip__graphic" data-flip-ex="graphic"><b>LAUNCH</b><span>Marula Face Oil</span></div><figure class="c47-media c47-media--sq c6-flip__media" data-flip-ex="media"><img data-media-slot="B2-M26b" src="./assets/gen/amber-family.webp" alt="The real product photo used in the same layout" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><figcaption>LAUNCH · Marula Face Oil</figcaption></figure></div></div>
         <ol class="c6-habits" data-on="06-6" aria-label="Five habits from the claude-video-studio skill"><li><b>Style</b><span>pick one look</span></li><li><b>References</b><span>use real ones</span></li><li><b>Numbers</b><span>write the brief in numbers</span></li><li><b>Loop</b><span>decide if it loops</span></li><li><b>Frames</b><span>check frames, not code</span></li></ol>
-        <figure class="c47-media c47-media--tall c6-clip" data-on="06-6"><video data-media-slot="B2-M29" muted loop playsinline preload="none" aria-label="A short clip rendered with claude-video-studio"><source src="./assets/gen/B2-M29.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><figcaption>claude-video-studio clip</figcaption></figure>
+        <figure class="c47-media c47-media--tall c6-clip" data-on="06-6"><video data-media-slot="B2-M29" muted loop playsinline preload="none" aria-label="A short clip rendered with claude-video-studio"><source data-pending-src="./assets/gen/B2-M29.mp4" type="video/mp4"></video><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><figcaption>claude-video-studio clip</figcaption></figure>
       </div>
 
       <div class="c6-plate c6-system" data-on="06-7">
@@ -470,7 +531,7 @@
           <i class="c6-flow__arrow" aria-hidden="true"></i>
           <div class="c47-glass c6-flow__sys"><span class="c47-tag">CLAUDE DESIGN SYSTEM · GUIDELINE</span><div class="c6-swatches" aria-label="Brand colours"><i style="--c:#B8692A" title="Amber glass"></i><i style="--c:#C9A57A" title="Kraft"></i><i style="--c:#F3EAD8" title="Marula cream"></i><i style="--c:#153C2F" title="Buchu green"></i><i style="--c:#1E1A17" title="Espresso"></i><i style="--c:#BEAB97" title="Sand"></i><i style="--c:#A79887" title="Stone"></i><i style="--c:#9F836B" title="Taupe"></i><i style="--c:#AA7B55" title="Caramel"></i></div><p class="c6-type"><b>Fraunces</b> for headlines · DM Sans for text</p><ul class="c6-rules"><li>Short sentences. “You” more than “we”.</li><li>Gentle is fine. “Heals” never is.</li><li>No logo drawn. The name is set in type.</li></ul></div>
           <i class="c6-flow__arrow" aria-hidden="true"></i>
-          <div class="c6-flow__out c6-asset"><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26b" src="./assets/gen/B2-M26b.webp" alt="An on-brand Amberkloof post made from the guideline" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure><p class="c6-asset__line">Two drops at night. That's it.</p><span class="c47-tag">ONE ON-BRAND POST</span></div>
+          <div class="c6-flow__out c6-asset"><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26b" src="./assets/gen/amber-family.webp" alt="An on-brand Amberkloof post made from the guideline" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure><p class="c6-asset__line">Two drops at night. That's it.</p><span class="c47-tag">ONE ON-BRAND POST</span></div>
         </div>
         <p class="c6-system__line">This is how AI learns your look and your voice.</p>
         <p class="c47-source">Real run: Amberkloof Design System, built on the Claude Design System type (private artifact, 14 colour tokens, 2 type families).</p>
@@ -484,8 +545,8 @@
           <article class="c6-ad c6-ad--b2b" data-yt="yjkoIPBf3y8"><button type="button" class="c6-ad__play" aria-label="Play the Dash Labels and Digital ad"><img src="https://i.ytimg.com/vi/yjkoIPBf3y8/hqdefault.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"><b aria-hidden="true">▶</b></button><p>Ad by Dash Labels &amp; Digital · YouTube · published 12 Feb 2025 · seen 27 Oct 2026</p><small>B2B: a custom label printer</small></article>
         </div>
         <div class="c47-gva c6-ownpair">
-          <div class="c47-gva__avg"><span>AVERAGE · FLAT PHOTO</span><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26a" src="./assets/gen/B2-M26a.webp" alt="The bottle on a cluttered kitchen counter, flat phone snapshot" loading="lazy"><svg class="c47-standin c47-standin--flat" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></div>
-          <div class="c47-gva__good"><span>GOOD · FLOATING PRODUCT</span><figure class="c47-media c47-media--sq c6-float"><img data-media-slot="B2-M26b" src="./assets/gen/B2-M26b.webp" alt="The bottle floating with its botanicals, warm studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></div>
+          <div class="c47-gva__avg"><span>AVERAGE · FLAT PHOTO</span><figure class="c47-media c47-media--sq"><img data-media-slot="B2-M26a" src="./assets/gen/flat-product-photo.webp" alt="The bottle on a cluttered kitchen counter, flat phone snapshot" loading="lazy"><svg class="c47-standin c47-standin--flat" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></div>
+          <div class="c47-gva__good"><span>GOOD · FLOATING PRODUCT</span><figure class="c47-media c47-media--sq c6-float"><img data-media-slot="B2-M26b" src="./assets/gen/amber-family.webp" alt="The bottle floating with its botanicals, warm studio light" loading="lazy"><svg class="c47-standin" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg></figure></div>
         </div>
         <p class="c47-source c6-ads__src">Real ads play from YouTube's own player. Nothing is downloaded. Tap a card to play.</p>
       </div>
@@ -533,8 +594,29 @@
         <p class="c6-query" data-on="06-15" aria-label="A customer types a question"><span id="c6Query" data-text="How much would a gift set for 20 guests cost?">How much would a gift set for 20 guests cost?</span><i aria-hidden="true"></i></p>
         <p class="c47-source">Real run: content-strategy, 4-week plan for 2 to 27 Nov 2026.</p>
       </div>
-      <div class="c47-compat" hidden aria-hidden="true"><div class="voice-comparison"><div class="voice-grid"></div><button type="button" id="voiceRewrite">Apply</button><p id="voiceFeedback"></p></div></div>
-      <aside class="speaker-note">5:40 · AI drafts fast, you make it yours. The content run started in scene 04: five outputs burst around the bottle. Three post ideas, a caption, a product description, a simple visual and a short video. How did we make that? Claude is the app. Claude Code is the same assistant on your computer. Paste a skill link and say “Follow this skill, please.” Think of a chef: your brand and photos are the ingredients, a skill is the recipe. Now the same one-line prompt, three times: it gives everyone the same big text, gradient and fade. Flip to With media: your real product photo changes it. Five habits from claude-video-studio light up. Then the brand guideline: your posts, labels and site go into the Claude Design System, and it hands back a guideline for your look and your voice, then one post that follows it. Next, four real ads. Tap one to play. Our own pair: flat photo versus floating product. Then slopmonster, three real pairs. Read one marked difference per pair; the generic pane shatters. Last 30 Days gives a daily brief of what people talk and complain about; it still needs a key. Then the week: brief, draft, your edit, schedule. Friday's post gets a question back.</aside>
+      <aside class="speaker-note">6:15 · • New here: AI drafts five kinds of content in seconds; how to run a skill in Claude; why a bare prompt looks like everyone else's; your brand guideline from your own content; real ads; slopmonster keeps your voice; the Last 30 Days brief; the habit week.
+• On screen: five outputs burst around the bottle; the same-prompt cards; real ad cards; the generic caption shatters into the edited one; the week fills Monday to Friday.
+06-1 · 0:10 "AI drafts fast. You make it yours. Let's see both halves."
+06-2 · 1:00 [LIVE: content] [Five outputs burst out.] "Three post ideas. A caption. A product description. A simple picture. And a short video. [PLAY the short video.] One request. When we timed it, the writing took about twenty seconds."
+• Live: "This is for [business]. [Read the first post idea and the first line of the caption.] [Name], would you post that?"
+• Cached: "So this is Amberkloof. Look at idea one: a pour shot of the oil, with the line 'Three drops. That's the whole routine.' That's usable. Today."
+06-3 · 0:20 "How did we make that? Two tools. Claude, the app you chat to. And Claude Code, the same assistant working on your computer, running skills. A skill is a saved recipe. To use one, paste the skill's link into Claude and say, 'Follow this skill, please.' A normal Claude Pro plan is enough."
+06-4 · 0:10 "Think of a chef. Good ingredients, that's your brand, your photos, your customer data. Plus a recipe, that's the skill. A bare prompt is a chef with an empty fridge."
+06-5 · 0:20 "Watch what a bare prompt does. 'Make me a launch video.' [Three identical cards.] Theirs. Yours. Everyone's. Big text, a gradient, a fade. [FLIP to With media.] Now the same thing with the real product photo in it. Already better."
+06-6 · 0:25 "So when you make video with AI, five habits. Pick a style first. Use real references. Write the brief in numbers: seconds, sizes, colours. Decide if it loops. And check the actual frames before you post. [The short clip plays, muted.]"
+06-7 · 0:35 "Now, your look and your voice. We gave Claude's Design System everything Amberkloof already had. The posts, the labels, the website. It gave back a brand guideline. Colours. Fonts. Voice rules, like: no medical claims, ever. And from that guideline, one new post that looks like it came from the brand. That's how AI learns your look."
+06-8 · 0:30 [PLAY] "These are real ads, from real South African brands. The brand's name is on every card. Oh So Heavenly. Feel Silki. And from Tumelo's world, Dash Labels. [Click one to play. Let it run about ten seconds.] Under each one, what people did with it on the day we checked. And next to them, our own pair, Good and Average. Same product. Look how differently they land."
+06-9 · 0:20 - [ASK] "Quick one. Hands up if you've ever posted something AI wrote without changing a word. [Beat.] Me too."
+"So, does AI copy sound like you? There's a skill called slopmonster. It finds the giveaways that make writing sound like a machine did it, and takes them out. Pair one, an Instagram caption. Without the skill: 'One little night-time ritual', a sparkle emoji, a flag emoji. With it: 'That's it. Marula does the quiet work.' [The generic pane shatters.] Four emoji down to none."
+06-10 · 0:20 "Pair two, the product description. Without: made-up promises about how your skin will look by morning. With: 'No promises about how you'll look by morning.' And a line only a person would write: count your two drops in the dark."
+06-11 · 0:20 "Pair three, a WhatsApp follow-up. Without: 'Your feedback means a lot.' With: 'A short review helps a two-person business like ours a lot.' Now, the skill also gives each draft a score, and on these three the score barely moved. The drafts were fairly clean already. What changed was the voice. So the score helps, and you still read it yourself."
+06-12 · 0:15 "Same for Tumelo on LinkedIn. [Point at the marked words.] Those are the giveaways it took out. The before could be any printer anywhere. The after sounds like Tumelo."
+06-13 · 0:50 [LIVE: Last 30 Days] "Last piece: what to post about. There's a skill called Last 30 Days. Every morning it reads what people are saying about your niche on social media, Reddit and YouTube, and gives you a brief. What they're talking about. What they're complaining about. With dates and sources. You pick one complaint, and you answer it with an opinion or a how-to post."
+• Not running (expected today): "This one needs a key and a review before I'll run it on a stage, so it's not live today. The idea is what matters: one brief a morning, one complaint answered."
+• Live or cached: "[Read one talk theme and one complaint.] That complaint is Monday's post."
+06-14 · 0:30 "Put it together and marketing becomes a habit. Every weekday morning, fifteen minutes. Read the brief. Draft with AI. Your edit. Schedule. Monday, an answer from the brief. Wednesday, the competitor gap. Friday, the offer."
+06-15 · 0:10 "And Friday's post turns into something people type. [The card becomes a search: 'marula face oil Pretoria'.]"
+[NEXT.]</aside>
     </section>
 
     <section class="scene c47 c47-07" data-scene="07" data-stage="engage" data-beats="07-1:10,07-2:30,07-3:30,07-4:25,07-5:25,07-6:25,07-7:25,07-8:30,07-9:75,07-10:15,07-11:15" aria-labelledby="s07-title">
@@ -570,7 +652,7 @@
       <div class="c7-plate c7-ways" data-on="07-8">
         <p class="c7-ways__q">Two ways to show up</p>
         <div class="c47-gva c7-pages">
-          <div class="c47-gva__avg"><span>AVERAGE · HOMEPAGE</span><div class="c7-page c7-page--avg"><b>We are the best natural skincare</b><i></i><i></i><small>Shop now</small></div><p>Answers nothing anyone asked.</p></div>
+          <div class="c47-gva__avg"><span>AVERAGE · HOMEPAGE</span><div class="c7-page c7-page--avg"><img class="c7-page__hero" data-media-slot="average-site-hero" src="./assets/gen/average-site-hero.webp" alt="" loading="lazy" onerror="this.remove()"><b>We are the best natural skincare</b><i></i><i></i><small>Shop now</small></div><p>Answers nothing anyone asked.</p></div>
           <div class="c47-gva__good"><span>GOOD · ANSWER PAGE</span><div class="c7-page c7-page--good"><b>Gift sets for 20 guests: what they cost</b><p>One price table for three sizes, and the delivery dates. Sources named. An FAQ. Then “Get a quote on WhatsApp.”</p><small>FAQ · Price table · Ask us</small></div><p>Proves you know your niche.</p></div>
         </div>
         <p class="c7-ways__two"><b>1. Authority:</b> your site answers the questions in your niche. <b>2. Social:</b> post where competitors post, in the format that works for them.</p>
@@ -584,8 +666,32 @@
       </div>
 
       <div class="c7-plate c7-punch" data-on="07-11" aria-hidden="true"><div class="c7-punch__card"><b>Gift sets for 20 guests</b><span>Get a quote on WhatsApp</span></div></div>
-      <div class="c47-compat" hidden aria-hidden="true"><div class="website-world"></div></div>
-      <aside class="speaker-note">5:05 · Friday's post got a question back, and the customer typed it straight into a search bar. People still start on Google, or they ask ChatGPT, Copilot, Gemini, Claude or Perplexity. They trust what comes back. In my words: AI cannot go into social media all by itself. It mostly reads the web, so your website has to carry your proof. If asked: public posts can show up through Google, but AI doesn't scroll your feed or read your DMs. Three words. SEO: Google ranks you. AEO: an AI answers with you. GEO: an AI cites you. These four checks started in scene 04. Keywords: the words to rank for. SEO check: what blocks you. Backlinks: other sites pointing to you. Citations: who the AI quotes. Read each source line: live, or a tagged cached run. Two ways to show up: be the authority with an answer page, and post where competitors post, in the format that works. Then the plan: tap 30, 60 and 90. For Tumelo it is the same plan, with LinkedIn articles as authority. The answer card carries us into the next scene.</aside>
+      <aside class="speaker-note">4:55 · • New here: your website and Google are still the main place; AI answer tools search the web; SEO, AEO and GEO; keywords, an SEO check, backlinks, citations; how to become the authority; a 30, 60 and 90-day plan.
+• On screen: the search bar; social cards bounce off a glass wall; the three words land one at a time; the query streams down a data tunnel with an orbit ring; live check cards; the 30/60/90 track.
+07-1 · 0:10 "Be found where people ask. And for most businesses, that's still your website and Google."
+07-2 · 0:30 "People search Google, or they ask an AI. ChatGPT. Copilot. Gemini. Claude. Perplexity. And they trust what comes back. But AI can't go into social media all by itself. So most of the time, it searches the web. [The social cards bounce off the glass.] So your website has to carry your proof."
+[Optional, only if you've decided to add it (Q-FACT): "To be fair, some public posts do show up through Google. But AI doesn't scroll your feed or read your DMs."]
+07-3 · 0:30 [One word at a time.] "Three words you'll hear. SEO: Google ranks you. AEO: an AI answers with you. GEO: an AI names you as its source. Same goal. Be the answer."
+07-4 · 0:25 [LIVE: keywords] "Now four quick checks on a website. The words to rank for. What's blocking it. Who links to it. And who quotes it."
+• Live: "Back to [business]. Which words should they try to rank for? [Read the top two.]"
+• Cached: "So Amberkloof. 'Pure marula oil South Africa.' 'Marula face oil Pretoria.' And it says plainly there's no search-volume data behind these. Check them in Google Search Console before you write a word."
+07-5 · 0:25 [LIVE: SEO check]
+• Live: "Next, an SEO check on their site. What stops Google finding it? [Read the top issue.]"
+• Cached: "Amberkloof doesn't have a website, so last night we pointed this check at this workshop's own site. And it didn't go well. No sitemap, so Google has no list of our pages. So I'm not above any of this."
+07-6 · 0:25 [LIVE: backlinks] "A backlink is another website pointing to yours. Each one is a vote for you."
+• Live: "[Read one example from the run.]"
+• Cached: "Our workshop site? Nobody links to it yet. Not one. Honest."
+07-7 · 0:25 [LIVE: citations] "And citations. When someone asks an AI about your kind of business, who does it quote? References are the other way round: the sources your own page names. Name good ones."
+• Live: "[Read who gets cited for the sample question.]"
+• Cached: "Our own site scored 41 out of 100 for how easily an AI could quote it. Lots of room."
+07-8 · 0:20 "So how do you show up? Become the authority in your niche, and make your website prove it. Average: 'We are the best natural skincare.' Good: a page that answers the question people really ask, with proof."
+07-9 · 1:15 [LIVE: 30/60/90 plan] "And then a plan. Thirty, sixty, ninety days of blog posts and landing pages. [TAP 30, then 60, then 90.]"
+• Live: "[Read one item from each tab for [business].]"
+• Cached: "Days one to thirty, the foundation. Claim the Google Business Profile. Set up Search Console. Add a WhatsApp button. Make sure AI tools are allowed to read the site. And on day 21, a Christmas gift-set page. Days thirty-one to sixty: reviews on the product pages, and guides an AI can quote. Sixty-one to ninety: earn links and mentions, and once a month ask ChatGPT, Perplexity and Gemini your own questions to see if you come up."
+• [ASK] "If someone asked ChatGPT tonight for a business like yours in your area, would it name you? Who's sure? And who's not sure?"
+07-10 · 0:15 "Tumelo's version: a page for 'custom product labels Johannesburg', plus LinkedIn articles that show they know their stuff."
+07-11 · 0:15 "And when someone clicks that answer, where do they land? [The answer card punches through to full screen.]"
+[NEXT.]</aside>
     </section>
 
     <section class="scene cx cx-08" data-scene="08" data-stage="convert" aria-labelledby="s08-title">
@@ -600,7 +706,7 @@
           <div class="cx08-site__body">
             <div class="cx08-site__copy"><small>GIFT SETS · PRETORIA EAST</small><strong>A gift that looks after her skin.</strong><p>Marula Face Oil, wrapped in kraft and linen. Delivered on Fridays.</p><span class="cx08-site__cta">See the gift sets</span></div>
             <figure class="cx-media cx08-site__media" data-media-slot="B1-M08">
-              <img src="./assets/gen/B1-M08.webp" alt="" loading="lazy">
+              <img src="./assets/gen/platform-scene-website.webp" alt="" loading="lazy">
               <div class="cx-media__standin" aria-hidden="true"><i class="cx-plinth"></i><svg class="cx-standin__gift" viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg><svg class="cx-standin__bottle" viewBox="0 0 200 440"><use href="#g1-bottle"/></svg></div>
               <figcaption class="cx-standin-tag">Stand-in · B1-M08</figcaption>
             </figure>
@@ -671,7 +777,7 @@
       <div class="cx08-ours" data-in="0.55" data-out="0.6" aria-label="Amberkloof's ad with the next step inside it">
         <p class="cx-kicker">Ours: the next step lives inside the ad.</p>
         <figure class="cx-media cx08-ours__media" data-media-slot="B3-M31">
-          <video muted loop playsinline preload="none" poster="./assets/gen/B3-M30.webp" aria-hidden="true"><source src="./assets/gen/B3-M31.mp4" type="video/mp4"></video>
+          <video muted loop autoplay playsinline preload="auto" poster="./assets/gen/vid-amber-float-poster.jpg" aria-hidden="true"><source src="./assets/gen/vid-amber-float.mp4" type="video/mp4"></video>
           <div class="cx-media__standin" aria-hidden="true"><i class="cx-plinth"></i><i class="cx08-ours__phone"></i><svg class="cx08-ours__gift" viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg><svg class="cx08-ours__bottle" viewBox="0 0 200 440"><use href="#g1-bottle"/></svg></div>
           <figcaption class="cx-standin-tag">Stand-in · B3-M30 poster, B3-M31 video</figcaption>
         </figure>
@@ -717,7 +823,22 @@
         <span class="cx-track__box is-first">Captured</span><span class="cx-track__box">Welcome</span><span class="cx-track__box">Nurture</span><span class="cx-track__box">Pipeline</span><span class="cx-track__box">Review</span>
         <i class="cx08-track__card" aria-hidden="true">Lerato · demo</i>
       </div>
-      <aside class="speaker-note">4:20 · Open on the line: while you have their attention, give them a next step. Capture their details as soon as you can, online or on social media. Then ask: where do people actually land? Your analytics shows it. Here the gift sets page wins, so that is where the capture goes. The helper pops up and helps first. Read Lerato's question, then the answer, then notice it only asks for her details once it has been useful. On stage you can press Run the helper live; it uses a made-up question only. If the runner is not there, the scripted version stays, tagged. Next, dwell time: past 30 seconds on one page, offer help once. Press Fast-forward if you don't want to wait. Then the real reel: play it, call the first eight seconds good, and the coupon end card average. Ours keeps the next step inside the ad. Three real ads with a next step: a download, a choice, a chat. Open them in a new tab if the room wants a closer look. The skills that build this are free on GitHub: cro, popups and signup. Last, Tumelo, the B2B version: company, role, quantity. The card drops into the follow-up track. Press Next.</aside>
+      <aside class="speaker-note">4:20 · • New here (scene 02 already gave the why): where to put capture (the pages people land on), the AI helper, the timed pop-up, the button that lives inside the ad, and the skills that set it up.
+• On screen: the landing page; a demo analytics pane; the helper pops up; an electric line traces the capture card's glass frame as it fills; the R1 reel; our ad; real CTA ads.
+08-1 · 0:15 "Now the where and the how. Capture their details as soon as you can, on your website or on social media."
+08-2 · 0:30 "First, where do people land? [The pane ranks the pages.] This is demo data, but your own analytics shows the same thing. Most visits go to two or three pages, and often it's not the home page. Put your capture where people land."
+• [ASK] "On your website, which page do most people land on? Do you know? If you don't, that's tonight's homework."
+08-3 · 1:00 [LIVE: AI helper, demo data] "The best one I've seen is an AI helper that pops up and offers to help. [It pops up and offers to help choose a gift.] The visitor says they need a birthday present for their mom. It suggests the gift set. Then it asks for their name and surname, and then an email address and a WhatsApp number, so it can send the details. Everything typed in here is made-up demo data. Nobody real."
+• Cached: "Same demo, recorded last night. Same point."
+08-4 · 0:30 "Second spot. Someone has sat on the gift page for thirty seconds. They're interested, or they're stuck. [Fast-forward the timer.] So the page says, 'We're here to help,' and offers to take their details. Same on the FAQ page."
+08-5 · 0:20 [PLAY: R1 reel, attributed] "Here's a reel I love. [Play.] For the first eight seconds, this is Good. Ideas, movement, things worth watching. Then the end card. A flat coupon, bolted on. That's Average. The ask feels stuck on afterwards."
+08-6 · 0:15 [PLAY: our ad] "Our Good. The gift set floats out of the phone and into a WhatsApp chat. 'Order for Friday?' The ask lives inside the story."
+08-7 · 0:45 [PLAY] "Real ads that do this. One opens a WhatsApp chat. One collects an email with a sign-up form. One asks a business for a quote. [Click one to play.] Each card says what the button does and what people did with it."
+• If a card is empty (these were still being sourced): "We're still finding good examples of this one, so here's the pattern instead. The button opens a conversation, asks for details, or asks for a quote. Never 'learn more'."
+08-8 · 0:20 "Setting this up? Three free skills. C-R-O, for which page and which form fields. popups, for the helper and the timed pop-up. signup, for the newsletter or the freebie. They're in a collection called marketingskills, by Corey Haines. The address is on screen. Take a photo."
+08-9 · 0:15 "Tumelo does it with a form. 'Quote in 24 hours.' Company, role, quantity. Three fields, and they know exactly who's asking."
+08-10 · 0:10 "And once we have those details, the real work starts."
+[NEXT. The filled card drops into the first box of the follow-up track.]</aside>
     </section>
 
     <section class="scene cx cx-09" data-scene="09" data-stage="convert" aria-labelledby="s09-title">
@@ -726,7 +847,7 @@
       <div class="cx-glow" aria-hidden="true"></div>
 
       <div class="cx09-orbit" data-in="0" data-out="0.205" data-fx="none" aria-label="Where AI answers your customers">
-        <div class="cx09-orbit__core cx-glass" aria-hidden="true"><figure class="cx-media cx09-core__media" data-media-slot="B3-M32a"><img src="./assets/gen/B3-M32a.webp" alt="" loading="lazy"><div class="cx-media__standin"><i class="cx-bubble-icon"></i></div></figure><b>Where does AI answer?</b></div>
+        <div class="cx09-orbit__core cx-glass" aria-hidden="true"><figure class="cx-media cx09-core__media" data-media-slot="B3-M32a"><img data-pending-src="./assets/gen/B3-M32a.webp" alt="" loading="lazy"><div class="cx-media__standin"><i class="cx-bubble-icon"></i></div></figure><b>Where does AI answer?</b></div>
         <div class="cx09-channels" role="group" aria-label="Choose where AI answers">
           <button type="button" class="cx09-ch" data-cx-channel="web" aria-pressed="false"><small>01</small>Website chat</button>
           <button type="button" class="cx09-ch" data-cx-channel="whatsapp" aria-pressed="false"><small>02</small>WhatsApp</button>
@@ -774,15 +895,15 @@
       <div class="cx09-pipe" data-in="0.47" data-out="0.575" aria-label="A sales pipeline: quotation, order, invoice, follow-up">
         <p class="cx-kicker">A pipeline puts each customer in a box, so nobody gets forgotten.</p>
         <div class="cx09-boxes">
-          <div class="cx09-box" data-cx-box="0"><figure class="cx-media cx09-box__icon" data-media-slot="B3-M32c"><img src="./assets/gen/B3-M32c.webp" alt="" loading="lazy"><div class="cx-media__standin"><i class="cx-doc-icon"></i></div></figure><b>Quotation</b><output>4</output></div>
+          <div class="cx09-box" data-cx-box="0"><figure class="cx-media cx09-box__icon" data-media-slot="B3-M32c"><img data-pending-src="./assets/gen/B3-M32c.webp" alt="" loading="lazy"><div class="cx-media__standin"><i class="cx-doc-icon"></i></div></figure><b>Quotation</b><output>4</output></div>
           <i class="cx09-pipe__flow" aria-hidden="true"><i></i><i></i></i>
           <div class="cx09-box" data-cx-box="1"><b>Order</b><output>2</output></div>
           <i class="cx09-pipe__flow" aria-hidden="true"><i></i><i></i></i>
           <div class="cx09-box" data-cx-box="2"><b>Invoice</b><output>3</output></div>
           <i class="cx09-pipe__flow" aria-hidden="true"><i></i><i></i></i>
-          <div class="cx09-box" data-cx-box="3"><figure class="cx-media cx09-box__icon" data-media-slot="B3-M32b"><img src="./assets/gen/B3-M32b.webp" alt="" loading="lazy"><div class="cx-media__standin"><i class="cx-cal-icon"></i></div></figure><b>Follow-up</b><output>5</output></div>
+          <div class="cx09-box" data-cx-box="3"><figure class="cx-media cx09-box__icon" data-media-slot="B3-M32b"><img data-pending-src="./assets/gen/B3-M32b.webp" alt="" loading="lazy"><div class="cx-media__standin"><i class="cx-cal-icon"></i></div></figure><b>Follow-up</b><output>5</output></div>
         </div>
-        <div class="cx09-deal cx-glass"><figure class="cx-media cx09-deal__media" data-media-slot="B3-M33"><img src="./assets/gen/B3-M33.webp" alt="" loading="lazy"><div class="cx-media__standin"><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div></figure><div><span>Tumelo Print &amp; Pack · deal</span><b>Amberkloof · 1,000 gift cartons</b><small>R18,500 · demo</small></div></div>
+        <div class="cx09-deal cx-glass"><figure class="cx-media cx09-deal__media" data-media-slot="B3-M33"><video muted loop autoplay playsinline preload="auto" poster="./assets/gen/vid-tumelo-poster.jpg" aria-hidden="true"><source src="./assets/gen/vid-tumelo.mp4" type="video/mp4"></video><div class="cx-media__standin"><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div></figure><div><span>Tumelo Print &amp; Pack · deal</span><b>Amberkloof · 1,000 gift cartons</b><small>R18,500 · demo</small></div></div>
         <button type="button" class="cx-btn cx09-advance" data-cx-advance>Advance deal →</button>
         <small class="cx09-pipe__note">Built with AI as a simple CRM. Demo numbers.</small>
       </div>
@@ -822,7 +943,25 @@
         <span class="cx-track__box">Captured</span><span class="cx-track__box">Welcome</span><span class="cx-track__box">Nurture</span><span class="cx-track__box">Pipeline</span><span class="cx-track__box is-first">Review</span>
         <i class="cx09-track__pour" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>14 inquiries</i><i>6 orders</i></i>
       </div>
-      <aside class="speaker-note">4:55 · "A sale is often won after the first reply." First, where does AI answer? Four places orbit the card. Website chat: the helper you just saw. WhatsApp: AI drafts the replies, but people opt in first, your opening messages use approved templates, and free replies stay inside 24 hours. Social DMs: a comment like "Do you ship to Durban?" gets a DM that answers and asks for an email. Then Slack, the honest answer: watch the claim break. Slack is mostly for your team, the lead alert and a drafted reply. Click any channel to bring it back. Reply speed: get a volunteer to pick Helpful or Vague for "How much is the gift set? I need it by Friday." Two minutes and useful beats two days and vague. Then the plain line: a sales lifecycle is a fancy way to say we WhatsApp you and email you useful things, so you trust us. Press Send: the welcome goes at once, then email and WhatsApp run side by side, every message with permission and a way out. The pipeline: press Advance deal and watch Tumelo's deal move from quotation to follow-up. The follow-up box asks for a review: ask everyone, no discounts. Two more funnels: abandoned cart, then onboarding. One screen of a CRM you can build with AI. Last, the follow-up skills and where they come from. Press Next.</aside>
+      <aside class="speaker-note">4:55 · • New here: the four places AI answers; reply speed; what a sales lifecycle is; the simplest funnel; the pipeline; reviews; two more funnels; a CRM built with AI; the follow-up skills.
+• On screen: the channel places spiral into orbit around the order; a response clock; the email and WhatsApp timeline; the pipeline boxes; review stars.
+09-1 · 0:15 "A sale is often won after the first reply. So where does AI come in? Four places."
+09-2 · 0:10 "Place one. The helper on your website. You've just seen it."
+09-3 · 0:10 "Place two. WhatsApp. AI drafts the replies and the quick answers. You stay inside WhatsApp's rules: people opt in, and when you message first, you use approved templates."
+09-4 · 0:10 "Place three. Instagram and Facebook messages. Someone comments, 'Do you deliver to Centurion?' AI answers, and asks for their details."
+09-5 · 0:20 "And Slack? Honestly, mostly for your team. AI posts 'new lead' in your Slack and helps you reply. Customers rarely message a small business on Slack. A few business clients might share a channel with you, and that's about it."
+09-6 · 0:30 [VOLUNTEER from the room] "Speed matters. A message comes in at four on a Thursday afternoon: 'How much would a gift set for 20 guests cost?' Two possible replies. Who wants to pick? [A room member picks Helpful or Vague. CLICK it.] Vague: 'Hi, price is R450.' Helpful: [read the helpful reply on screen]. And a reply in two minutes beats a reply in two days. Every time."
+• [ASK] "Be honest. How long does it take you to answer a WhatsApp inquiry?"
+09-7 · 0:15 "People say 'sales lifecycle'. That's a fancy way to say we'll WhatsApp you and email you a series of useful things, so you trust us, and you can see we know our stuff."
+09-8 · 0:40 "Here's the simplest funnel. [CLICK Send.] The moment someone leaves their details, a welcome and thank-you email goes out. Then a short series of emails and a short series of WhatsApps run side by side. Every message has their permission and a way to opt out. That's POPIA. It's also just manners."
+09-9 · 0:35 "To keep track of it all, you need a pipeline. A pipeline puts each customer in a box, so nobody gets forgotten. Here's Tumelo's deal for Amberkloof's gift boxes. Quotation. [CLICK Advance.] Order. Invoice. Follow-up. You can ask AI to build this with you."
+09-10 · 0:20 "The follow-up box does one more job. It asks for a review, on Google and on social. Ask everyone, not only the happy ones. And never pay for a review."
+09-11 · 0:15 "Every one of these is a funnel. So what's a funnel? A funnel sends something with a specific goal in mind. Abandoned cart: reminders after an hour, a day, three days. Automatic."
+09-12 · 0:15 "Onboarding: a new customer gets to know your business one section at a time."
+09-13 · 0:20 "And this is a simple CRM we built with AI. A CRM is just your customer list, knowing which box each person is in. The same customer, moving between boxes. Ask AI to build it with you. The funnels. The CRM. The emails."
+09-14 · 0:30 "The skills behind the follow-up. email-sequence writes the email series, and it's in the download at the end. whatsapp-sequences does the WhatsApp side. That one runs on my own machine, so it's not in the download."
+09-15 · 0:10 "Reviews come in. The week's results pour out. Now, did any of it work?"
+[NEXT.]</aside>
     </section>
 
     <section class="scene cx cx-10" data-scene="10" data-stage="optimize" aria-labelledby="s10-title">
@@ -838,10 +977,10 @@
 
       <div class="cx10-week" data-in="0.02" data-fx="up" role="group" aria-label="This week's five posts. Tap a post to sort it">
         <button type="button" class="cx10-post" data-cx-post="mon" data-verdict="win" aria-pressed="false"><span class="cx10-post__day">Mon</span><i class="cx10-post__art cx10-art--answer" aria-hidden="true"><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><q>Is marula OK for sensitive skin?</q></i><strong>The answer post</strong><span class="cx10-post__stats"><b>3,900</b> seen · <b>64</b> comments · <b>14</b> inquiries</span></button>
-        <button type="button" class="cx10-post" data-cx-post="tue" data-verdict="fail" aria-pressed="false"><span class="cx10-post__day">Tue</span><figure class="cx-media cx10-post__art cx10-art--flat" data-media-slot="B4-M40"><img src="./assets/gen/B4-M40.webp" alt="" loading="lazy"><div class="cx-media__standin"><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div></figure><strong>The flat photo</strong><span class="cx10-post__stats"><b>610</b> seen · <b>2</b> comments · <b>0</b> inquiries</span></button>
+        <button type="button" class="cx10-post" data-cx-post="tue" data-verdict="fail" aria-pressed="false"><span class="cx10-post__day">Tue</span><figure class="cx-media cx10-post__art cx10-art--flat" data-media-slot="B4-M40"><img src="./assets/gen/flat-product-photo.webp" alt="" loading="lazy"><div class="cx-media__standin"><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div></figure><strong>The flat photo</strong><span class="cx10-post__stats"><b>610</b> seen · <b>2</b> comments · <b>0</b> inquiries</span></button>
         <button type="button" class="cx10-post" data-cx-post="wed" data-verdict="mid" aria-pressed="false"><span class="cx10-post__day">Wed</span><i class="cx10-post__art cx10-art--wrap" aria-hidden="true"><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg><q>Wrapped, start to finish</q></i><strong>The gap post</strong><span class="cx10-post__stats"><b>2,300</b> seen · <b>31</b> comments · <b>5</b> inquiries</span></button>
         <button type="button" class="cx10-post" data-cx-post="thu" data-verdict="fail" aria-pressed="false"><span class="cx10-post__day">Thu</span><i class="cx10-post__art cx10-art--give" aria-hidden="true"><q>Tag a friend to win</q></i><strong>The giveaway</strong><span class="cx10-post__stats"><b>8,200</b> seen · <b>412</b> comments · <b>0</b> inquiries</span></button>
-        <button type="button" class="cx10-post" data-cx-post="fri" data-verdict="win" aria-pressed="false"><span class="cx10-post__day">Fri</span><figure class="cx-media cx10-post__art cx10-art--ad" data-media-slot="B2-M27"><img src="./assets/gen/B2-M27.webp" alt="" loading="lazy"><div class="cx-media__standin"><svg class="cx10-art__gift" viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg><svg class="cx10-art__bottle" viewBox="0 0 200 440"><use href="#g1-bottle"/></svg></div></figure><strong>The gift ad</strong><span class="cx10-post__stats"><b>5,100</b> seen · <b>38</b> comments · <b>22</b> inquiries</span></button>
+        <button type="button" class="cx10-post" data-cx-post="fri" data-verdict="win" aria-pressed="false"><span class="cx10-post__day">Fri</span><figure class="cx-media cx10-post__art cx10-art--ad" data-media-slot="B2-M27"><img src="./assets/gen/vid-ad-good-poster.jpg" alt="" loading="lazy"><div class="cx-media__standin"><svg class="cx10-art__gift" viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg><svg class="cx10-art__bottle" viewBox="0 0 200 440"><use href="#g1-bottle"/></svg></div></figure><strong>The gift ad</strong><span class="cx10-post__stats"><b>5,100</b> seen · <b>38</b> comments · <b>22</b> inquiries</span></button>
       </div>
 
       <div class="cx10-sort" data-in="0.3" data-out="0.635" aria-label="Failures and successes from this week">
@@ -857,7 +996,15 @@
       </div>
 
       <div class="cx10-quiet" data-in="0.845" data-fx="fade" aria-label="Tuesday's post. Let's fix it."><p>Tuesday's post.<br><em>Let's fix it.</em></p></div>
-      <aside class="speaker-note">2:40 · Here is the week from the content chapter: five posts. Optimize means measuring both ends. Watch the website view turn into the numbers: seen, comments, inquiries, per post. Demo data. Now sort them. Tap a post to send it to its side. Tuesday's flat photo: hardly seen, no inquiries. Thursday's giveaway: the most likes all week, and not one inquiry, because it pulled in prize hunters. Monday's answer post worked because it answered a real question, for self-care regulars. Friday's gift ad worked because it looked like a gift worth giving, for gift planners. If you count likes, Thursday wins. Count inquiries, by who, and Monday and Friday win. So double down: repeat the two winners, fix Tuesday, stop the giveaways. For a business buyer like Tumelo, count quote requests from founders, not followers. Let the room sit with the last frame for a second: Tuesday's post. Let's fix it. Press Next.</aside>
+      <aside class="speaker-note">2:40 · • New here (scene 02 gave failures and successes): what to count, the giveaway trap, and what doubling down looks like in practice.
+• On screen: the week's five posts; the website pane morphs into a dashboard; tap to sort; the success cards clone into next week; then near-black.
+10-1 · 0:20 "Here's Amberkloof's week. Five posts. [The lights lower.] Let's look at them properly."
+10-2 · 0:30 [The website morphs into a dashboard.] "Same posts, through a results lens. Each one now shows how many people saw it, how many commented, and how many asked to buy. Demo numbers, but your own pages give you the same three."
+10-3 · 1:00 [TAP to sort.] "Let's sort. Tuesday's flat photo: hardly anyone engaged, no inquiries. Thursday's giveaway: 1,200 likes. Zero inquiries. [Pause.] Monday's how-to post answered a real question, and the self-care regulars asked to buy. Friday's ad looked like a gift worth giving, and the Gift Planners ordered. Average is counting likes. Good is counting inquiries, and knowing who they came from."
+• [ASK] "What do you count every week? Likes, or inquiries?"
+10-4 · 0:35 [The success cards clone into next week.] "So we double down. Monday and Friday get copied into next week. Tuesday and Thursday are marked stop or fix. Tumelo does the same, but it counts quote requests from founders, not followers."
+10-5 · 0:15 [Near-black. Only Tuesday's photo stays lit. Wait three seconds.] "Tuesday's post. Let's fix it."
+[NEXT.]</aside>
     </section>
 
     <section class="scene c15 c15-s11" data-scene="11" data-stage="attract" aria-labelledby="s11-title">
@@ -875,14 +1022,14 @@
       <div class="c15-beat c15-studio" data-beat="11-2" data-span="11-6" aria-label="The same gift set, built up layer by layer">
         <div class="c15-studio__frame" data-layers="light depth breakout offer cta">
           <div class="c15-flat" data-layer="flat">
-            <img class="c15-media" data-media-slot="B4-M40" src="./assets/gen/B4-M40.webp" alt="" loading="lazy">
+            <img class="c15-media" data-media-slot="B4-M40" src="./assets/gen/flat-product-photo.webp" alt="" loading="lazy">
             <div class="c15-flat__standin" aria-hidden="true"><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div>
             <span class="c15-flat__flash" aria-hidden="true"></span>
           </div>
           <div class="c15-layer c15-layer--light" data-layer="light" aria-hidden="true"><i class="c15-plate"></i><i class="c15-key"></i></div>
           <div class="c15-layer c15-layer--depth" data-layer="depth" aria-hidden="true"><i class="c15-block c15-block--a"></i><i class="c15-block c15-block--b"></i><i class="c15-plinth"></i></div>
           <div class="c15-layer c15-layer--breakout" data-layer="breakout">
-            <img class="c15-media c15-media--stage" data-media-slot="B4-M41" src="./assets/gen/B4-M41.webp" alt="" loading="lazy">
+            <img class="c15-media c15-media--stage" data-media-slot="B4-M41" src="./assets/gen/amber-phone-stage.webp" alt="" loading="lazy">
             <span class="c15-giant" aria-hidden="true">ATTRACT</span>
             <div class="c15-phone" aria-hidden="true"><i></i></div>
             <svg class="c15-float c15-float--bottle" viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg>
@@ -915,8 +1062,8 @@
       <div class="c15-beat c15-why" data-beat="11-7">
         <h3 class="c15-h">Whatever you're creating, it needs to be <em>attractive.</em></h3>
         <div class="c15-pairs">
-          <figure class="c15-pair"><div class="c15-pair__good c15-shelf c15-shelf--neat" data-media-slot="B4-M47"><img class="c15-media" src="./assets/gen/B4-M47.webp" alt="" loading="lazy"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="c15-pair__avg c15-shelf c15-shelf--mess" data-media-slot="B4-M48"><img class="c15-media" src="./assets/gen/B4-M48.webp" alt="" loading="lazy"><i></i><i></i><i></i><i></i><i></i><i></i></div><figcaption><b>Good</b> a shelf packed neat <b class="c15-avg">Average</b> the same stock in a pile</figcaption></figure>
-          <figure class="c15-pair c15-pair--counter"><div class="c15-counter" data-media-slot="B4-M46"><img class="c15-media" src="./assets/gen/B4-M46.webp" alt="" loading="lazy"><i class="c15-counter__glow"></i><svg viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><svg viewBox="0 0 60 140" aria-hidden="true"><use href="#g1-vial"/></svg><svg viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></div><figcaption><b>Think of a lit perfume counter.</b> Nobody planned to stop. The light, the glass and the order did it.</figcaption></figure>
+          <figure class="c15-pair"><div class="c15-pair__good c15-shelf c15-shelf--neat" data-media-slot="B4-M47"><img class="c15-media" data-pending-src="./assets/gen/B4-M47.webp" alt="" loading="lazy"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="c15-pair__avg c15-shelf c15-shelf--mess" data-media-slot="B4-M48"><img class="c15-media" data-pending-src="./assets/gen/B4-M48.webp" alt="" loading="lazy"><i></i><i></i><i></i><i></i><i></i><i></i></div><figcaption><b>Good</b> a shelf packed neat <b class="c15-avg">Average</b> the same stock in a pile</figcaption></figure>
+          <figure class="c15-pair c15-pair--counter"><div class="c15-counter" data-media-slot="B4-M46"><img class="c15-media" data-pending-src="./assets/gen/B4-M46.webp" alt="" loading="lazy"><i class="c15-counter__glow"></i><svg viewBox="0 0 200 440" aria-hidden="true"><use href="#g1-bottle"/></svg><svg viewBox="0 0 60 140" aria-hidden="true"><use href="#g1-vial"/></svg><svg viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></div><figcaption><b>Think of a lit perfume counter.</b> Nobody planned to stop. The light, the glass and the order did it.</figcaption></figure>
         </div>
         <p class="c15-why__line">That's why shops pack shelves neatly, why merchandising is a trade, and why beauty is a huge industry.</p>
       </div>
@@ -934,18 +1081,31 @@
 
       <div class="c15-beat c15-ourpair" data-beat="11-9">
         <div class="c15-vs">
-          <figure class="c15-vs__avg"><div class="c15-snap" data-media-slot="B4-M40"><img class="c15-media" src="./assets/gen/B4-M40.webp" alt="" loading="lazy"><svg viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></div><figcaption><b>Average</b> a phone snapshot on the counter</figcaption></figure>
-          <figure class="c15-vs__good"><div class="c15-reel" data-media-slot="B4-M42"><video class="c15-media" src="./assets/gen/B4-M42.mp4" muted loop playsinline preload="none" aria-hidden="true"></video><div class="c15-reel__standin" aria-hidden="true"><i class="c15-reel__sweep"></i><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg><svg viewBox="0 0 60 140"><use href="#g1-vial"/></svg></div><span class="c15-reel__cta">Order on WhatsApp</span></div><figcaption><b>Good</b> the same box, staged as a vertical ad</figcaption></figure>
+          <figure class="c15-vs__avg"><div class="c15-snap" data-media-slot="B4-M40"><video class="c15-media" src="./assets/gen/vid-ad-average.mp4" poster="./assets/gen/vid-ad-average-poster.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><svg viewBox="0 0 200 160" aria-hidden="true"><use href="#g1-giftbox"/></svg></div><figcaption><b>Average</b> a phone snapshot on the counter</figcaption></figure>
+          <figure class="c15-vs__good"><div class="c15-reel" data-media-slot="B4-M42"><video class="c15-media" src="./assets/gen/vid-ad-good.mp4" poster="./assets/gen/vid-ad-good-poster.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><div class="c15-reel__standin" aria-hidden="true"><i class="c15-reel__sweep"></i><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg><svg viewBox="0 0 60 140"><use href="#g1-vial"/></svg></div><span class="c15-reel__cta">Order on WhatsApp</span></div><figcaption><b>Good</b> the same box, staged as a vertical ad</figcaption></figure>
           <figure class="c15-vs__b2b"><div class="c15-carton" aria-hidden="true"><i></i><b>AMBERKLOOF</b></div><figcaption><b>B2B · Tumelo Print &amp; Pack</b> Your packaging is your shelf ad.</figcaption></figure>
         </div>
       </div>
 
       <div class="c15-beat c15-pullback" data-beat="11-10">
         <aside class="c15-ref"><span>Reference R5 · the look we studied</span><strong>A floating-product ad pinned by the presenter</strong><a href="https://pin.it/2vF0x5b22" target="_blank" rel="noopener noreferrer">pin.it/2vF0x5b22 ↗</a><small>Ideas, not assets. Our stage is drawn fresh.</small></aside>
-        <div class="c15-window" data-media-slot="B4-M44"><img class="c15-media" src="./assets/gen/B4-M44.webp" alt="" loading="lazy"><div class="c15-window__standin" aria-hidden="true"><i class="c15-window__glow"></i><i class="c15-window__step"></i><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div><span class="c15-window__label">Dusk. The stage was a shop window all along.</span></div>
+        <div class="c15-window" data-media-slot="B4-M44"><img class="c15-media" src="./assets/gen/platform-scene-google.webp" alt="" loading="lazy"><div class="c15-window__standin" aria-hidden="true"><i class="c15-window__glow"></i><i class="c15-window__step"></i><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div><span class="c15-window__label">Dusk. The stage was a shop window all along.</span></div>
       </div>
       <p class="g1-standin c15-standin">Stand-ins until media lands · B4-M40, M41, M42, M44, M46, M47, M48</p>
-      <aside class="speaker-note">4:05 · Say it slowly: “AI. Today it also means Attract and Interact.” Engage gets them responding. Attract is why they stop at all. Convert asks for the next step. Interact lets them get to know you first. Then build the stage with the scroll. Start on Tuesday's flat photo: Average. Light: a warm plate, one key light. Depth: the plinth rises. Break-out: the products leave the phone and float. Offer: one glass card. Next step: the button sits inside the picture, and the label flips to Good. Ask the room to call one layer to switch off. Click it. The scroll pauses on the click; Space resumes. Then your argument: people are drawn to beautiful things. That's why shops pack shelves neatly and why beauty is a huge industry. Use the perfume counter, not a personal analogy (your own line stays here in the notes). Read the line on screen: “Whatever you're creating, it needs to be attractive.” Gallery: click one ad to play it. Point at what made people stop, then the views. Fashion and retail ads are still being sourced (G04-T03); say so if asked. Our pair: snapshot vs staged reel, and Tumelo: your packaging is your shelf ad. The camera pulls back: the stage was a shop window all along.</aside>
+      <aside class="speaker-note">4:05 · • New here: the second AI. Attract and Interact. Why people choose what looks good, and the five layers that turn a flat photo into an ad people stop for.
+• On screen: the letters A and I; Tuesday's flat photo rebuilds itself layer by layer into a floating studio ad; the switchboard; real ads; the reference card; the camera pulls back to a shop window at dusk.
+11-1 · 0:40 "So far: E, C, O. Now, AI. And no, not that AI. [The letters resolve.] A for Attract. I for Interact. They sound like Engage and Convert, but they're different. Engage gets people to respond. Attract is why they stop at all: it looks worth it. Convert asks for the next step. Interact lets them get to know you first."
+11-2 · 0:17 "Here's Tuesday's photo. White table, harsh flash. That's Average. Watch what happens, one layer at a time. Layer one: light. [Warm plaster, one key light.]"
+11-3 · 0:15 "Layer two: depth. A plinth. Stone behind it. Things at different distances."
+11-4 · 0:18 "Layer three: break-out. [The products float out of the phone.] A flat product photo sits there. A product that floats out to meet you makes you look twice."
+11-5 · 0:13 "Layer four: the offer. 'Gift set. Wrapped. Delivered Friday.'"
+11-6 · 0:27 "Layer five: the button, inside the picture. 'Order on WhatsApp.' [The label flips to Good.]"
+• [ASK] "Now you choose. Which layer should I switch off? Shout it." [Switch off what they call. Then switch it back on.] "See what fell apart? That one decision was doing a lot of the work."
+11-7 · 0:45 "Why does this work? Because we're wired to like things that look good. It's why shops pack everything neatly. It's why merchandising is a whole job. It's why beauty, make-up and clothing are such big industries. [The neat shelf and the messy shelf.] Whatever you're creating, it needs to be attractive."
+11-8 · 0:38 [PLAY] "Real ads that get this right. [Tap one.] Each card says what pulls you in, and what people did with it. And remember the Oh So Heavenly and Dash Labels ads from earlier? Look at them again with this lens."
+11-9 · 0:20 "Our own pair. The flat snapshot, and the floating ad. And Tumelo's version: your packaging is your shelf ad."
+11-10 · 0:12 "This is the reference we learned from. We took the ideas, not the pictures. [The camera pulls back to a shop window at dusk.]"
+[NEXT.]</aside>
     </section>
 
     <section class="scene c15 c15-s12" data-scene="12" data-stage="interact" aria-labelledby="s12-title">
@@ -953,7 +1113,7 @@
       <p class="c15-kicker"><span>12</span> Interact <b aria-hidden="true">·</b> then teach AI</p>
 
       <div class="c15-beat c15-front" data-beat="12-1">
-        <div class="c15-window c15-window--wide" data-media-slot="B4-M45"><video class="c15-media" src="./assets/gen/B4-M45.mp4" poster="./assets/gen/B4-M44.webp" muted loop playsinline preload="none" aria-hidden="true"></video><div class="c15-window__standin" aria-hidden="true"><i class="c15-window__glow"></i><i class="c15-window__step"></i><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div></div>
+        <div class="c15-window c15-window--wide" data-media-slot="B4-M45"><img class="c15-media" src="./assets/gen/platform-scene-google.webp" alt="" loading="lazy"><div class="c15-window__standin" aria-hidden="true"><i class="c15-window__glow"></i><i class="c15-window__step"></i><svg viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div></div>
         <h2 id="s12-title" class="c15-display">First attract.<br><em>Then interact.</em></h2>
         <p class="c15-sub">Interaction lets them get to know you.</p>
       </div>
@@ -1040,7 +1200,25 @@
         <div class="c15-bubble c15-bubble--them">Of course. <b>May we use your details?</b></div>
       </div>
       <p class="g1-standin c15-standin">Stand-ins until media lands · B4-M44, B4-M45</p>
-      <aside class="speaker-note">4:50 · The window at dusk. “First attract, then interact. Interaction lets them get to know you.” (Your own analogy stays here, in the notes.) Tap the bottle: the details burst out at once, product, size, price, proof, ask. Tap the gift set for its own burst. Average vs Good: a static grid with “Contact us” goes nowhere. The walk-through builds the order: pick three, they drop into the box, and the WhatsApp message writes itself. Nothing is sent. Tumelo does the same with a box builder. Then the websites: our plain, decent coaster page on the left. On the right, the real oryzo.ai, loaded live from its own site. Scroll it for the room. If it won't load, click “Open in a new tab”. Website 2, House Down Studio, opens in the presenter tab. Then teach AI: it doesn't know what good looks like, so show it success. Judge: three fresh critics judged this deck's own opening last night. All three said FAIL, and you saw the rebuild. Recreate the look: the reference plus numbers. Recreate an interaction: the burst they just tapped is AI's rebuild of R2. The generic card shatters. “Show AI what success looks like.” Exit on the chat: “May we use your details?”</aside>
+      <aside class="speaker-note">4:40 · • New here: first attract, then interact; every tap should give something back; a walkthrough you choose from beats a static grid; the real oryzo.ai next to our plain version; AI has to be shown success, judged, and taught to recreate it.
+• On screen: the shop window; product taps burst into detail arcs; the walkthrough; oryzo.ai live in a frame or a presenter tab; a judge step-through; the generic look shatters.
+12-1 · 0:25 "First attract, then interact. Think of a lit shop window at night. It pulls you in. And then you want to know more. Interaction is letting people get to know you."
+12-2 · 0:25 [TAP the bottle.] "Tap the bottle. [The detail arc bursts out.] Ingredients. Size. Price. Proof. 'Ask us on WhatsApp.' Every tap gives you something back, straight away."
+12-3 · 0:20 "And with ads, people do more than look. They comment, save, share, tap a product tag, try it on, send a message. Each of those is a door to the next step."
+12-4 · 0:30 "Average: a grid of products, and a 'Contact us' button that goes nowhere you can see. Good: you walk through it. Pick the oil. Pick the butter. Pick the box. And it ends in a WhatsApp chat with your order already typed."
+12-5 · 0:15 "Now a website. First, our own plain version of a scrolling product page. Decent. Tidy. That's Average. [Open the real oryzo.ai, in the frame or the presenter tab.] And this is the site that inspired it, oryzo.ai, built by the studio Lusion. That's Good. [Scroll it.] One object you follow the whole way down. That's the bar."
+• [ASK] "When last did a website make you want to click around? Which one was it?"
+12-6 · 0:15 "House Down Studio. Watch how their work leads you, step by step, to contacting them."
+12-7 · 0:15 [If a third site is loaded: one line on what you do there and what it gives back. If not: stay on oryzo and keep scrolling.]
+12-8 · 0:20 [If two provider quotes are on screen: read them, with who said them. If not: skip straight to 12-9.]
+12-9 · 0:15 "Here's the catch. AI doesn't know what good looks like, or how a good interaction works. You have to show it success. [The slider: one line of prompt, against the same request with real examples.]"
+12-11 · 0:20 "Then we let AI judge. Three critics score the work, round by round. [Step through.] It fails, we fix it, it goes again, until all three agree. That skill is called design-loop."
+12-12 · 0:20 "Recreate the look. Amberkloof's design system makes a new piece that matches the brand."
+12-13 · 0:25 "Recreate an interaction. We gave AI the click-and-burst idea from a reference, and it rebuilt it for Amberkloof. That's what you just tapped."
+12-14 · 0:10 [The generic AI look shatters.] "Show AI what success looks like."
+12-15 · 0:15 "Tumelo's version: build your box. Size, finish, and an instant quote."
+12-16 · 0:10 "Tap 'Ask us', and the chat asks first: 'May we use your details?' Which brings us to doing this properly."
+[NEXT.]</aside>
     </section>
 
     <section class="scene c15 c15-s13" data-scene="13" data-stage="responsible" aria-labelledby="s13-title">
@@ -1078,8 +1256,15 @@
         <p class="c15-fine c15-fine--ink">Their runs are ready.</p>
       </div>
       <p class="c15-fine c15-fine--ink c15-legal">The verdicts are rules of thumb for the room, not legal advice.</p>
-      <div class="c15-compat" hidden aria-hidden="true"><details class="taste-prompt"><summary>engine hook</summary></details><video class="taste-demo__draft-video" muted playsinline preload="none"></video><div class="taste-proof__image"></div><div class="taste-proof__copy"><small></small></div><form class="mock-quote"></form><button type="button" id="mockReplyJump" hidden tabindex="-1">engine hook</button><span id="mockQuoteResult"></span></div>
-      <aside class="speaker-note">2:15 · AI wrote this description for the bottle. “Before you post: check, be honest, protect.” Tap each claim with the room. Clinically proven: no study on file, so cut it. Heals eczema: a cosmetic can't promise to treat a condition. South Africa's number one: by what count? No source. The five-star review: we wrote it ourselves, and a made-up review misleads buyers. Then show the honest version, with the AI line. Second exercise: what would you paste into a public AI tool? Let the room call each one. Names and numbers: no. Totals with no names: yes. Your product description: yes. A customer's chat: no. Race: no, it's special personal information under POPIA. Three words: check, be honest, protect. B2B: don't scrape personal emails off LinkedIn. Consent recap: the volunteer agreed in scene 04. Their runs are ready. The line draws the pedestal of the next scene.</aside>
+      <aside class="speaker-note">2:15 · • New here: check every claim, never fake proof, and know what you may paste into a public AI tool.
+• On screen: AI's product description; a red pen; each false claim shatters when corrected; the sorting exercise.
+13-1 · 0:15 "AI wrote this product description for the bottle. Before you post anything AI wrote: check it, be honest, protect people's information."
+13-2 · 0:50 "Exercise one. [CLICK 'clinically proven'.] No source. Gone. [CLICK 'heals eczema'.] That's a medical claim, and Amberkloof never makes those. Gone. [CLICK the five-star review.] And this review? AI made it up. A fake review is a lie with your name on it. Gone. What's left is true, and it says AI helped write it."
+13-3 · 0:40 - [ASK] "Exercise two. Would you paste this into ChatGPT? Yes or no?"
+"A customer list with names and numbers? [Room answers.] No. Take the names out first. Sales totals with no names? Yes. A customer's WhatsApp chat? No. [Tap each one for the reason on screen.] And a race field? Only if the customer told you, and never into a public tool."
+13-4 · 0:20 "Three words. Check. Be honest. Protect. And if you sell to businesses: don't scrape personal emails off LinkedIn for cold mail. Under POPIA, direct marketing needs consent."
+13-5 · 0:10 "Which is why [Name] said yes earlier. Their public pages and socials, and their own answers about the business. No customer details. Deleted in 30 days. Their results are ready."
+[NEXT.]</aside>
     </section>
 
     <section class="scene c15 c15-s14" data-scene="14" data-stage="tool" aria-labelledby="s14-title">
@@ -1131,7 +1316,21 @@
       <div class="c15-beat c15-tolearn" data-beat="14-13">
         <div class="c15-learncard"><span>Next</span><strong>Where to learn next</strong></div>
       </div>
-      <aside class="speaker-note">3:35 · The pedestal rises. “Now for a real business in the room.” The volunteer's website frame turns into the report. Tool A's live run isn't deployed yet, so these panels are cached runs on demo data. Say that plainly. Panels 1 and 2 need the live tool. Competitors: a strong provenance story elsewhere, nothing local. AI reach: no robots.txt, no sitemap. Citations: 41 out of 100, because the headings are slogans. Click through the three tabs. Then Tool B: the six questions become the persona from scene 03, then the brand kit, then one post for their best platform. Tool B is waiting on its Claude page, so this is demo data. Hold for the QR: Tool A works today. Tool B says “available after release”. Next steps fold into one card: where to learn next.</aside>
+      <aside class="speaker-note">3:35 · • New here: the two tools you can use on your own business.
+• On screen: a pedestal rises; Tool A's panels; strengths, gaps, next steps; Tool B's persona card and brand kit; two QR codes.
+14-1 · 0:15 "Now for a real business in the room. [Name], this one's yours. These runs started [read the time on screen], when you said yes."
+14-2 to 14-6 · 0:55 [LIVE: Tool A] "Tool A scans the whole business. What you do, from your website. Your social pages. Your competitors, and what we'd suggest you do on social. Whether AI can even reach your site. And whether AI quotes you when people ask about what you do. [Spend your time on competitors and AI reach. One line each for the other three.]"
+14-7 · 0:40 "Then three tabs. What's working. What isn't. And what to do next. [Read one strength, one gap and one next step.] [Name], which of these would you fix first?"
+• If Tool A is not live: "Tool A isn't public yet. So let's put together what the tools already found on [business] today: the competitor scan, the keywords, the SEO check, the backlinks and the citations. That's the same picture, in pieces."
+14-8 · 0:15 [LIVE: Tool B] "Tool B starts from the six answers [Name] gave at the door."
+14-9 · 0:30 "And here's their customer, as a card, just like the Gift Planner. [Read the card.] [Name], does that sound like your customers?"
+14-10 and 14-11 · 0:30 "Then a brand kit from their current content. Colours, fonts, voice. And one post for their best platform, in their own look."
+• If Tool B is not live: "Tool B isn't open to the public yet. It does for your business what you saw us do for Amberkloof: the customer card, then the brand kit."
+14-12 · 0:20 "[Name], thank you. Give them a hand. [Applause.] Two codes. One for each tool. Scan now, and run your own business."
+• If the codes aren't on screen: "These open to the public soon. [Say how people will get the links: through GTP, or your own channel. Your call.]"
+• [ASK] "Who's running theirs tonight? Hands up."
+14-13 · 0:10 "And everything you need next goes in one box."
+[NEXT.]</aside>
     </section>
 
     <section class="scene c15 c15-s15 scene--close" data-scene="15" data-stage="close" aria-labelledby="s15-title">
@@ -1139,7 +1338,7 @@
       <p class="c15-kicker c15-kicker--ink"><span>15</span> Keep learning</p>
 
       <div class="c15-beat c15-box" data-beat="15-1" data-span="15-2">
-        <div class="c15-giftbox" data-media-slot="B5-M50"><img class="c15-media" src="./assets/gen/B5-M50.webp" alt="" loading="lazy"><div class="c15-giftbox__standin" aria-hidden="true"><i class="c15-giftbox__base"></i><i class="c15-giftbox__kraft"></i></div><div class="c15-giftbox__lid" data-media-slot="B5-M51"><img class="c15-media" src="./assets/gen/B5-M51.webp" alt="" loading="lazy"></div></div>
+        <div class="c15-giftbox" data-media-slot="B5-M50"><img class="c15-media" data-pending-src="./assets/gen/B5-M50.webp" alt="" loading="lazy"><div class="c15-giftbox__standin" aria-hidden="true"><i class="c15-giftbox__base"></i><i class="c15-giftbox__kraft"></i></div><div class="c15-giftbox__lid" data-media-slot="B5-M51"><img class="c15-media" data-pending-src="./assets/gen/B5-M51.webp" alt="" loading="lazy"></div></div>
         <h2 id="s15-title" class="c15-display c15-display--ink">Keep <em>learning.</em></h2>
         <ul class="c15-skills" aria-label="Eight Anthropic marketing skills to take home">
           <li><b>brand-review</b> Check a post against your brand voice.</li>
@@ -1195,17 +1394,33 @@
         <div class="c15-takeaway"><img src="./presentation-qr.svg" width="132" height="132" alt="QR code for the workshop page"><div><strong>Keep the workshop</strong><a href="https://loxlyatkinson.github.io/gtp-eco-workshop/">loxlyatkinson.github.io/gtp-eco-workshop/</a><small>Skills page: loxlyatkinson.github.io/gtp-eco-workshop/skills/ · available after release</small></div></div>
       </div>
       <p class="g1-standin c15-standin c15-standin--ink">Stand-ins until media lands · B5-M50, B5-M51</p>
-      <aside class="speaker-note">3:40 · The gift box opens. “Keep learning.” Eight marketing skills from Anthropic rise one by one. Read one line each. They're free under Apache-2.0, and the download page has a three-step guide for the Claude app. With and without a skill: run the same sentence in Claude live, once without campaign-plan and once with it, and compare the two answers. Conversion skills: cro, popups and signup, from the MIT repo on screen. Where to learn: click a stage and its sites come forward. Read two. Then the 7-day test. Everyone picks one customer, one platform, one action and one measure. Tap the timer: 40 seconds, and the room writes theirs. The page holds while it runs. Copy works with no internet. Close on the box: the bottle settles in, the lid closes. “Be found. Be chosen. Keep learning.” Point at the QR. Hold.</aside>
+      <aside class="speaker-note">3:40 · • New here: the free skills download, where to learn by stage, and your own one-week test.
+• On screen: the kraft gift box opens; eight skills rise; the learn links by stage; the plan card; the bottle settles in the box; the QR to the skills page.
+15-1 · 0:10 "Keep learning. [The box opens.] Tumelo made this box, by the way."
+15-2 · 0:45 "Inside: eight free marketing skills from Anthropic, the company that makes Claude, on an open licence. [They rise one by one.] Brand review checks your work against your brand. Campaign plan plans a campaign. Competitive brief sizes up a competitor. Content creation and draft content write the first draft. Email sequence writes your follow-up emails. Performance report tells you what worked. And SEO audit checks your website."
+15-3 · 0:30 "Does a skill make a difference? Same request, a campaign plan, with the skill and without it. [Read one line from each.] Hear the difference? That's what a recipe does."
+15-4 · 0:10 "And the capture skills from earlier, C-R-O, popups and signup? They're not in this box. Their address is on screen. Take a photo."
+15-5 · 0:40 "Where to learn more, by stage. [CLICK Engage.] Meta Blueprint, and the WhatsApp Business app. [CLICK Convert.] HubSpot Academy, and Google Skillshop. [CLICK Optimize.] Search Console Help, and Google Analytics. [CLICK Attract and Interact.] Google Business Profile, and Grow with Google. [CLICK AI skills.] Claude Academy, and the Information Regulator's POPIA guidance. Every link is on the skills page."
+15-6 · 1:00 (20 s talk, then the 40 s write): the 7-day test
+"So here's your test for the next seven days. It's small on purpose. Four picks. One customer, from the list you wrote earlier. One platform where they already are. One action: post something, capture details, or follow someone up. And one number you'll check next Friday. Write it down. Forty seconds. Go."
+[The plan card builds: tonight, this week, 30-60-90. Copy works offline. The timer holds the page.]
+15-7 · 0:25 · the close [The bottle settles into the box. The lid closes on the QR.]
+"An hour ago, this bottle was a brand nobody had heard of. We found out who buys it, and it wasn't who we guessed. We picked where to show up, and why. We let AI write the first draft, and we kept our own voice. We gave people a next step, and we followed up. We counted what worked. We made it worth stopping for. And we ran one of your businesses through the same tools, live.
+None of that needs a big budget. It needs one week, and the card in your hand.
+Be found. Be chosen. Keep learning. Thank you."
+[Hold. Leave the QR up.]</aside>
     </section>
   </main>
 
   <footer class="deck-controls" aria-label="Presentation controls"><div class="deck-controls__stage"><span id="stageLabel">START</span><div class="progress-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1"><span id="progressFill"></span></div><span id="sceneCount">01 / 15</span></div><div class="deck-controls__actions"><span id="autoStatus" class="auto-status" role="status" aria-live="polite" data-state="running"><i aria-hidden="true"></i><span id="autoStatusText">Moving</span></span><label class="speed-control" title="Auto-scroll speed (keys - and +)">Speed <select id="speedSelect" aria-label="Auto-scroll speed"><option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label><button type="button" id="overviewButton" aria-label="Open scene overview">Overview</button><button type="button" id="notesButton" aria-label="Toggle speaker notes" aria-pressed="false">Notes</button><button type="button" id="prevButton" aria-label="Previous scene">←</button><button type="button" id="nextButton" aria-label="Next scene">Next <span aria-hidden="true">→</span></button></div></footer>
   <dialog id="overviewDialog" class="overview-dialog" aria-labelledby="overviewTitle"><div class="overview-dialog__top"><h2 id="overviewTitle">All scenes</h2><button type="button" id="closeOverview" aria-label="Close overview">✕</button></div><div id="overviewGrid" class="overview-grid"></div></dialog>
-  <link rel="stylesheet" href="./chapters/ch-0407.css?v=1">
+  <link rel="stylesheet" href="./chapters/ch-0407.css?v=2">
   <script defer src="./chapters/ch-0407.js?v=1"></script>
-  <link rel="stylesheet" href="./chapters/ch-0810.css?v=1">
+  <link rel="stylesheet" href="./chapters/ch-0810.css?v=2">
   <script defer src="./chapters/ch-0810.js?v=1"></script>
-  <link rel="stylesheet" href="./chapters/ch-1115.css?v=1">
+  <link rel="stylesheet" href="./chapters/ch-1115.css?v=2">
   <script defer src="./chapters/ch-1115.js?v=1"></script>
+  <link rel="stylesheet" href="./chapters/gen-media.css?v=1">
+  <script defer src="./chapters/gen-media.js?v=1"></script>
 </body>
 </html>

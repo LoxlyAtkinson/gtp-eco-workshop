@@ -426,9 +426,6 @@ a.c15-sitecard:hover{border-color:var(--c15-amber)}
 .c15-takeaway a{display:block;font-size:.78rem;overflow-wrap:anywhere;color:#1e1a17}
 .c15-takeaway small{display:block;margin-top:.3rem;font-size:.68rem;color:#5c544b;overflow-wrap:anywhere}
 
-/* Old Amina connectors between scenes 10-15 live in scroll-presentation.js and are
-   hidden here until the merger deletes them (see the chapter report). */
-.scene-bridge--attract,.scene-handoff--after-11,.scene-handoff--after-12,.scene-handoff--after-13,.scene-handoff--after-14{display:none!important}
 
 /* ===== Motion layout: one sticky stage per scene ===== */
 .c15-motion .c15-s11{min-height:640svh}

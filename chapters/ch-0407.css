@@ -590,7 +590,4 @@ html:not(.c47-motion) .c7-checks{grid-template-columns:1fr}
 }
 @media screen and (max-width:900px) and (max-height:700px){.c47-motion .c4-research__card .c4-research__persona{display:none}}
 
-/* Old Amina/lunch connectors inside this chapter (built by scroll-presentation.js).
-   Hidden here so the hold lands on the scene itself; the merger removes their configs. */
-.scene-handoff--after-04,.scene-bridge--voice,.scene-handoff--after-06,.scene-handoff--after-07{display:none!important}
 @media screen{.c47-motion .c7-punch.is-on .c7-punch__card b,.c47-motion .c7-punch.is-on .c7-punch__card span{animation:c47-float 3.6s 3.8s ease-in-out infinite}}

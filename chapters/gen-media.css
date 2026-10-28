@@ -1,0 +1,45 @@
+/* Generated media for scenes 01-03 and small media helpers (merge 2026-10-28).
+   Files live in assets/gen/ (see assets/gen/MANIFEST.md). Every rule here only
+   applies once the file has loaded (classes set by gen-media.js), so a missing
+   file leaves the code-drawn stand-in exactly as it was. */
+
+/* 01 · the hero still comes to life */
+.g1-gen--hero{position:absolute;left:50%;top:50%;z-index:0;height:118%;width:auto;aspect-ratio:16/9;translate:-50% -50%;object-fit:cover;pointer-events:none;opacity:0;transition:opacity .8s ease;
+  -webkit-mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 56%,#0000 100%);mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 56%,#0000 100%)}
+.g1-open.g1-has-hero .g1-gen--hero{opacity:1}
+/* GSAP writes autoAlpha inline on these, so the hide needs !important. The
+   line-art botanicals (rooibos, buchu, sprig) and the E/C/O orbit stay. */
+.g1-open.g1-has-hero .g1-hero__bottle,.g1-open.g1-has-hero .g1-hero__drop,.g1-open.g1-has-hero .g1-hero__plinth,
+.g1-open.g1-has-hero .g1-sat--vial,.g1-open.g1-has-hero .g1-sat--gift,.g1-open.g1-has-hero .g1-sat--marula,
+.g1-open.g1-has-hero .g1-sat--marula2,.g1-open.g1-has-hero .g1-sat--drop2{visibility:hidden!important}
+.g1-open.g1-has-hero .g1-hero__orbit{z-index:3}
+@media (max-width:900px){.g1-gen--hero{height:132%}}
+
+/* 02 / 03 · the photographed bottle inside the capsule window */
+.g1-photo{pointer-events:none}
+
+/* 02 · the example post uses the editorial gift-set still */
+.g1-gen--post{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
+.g1-post__img.has-photo .g1-gen--post{opacity:1}
+.g1-post__img.has-photo>svg{visibility:hidden}
+.g1-post__img .g1-floaters{z-index:2}
+
+/* 03 · persona pictures, one per group (B2B shows Tumelo) */
+.g1-gen--persona{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:none}
+.g1-who[data-audience="b2c"][data-persona="gift"] .g1-gen--persona[data-persona-pic="gift"].is-ok,
+.g1-who[data-audience="b2c"][data-persona="self"] .g1-gen--persona[data-persona-pic="self"].is-ok,
+.g1-who[data-audience="b2c"][data-persona="spa"] .g1-gen--persona[data-persona-pic="spa"].is-ok,
+.g1-who[data-audience="b2b"] .g1-gen--persona[data-persona-pic="b2b"].is-ok{display:block}
+.g1-persona__pic.has-photo .g1-persona__head,.g1-persona__pic.has-photo .g1-persona__body,.g1-persona__pic.has-photo .g1-persona__halo,.g1-persona__pic.has-photo .g1-standin--pic,.g1-persona__pic.has-photo .g1-persona__hand svg{visibility:hidden}
+
+/* Stand-in notes are for review builds only: hide them once real media is in. */
+html.has-gen-media .g1-standin{display:none}
+
+/* 07 · the deliberately average homepage hero */
+.c7-page__hero{display:block;width:100%;height:72px;margin:-.2rem 0 .5rem;border-radius:6px;object-fit:cover}
+@media (max-width:900px){.c7-page__hero{height:48px}}
+
+@media (prefers-reduced-motion:reduce){.g1-gen--hero{transition:none}}
+
+/* Speaker notes follow experience/presentation-script.md line by line. */
+.speaker-note,#presenterNotesText{white-space:pre-line}

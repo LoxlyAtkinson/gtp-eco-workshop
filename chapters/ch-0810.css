@@ -462,8 +462,6 @@ html.cx-motion .cx-10.is-quiet .cx10-post:not([data-cx-post="tue"]){opacity:.12;
 }
 @media print{html.cx-motion .cx .scene__stage{position:relative;height:auto}html.cx-motion .cx .scene__stage>*{position:relative}html.cx-motion .cx [data-in]{visibility:visible!important;opacity:1!important}}
 body.motion-paused .cx *,body.motion-paused .cx *::before,body.motion-paused .cx *::after,html.cx-motion .cx.cx-off *{animation-play-state:paused!important}
-/* Old Amina lunch connectors around this chapter: hidden until the merger removes them from scroll-presentation.js */
-.scene-handoff--after-07,.scene-handoff--after-08,.scene-handoff--after-09,.scene-bridge--attract{display:none!important}
 
 /* State styles set by ch-0810.js */
 html.cx-motion .cx08-nudge{opacity:0;transform:translateY(16px) scale(.96);transition:opacity .45s,transform .45s cubic-bezier(.2,1.4,.4,1)}
