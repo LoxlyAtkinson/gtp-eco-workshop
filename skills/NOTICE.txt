@@ -1,0 +1,20 @@
+Anthropic marketing skills - attribution notice
+
+The skills in this download were written by Anthropic and are published in
+the anthropics/knowledge-work-plugins repository, folder marketing/skills.
+
+Source:  https://github.com/anthropics/knowledge-work-plugins/tree/c71b6f3082b1e5ace3d1a9e30ac9205934134c9c/marketing
+Commit:  c71b6f3082b1e5ace3d1a9e30ac9205934134c9c (21 September 2026)
+Skills:  brand-review, campaign-plan, competitive-brief, content-creation, draft-content, email-sequence, performance-report, seo-audit
+
+Every SKILL.md is an unmodified copy of the upstream file at that commit.
+
+Licence: Apache License, Version 2.0. The full text is in LICENSE, copied
+byte for byte from marketing/LICENSE at the same commit.
+Upstream ships no NOTICE file at this commit, so there is no upstream NOTICE text to reproduce.
+
+Packaged for the GTP ECO marketing workshop (South Africa). The packaging
+files (NOTICE.txt, SOURCE.md, INSTALL.md, and the per-skill upload zips) are
+not part of the upstream work. Each per-skill zip adds LICENSE.txt (the same
+Apache-2.0 text) and NOTICE.txt (this notice) beside the unmodified SKILL.md.
+This download is not an Anthropic product and is not endorsed by Anthropic.
