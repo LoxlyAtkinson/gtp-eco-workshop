@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f0e4">
+  <meta name="description" content="Your first week with the eight marketing skills: where they work, how to install them and what to try each day.">
+  <title>Your first week with the marketing skills</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../kit.css">
+  <style>
+    main{max-width:48rem}
+    .where{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+    .where p{margin:.2rem 0 0;color:var(--muted);font-size:.95rem}
+    .steps{margin:0;padding:0;list-style:none;display:grid;gap:.7rem;counter-reset:s}
+    .steps>li{counter-increment:s;position:relative;padding:1rem 1rem 1rem 3.4rem;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+    .steps>li::before{content:counter(s);position:absolute;left:1rem;top:1rem;width:1.8rem;height:1.8rem;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-weight:800}
+    .steps p{margin:.15rem 0}
+    .steps b{font-weight:700}
+    .days{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+    .day{display:grid;grid-template-columns:auto 1fr;gap:.8rem;align-items:start;padding:.9rem 1rem;border-radius:14px;background:var(--card);border:1px solid var(--line);cursor:pointer}
+    .day input{width:1.4rem;height:1.4rem;margin:.15rem 0 0;accent-color:var(--good)}
+    .day strong{display:block;font:800 1rem/1.3 var(--display)}
+    .day small{display:inline-block;margin-left:.3rem;font:700 .72rem/1 var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)}
+    .day span{display:block;margin-top:.2rem;color:var(--muted);font-size:.95rem}
+    .day:has(input:checked){background:#e5efe6;border-color:#24644659}
+    .day:has(input:checked) strong{text-decoration:line-through;text-decoration-thickness:2px}
+    .progress{margin:.6rem 0 0;font-weight:700;color:var(--good)}
+    .prompts{display:grid;gap:.7rem}
+    .prompt{display:grid;gap:.45rem}
+    .prompt p{margin:0}
+    .prompt blockquote{margin:0;padding:.7rem .85rem;border-left:3px solid var(--good);background:var(--paper);font-size:.97rem}
+    .prompt button{justify-self:start;min-height:2.6rem;padding:.45rem .95rem;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 .9rem/1 var(--body);cursor:pointer}
+    .toc{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0 0;padding:0;list-style:none}
+    .toc a{display:inline-block;padding:.45rem .8rem;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:.9rem;font-weight:700;text-decoration:none}
+    @media (min-width:760px){.prompts{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+<a class="skip" href="#week">Skip to the 7-day list</a>
+<main>
+  <a class="brand" href="../../"><i aria-hidden="true">G</i>GTP ECO workshop</a>
+  <p class="kicker">Take-home guide</p>
+  <h1>Your first week with the <em>marketing skills.</em></h1>
+  <p class="lede">A skill is a short instruction file that teaches Claude how to do one job well, like planning a campaign.</p>
+  <div class="btn-row">
+    <a class="btn btn--accent" href="../downloads/anthropic-marketing-skills.zip" download>Download the pack</a>
+    <a class="btn btn--ghost" href="../get/">Get it by email</a>
+  </div>
+  <ul class="toc" aria-label="On this page">
+    <li><a href="#where">Where skills work</a></li>
+    <li><a href="#claude-ai">Install on Claude.ai</a></li>
+    <li><a href="#claude-code">Install in Claude Code</a></li>
+    <li><a href="#week">Your 7-day list</a></li>
+    <li><a href="#prompts">Example prompts</a></li>
+  </ul>
+
+  <h2 id="where">Where skills work</h2>
+  <div class="where">
+    <div class="card"><h3>Claude.ai, web or desktop app</h3><p>Any plan, the free one too. Code execution must be switched on. Do the setup on a computer.</p></div>
+    <div class="card"><h3>Claude Code</h3><p>Anthropic's coding tool that runs in a terminal. Two commands install all eight.</p></div>
+  </div>
+
+  <h2 id="claude-ai">Install on Claude.ai <em>(about 10 minutes)</em></h2>
+  <ol class="steps">
+    <li><p><b>Unzip the pack.</b> Open the folder called <code>upload-to-claude</code>. Inside are eight small zips, one per skill.</p></li>
+    <li><p><b>Switch on code execution.</b> In Claude, open <b>Settings &gt; Capabilities</b> and turn on <b>Code execution and file creation</b>. Some accounts call it <b>Create and edit files</b>.</p></li>
+    <li><p><b>Upload a skill.</b> Go to <b>Customize &gt; Skills</b>. Click <b>+</b>, then <b>+ Create skill</b>, then <b>Upload a skill</b>.</p><p>Pick one zip, say <code>campaign-plan.zip</code>. Upload it as it is. Don't unzip it.</p></li>
+    <li><p><b>Repeat</b> for each skill you want. One zip is one skill.</p></li>
+    <li><p><b>Use it.</b> Check the switch next to the skill is on. Start a new chat and name the skill in your request.</p></li>
+  </ol>
+
+  <div class="note" id="refused">
+    <h3>If Claude.ai refuses the upload</h3>
+    <p>Claude's help page says a skill's description should be 200 characters or less. These eight have descriptions of 278 to 343 characters, so Claude.ai might reject them. We haven't been able to test it on every account.</p>
+    <p>If yours says no, you have two ways in:</p>
+    <ol>
+      <li><b>Use Claude Code</b>, below. It takes the skills as they are.</li>
+      <li><b>Attach the file instead.</b> In any Claude chat, attach the <code>SKILL.md</code> file from the <code>marketing-skills</code> folder and write: "Follow the instructions in this file." Then ask your question.</li>
+    </ol>
+  </div>
+
+  <h2 id="claude-code">Install in Claude Code <em>(about 2 minutes)</em></h2>
+  <p>Run these two commands in your terminal:</p>
+  <pre><code>claude plugin marketplace add anthropics/knowledge-work-plugins
+claude plugin install marketing@knowledge-work-plugins</code></pre>
+  <p>Then type <code>/</code> in Claude Code and look for <code>/marketing:campaign-plan</code>. If it's there, you're set.</p>
+  <p class="fine">This route installs Anthropic's latest copy from GitHub rather than our zip. It also adds 13 connector entries for tools such as Slack, Canva and HubSpot. Prefer the zip? Copy the folders inside <code>marketing-skills</code> into <code>~/.claude/skills/</code> for yourself, or into <code>.claude/skills/</code> inside one project.</p>
+
+  <h2 id="week">Your <em>7-day list</em></h2>
+  <p>About 20 to 30 minutes a day. Tick each day off. Your ticks stay on this device.</p>
+  <ul class="days" id="days">
+    <li><label class="day"><input type="checkbox" data-day="1"><div><strong>Day 1: Install <small>15 min</small></strong><span>Download the pack and follow the steps above. Start with campaign-plan and brand-review.</span></div></label></li>
+    <li><label class="day"><input type="checkbox" data-day="2"><div><strong>Day 2: brand-review <small>20 min</small></strong><span>Paste your last three posts and a few lines about how you talk to customers. Fix what it flags.</span></div></label></li>
+    <li><label class="day"><input type="checkbox" data-day="3"><div><strong>Day 3: campaign-plan <small>30 min</small></strong><span>Pick one goal for the next four weeks, like more weekday bookings. Let the skill plan it week by week.</span></div></label></li>
+    <li><label class="day"><input type="checkbox" data-day="4"><div><strong>Day 4: content-creation and draft-content <small>30 min</small></strong><span>Turn week one of the plan into real posts. Use draft-content for anything longer, like a blog post.</span></div></label></li>
+    <li><label class="day"><input type="checkbox" data-day="5"><div><strong>Day 5: email-sequence <small>30 min</small></strong><span>Write the follow-up for people who asked a question but didn't buy. You can reuse the messages on WhatsApp.</span></div></label></li>
+    <li><label class="day"><input type="checkbox" data-day="6"><div><strong>Day 6: seo-audit and competitive-brief <small>30 min</small></strong><span>Check your own website first. Then compare yourself with the competitor you lose the most customers to.</span></div></label></li>
+    <li><label class="day"><input type="checkbox" data-day="7"><div><strong>Day 7: performance-report <small>20 min</small></strong><span>Put in this week's numbers: messages, enquiries, sales. Keep what worked and drop what didn't.</span></div></label></li>
+  </ul>
+  <p class="progress" id="progress" aria-live="polite"></p>
+
+  <h2 id="prompts">One example prompt <em>per skill</em></h2>
+  <p>Swap in your own business. In Claude Code you can also type the skill as a command, like <code>/marketing:seo-audit</code>.</p>
+  <div class="prompts">
+    <div class="card prompt"><h3>brand-review</h3><blockquote>Use the brand-review skill. We talk to customers in a warm, local way with no jargon. Check these three Instagram captions and tell me what to change. [Paste the captions here.]</blockquote><button type="button" data-copy>Copy prompt</button></div>
+    <div class="card prompt"><h3>campaign-plan</h3><blockquote>Use the campaign-plan skill to plan four weeks of Facebook and WhatsApp posts for my bakery in Durban. The goal is more birthday cake orders.</blockquote><button type="button" data-copy>Copy prompt</button></div>
+    <div class="card prompt"><h3>competitive-brief</h3><blockquote>Use the competitive-brief skill to compare my guesthouse in Knysna with [competitor name and website]. Where are they stronger, and where can we win?</blockquote><button type="button" data-copy>Copy prompt</button></div>
+    <div class="card prompt"><h3>content-creation</h3><blockquote>Use the content-creation skill to turn this week's special into an Instagram post, a WhatsApp status and a Facebook post. The special is: [describe it here].</blockquote><button type="button" data-copy>Copy prompt</button></div>
+    <div class="card prompt"><h3>draft-content</h3><blockquote>Use the draft-content skill to write a short blog post on choosing a school uniform supplier in Pretoria. Give me five headline options.</blockquote><button type="button" data-copy>Copy prompt</button></div>
+    <div class="card prompt"><h3>email-sequence</h3><blockquote>Use the email-sequence skill to write three follow-up emails for people who asked for a quote on our garden service but didn't book.</blockquote><button type="button" data-copy>Copy prompt</button></div>
+    <div class="card prompt"><h3>performance-report</h3><blockquote>Use the performance-report skill. Here are last week's numbers: [paste reach, messages, enquiries and sales]. What worked, and what should I try next week?</blockquote><button type="button" data-copy>Copy prompt</button></div>
+    <div class="card prompt"><h3>seo-audit</h3><blockquote>Use the seo-audit skill to check [your website address]. List the fixes that will help people in Bloemfontein find us on Google, most important first.</blockquote><button type="button" data-copy>Copy prompt</button></div>
+  </div>
+
+  <h2>Stuck?</h2>
+  <p>Claude's own help page has the latest steps, in case the menus have moved: <a href="https://support.claude.com/en/articles/12512180-use-skills-in-claude">Use skills in Claude</a>. To get better at working with Claude in general, try the free courses at <a href="https://academy.claude.com/">Claude Academy</a>.</p>
+
+  <div class="legal">
+    <p>The skills were written by Anthropic and published in <a href="https://github.com/anthropics/knowledge-work-plugins/tree/c71b6f3082b1e5ace3d1a9e30ac9205934134c9c/marketing">anthropics/knowledge-work-plugins</a> at commit c71b6f3, under the Apache License 2.0. Every SKILL.md in the pack is an unmodified copy. This pack isn't an Anthropic product and isn't endorsed by Anthropic.</p>
+    <p><a href="../">All eight skills, one by one</a> · <a href="../../">Back to the workshop</a></p>
+  </div>
+</main>
+<script src="./guide.js"></script>
+</body>
+</html>

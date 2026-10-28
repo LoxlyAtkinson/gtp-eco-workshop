@@ -1,0 +1,34 @@
+/* Shared look for skills/get/ and skills/guide/. Same warm paper, ink and kraft accent as scene 15 and skills/. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Manrope:wght@700;800&display=swap');
+:root{--paper:#f6f0e4;--card:#fffaf1;--ink:#1e1a17;--muted:#5c544b;--line:#1e1a1726;--accent:#a8541a;--accent-ink:#8a4413;--good:#246446;--bad:#a1281c;--display:Manrope,Arial,sans-serif;--body:'DM Sans',Arial,sans-serif}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.55 var(--body)}
+main{max-width:42rem;margin:0 auto;padding:1.6rem 18px 3.5rem}
+a{color:var(--ink);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:12px;top:12px;z-index:5;background:var(--ink);color:var(--paper);padding:.6rem .9rem}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-weight:800;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase}
+.brand i{display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:var(--ink);color:var(--paper);font:800 1rem/1 var(--display);font-style:normal}
+.kicker{margin:1.6rem 0 0;font-weight:800;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink)}
+h1{font:800 clamp(2rem,9vw,3.4rem)/1.02 var(--display);letter-spacing:-.045em;margin:.5rem 0 .9rem}
+h1 em,h2 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;color:var(--accent-ink)}
+h2{font:800 clamp(1.35rem,5.5vw,1.9rem)/1.12 var(--display);letter-spacing:-.03em;margin:2.4rem 0 .8rem}
+h3{font:800 1.05rem/1.25 var(--display);letter-spacing:-.02em;margin:0 0 .35rem}
+.lede{font-size:1.08rem;color:var(--muted);margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.1rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:3rem;padding:.75rem 1.2rem;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);font:800 1rem/1.2 var(--body);text-decoration:none;cursor:pointer}
+.btn--accent{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn--ghost{background:transparent;color:var(--ink)}
+.btn[disabled]{opacity:.6;cursor:progress}
+.btn-row{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0 0}
+.fine{font-size:.86rem;color:var(--muted)}
+code,kbd{font-family:Consolas,'Courier New',monospace;font-size:.9em;overflow-wrap:anywhere}
+pre{margin:.5rem 0;padding:.8rem .9rem;border-radius:10px;background:var(--ink);color:#f3ead8;overflow-x:auto;font-size:.85rem;line-height:1.5}
+.note{margin:1rem 0 0;padding:.9rem 1rem;border-left:4px solid var(--accent);background:var(--card);border-radius:0 12px 12px 0}
+.legal{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+.legal p{margin:.35rem 0}
+@media (prefers-reduced-motion:no-preference){.btn{transition:transform .15s ease}.btn:active{transform:scale(.98)}}
+@media (min-width:760px){main{padding-top:2.4rem}}

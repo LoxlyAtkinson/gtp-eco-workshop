@@ -1,0 +1,13 @@
+/* Deck join popup (chapters/join-popup.js). Form rules come from join/join.css. */
+.jn-pop{width:min(100% - 2rem,31rem);max-width:none;max-height:calc(100svh - 2rem);margin:auto;padding:0;border:0;background:transparent;color:var(--jn-ink);font:400 1rem/1.5 var(--jn-body);overflow:hidden auto}
+.jn-pop::backdrop{background:#0a1510d9}
+.jn-pop .jn-pop__panel{position:relative;width:100%;margin:0;padding:1.5rem 1.25rem 1.25rem;border:1px solid var(--jn-line);border-radius:22px;background:radial-gradient(90% 60% at 50% 0%,#1d3a2e 0%,#10221a 70%,#0a1510 100%);box-shadow:0 30px 80px #000000aa}
+.jn-pop .jn-title{margin-right:2.5rem;font-size:clamp(1.8rem,7vw,2.5rem);color:var(--jn-ink)}
+.jn-pop .jn-lede{margin-bottom:1.1rem}
+.jn-pop .jn-card{padding:0;border:0;background:none}
+.jn-pop__close{position:absolute;top:.6rem;right:.6rem;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:#ffffff1a;color:var(--jn-ink);font:400 1.6rem/1 var(--jn-body);cursor:pointer}
+.jn-pop__close:hover{background:#ffffff2e}
+.jn-pop__close:focus-visible{outline:3px solid var(--jn-brass);outline-offset:2px}
+.scene .stage-join{display:inline-flex;align-items:center;gap:.6rem;margin:.4rem 0 0 .6rem;padding:.85rem 1.35rem;border:1.5px solid var(--c15-brass,#e8c878);border-radius:999px;background:transparent;color:var(--c15-brass,#e8c878);font:800 clamp(.9rem,1.2vw,1.05rem)/1 var(--display,Manrope,sans-serif);letter-spacing:-.01em;cursor:pointer;position:relative;z-index:3}
+.scene .stage-join:hover{background:#e8c8781f}
+.scene .stage-join:focus-visible{outline:3px solid #f3ead8;outline-offset:3px}

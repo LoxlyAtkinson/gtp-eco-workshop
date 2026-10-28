@@ -1,0 +1,36 @@
+/* Live-stage join form: phone first, the deck's scene-14 palette, system fonts only (no third-party requests).
+   Every rule is .jn-scoped so the deck can load this file for its join popup; page-only rules live in join-page.css. */
+:root{--jn-bg:#10221a;--jn-ink:#f3ead8;--jn-muted:#cdbfa9;--jn-brass:#e8c878;--jn-good:#7fd3a8;--jn-red:#ffb4a8;--jn-line:#ffffff2e;--jn-display:Manrope,'Segoe UI',system-ui,-apple-system,sans-serif;--jn-body:'DM Sans','Segoe UI',system-ui,-apple-system,sans-serif}
+.jn{width:min(100%,34rem);margin:0 auto;padding:clamp(1.4rem,6vw,3rem) 1.25rem 2.5rem}
+.jn-kicker{margin:0 0 1rem;font:800 .7rem/1.2 var(--jn-body);letter-spacing:.2em;text-transform:uppercase;color:var(--jn-brass)}
+.jn-kicker b{margin:0 .35em;opacity:.6}
+.jn-title{margin:0 0 .8rem;font:800 clamp(2.1rem,10vw,3.2rem)/1 var(--jn-display);letter-spacing:-.045em;text-wrap:balance}
+.jn-title em{font-style:normal;color:var(--jn-brass)}
+.jn-lede{margin:0 0 1.5rem;color:var(--jn-muted);font-size:1.02rem}
+.jn-card{padding:1.25rem;border:1px solid var(--jn-line);border-radius:18px;background:#ffffff0d}
+.jn-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.jn-field{display:grid;gap:.35rem;margin-bottom:1.1rem}
+.jn-field label{font:700 1rem/1.3 var(--jn-display)}
+.jn-field label span{font-weight:500;color:var(--jn-muted)}
+.jn-field input{width:100%;min-height:52px;padding:.75rem .9rem;border:1.5px solid #ffffff55;border-radius:12px;background:#0a1510;color:var(--jn-ink);font:500 1.05rem/1.3 var(--jn-body)}
+.jn-field input::placeholder{color:#cdbfa98c}
+.jn-field input:focus-visible{outline:3px solid var(--jn-brass);outline-offset:2px;border-color:var(--jn-brass)}
+.jn-field input[aria-invalid="true"]{border-color:var(--jn-red)}
+.jn-help{color:var(--jn-muted);font-size:.85rem}
+.jn-error{color:var(--jn-red);font-size:.9rem;font-weight:600}
+.jn-error:empty{display:none}
+.jn-submit,.jn-again{width:100%;min-height:54px;border:0;border-radius:999px;background:var(--jn-brass);color:#16120f;font:800 1.05rem/1 var(--jn-display);letter-spacing:-.01em;cursor:pointer}
+.jn-submit:disabled{opacity:.6;cursor:progress}
+.jn-submit:focus-visible,.jn-again:focus-visible,.jn-foot a:focus-visible{outline:3px solid var(--jn-ink);outline-offset:3px}
+.jn-status{margin:.8rem 0 0;color:var(--jn-red);font-weight:600}
+.jn-status:empty{display:none}
+.jn-closed__head,.jn-done__head{margin:0 0 .4rem;font:800 1.45rem/1.15 var(--jn-display);letter-spacing:-.03em}
+.jn-closed p:last-child{margin:0;font-size:1.1rem}
+.jn-done{outline:none}
+.jn-done__head{color:var(--jn-good)}
+.jn-done__body{margin:0 0 1.1rem;font-size:1.05rem}
+.jn-again{background:transparent;color:var(--jn-ink);border:1.5px solid #ffffff66}
+.jn-privacy{margin:1.1rem 0 0;padding-top:1rem;border-top:1px solid var(--jn-line);color:var(--jn-muted);font-size:.92rem}
+.jn-foot{margin:1.5rem 0 0;text-align:center;font-size:.9rem}
+.jn-foot a{color:var(--jn-muted)}
+@media (prefers-reduced-motion:no-preference){.jn-submit,.jn-again{transition:transform .15s ease}.jn-submit:active,.jn-again:active{transform:scale(.98)}}

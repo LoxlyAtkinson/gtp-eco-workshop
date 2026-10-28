@@ -1,0 +1,3845 @@
+{
+ "generated": "node scripts/build-voice-cues.mjs",
+ "source": "experience/presentation-script.md section 4",
+ "model": "landing pct = beat start share of scene talk seconds x 0.92 (+ a small step into the beat); scene totals from scroll-presentation.js sceneSeconds",
+ "counts": {
+  "scenes": 15,
+  "cues": 130,
+  "triggers": 166,
+  "silentBeats": 3
+ },
+ "silentBeats": [
+  "01-1",
+  "12-7",
+  "12-8"
+ ],
+ "scenes": [
+  {
+   "scene": "01",
+   "scriptSeconds": 120,
+   "deckSeconds": 120,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "02",
+   "scriptSeconds": 180,
+   "deckSeconds": 180,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "03",
+   "scriptSeconds": 345,
+   "deckSeconds": 345,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "04",
+   "scriptSeconds": 250,
+   "deckSeconds": 250,
+   "reservedGapSeconds": 0,
+   "cutBeats": [
+    "04-8"
+   ]
+  },
+  {
+   "scene": "05",
+   "scriptSeconds": 265,
+   "deckSeconds": 265,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "06",
+   "scriptSeconds": 375,
+   "deckSeconds": 375,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "07",
+   "scriptSeconds": 295,
+   "deckSeconds": 295,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "08",
+   "scriptSeconds": 260,
+   "deckSeconds": 260,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "09",
+   "scriptSeconds": 275,
+   "deckSeconds": 295,
+   "reservedGapSeconds": 20,
+   "cutBeats": [
+    "09-5"
+   ]
+  },
+  {
+   "scene": "10",
+   "scriptSeconds": 160,
+   "deckSeconds": 160,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "11",
+   "scriptSeconds": 245,
+   "deckSeconds": 245,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "12",
+   "scriptSeconds": 280,
+   "deckSeconds": 280,
+   "reservedGapSeconds": 0,
+   "cutBeats": [
+    "12-10"
+   ]
+  },
+  {
+   "scene": "13",
+   "scriptSeconds": 135,
+   "deckSeconds": 135,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "14",
+   "scriptSeconds": 215,
+   "deckSeconds": 215,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  },
+  {
+   "scene": "15",
+   "scriptSeconds": 220,
+   "deckSeconds": 220,
+   "reservedGapSeconds": 0,
+   "cutBeats": []
+  }
+ ],
+ "cues": [
+  {
+   "id": "01-2",
+   "label": "01-2",
+   "scene": "01",
+   "sceneTitle": "Open",
+   "seconds": 29,
+   "p0": 0.0767,
+   "p1": 0.299,
+   "triggers": [
+    {
+     "phrase": "morning everyone im today is about sales marketing",
+     "keys": [
+      "morning",
+      "everyone",
+      "today",
+      "sales",
+      "marketing"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#01-12",
+    "pct": 12
+   }
+  },
+  {
+   "id": "01-3",
+   "label": "01-3",
+   "scene": "01",
+   "sceneTitle": "Open",
+   "seconds": 33,
+   "p0": 0.299,
+   "p1": 0.552,
+   "triggers": [
+    {
+     "phrase": "and this is our guest for the hour amberkloof marula",
+     "keys": [
+      "guest",
+      "hour",
+      "amberkloof",
+      "marula"
+     ]
+    },
+    {
+     "phrase": "this bottle isnt real amberkloof is a brand",
+     "keys": [
+      "bottle",
+      "isnt",
+      "real",
+      "amberkloof",
+      "brand"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#01-34",
+    "pct": 34
+   }
+  },
+  {
+   "id": "01-4",
+   "label": "01-4",
+   "scene": "01",
+   "sceneTitle": "Open",
+   "seconds": 26,
+   "p0": 0.552,
+   "p1": 0.7513,
+   "triggers": [
+    {
+     "phrase": "quick show of hands whos posted on 3",
+     "keys": [
+      "quick",
+      "show",
+      "hands",
+      "whos",
+      "posted",
+      "3"
+     ]
+    },
+    {
+     "phrase": "hands up if you know who your best",
+     "keys": [
+      "hands",
+      "know",
+      "who",
+      "best"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#01-59",
+    "pct": 59
+   }
+  },
+  {
+   "id": "01-5",
+   "label": "01-5",
+   "scene": "01",
+   "sceneTitle": "Open",
+   "seconds": 22,
+   "p0": 0.7513,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "so how does a business get found get chosen",
+     "keys": [
+      "how",
+      "business",
+      "found",
+      "chosen"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#01-79",
+    "pct": 79
+   }
+  },
+  {
+   "id": "02-1",
+   "label": "02-1",
+   "scene": "02",
+   "sceneTitle": "Growth is a loop",
+   "seconds": 23,
+   "p0": 0,
+   "p1": 0.1176,
+   "triggers": [
+    {
+     "phrase": "growth is a loop make each turn useful",
+     "keys": [
+      "growth",
+      "loop",
+      "make",
+      "each",
+      "turn",
+      "useful"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#02-04",
+    "pct": 4
+   }
+  },
+  {
+   "id": "02-2",
+   "label": "02-2",
+   "scene": "02",
+   "sceneTitle": "Growth is a loop",
+   "seconds": 55,
+   "p0": 0.1176,
+   "p1": 0.3987,
+   "triggers": [
+    {
+     "phrase": "engage first engagement is anything that makes people",
+     "keys": [
+      "engage",
+      "first",
+      "engagement",
+      "anything",
+      "makes",
+      "people"
+     ]
+    },
+    {
+     "phrase": "think of your last post that did well what",
+     "keys": [
+      "think",
+      "last",
+      "post",
+      "what"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#02-16",
+    "pct": 16
+   }
+  },
+  {
+   "id": "02-3",
+   "label": "02-3",
+   "scene": "02",
+   "sceneTitle": "Growth is a loop",
+   "seconds": 59,
+   "p0": 0.3987,
+   "p1": 0.7002,
+   "triggers": [
+    {
+     "phrase": "convert comes right after engagement got their attention",
+     "keys": [
+      "convert",
+      "comes",
+      "after",
+      "engagement",
+      "attention"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#02-44",
+    "pct": 44
+   }
+  },
+  {
+   "id": "02-4",
+   "label": "02-4",
+   "scene": "02",
+   "sceneTitle": "Growth is a loop",
+   "seconds": 43,
+   "p0": 0.7002,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "then optimize we measure both ends failures the",
+     "keys": [
+      "optimize",
+      "measure",
+      "both",
+      "ends",
+      "failures"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#02-74",
+    "pct": 74
+   }
+  },
+  {
+   "id": "03-1",
+   "label": "03-1",
+   "scene": "03",
+   "sceneTitle": "Engage: Who?",
+   "seconds": 43,
+   "p0": 0,
+   "p1": 0.1147,
+   "triggers": [
+    {
+     "phrase": "engage with who before we post anything we",
+     "keys": [
+      "engage",
+      "who",
+      "before",
+      "post",
+      "anything"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#03-04",
+    "pct": 4
+   }
+  },
+  {
+   "id": "03-2",
+   "label": "03-2",
+   "scene": "03",
+   "sceneTitle": "Engage: Who?",
+   "seconds": 43,
+   "p0": 0.1147,
+   "p1": 0.2293,
+   "triggers": [
+    {
+     "phrase": "so let me ask do you really know who buys",
+     "keys": [
+      "ask",
+      "know",
+      "who",
+      "buys"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#03-15",
+    "pct": 15
+   }
+  },
+  {
+   "id": "03-3",
+   "label": "03-3",
+   "scene": "03",
+   "sceneTitle": "Engage: Who?",
+   "seconds": 75,
+   "p0": 0.2293,
+   "p1": 0.4293,
+   "triggers": [
+    {
+     "phrase": "so how do we test it read it with me",
+     "keys": [
+      "how",
+      "test",
+      "read"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#03-27",
+    "pct": 27
+   }
+  },
+  {
+   "id": "03-4",
+   "label": "03-4",
+   "scene": "03",
+   "sceneTitle": "Engage: Who?",
+   "seconds": 87,
+   "p0": 0.4293,
+   "p1": 0.6613,
+   "triggers": [
+    {
+     "phrase": "now where does that data come from we gather",
+     "keys": [
+      "where",
+      "data",
+      "come",
+      "gather"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#03-47",
+    "pct": 47
+   }
+  },
+  {
+   "id": "03-5",
+   "label": "03-5",
+   "scene": "03",
+   "sceneTitle": "Engage: Who?",
+   "seconds": 61,
+   "p0": 0.6613,
+   "p1": 0.824,
+   "triggers": [
+    {
+     "phrase": "now watch amberkloofs rows sort themselves 60 orders",
+     "keys": [
+      "watch",
+      "amberkloofs",
+      "rows",
+      "sort",
+      "themselves",
+      "60",
+      "orders"
+     ]
+    },
+    {
+     "phrase": "look at your own list is your biggest",
+     "keys": [
+      "look",
+      "own",
+      "list",
+      "biggest"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#03-70",
+    "pct": 70
+   }
+  },
+  {
+   "id": "03-6",
+   "label": "03-6",
+   "scene": "03",
+   "sceneTitle": "Engage: Who?",
+   "seconds": 36,
+   "p0": 0.824,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "and that group becomes a person meet the",
+     "keys": [
+      "group",
+      "becomes",
+      "person",
+      "meet"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#03-86",
+    "pct": 86
+   }
+  },
+  {
+   "id": "04-1",
+   "label": "04-1",
+   "scene": "04",
+   "sceneTitle": "Engage: Where?",
+   "seconds": 35,
+   "p0": 0,
+   "p1": 0.1288,
+   "triggers": [
+    {
+     "phrase": "now i need some help from agreed to",
+     "keys": [
+      "need",
+      "some",
+      "help",
+      "agreed"
+     ]
+    },
+    {
+     "phrase": "well scan your public website and your public social",
+     "keys": [
+      "scan",
+      "public",
+      "website",
+      "social"
+     ]
+    },
+    {
+     "phrase": "thats completely fine thank you",
+     "keys": [
+      "completely",
+      "fine",
+      "thank"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#04-04",
+    "pct": 4
+   }
+  },
+  {
+   "id": "04-2",
+   "label": "04-2",
+   "scene": "04",
+   "sceneTitle": "Engage: Where?",
+   "seconds": 25,
+   "p0": 0.1288,
+   "p1": 0.2208,
+   "triggers": [
+    {
+     "phrase": "answered 6 questions at the door what they",
+     "keys": [
+      "answered",
+      "6",
+      "questions",
+      "door",
+      "what"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#04-16",
+    "pct": 16
+   }
+  },
+  {
+   "id": "04-3",
+   "label": "04-3",
+   "scene": "04",
+   "sceneTitle": "Engage: Where?",
+   "seconds": 15,
+   "p0": 0.2208,
+   "p1": 0.276,
+   "triggers": [
+    {
+     "phrase": "back to our gift planner we know who",
+     "keys": [
+      "back",
+      "gift",
+      "planner",
+      "know",
+      "who"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#04-24",
+    "pct": 24
+   }
+  },
+  {
+   "id": "04-4",
+   "label": "04-4",
+   "scene": "04",
+   "sceneTitle": "Engage: Where?",
+   "seconds": 30,
+   "p0": 0.276,
+   "p1": 0.3864,
+   "triggers": [
+    {
+     "phrase": "we asked ai to research where these people",
+     "keys": [
+      "asked",
+      "ai",
+      "research",
+      "where",
+      "people"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#04-31",
+    "pct": 31
+   }
+  },
+  {
+   "id": "04-5",
+   "label": "04-5",
+   "scene": "04",
+   "sceneTitle": "Engage: Where?",
+   "seconds": 15,
+   "p0": 0.3864,
+   "p1": 0.4416,
+   "triggers": [
+    {
+     "phrase": "7 places you could be whatsapp facebook instagram",
+     "keys": [
+      "7",
+      "places",
+      "whatsapp",
+      "facebook",
+      "instagram"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#04-41",
+    "pct": 41
+   }
+  },
+  {
+   "id": "04-6",
+   "label": "04-6",
+   "scene": "04",
+   "sceneTitle": "Engage: Where?",
+   "seconds": 30,
+   "p0": 0.4416,
+   "p1": 0.552,
+   "triggers": [
+    {
+     "phrase": "lets spin it for the gift planner instagram",
+     "keys": [
+      "spin",
+      "gift",
+      "planner",
+      "instagram"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#04-48",
+    "pct": 48
+   }
+  },
+  {
+   "id": "04-7",
+   "label": "04-7",
+   "scene": "04",
+   "sceneTitle": "Engage: Where?",
+   "seconds": 30,
+   "p0": 0.552,
+   "p1": 0.6624,
+   "triggers": [
+    {
+     "phrase": "whatsapp why because thats where they buy nobody",
+     "keys": [
+      "whatsapp",
+      "why",
+      "because",
+      "where",
+      "buy",
+      "nobody"
+     ]
+    },
+    {
+     "phrase": "and google business for the self care regulars",
+     "keys": [
+      "google",
+      "business",
+      "self",
+      "care",
+      "regulars"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#04-59",
+    "pct": 59
+   }
+  },
+  {
+   "id": "04-9",
+   "label": "04-9",
+   "scene": "04",
+   "sceneTitle": "Engage: Where?",
+   "seconds": 25,
+   "p0": 0.6624,
+   "p1": 0.7544,
+   "triggers": [
+    {
+     "phrase": "same wheel for tumelo google search and linkedin",
+     "keys": [
+      "same",
+      "wheel",
+      "tumelo",
+      "google",
+      "search",
+      "linkedin"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#04-69",
+    "pct": 69
+   }
+  },
+  {
+   "id": "04-10",
+   "label": "04-10",
+   "scene": "04",
+   "sceneTitle": "Engage: Where?",
+   "seconds": 25,
+   "p0": 0.7544,
+   "p1": 0.8464,
+   "triggers": [
+    {
+     "phrase": "so heres amberkloofs verdict instagram to be seen",
+     "keys": [
+      "amberkloofs",
+      "verdict",
+      "instagram",
+      "seen"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#04-79",
+    "pct": 79
+   }
+  },
+  {
+   "id": "04-11",
+   "label": "04-11",
+   "scene": "04",
+   "sceneTitle": "Engage: Where?",
+   "seconds": 20,
+   "p0": 0.8464,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "now their customers are which 2 or 3",
+     "keys": [
+      "customers",
+      "which",
+      "2",
+      "3"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#04-87",
+    "pct": 87
+   }
+  },
+  {
+   "id": "05-1",
+   "label": "05-1",
+   "scene": "05",
+   "sceneTitle": "Engage: What?",
+   "seconds": 10,
+   "p0": 0,
+   "p1": 0.0347,
+   "triggers": [
+    {
+     "phrase": "we know who and we know where now what",
+     "keys": [
+      "know",
+      "who",
+      "where",
+      "what"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#05-01",
+    "pct": 1
+   }
+  },
+  {
+   "id": "05-2",
+   "label": "05-2",
+   "scene": "05",
+   "sceneTitle": "Engage: What?",
+   "seconds": 30,
+   "p0": 0.0347,
+   "p1": 0.1389,
+   "triggers": [
+    {
+     "phrase": "2 kinds of post education and promotion education",
+     "keys": [
+      "2",
+      "kinds",
+      "post",
+      "education",
+      "promotion"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#05-07",
+    "pct": 7
+   }
+  },
+  {
+   "id": "05-3",
+   "label": "05-3",
+   "scene": "05",
+   "sceneTitle": "Engage: What?",
+   "seconds": 60,
+   "p0": 0.1389,
+   "p1": 0.3472,
+   "triggers": [
+    {
+     "phrase": "remember the runs we started the first ones",
+     "keys": [
+      "remember",
+      "runs",
+      "started",
+      "first",
+      "ones"
+     ]
+    },
+    {
+     "phrase": "so this is amberkloof it found african botanics",
+     "keys": [
+      "amberkloof",
+      "found",
+      "african",
+      "botanics"
+     ]
+    },
+    {
+     "phrase": "this scan didnt come back today heres what",
+     "keys": [
+      "scan",
+      "didnt",
+      "come",
+      "back",
+      "today",
+      "what"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#05-18",
+    "pct": 18
+   }
+  },
+  {
+   "id": "05-4",
+   "label": "05-4",
+   "scene": "05",
+   "sceneTitle": "Engage: What?",
+   "seconds": 50,
+   "p0": 0.3472,
+   "p1": 0.5208,
+   "triggers": [
+    {
+     "phrase": "lets open their best post and see how",
+     "keys": [
+      "open",
+      "best",
+      "post",
+      "see",
+      "how"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#05-39",
+    "pct": 39
+   }
+  },
+  {
+   "id": "05-5",
+   "label": "05-5",
+   "scene": "05",
+   "sceneTitle": "Engage: What?",
+   "seconds": 30,
+   "p0": 0.5208,
+   "p1": 0.6249,
+   "triggers": [
+    {
+     "phrase": "now the useful bit the same scan looks",
+     "keys": [
+      "useful",
+      "bit",
+      "same",
+      "scan",
+      "looks"
+     ]
+    },
+    {
+     "phrase": "whats 1 thing your competitors never post about",
+     "keys": [
+      "1",
+      "thing",
+      "competitors",
+      "never",
+      "post"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#05-56",
+    "pct": 56
+   }
+  },
+  {
+   "id": "05-6",
+   "label": "05-6",
+   "scene": "05",
+   "sceneTitle": "Engage: What?",
+   "seconds": 35,
+   "p0": 0.6249,
+   "p1": 0.7464,
+   "triggers": [
+    {
+     "phrase": "if you sell to businesses ai can find",
+     "keys": [
+      "sell",
+      "businesses",
+      "ai",
+      "find"
+     ]
+    },
+    {
+     "phrase": "this 1 needs a key that isnt switched",
+     "keys": [
+      "1",
+      "needs",
+      "key",
+      "isnt",
+      "switched"
+     ]
+    },
+    {
+     "phrase": "1 rule a list like this is for",
+     "keys": [
+      "1",
+      "rule",
+      "list",
+      "like"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#05-66",
+    "pct": 66
+   }
+  },
+  {
+   "id": "05-7",
+   "label": "05-7",
+   "scene": "05",
+   "sceneTitle": "Engage: What?",
+   "seconds": 35,
+   "p0": 0.7464,
+   "p1": 0.8679,
+   "triggers": [
+    {
+     "phrase": "and this is the bit i care about most b2b",
+     "keys": [
+      "bit",
+      "care",
+      "most",
+      "b2b"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#05-79",
+    "pct": 79
+   }
+  },
+  {
+   "id": "05-8",
+   "label": "05-8",
+   "scene": "05",
+   "sceneTitle": "Engage: What?",
+   "seconds": 15,
+   "p0": 0.8679,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "so that empty slot thats our next post",
+     "keys": [
+      "empty",
+      "slot",
+      "next",
+      "post"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#05-89",
+    "pct": 89
+   }
+  },
+  {
+   "id": "06-1",
+   "label": "06-1",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 10,
+   "p0": 0,
+   "p1": 0.0245,
+   "triggers": [
+    {
+     "phrase": "ai drafts fast you make it yours lets",
+     "keys": [
+      "ai",
+      "drafts",
+      "fast",
+      "make",
+      "yours"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#06-01",
+    "pct": 1
+   }
+  },
+  {
+   "id": "06-2",
+   "label": "06-2",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 60,
+   "p0": 0.0245,
+   "p1": 0.1717,
+   "triggers": [
+    {
+     "phrase": "3 post ideas a caption a product description",
+     "keys": [
+      "3",
+      "post",
+      "ideas",
+      "caption",
+      "product",
+      "description"
+     ]
+    },
+    {
+     "phrase": "so this is amberkloof look at idea 1",
+     "keys": [
+      "amberkloof",
+      "look",
+      "idea",
+      "1"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-06",
+    "pct": 6
+   }
+  },
+  {
+   "id": "06-3",
+   "label": "06-3",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 20,
+   "p0": 0.1717,
+   "p1": 0.2208,
+   "triggers": [
+    {
+     "phrase": "how did we make that 2 tools claude",
+     "keys": [
+      "how",
+      "make",
+      "2",
+      "tools",
+      "claude"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-19",
+    "pct": 19
+   }
+  },
+  {
+   "id": "06-4",
+   "label": "06-4",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 10,
+   "p0": 0.2208,
+   "p1": 0.2453,
+   "triggers": [
+    {
+     "phrase": "think of a chef good ingredients thats your",
+     "keys": [
+      "think",
+      "chef",
+      "good",
+      "ingredients"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-23",
+    "pct": 23
+   }
+  },
+  {
+   "id": "06-5",
+   "label": "06-5",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 20,
+   "p0": 0.2453,
+   "p1": 0.2944,
+   "triggers": [
+    {
+     "phrase": "watch what a bare prompt does make me",
+     "keys": [
+      "watch",
+      "what",
+      "bare",
+      "prompt",
+      "make"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-26",
+    "pct": 26
+   }
+  },
+  {
+   "id": "06-6",
+   "label": "06-6",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 25,
+   "p0": 0.2944,
+   "p1": 0.3557,
+   "triggers": [
+    {
+     "phrase": "so when you make video with ai 5",
+     "keys": [
+      "when",
+      "make",
+      "video",
+      "ai",
+      "5"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-32",
+    "pct": 32
+   }
+  },
+  {
+   "id": "06-7",
+   "label": "06-7",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 35,
+   "p0": 0.3557,
+   "p1": 0.4416,
+   "triggers": [
+    {
+     "phrase": "now your look and your voice we gave claudes",
+     "keys": [
+      "look",
+      "voice",
+      "gave",
+      "claudes"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-39",
+    "pct": 39
+   }
+  },
+  {
+   "id": "06-8",
+   "label": "06-8",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 30,
+   "p0": 0.4416,
+   "p1": 0.5152,
+   "triggers": [
+    {
+     "phrase": "these are real ads from real south african",
+     "keys": [
+      "real",
+      "ads",
+      "south",
+      "african"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-47",
+    "pct": 47
+   }
+  },
+  {
+   "id": "06-9",
+   "label": "06-9",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 20,
+   "p0": 0.5152,
+   "p1": 0.5643,
+   "triggers": [
+    {
+     "phrase": "quick 1 hands up if youve ever posted",
+     "keys": [
+      "quick",
+      "1",
+      "hands",
+      "ever",
+      "posted"
+     ]
+    },
+    {
+     "phrase": "so does ai copy sound like you theres",
+     "keys": [
+      "ai",
+      "copy",
+      "sound",
+      "like"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-53",
+    "pct": 53
+   }
+  },
+  {
+   "id": "06-10",
+   "label": "06-10",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 20,
+   "p0": 0.5643,
+   "p1": 0.6133,
+   "triggers": [
+    {
+     "phrase": "pair 2 the product description without made up",
+     "keys": [
+      "pair",
+      "2",
+      "product",
+      "description",
+      "without",
+      "made"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-58",
+    "pct": 58
+   }
+  },
+  {
+   "id": "06-11",
+   "label": "06-11",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 20,
+   "p0": 0.6133,
+   "p1": 0.6624,
+   "triggers": [
+    {
+     "phrase": "pair 3 a whatsapp follow up without your",
+     "keys": [
+      "pair",
+      "3",
+      "whatsapp",
+      "follow",
+      "without"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-63",
+    "pct": 63
+   }
+  },
+  {
+   "id": "06-12",
+   "label": "06-12",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 15,
+   "p0": 0.6624,
+   "p1": 0.6992,
+   "triggers": [
+    {
+     "phrase": "same for tumelo on linkedin those are the giveaways",
+     "keys": [
+      "same",
+      "tumelo",
+      "linkedin",
+      "giveaways"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-68",
+    "pct": 68
+   }
+  },
+  {
+   "id": "06-13",
+   "label": "06-13",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 50,
+   "p0": 0.6992,
+   "p1": 0.8219,
+   "triggers": [
+    {
+     "phrase": "last piece what to post about theres a",
+     "keys": [
+      "last",
+      "piece",
+      "what",
+      "post"
+     ]
+    },
+    {
+     "phrase": "this 1 needs a key and a review",
+     "keys": [
+      "1",
+      "needs",
+      "key",
+      "review"
+     ]
+    },
+    {
+     "phrase": "that complaint is mondays post",
+     "keys": [
+      "complaint",
+      "mondays",
+      "post"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-74",
+    "pct": 74
+   }
+  },
+  {
+   "id": "06-14",
+   "label": "06-14",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 30,
+   "p0": 0.8219,
+   "p1": 0.8955,
+   "triggers": [
+    {
+     "phrase": "put it together and marketing becomes a habit",
+     "keys": [
+      "put",
+      "together",
+      "marketing",
+      "becomes",
+      "habit"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-85",
+    "pct": 85
+   }
+  },
+  {
+   "id": "06-15",
+   "label": "06-15",
+   "scene": "06",
+   "sceneTitle": "Engage: Make it yours",
+   "seconds": 10,
+   "p0": 0.8955,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "and fridays post turns into something people type",
+     "keys": [
+      "fridays",
+      "post",
+      "turns",
+      "something",
+      "people",
+      "type"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#06-90",
+    "pct": 90
+   }
+  },
+  {
+   "id": "07-1",
+   "label": "07-1",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 10,
+   "p0": 0,
+   "p1": 0.0312,
+   "triggers": [
+    {
+     "phrase": "be found where people ask and for most",
+     "keys": [
+      "found",
+      "where",
+      "people",
+      "ask",
+      "most"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#07-01",
+    "pct": 1
+   }
+  },
+  {
+   "id": "07-2",
+   "label": "07-2",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 30,
+   "p0": 0.0312,
+   "p1": 0.1247,
+   "triggers": [
+    {
+     "phrase": "people search google or they ask an ai",
+     "keys": [
+      "people",
+      "search",
+      "google",
+      "ask",
+      "ai"
+     ]
+    },
+    {
+     "phrase": "to be fair some public posts do show",
+     "keys": [
+      "fair",
+      "some",
+      "public",
+      "posts",
+      "show"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#07-06",
+    "pct": 6
+   }
+  },
+  {
+   "id": "07-3",
+   "label": "07-3",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 30,
+   "p0": 0.1247,
+   "p1": 0.2183,
+   "triggers": [
+    {
+     "phrase": "3 words youll hear seo google ranks you",
+     "keys": [
+      "3",
+      "words",
+      "hear",
+      "seo",
+      "google",
+      "ranks"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#07-16",
+    "pct": 16
+   }
+  },
+  {
+   "id": "07-4",
+   "label": "07-4",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 25,
+   "p0": 0.2183,
+   "p1": 0.2963,
+   "triggers": [
+    {
+     "phrase": "now 4 quick checks on a website the",
+     "keys": [
+      "4",
+      "quick",
+      "checks",
+      "website"
+     ]
+    },
+    {
+     "phrase": "back to which words should they try to",
+     "keys": [
+      "back",
+      "which",
+      "words",
+      "try"
+     ]
+    },
+    {
+     "phrase": "so amberkloof pure marula oil south africa marula",
+     "keys": [
+      "amberkloof",
+      "pure",
+      "marula",
+      "oil",
+      "south",
+      "africa"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#07-25",
+    "pct": 25
+   }
+  },
+  {
+   "id": "07-5",
+   "label": "07-5",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 25,
+   "p0": 0.2963,
+   "p1": 0.3742,
+   "triggers": [
+    {
+     "phrase": "next an seo check on their site what",
+     "keys": [
+      "next",
+      "seo",
+      "check",
+      "site",
+      "what"
+     ]
+    },
+    {
+     "phrase": "amberkloof doesnt have a website so last night",
+     "keys": [
+      "amberkloof",
+      "doesnt",
+      "website",
+      "last",
+      "night"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#07-32",
+    "pct": 32
+   }
+  },
+  {
+   "id": "07-6",
+   "label": "07-6",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 25,
+   "p0": 0.3742,
+   "p1": 0.4522,
+   "triggers": [
+    {
+     "phrase": "a backlink is another website pointing to yours",
+     "keys": [
+      "backlink",
+      "another",
+      "website",
+      "pointing",
+      "yours"
+     ]
+    },
+    {
+     "phrase": "our workshop site nobody links to it yet",
+     "keys": [
+      "workshop",
+      "site",
+      "nobody",
+      "links",
+      "yet"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#07-40",
+    "pct": 40
+   }
+  },
+  {
+   "id": "07-7",
+   "label": "07-7",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 25,
+   "p0": 0.4522,
+   "p1": 0.5302,
+   "triggers": [
+    {
+     "phrase": "and citations when someone asks an ai about",
+     "keys": [
+      "citations",
+      "when",
+      "someone",
+      "asks",
+      "ai"
+     ]
+    },
+    {
+     "phrase": "our own site scored 41 out of 100",
+     "keys": [
+      "own",
+      "site",
+      "scored",
+      "41",
+      "100"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#07-48",
+    "pct": 48
+   }
+  },
+  {
+   "id": "07-8",
+   "label": "07-8",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 20,
+   "p0": 0.5302,
+   "p1": 0.5925,
+   "triggers": [
+    {
+     "phrase": "so how do you show up become the authority",
+     "keys": [
+      "how",
+      "show",
+      "become",
+      "authority"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#07-55",
+    "pct": 55
+   }
+  },
+  {
+   "id": "07-9",
+   "label": "07-9",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 75,
+   "p0": 0.5925,
+   "p1": 0.8264,
+   "triggers": [
+    {
+     "phrase": "and then a plan 30 60 90 days",
+     "keys": [
+      "plan",
+      "30",
+      "60",
+      "90",
+      "days"
+     ]
+    },
+    {
+     "phrase": "days 1 to 30 the foundation claim the",
+     "keys": [
+      "days",
+      "1",
+      "30",
+      "foundation",
+      "claim"
+     ]
+    },
+    {
+     "phrase": "if someone asked chatgpt tonight for a business",
+     "keys": [
+      "someone",
+      "asked",
+      "chatgpt",
+      "tonight",
+      "business"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#07-63",
+    "pct": 63
+   }
+  },
+  {
+   "id": "07-10",
+   "label": "07-10",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 15,
+   "p0": 0.8264,
+   "p1": 0.8732,
+   "triggers": [
+    {
+     "phrase": "tumelos version a page for custom product labels",
+     "keys": [
+      "tumelos",
+      "version",
+      "page",
+      "custom",
+      "product",
+      "labels"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#07-84",
+    "pct": 84
+   }
+  },
+  {
+   "id": "07-11",
+   "label": "07-11",
+   "scene": "07",
+   "sceneTitle": "Engage: Be found",
+   "seconds": 15,
+   "p0": 0.8732,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "and when someone clicks that answer where do",
+     "keys": [
+      "when",
+      "someone",
+      "clicks",
+      "answer",
+      "where"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#07-89",
+    "pct": 89
+   }
+  },
+  {
+   "id": "08-1",
+   "label": "08-1",
+   "scene": "08",
+   "sceneTitle": "Convert: Capture",
+   "seconds": 15,
+   "p0": 0,
+   "p1": 0.0531,
+   "triggers": [
+    {
+     "phrase": "now the where and the how capture their details",
+     "keys": [
+      "where",
+      "how",
+      "capture",
+      "details"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#08-02",
+    "pct": 2
+   }
+  },
+  {
+   "id": "08-2",
+   "label": "08-2",
+   "scene": "08",
+   "sceneTitle": "Convert: Capture",
+   "seconds": 30,
+   "p0": 0.0531,
+   "p1": 0.1592,
+   "triggers": [
+    {
+     "phrase": "first where do people land this is demo",
+     "keys": [
+      "first",
+      "where",
+      "people",
+      "land",
+      "demo"
+     ]
+    },
+    {
+     "phrase": "on your website which page do most people",
+     "keys": [
+      "website",
+      "which",
+      "page",
+      "most",
+      "people"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#08-09",
+    "pct": 9
+   }
+  },
+  {
+   "id": "08-3",
+   "label": "08-3",
+   "scene": "08",
+   "sceneTitle": "Convert: Capture",
+   "seconds": 60,
+   "p0": 0.1592,
+   "p1": 0.3715,
+   "triggers": [
+    {
+     "phrase": "the best 1 ive seen is an ai",
+     "keys": [
+      "best",
+      "1",
+      "ive",
+      "seen",
+      "ai"
+     ]
+    },
+    {
+     "phrase": "same demo recorded last night same point",
+     "keys": [
+      "same",
+      "demo",
+      "recorded",
+      "last",
+      "night",
+      "point"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#08-20",
+    "pct": 20
+   }
+  },
+  {
+   "id": "08-4",
+   "label": "08-4",
+   "scene": "08",
+   "sceneTitle": "Convert: Capture",
+   "seconds": 30,
+   "p0": 0.3715,
+   "p1": 0.4777,
+   "triggers": [
+    {
+     "phrase": "second spot someone has sat on the gift",
+     "keys": [
+      "second",
+      "spot",
+      "someone",
+      "sat",
+      "gift"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#08-41",
+    "pct": 41
+   }
+  },
+  {
+   "id": "08-5",
+   "label": "08-5",
+   "scene": "08",
+   "sceneTitle": "Convert: Capture",
+   "seconds": 20,
+   "p0": 0.4777,
+   "p1": 0.5485,
+   "triggers": [
+    {
+     "phrase": "heres a reel i love for the first 8",
+     "keys": [
+      "reel",
+      "love",
+      "first",
+      "8"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#08-50",
+    "pct": 50
+   }
+  },
+  {
+   "id": "08-6",
+   "label": "08-6",
+   "scene": "08",
+   "sceneTitle": "Convert: Capture",
+   "seconds": 15,
+   "p0": 0.5485,
+   "p1": 0.6015,
+   "triggers": [
+    {
+     "phrase": "our good the bottle floats in a warm",
+     "keys": [
+      "good",
+      "bottle",
+      "floats",
+      "warm"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#08-57",
+    "pct": 57
+   }
+  },
+  {
+   "id": "08-7",
+   "label": "08-7",
+   "scene": "08",
+   "sceneTitle": "Convert: Capture",
+   "seconds": 45,
+   "p0": 0.6015,
+   "p1": 0.7608,
+   "triggers": [
+    {
+     "phrase": "real ads that do this 1 opens a",
+     "keys": [
+      "real",
+      "ads",
+      "1",
+      "opens"
+     ]
+    },
+    {
+     "phrase": "were still finding good examples of this 1",
+     "keys": [
+      "still",
+      "finding",
+      "good",
+      "examples",
+      "1"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#08-64",
+    "pct": 64
+   }
+  },
+  {
+   "id": "08-8",
+   "label": "08-8",
+   "scene": "08",
+   "sceneTitle": "Convert: Capture",
+   "seconds": 20,
+   "p0": 0.7608,
+   "p1": 0.8315,
+   "triggers": [
+    {
+     "phrase": "setting this up 3 free skills cro for",
+     "keys": [
+      "setting",
+      "3",
+      "free",
+      "skills",
+      "cro"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#08-79",
+    "pct": 79
+   }
+  },
+  {
+   "id": "08-9",
+   "label": "08-9",
+   "scene": "08",
+   "sceneTitle": "Convert: Capture",
+   "seconds": 15,
+   "p0": 0.8315,
+   "p1": 0.8846,
+   "triggers": [
+    {
+     "phrase": "tumelo does it with a form quote in 24",
+     "keys": [
+      "tumelo",
+      "form",
+      "quote",
+      "24"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#08-85",
+    "pct": 85
+   }
+  },
+  {
+   "id": "08-10",
+   "label": "08-10",
+   "scene": "08",
+   "sceneTitle": "Convert: Capture",
+   "seconds": 10,
+   "p0": 0.8846,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "and once we have those details the real work",
+     "keys": [
+      "once",
+      "details",
+      "real",
+      "work"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#08-90",
+    "pct": 90
+   }
+  },
+  {
+   "id": "09-1",
+   "label": "09-1",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 15,
+   "p0": 0,
+   "p1": 0.0468,
+   "triggers": [
+    {
+     "phrase": "a sale is often won after the first",
+     "keys": [
+      "sale",
+      "often",
+      "won",
+      "after",
+      "first"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#09-02",
+    "pct": 2
+   }
+  },
+  {
+   "id": "09-2",
+   "label": "09-2",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 10,
+   "p0": 0.0468,
+   "p1": 0.078,
+   "triggers": [
+    {
+     "phrase": "place 1 the helper on your website youve",
+     "keys": [
+      "place",
+      "1",
+      "helper",
+      "website"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-06",
+    "pct": 6
+   }
+  },
+  {
+   "id": "09-3",
+   "label": "09-3",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 10,
+   "p0": 0.078,
+   "p1": 0.1092,
+   "triggers": [
+    {
+     "phrase": "place 2 whatsapp ai drafts the replies and",
+     "keys": [
+      "place",
+      "2",
+      "whatsapp",
+      "ai",
+      "drafts",
+      "replies"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-09",
+    "pct": 9
+   }
+  },
+  {
+   "id": "09-4",
+   "label": "09-4",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 10,
+   "p0": 0.1092,
+   "p1": 0.1403,
+   "triggers": [
+    {
+     "phrase": "place 3 instagram and facebook messages someone comments",
+     "keys": [
+      "place",
+      "3",
+      "instagram",
+      "facebook",
+      "messages",
+      "someone",
+      "comments"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-12",
+    "pct": 12
+   }
+  },
+  {
+   "id": "09-6",
+   "label": "09-6",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 30,
+   "p0": 0.2027,
+   "p1": 0.2963,
+   "triggers": [
+    {
+     "phrase": "speed matters a message comes in at 4",
+     "keys": [
+      "speed",
+      "matters",
+      "message",
+      "comes",
+      "4"
+     ]
+    },
+    {
+     "phrase": "be honest how long does it take you",
+     "keys": [
+      "honest",
+      "how",
+      "long",
+      "take"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-24",
+    "pct": 24
+   }
+  },
+  {
+   "id": "09-7",
+   "label": "09-7",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 15,
+   "p0": 0.2963,
+   "p1": 0.3431,
+   "triggers": [
+    {
+     "phrase": "people say sales lifecycle thats a fancy way",
+     "keys": [
+      "people",
+      "say",
+      "sales",
+      "lifecycle",
+      "fancy",
+      "way"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-31",
+    "pct": 31
+   }
+  },
+  {
+   "id": "09-8",
+   "label": "09-8",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 40,
+   "p0": 0.3431,
+   "p1": 0.4678,
+   "triggers": [
+    {
+     "phrase": "heres the simplest funnel the moment someone leaves",
+     "keys": [
+      "simplest",
+      "funnel",
+      "moment",
+      "someone",
+      "leaves"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-38",
+    "pct": 38
+   }
+  },
+  {
+   "id": "09-9",
+   "label": "09-9",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 35,
+   "p0": 0.4678,
+   "p1": 0.5769,
+   "triggers": [
+    {
+     "phrase": "to keep track of it all you need",
+     "keys": [
+      "keep",
+      "track",
+      "all",
+      "need"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-51",
+    "pct": 51
+   }
+  },
+  {
+   "id": "09-10",
+   "label": "09-10",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 20,
+   "p0": 0.5769,
+   "p1": 0.6393,
+   "triggers": [
+    {
+     "phrase": "the follow up box does 1 more job",
+     "keys": [
+      "follow",
+      "box",
+      "1",
+      "more",
+      "job"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-60",
+    "pct": 60
+   }
+  },
+  {
+   "id": "09-11",
+   "label": "09-11",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 15,
+   "p0": 0.6393,
+   "p1": 0.6861,
+   "triggers": [
+    {
+     "phrase": "every 1 of these is a funnel so whats a",
+     "keys": [
+      "every",
+      "1",
+      "funnel"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-66",
+    "pct": 66
+   }
+  },
+  {
+   "id": "09-12",
+   "label": "09-12",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 15,
+   "p0": 0.6861,
+   "p1": 0.7329,
+   "triggers": [
+    {
+     "phrase": "onboarding a new customer gets to know your",
+     "keys": [
+      "onboarding",
+      "new",
+      "customer",
+      "gets",
+      "know"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-70",
+    "pct": 70
+   }
+  },
+  {
+   "id": "09-13",
+   "label": "09-13",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 20,
+   "p0": 0.7329,
+   "p1": 0.7953,
+   "triggers": [
+    {
+     "phrase": "and this is a simple crm we built with ai",
+     "keys": [
+      "simple",
+      "crm",
+      "built",
+      "ai"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-75",
+    "pct": 75
+   }
+  },
+  {
+   "id": "09-14",
+   "label": "09-14",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 30,
+   "p0": 0.7953,
+   "p1": 0.8888,
+   "triggers": [
+    {
+     "phrase": "the skills behind the follow up email sequence",
+     "keys": [
+      "skills",
+      "behind",
+      "follow",
+      "email",
+      "sequence"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-83",
+    "pct": 83
+   }
+  },
+  {
+   "id": "09-15",
+   "label": "09-15",
+   "scene": "09",
+   "sceneTitle": "Convert: Follow up",
+   "seconds": 10,
+   "p0": 0.8888,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "reviews come in the weeks results pour out",
+     "keys": [
+      "reviews",
+      "come",
+      "weeks",
+      "results",
+      "pour"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#09-90",
+    "pct": 90
+   }
+  },
+  {
+   "id": "10-1",
+   "label": "10-1",
+   "scene": "10",
+   "sceneTitle": "Optimize",
+   "seconds": 20,
+   "p0": 0,
+   "p1": 0.115,
+   "triggers": [
+    {
+     "phrase": "heres amberkloofs week 5 posts lets look at",
+     "keys": [
+      "amberkloofs",
+      "week",
+      "5",
+      "posts",
+      "look"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#10-04",
+    "pct": 4
+   }
+  },
+  {
+   "id": "10-2",
+   "label": "10-2",
+   "scene": "10",
+   "sceneTitle": "Optimize",
+   "seconds": 30,
+   "p0": 0.115,
+   "p1": 0.2875,
+   "triggers": [
+    {
+     "phrase": "same posts through a results lens each 1",
+     "keys": [
+      "same",
+      "posts",
+      "through",
+      "results",
+      "lens",
+      "each",
+      "1"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#10-16",
+    "pct": 16
+   }
+  },
+  {
+   "id": "10-3",
+   "label": "10-3",
+   "scene": "10",
+   "sceneTitle": "Optimize",
+   "seconds": 60,
+   "p0": 0.2875,
+   "p1": 0.6325,
+   "triggers": [
+    {
+     "phrase": "lets sort tuesdays flat photo hardly anyone engaged",
+     "keys": [
+      "sort",
+      "tuesdays",
+      "flat",
+      "photo",
+      "hardly",
+      "anyone",
+      "engaged"
+     ]
+    },
+    {
+     "phrase": "what do you count every week likes or",
+     "keys": [
+      "what",
+      "count",
+      "every",
+      "week",
+      "likes"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#10-33",
+    "pct": 33
+   }
+  },
+  {
+   "id": "10-4",
+   "label": "10-4",
+   "scene": "10",
+   "sceneTitle": "Optimize",
+   "seconds": 35,
+   "p0": 0.6325,
+   "p1": 0.8337,
+   "triggers": [
+    {
+     "phrase": "so we double down monday and friday get",
+     "keys": [
+      "double",
+      "down",
+      "monday",
+      "friday"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#10-67",
+    "pct": 67
+   }
+  },
+  {
+   "id": "10-5",
+   "label": "10-5",
+   "scene": "10",
+   "sceneTitle": "Optimize",
+   "seconds": 15,
+   "p0": 0.8337,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "tuesdays post lets fix it",
+     "keys": [
+      "tuesdays",
+      "post",
+      "fix"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#10-86",
+    "pct": 86
+   }
+  },
+  {
+   "id": "11-1",
+   "label": "11-1",
+   "scene": "11",
+   "sceneTitle": "Attract (the peak)",
+   "seconds": 40,
+   "p0": 0,
+   "p1": 0.1502,
+   "triggers": [
+    {
+     "phrase": "so far eco now ai and no not",
+     "keys": [
+      "far",
+      "eco",
+      "ai",
+      "no"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#11-04",
+    "pct": 4
+   }
+  },
+  {
+   "id": "11-2",
+   "label": "11-2",
+   "scene": "11",
+   "sceneTitle": "Attract (the peak)",
+   "seconds": 17,
+   "p0": 0.1502,
+   "p1": 0.214,
+   "triggers": [
+    {
+     "phrase": "heres tuesdays photo white table harsh flash thats",
+     "keys": [
+      "tuesdays",
+      "photo",
+      "white",
+      "table",
+      "harsh",
+      "flash"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#11-17",
+    "pct": 17
+   }
+  },
+  {
+   "id": "11-3",
+   "label": "11-3",
+   "scene": "11",
+   "sceneTitle": "Attract (the peak)",
+   "seconds": 15,
+   "p0": 0.214,
+   "p1": 0.2704,
+   "triggers": [
+    {
+     "phrase": "layer 2 depth a plinth stone behind it",
+     "keys": [
+      "layer",
+      "2",
+      "depth",
+      "plinth",
+      "stone",
+      "behind"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#11-23",
+    "pct": 23
+   }
+  },
+  {
+   "id": "11-4",
+   "label": "11-4",
+   "scene": "11",
+   "sceneTitle": "Attract (the peak)",
+   "seconds": 18,
+   "p0": 0.2704,
+   "p1": 0.338,
+   "triggers": [
+    {
+     "phrase": "layer 3 break out a flat product photo",
+     "keys": [
+      "layer",
+      "3",
+      "break",
+      "flat",
+      "product",
+      "photo"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#11-29",
+    "pct": 29
+   }
+  },
+  {
+   "id": "11-5",
+   "label": "11-5",
+   "scene": "11",
+   "sceneTitle": "Attract (the peak)",
+   "seconds": 13,
+   "p0": 0.338,
+   "p1": 0.3868,
+   "triggers": [
+    {
+     "phrase": "layer 4 the offer gift set wrapped delivered",
+     "keys": [
+      "layer",
+      "4",
+      "offer",
+      "gift",
+      "set",
+      "wrapped",
+      "delivered"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#11-36",
+    "pct": 36
+   }
+  },
+  {
+   "id": "11-6",
+   "label": "11-6",
+   "scene": "11",
+   "sceneTitle": "Attract (the peak)",
+   "seconds": 27,
+   "p0": 0.3868,
+   "p1": 0.4882,
+   "triggers": [
+    {
+     "phrase": "layer 5 the button inside the picture order",
+     "keys": [
+      "layer",
+      "5",
+      "button",
+      "inside",
+      "picture",
+      "order"
+     ]
+    },
+    {
+     "phrase": "now you choose which layer should i switch",
+     "keys": [
+      "choose",
+      "which",
+      "layer",
+      "switch"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#11-42",
+    "pct": 42
+   }
+  },
+  {
+   "id": "11-7",
+   "label": "11-7",
+   "scene": "11",
+   "sceneTitle": "Attract (the peak)",
+   "seconds": 45,
+   "p0": 0.4882,
+   "p1": 0.6571,
+   "triggers": [
+    {
+     "phrase": "why does this work because were wired to",
+     "keys": [
+      "why",
+      "work",
+      "because",
+      "wired"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#11-53",
+    "pct": 53
+   }
+  },
+  {
+   "id": "11-8",
+   "label": "11-8",
+   "scene": "11",
+   "sceneTitle": "Attract (the peak)",
+   "seconds": 38,
+   "p0": 0.6571,
+   "p1": 0.7998,
+   "triggers": [
+    {
+     "phrase": "real ads that get this right each card",
+     "keys": [
+      "real",
+      "ads",
+      "each",
+      "card"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#11-70",
+    "pct": 70
+   }
+  },
+  {
+   "id": "11-9",
+   "label": "11-9",
+   "scene": "11",
+   "sceneTitle": "Attract (the peak)",
+   "seconds": 20,
+   "p0": 0.7998,
+   "p1": 0.8749,
+   "triggers": [
+    {
+     "phrase": "our own pair the flat snapshot and the",
+     "keys": [
+      "own",
+      "pair",
+      "flat",
+      "snapshot"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#11-83",
+    "pct": 83
+   }
+  },
+  {
+   "id": "11-10",
+   "label": "11-10",
+   "scene": "11",
+   "sceneTitle": "Attract (the peak)",
+   "seconds": 12,
+   "p0": 0.8749,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "this is the reference we learned from we took the",
+     "keys": [
+      "reference",
+      "learned",
+      "took"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#11-89",
+    "pct": 89
+   }
+  },
+  {
+   "id": "12-1",
+   "label": "12-1",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 25,
+   "p0": 0,
+   "p1": 0.0821,
+   "triggers": [
+    {
+     "phrase": "first attract then interact think of a lit",
+     "keys": [
+      "first",
+      "attract",
+      "interact",
+      "think",
+      "lit"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#12-03",
+    "pct": 3
+   }
+  },
+  {
+   "id": "12-2",
+   "label": "12-2",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 25,
+   "p0": 0.0821,
+   "p1": 0.1643,
+   "triggers": [
+    {
+     "phrase": "tap the bottle ingredients size price proof ask",
+     "keys": [
+      "tap",
+      "bottle",
+      "ingredients",
+      "size",
+      "price",
+      "proof",
+      "ask"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-11",
+    "pct": 11
+   }
+  },
+  {
+   "id": "12-3",
+   "label": "12-3",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 20,
+   "p0": 0.1643,
+   "p1": 0.23,
+   "triggers": [
+    {
+     "phrase": "and with ads people do more than look",
+     "keys": [
+      "ads",
+      "people",
+      "more",
+      "look"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-19",
+    "pct": 19
+   }
+  },
+  {
+   "id": "12-4",
+   "label": "12-4",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 30,
+   "p0": 0.23,
+   "p1": 0.3286,
+   "triggers": [
+    {
+     "phrase": "average a grid of products and a contact",
+     "keys": [
+      "average",
+      "grid",
+      "products",
+      "contact"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-26",
+    "pct": 26
+   }
+  },
+  {
+   "id": "12-5",
+   "label": "12-5",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 15,
+   "p0": 0.3286,
+   "p1": 0.3779,
+   "triggers": [
+    {
+     "phrase": "now a website first our own plain version",
+     "keys": [
+      "website",
+      "first",
+      "own",
+      "plain",
+      "version"
+     ]
+    },
+    {
+     "phrase": "when last did a website make you want",
+     "keys": [
+      "when",
+      "last",
+      "website",
+      "make",
+      "want"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-35",
+    "pct": 35
+   }
+  },
+  {
+   "id": "12-6",
+   "label": "12-6",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 15,
+   "p0": 0.3779,
+   "p1": 0.4271,
+   "triggers": [
+    {
+     "phrase": "house down studio watch how their work leads",
+     "keys": [
+      "house",
+      "down",
+      "studio",
+      "watch",
+      "how",
+      "work",
+      "leads"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-40",
+    "pct": 40
+   }
+  },
+  {
+   "id": "12-9",
+   "label": "12-9",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 15,
+   "p0": 0.5421,
+   "p1": 0.5914,
+   "triggers": [
+    {
+     "phrase": "heres the catch ai doesnt know what good",
+     "keys": [
+      "catch",
+      "ai",
+      "doesnt",
+      "know",
+      "what",
+      "good"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-56",
+    "pct": 56
+   }
+  },
+  {
+   "id": "12-11",
+   "label": "12-11",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 20,
+   "p0": 0.5914,
+   "p1": 0.6571,
+   "triggers": [
+    {
+     "phrase": "then we let ai judge 3 critics score",
+     "keys": [
+      "ai",
+      "judge",
+      "3",
+      "critics",
+      "score"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-61",
+    "pct": 61
+   }
+  },
+  {
+   "id": "12-12",
+   "label": "12-12",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 20,
+   "p0": 0.6571,
+   "p1": 0.7229,
+   "triggers": [
+    {
+     "phrase": "recreate the look amberkloofs design system makes a",
+     "keys": [
+      "recreate",
+      "look",
+      "amberkloofs",
+      "design",
+      "system",
+      "makes"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-68",
+    "pct": 68
+   }
+  },
+  {
+   "id": "12-13",
+   "label": "12-13",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 25,
+   "p0": 0.7229,
+   "p1": 0.805,
+   "triggers": [
+    {
+     "phrase": "recreate an interaction we gave ai the click",
+     "keys": [
+      "recreate",
+      "interaction",
+      "gave",
+      "ai",
+      "click"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-75",
+    "pct": 75
+   }
+  },
+  {
+   "id": "12-14",
+   "label": "12-14",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 10,
+   "p0": 0.805,
+   "p1": 0.8379,
+   "triggers": [
+    {
+     "phrase": "show ai what success looks like",
+     "keys": [
+      "show",
+      "ai",
+      "what",
+      "success",
+      "looks",
+      "like"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-82",
+    "pct": 82
+   }
+  },
+  {
+   "id": "12-15",
+   "label": "12-15",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 15,
+   "p0": 0.8379,
+   "p1": 0.8871,
+   "triggers": [
+    {
+     "phrase": "tumelos version build your box size finish and",
+     "keys": [
+      "tumelos",
+      "version",
+      "build",
+      "box",
+      "size",
+      "finish"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-86",
+    "pct": 86
+   }
+  },
+  {
+   "id": "12-16",
+   "label": "12-16",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 10,
+   "p0": 0.8871,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "tap ask us and the chat asks first",
+     "keys": [
+      "tap",
+      "ask",
+      "chat",
+      "asks",
+      "first"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-90",
+    "pct": 90
+   }
+  },
+  {
+   "id": "13-1",
+   "label": "13-1",
+   "scene": "13",
+   "sceneTitle": "Use AI responsibly",
+   "seconds": 15,
+   "p0": 0,
+   "p1": 0.1022,
+   "triggers": [
+    {
+     "phrase": "ai wrote this product description for the bottle",
+     "keys": [
+      "ai",
+      "wrote",
+      "product",
+      "description",
+      "bottle"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#13-04",
+    "pct": 4
+   }
+  },
+  {
+   "id": "13-2",
+   "label": "13-2",
+   "scene": "13",
+   "sceneTitle": "Use AI responsibly",
+   "seconds": 50,
+   "p0": 0.1022,
+   "p1": 0.443,
+   "triggers": [
+    {
+     "phrase": "exercise 1 no source gone thats a medical",
+     "keys": [
+      "exercise",
+      "1",
+      "no",
+      "source",
+      "gone",
+      "medical"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#13-14",
+    "pct": 14
+   }
+  },
+  {
+   "id": "13-3",
+   "label": "13-3",
+   "scene": "13",
+   "sceneTitle": "Use AI responsibly",
+   "seconds": 40,
+   "p0": 0.443,
+   "p1": 0.7156,
+   "triggers": [
+    {
+     "phrase": "exercise 2 would you paste this into chatgpt",
+     "keys": [
+      "exercise",
+      "2",
+      "paste",
+      "chatgpt"
+     ]
+    },
+    {
+     "phrase": "a customer list with names and numbers no",
+     "keys": [
+      "customer",
+      "list",
+      "names",
+      "numbers",
+      "no"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#13-48",
+    "pct": 48
+   }
+  },
+  {
+   "id": "13-4",
+   "label": "13-4",
+   "scene": "13",
+   "sceneTitle": "Use AI responsibly",
+   "seconds": 20,
+   "p0": 0.7156,
+   "p1": 0.8519,
+   "triggers": [
+    {
+     "phrase": "3 words check be honest protect and if",
+     "keys": [
+      "3",
+      "words",
+      "check",
+      "honest",
+      "protect"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#13-76",
+    "pct": 76
+   }
+  },
+  {
+   "id": "13-5",
+   "label": "13-5",
+   "scene": "13",
+   "sceneTitle": "Use AI responsibly",
+   "seconds": 10,
+   "p0": 0.8519,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "which is why said yes earlier their public",
+     "keys": [
+      "which",
+      "why",
+      "said",
+      "yes",
+      "earlier",
+      "public"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#13-88",
+    "pct": 88
+   }
+  },
+  {
+   "id": "14-1",
+   "label": "14-1",
+   "scene": "14",
+   "sceneTitle": "Your turn: Tool A and Tool B",
+   "seconds": 15,
+   "p0": 0,
+   "p1": 0.0642,
+   "triggers": [
+    {
+     "phrase": "now for a real business in the room this ones",
+     "keys": [
+      "real",
+      "business",
+      "room",
+      "ones"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#14-02",
+    "pct": 2
+   }
+  },
+  {
+   "id": "14-2",
+   "label": "14-2 to 14-6",
+   "scene": "14",
+   "sceneTitle": "Your turn: Tool A and Tool B",
+   "seconds": 55,
+   "p0": 0.0642,
+   "p1": 0.2995,
+   "triggers": [
+    {
+     "phrase": "tool a scans the whole business what you",
+     "keys": [
+      "tool",
+      "scans",
+      "whole",
+      "business",
+      "what"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#14-10",
+    "pct": 10
+   }
+  },
+  {
+   "id": "14-7",
+   "label": "14-7",
+   "scene": "14",
+   "sceneTitle": "Your turn: Tool A and Tool B",
+   "seconds": 40,
+   "p0": 0.2995,
+   "p1": 0.4707,
+   "triggers": [
+    {
+     "phrase": "then 3 tabs whats working what isnt and",
+     "keys": [
+      "3",
+      "tabs",
+      "working",
+      "what",
+      "isnt"
+     ]
+    },
+    {
+     "phrase": "tool a isnt public yet so lets put",
+     "keys": [
+      "tool",
+      "isnt",
+      "public",
+      "yet",
+      "put"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#14-34",
+    "pct": 34
+   }
+  },
+  {
+   "id": "14-8",
+   "label": "14-8",
+   "scene": "14",
+   "sceneTitle": "Your turn: Tool A and Tool B",
+   "seconds": 15,
+   "p0": 0.4707,
+   "p1": 0.5349,
+   "triggers": [
+    {
+     "phrase": "tool b starts from the 6 answers gave",
+     "keys": [
+      "tool",
+      "b",
+      "starts",
+      "6",
+      "answers",
+      "gave"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#14-49",
+    "pct": 49
+   }
+  },
+  {
+   "id": "14-9",
+   "label": "14-9",
+   "scene": "14",
+   "sceneTitle": "Your turn: Tool A and Tool B",
+   "seconds": 30,
+   "p0": 0.5349,
+   "p1": 0.6633,
+   "triggers": [
+    {
+     "phrase": "and heres their customer as a card just like the",
+     "keys": [
+      "customer",
+      "card",
+      "like"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#14-57",
+    "pct": 57
+   }
+  },
+  {
+   "id": "14-10",
+   "label": "14-10 and 14-11",
+   "scene": "14",
+   "sceneTitle": "Your turn: Tool A and Tool B",
+   "seconds": 30,
+   "p0": 0.6633,
+   "p1": 0.7916,
+   "triggers": [
+    {
+     "phrase": "then a brand kit from their current content",
+     "keys": [
+      "brand",
+      "kit",
+      "current",
+      "content"
+     ]
+    },
+    {
+     "phrase": "tool b isnt open to the public yet",
+     "keys": [
+      "tool",
+      "b",
+      "isnt",
+      "open",
+      "public",
+      "yet"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#14-70",
+    "pct": 70
+   }
+  },
+  {
+   "id": "14-12",
+   "label": "14-12",
+   "scene": "14",
+   "sceneTitle": "Your turn: Tool A and Tool B",
+   "seconds": 20,
+   "p0": 0.7916,
+   "p1": 0.8772,
+   "triggers": [
+    {
+     "phrase": "thank you give them a hand 2 codes",
+     "keys": [
+      "thank",
+      "give",
+      "hand",
+      "2",
+      "codes"
+     ]
+    },
+    {
+     "phrase": "these open to the public soon",
+     "keys": [
+      "open",
+      "public",
+      "soon"
+     ]
+    },
+    {
+     "phrase": "whos running theirs tonight hands up",
+     "keys": [
+      "whos",
+      "running",
+      "theirs",
+      "tonight",
+      "hands"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#14-82",
+    "pct": 82
+   }
+  },
+  {
+   "id": "14-13",
+   "label": "14-13",
+   "scene": "14",
+   "sceneTitle": "Your turn: Tool A and Tool B",
+   "seconds": 10,
+   "p0": 0.8772,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "and everything you need next goes in 1",
+     "keys": [
+      "everything",
+      "need",
+      "next",
+      "goes",
+      "1"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#14-89",
+    "pct": 89
+   }
+  },
+  {
+   "id": "15-1",
+   "label": "15-1",
+   "scene": "15",
+   "sceneTitle": "Keep learning, the 7-day test, the close",
+   "seconds": 10,
+   "p0": 0,
+   "p1": 0.0418,
+   "triggers": [
+    {
+     "phrase": "keep learning tumelo made this box by the",
+     "keys": [
+      "keep",
+      "learning",
+      "tumelo",
+      "made",
+      "box"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#15-01",
+    "pct": 1
+   }
+  },
+  {
+   "id": "15-2",
+   "label": "15-2",
+   "scene": "15",
+   "sceneTitle": "Keep learning, the 7-day test, the close",
+   "seconds": 45,
+   "p0": 0.0418,
+   "p1": 0.23,
+   "triggers": [
+    {
+     "phrase": "inside 8 free marketing skills from anthropic the",
+     "keys": [
+      "inside",
+      "8",
+      "free",
+      "marketing",
+      "skills",
+      "anthropic"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#15-08",
+    "pct": 8
+   }
+  },
+  {
+   "id": "15-3",
+   "label": "15-3",
+   "scene": "15",
+   "sceneTitle": "Keep learning, the 7-day test, the close",
+   "seconds": 30,
+   "p0": 0.23,
+   "p1": 0.3555,
+   "triggers": [
+    {
+     "phrase": "does a skill make a difference same request",
+     "keys": [
+      "skill",
+      "make",
+      "difference",
+      "same",
+      "request"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#15-27",
+    "pct": 27
+   }
+  },
+  {
+   "id": "15-4",
+   "label": "15-4",
+   "scene": "15",
+   "sceneTitle": "Keep learning, the 7-day test, the close",
+   "seconds": 10,
+   "p0": 0.3555,
+   "p1": 0.3973,
+   "triggers": [
+    {
+     "phrase": "and the capture skills from earlier cro popups",
+     "keys": [
+      "capture",
+      "skills",
+      "earlier",
+      "cro",
+      "popups"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#15-37",
+    "pct": 37
+   }
+  },
+  {
+   "id": "15-5",
+   "label": "15-5",
+   "scene": "15",
+   "sceneTitle": "Keep learning, the 7-day test, the close",
+   "seconds": 40,
+   "p0": 0.3973,
+   "p1": 0.5645,
+   "triggers": [
+    {
+     "phrase": "where to learn more by stage meta blueprint",
+     "keys": [
+      "where",
+      "learn",
+      "more",
+      "stage",
+      "meta",
+      "blueprint"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#15-44",
+    "pct": 44
+   }
+  },
+  {
+   "id": "15-6",
+   "label": "15-6",
+   "scene": "15",
+   "sceneTitle": "Keep learning, the 7-day test, the close",
+   "seconds": 60,
+   "p0": 0.5645,
+   "p1": 0.8155,
+   "triggers": [
+    {
+     "phrase": "so heres your test for the next 7 days",
+     "keys": [
+      "test",
+      "next",
+      "7",
+      "days"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#15-60",
+    "pct": 60
+   }
+  },
+  {
+   "id": "15-7",
+   "label": "15-7",
+   "scene": "15",
+   "sceneTitle": "Keep learning, the 7-day test, the close",
+   "seconds": 25,
+   "p0": 0.8155,
+   "p1": 0.92,
+   "triggers": [
+    {
+     "phrase": "an hour ago this bottle was a brand",
+     "keys": [
+      "hour",
+      "ago",
+      "bottle",
+      "brand"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#15-85",
+    "pct": 85
+   }
+  }
+ ]
+}

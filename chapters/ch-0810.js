@@ -52,6 +52,27 @@
     });
   });
 
+  // ---- 08-5 R1 reel: plays the downloaded clip from this laptop; nothing opens Instagram (owner item 26).
+  // The public build has no assets/ref/ (rule G6), so it plays our own clip in the same style instead.
+  // Read as a blob: the stage server (python http.server) has no Range support.
+  qa(document, '.cx [data-local-clip]').forEach(box => {
+    q(box, '.cx-embed__play')?.addEventListener('click', async () => {
+      let src = box.dataset.fallback, note = box.dataset.fallbackNote;
+      try {
+        const r = await fetch(box.dataset.localClip);
+        if (r.ok) { src = URL.createObjectURL(await r.blob()); note = ''; }
+      } catch { /* missing: keep the fallback */ }
+      const v = Object.assign(document.createElement('video'), { src, controls: true, loop: true, playsInline: true });
+      v.setAttribute('playsinline', '');
+      box.append(v);
+      const n = q(box, '.cx08-r1__note');
+      if (note && n) { n.textContent = note; n.hidden = false; }
+      box.classList.add('is-loaded');
+      v.play().catch(() => {});
+      hold();
+    });
+  });
+
   // ---- 08-3 AI helper. Public deck: the scripted demo, labelled. On stage (local
   // host or ?stage): the presenter's click is the go-ahead for one live run on the
   // fixed fictional question; any failure keeps the scripted answer, tagged.
@@ -106,9 +127,9 @@
     dwell.classList.toggle('is-due', due);
   }
 
-  // ---- 09 channel picker (click holds; the scroll walks the four places otherwise).
+  // ---- 09 channel picker (click holds; the scroll walks the three places otherwise).
   const orbitBox = q(S9, '.cx09-orbit'), chButtons = qa(S9, '[data-cx-channel]');
-  const chOrder = ['web', 'whatsapp', 'dm', 'slack'];
+  const chOrder = ['web', 'whatsapp', 'dm'];
   let chManual = null;
   function pickChannel(kind) {
     if (orbitBox.dataset.pick === kind) return;
@@ -205,7 +226,7 @@
     }
   }
   function on09(p) {
-    const auto = p < .078 ? 0 : p < .1092 ? 1 : p < .1403 ? 2 : 3;
+    const auto = p < .078 ? 0 : p < .1092 ? 1 : 2;
     if (chManual && chOrder.indexOf(chManual) < auto) chManual = null;
     pickChannel(chManual || chOrder[auto]);
     if (!sentManual) setSent(p >= .36);
@@ -295,7 +316,7 @@
       G.to(q(S8, '.cx08-ours__chat'), { y: -8, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: -1 })
     );
 
-    // Scene 09: four places spiral into an orbit around the capture card.
+    // Scene 09: three places spiral into an orbit around the capture card.
     const stage9 = q(S9, '.scene__stage'), core = q(S9, '.cx09-orbit__core');
     const orb = { a: 0, m: 1, W: 0, H: 0 };
     const measure9 = () => { orb.W = stage9.clientWidth; orb.H = stage9.clientHeight; };
@@ -305,7 +326,7 @@
       const phone = innerWidth <= 900, cx = orb.W * (phone ? .5 : .31), cy = orb.H * (phone ? .4 : .52);
       const rx = Math.min(orb.W * (phone ? .3 : .2), 260) * orb.m, ry = (phone ? 120 : rx * .44) * (phone ? orb.m : 1);
       chButtons.forEach((b, k) => {
-        const a = orb.a + k * Math.PI / 2 + (orb.m - 1) * 2.2, depth = (Math.sin(a) + 1) / 2, on = b.getAttribute('aria-pressed') === 'true';
+        const a = orb.a + k * Math.PI * 2 / chButtons.length + (orb.m - 1) * 2.2, depth = (Math.sin(a) + 1) / 2, on = b.getAttribute('aria-pressed') === 'true';
         G.set(b, { x: cx + Math.cos(a) * rx, y: cy + Math.sin(a) * (phone ? ry : rx * .44), scale: (on ? 1.12 : .9) + depth * .14, opacity: on ? 1 : .55 + depth * .35, zIndex: on ? 9 : depth > .5 ? 6 : 2 });
       });
     }
@@ -317,20 +338,11 @@
     };
     G.ticker.add(orbitTick);
     cleanups.push(() => G.ticker.remove(orbitTick));
-    // The Slack claim breaks: shards of the wrong line fly apart and the right one lands.
-    const oldClaim = q(S9, '.cx09-claim__old'), newClaim = q(S9, '.cx09-claim__new');
-    const cuts = ['polygon(0 0,34% 0,28% 55%,0 70%)', 'polygon(34% 0,62% 0,55% 48%,28% 55%)', 'polygon(62% 0,100% 0,100% 40%,55% 48%)', 'polygon(0 70%,28% 55%,40% 100%,0 100%)', 'polygon(28% 55%,55% 48%,70% 100%,40% 100%)', 'polygon(55% 48%,100% 40%,100% 100%,70% 100%)'];
-    const shards = cuts.map(c => { const s = oldClaim.cloneNode(true); s.classList.add('cx09-shard'); s.setAttribute('aria-hidden', 'true'); s.style.clipPath = c; oldClaim.after(s); return s; });
-    cleanups.push(() => shards.forEach(s => s.remove()));
     build(S9, tl => {
       shrinkHead(tl, S9, .04);
       tl.fromTo(orb, { m: 2.6 }, { m: 1, duration: .04, ease: 'power2.out', onUpdate: placeOrbit }, 0)
         .fromTo(core, { scale: .6, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .03 }, .005)
-        .fromTo(q(S9, '.cx09-detail'), { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, duration: .01 }, .045)
-        .fromTo(shards, { autoAlpha: 0 }, { autoAlpha: 1, duration: .001 }, .17)
-        .fromTo(oldClaim, { autoAlpha: 1 }, { autoAlpha: 0, duration: .001, immediateRender: false }, .1705);
-      shards.forEach((s, k) => tl.fromTo(s, { x: 0, y: 0, rotation: 0, scale: 1, autoAlpha: 1 }, { x: (k % 3 - 1) * 120 + (k % 2 ? 30 : -30), y: (k < 3 ? -1 : 1) * (60 + k * 12), rotation: (k % 2 ? 1 : -1) * (18 + k * 7), scale: 1.5, autoAlpha: 0, duration: .016, ease: 'power2.out', immediateRender: false }, .172));
-      tl.fromTo(newClaim, { autoAlpha: 0, scale: .86, filter: 'blur(8px)' }, { autoAlpha: 1, scale: 1, filter: 'blur(0px)', duration: .012 }, .18);
+        .fromTo(q(S9, '.cx09-detail'), { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, duration: .01 }, .045);
       // One phrase per beat: each line enters, holds, then hands off to the next.
       const beats = qa(S9, '.cx09-beats span');
       beats.forEach((b, k) => {

@@ -12,14 +12,17 @@
   const autoState = () => document.getElementById('autoStatus')?.dataset.state;
   let pausedByUs = false;
 
+  // The Instagram reel never opens off-site (owner item 26): it is named, not linked.
+  const offsiteOk = tile => !/(^|\.)instagram\.com$/i.test(new URL(tile.dataset.url, location.href).hostname);
   const toLink = tile => {
     tile.classList.add('is-missing');
     const play = tile.querySelector('.rc-tile__play');
     play.querySelector('video')?.remove();
-    const a = document.createElement('a');
+    const ok = offsiteOk(tile);
+    const a = document.createElement(ok ? 'a' : 'span');
     a.className = 'rc-tile__missing';
-    a.href = tile.dataset.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
-    a.textContent = 'Watch the original ↗';
+    if (ok) { a.href = tile.dataset.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+    a.textContent = ok ? 'Watch the original ↗' : 'Shown in the room';
     play.replaceWith(Object.assign(document.createElement('div'), { className: 'rc-tile__play' }));
     tile.querySelector('.rc-tile__play').append(a);
   };
@@ -88,9 +91,8 @@
     const note = tile.querySelector('figcaption b')?.textContent || '';
     const who = tile.querySelector('figcaption small')?.textContent || '';
     credit.innerHTML = '';
-    credit.append(document.createTextNode(`${note} · ${who} · `));
-    const a = Object.assign(document.createElement('a'), { href: tile.dataset.url, target: '_blank', rel: 'noopener noreferrer', textContent: 'Source ↗' });
-    credit.append(a);
+    credit.append(document.createTextNode(`${note} · ${who}`));
+    if (offsiteOk(tile)) credit.append(' · ', Object.assign(document.createElement('a'), { href: tile.dataset.url, target: '_blank', rel: 'noopener noreferrer', textContent: 'Source ↗' }));
     overlay.hidden = false; overlay.isOpen = true;
     if (autoState() === 'running') { window.deckHold ? window.deckHold() : document.getElementById('motionButton')?.click(); pausedByUs = true; }
     sync();

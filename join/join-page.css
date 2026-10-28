@@ -1,0 +1,4 @@
+/* join/ page only (the deck popup does not load this). */
+*{box-sizing:border-box}
+html{background:var(--jn-bg)}
+body{margin:0;min-height:100svh;color:var(--jn-ink);font:400 1rem/1.5 var(--jn-body);background:radial-gradient(90% 60% at 50% 0%,#1d3a2e 0%,#10221a 60%,#0a1510 100%) fixed}

@@ -8,7 +8,8 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 export const SPEND_LOG = process.env.LIVE_RUNNER_SPEND_LOG
   || join(HERE, '..', '..', 'experience', 'evidence', 'g02-runs', 'spend.log');
 // Overnight ceilings from amendment A2.9 (PROVISIONAL): 60 claude -p runs, 60 Firecrawl credits.
-export const MAX_CLAUDE_RUNS = Number(process.env.LIVE_RUNNER_MAX_CLAUDE_RUNS || 60);
+// Raised to 90 on 2026-10-28 for the stage chapter build (owner contract item 4).
+export const MAX_CLAUDE_RUNS = Number(process.env.LIVE_RUNNER_MAX_CLAUDE_RUNS || 90);
 const WINDOW_MS = Number(process.env.LIVE_RUNNER_SPEND_WINDOW_H || 12) * 3600_000;
 
 function entries() {

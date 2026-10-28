@@ -35,6 +35,10 @@ jobs:
           cp assets/cached-runs/*.json _site/assets/cached-runs/
           cp live-runner/client.js _site/live-runner/
           cp -R skills _site/skills
+          # Live-stage join form (public, anon-key INSERT only) and the deck's client-side QR generator (MIT, ships with cp -R vendor above).
+          test -f vendor/qrcode-generator-1.4.4.min.js
+          mkdir -p _site/join
+          cp join/index.html join/config.js join/join.css join/join-page.css join/join.js _site/join/
           cp index.html styles.css cinematic.css scroll-experience.css scroll-presentation.js presentation-qr.svg _site/candidate/
           cp -R _site/assets _site/candidate/assets
           cp -R _site/vendor _site/candidate/vendor
@@ -43,6 +47,8 @@ jobs:
           cp -R _site/chapters _site/candidate/chapters
           cp -R _site/live-runner _site/candidate/live-runner
           cp -R _site/skills _site/candidate/skills
+          cp -R _site/join _site/candidate/join
+          cp vendor/qrcode-generator-1.4.4.min.js _site/candidate/vendor/
           # Rule G6: the owner's reference clips (assets/ref/) are stage-deck only. Never re-host them.
           rm -rf _site/assets/ref _site/candidate/assets/ref
           touch _site/.nojekyll

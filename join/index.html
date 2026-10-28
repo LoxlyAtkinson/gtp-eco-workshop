@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10221a">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta name="description" content="Add your website to the GTP ECO workshop's live demo.">
+  <title>Put your website on the big screen · GTP ECO workshop</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./join-page.css?v=1">
+  <link rel="stylesheet" href="./join.css?v=2">
+  <script defer src="./config.js?v=2"></script>
+  <script defer src="./join.js?v=2"></script>
+</head>
+<body>
+  <main class="jn" id="main" data-join-root>
+    <p class="jn-kicker">GTP ECO workshop <b aria-hidden="true">·</b> live demo</p>
+    <h1 class="jn-title">Put your website on the <em>big screen.</em></h1>
+    <p class="jn-lede">Add your website. The presenter picks one at random and scans it live: colours, fonts, ad ideas, competitors and two ads.</p>
+
+    <section class="jn-card" aria-labelledby="jn-form-title">
+      <h2 id="jn-form-title" class="jn-visually-hidden">Your website</h2>
+
+      <div class="jn-closed" data-state="closed" hidden>
+        <p class="jn-closed__head">The live form opens at the talk.</p>
+        <p>Call your website out to the presenter.</p>
+      </div>
+
+      <form class="jn-form" data-state="form" novalidate hidden>
+        <div class="jn-field">
+          <label for="jn-website">Your website</label>
+          <input id="jn-website" name="website" type="url" inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" maxlength="200" placeholder="https://yourbusiness.co.za" aria-describedby="jn-website-help jn-website-error" required>
+          <small id="jn-website-help" class="jn-help">Starts with https://. We add it if you leave it out.</small>
+          <small id="jn-website-error" class="jn-error" role="alert"></small>
+        </div>
+        <div class="jn-field">
+          <label for="jn-name">First name <span>(optional)</span></label>
+          <input id="jn-name" name="name" type="text" autocomplete="given-name" maxlength="40" aria-describedby="jn-name-error">
+          <small id="jn-name-error" class="jn-error" role="alert"></small>
+        </div>
+        <button class="jn-submit" type="submit">Send my website</button>
+        <p class="jn-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="jn-done" data-state="done" hidden tabindex="-1">
+        <p class="jn-done__head">You're in the list.</p>
+        <p class="jn-done__body"></p>
+        <button class="jn-again" type="button">Send a different website</button>
+      </div>
+
+      <p class="jn-privacy">We use your website for a live demo today and delete the list after the talk.</p>
+    </section>
+
+    <p class="jn-foot"><a href="../">Back to the workshop</a></p>
+  </main>
+</body>
+</html>

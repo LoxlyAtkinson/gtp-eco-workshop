@@ -1,18 +1,21 @@
 #!/usr/bin/env node
 // GTP live runner: a dependency-free local server for in-scene live runs.
 // Binds to 127.0.0.1 only. POST /run/<kind> streams Server-Sent Events.
+import './lib/load-env.mjs'; // first: the owner's keys from .env.local
 import { createServer } from 'node:http';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { KINDS, validateRequest, blockedOn } from './lib/kinds.mjs';
 import { runKind } from './lib/run-kind.mjs';
 import { claudeRunsInWindow, MAX_CLAUDE_RUNS, firecrawlCreditsInWindow, MAX_FIRECRAWL_CREDITS } from './lib/spend.mjs';
+import { isStageKind, validateStageRequest, handleStageRoute, stageHealth } from './lib/stage.mjs';
 
 const HOST = '127.0.0.1';
 const PORT = Number(process.env.LIVE_RUNNER_PORT || 8790);
 const ALLOWED_ORIGINS = new Set(['http://localhost:8765', 'http://127.0.0.1:8765']);
 const MAX_CONCURRENT = 3;
 const MAX_BODY = 4096;
+const MAX_STAGE_BODY = 16_384; // stage kinds may carry a scan brief as context
 let active = 0;
 
 function corsHeaders(origin) {
@@ -51,23 +54,28 @@ const server = createServer((req, res) => {
       claude_run_ceiling: MAX_CLAUDE_RUNS,
       firecrawl_credits_in_window: firecrawlCreditsInWindow(),
       firecrawl_credit_ceiling: MAX_FIRECRAWL_CREDITS,
-      kinds: Object.fromEntries(Object.entries(KINDS).map(([k, v]) => [k, { skill: v.skill, ready: blockedOn(v).length === 0, blocked_on: blockedOn(v) }])),
+      kinds: { ...Object.fromEntries(Object.entries(KINDS).map(([k, v]) => [k, { skill: v.skill, ready: blockedOn(v).length === 0, blocked_on: blockedOn(v) }])), ...stageHealth() },
     }, origin);
   }
 
+  // Stage chapter: the audience's websites (lib/stage.mjs).
+  if (url.pathname.startsWith('/stage/')) return handleStageRoute(req, url, (status, obj) => sendJson(res, status, obj, origin));
+
   const m = url.pathname.match(/^\/run\/([a-z0-9-]{1,32})$/);
   if (req.method !== 'POST' || !m) return sendJson(res, 404, { error: 'not found' }, origin);
-  if (!Object.prototype.hasOwnProperty.call(KINDS, m[1])) return sendJson(res, 404, { error: 'unknown kind' }, origin);
+  const stage = isStageKind(m[1]);
+  if (!stage && !Object.prototype.hasOwnProperty.call(KINDS, m[1])) return sendJson(res, 404, { error: 'unknown kind' }, origin);
+  const maxBody = stage ? MAX_STAGE_BODY : MAX_BODY;
   if (!String(req.headers['content-type'] || '').startsWith('application/json')) return sendJson(res, 415, { error: 'json only' }, origin);
 
   let body = '';
   let tooBig = false;
-  req.on('data', (c) => { body += c; if (body.length > MAX_BODY) { tooBig = true; req.destroy(); } });
+  req.on('data', (c) => { body += c; if (body.length > maxBody) { tooBig = true; req.destroy(); } });
   req.on('end', () => {
     if (tooBig) return;
     let parsed;
     try { parsed = JSON.parse(body || '{}'); } catch { return sendJson(res, 400, { error: 'invalid json' }, origin); }
-    const v = validateRequest(m[1], parsed);
+    const v = stage ? validateStageRequest(m[1], parsed) : validateRequest(m[1], parsed);
     if (v.error) return sendJson(res, 400, { error: v.error, code: v.code || 'BAD_REQUEST' }, origin);
     if (active >= MAX_CONCURRENT) return sendJson(res, 429, { error: 'runner busy' }, origin);
 
