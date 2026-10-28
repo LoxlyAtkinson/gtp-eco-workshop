@@ -6,6 +6,7 @@ const root=process.cwd();
 const out=join(root,'experience','evidence',process.env.GTP_EVIDENCE_DIR||'scroll-build');
 const base=process.env.GTP_BASE_URL||'http://127.0.0.1:8767/';
 const selected=process.env.GTP_SCENES?.split(',').map(Number).filter(Number.isInteger);
+const beats=process.env.GTP_BEATS?.split(',').map(Number).filter(value=>Number.isFinite(value)&&value>=0&&value<=1)||[0,.5,.9];
 mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-features=OverscrollHistoryNavigation']});
 const observations=[];
@@ -15,10 +16,12 @@ for(const viewport of [{width:1366,height:768,label:'projector'},{width:390,heig
   await page.goto(base,{waitUntil:'networkidle'});
   await page.locator('.scene-handoff--after-14').waitFor({state:'attached',timeout:10000});
   await page.evaluate(()=>document.fonts.ready);
+  // Presenter pause makes each requested scrub beat stable while screenshots render.
+  await page.locator('#motionButton').click();
   await page.evaluate(()=>{document.documentElement.style.scrollBehavior='auto'});
   for(let n=1;n<=15;n++){
     if(selected?.length&&!selected.includes(n))continue;
-    for(const p of [0,.5,.9]){
+    for(const p of beats){
       let aligned=false;
       for(let attempt=0;attempt<8;attempt++){
         await page.evaluate(({n,p})=>{const s=document.querySelector(`.scene[data-scene="${String(n).padStart(2,'0')}"]`);const travel=Math.max(0,s.offsetHeight-innerHeight);scrollTo({top:s.getBoundingClientRect().top+scrollY+p*travel,behavior:'instant'});},{n,p});

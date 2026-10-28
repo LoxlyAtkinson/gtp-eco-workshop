@@ -1,0 +1,39 @@
+{
+  "kind": "blog-calendar",
+  "skill": "blog-calendar",
+  "business": "Amberkloof",
+  "label": "Demo data: Amberkloof is an invented brand · category-only request, no website",
+  "recorded_at": "2026-10-27T20:45:23.533Z",
+  "request": {
+    "business": "Amberkloof",
+    "category": "small-batch botanical body care (marula face oil, rooibos body butter)",
+    "area": "Pretoria East, Gauteng, South Africa",
+    "target": "category-provisional"
+  },
+  "target": {
+    "type": "category-only",
+    "note": "The hero brand Amberkloof is invented and has no website; the request names its category and area only (PROVISIONAL, spine D-06)."
+  },
+  "text": "Assumptions: Day 1 is 28 Oct 2026. There's no existing content or site, so everything is new. The pace is about 1 piece a week. Keywords are unvalidated, so check volumes before writing.\n\n| Days | Type | Title | Target keyword | Intent |\n|---|---|---|---|---|\n| 1-30 | Landing | Marula Face Oil (Day 3) | marula face oil South Africa | Transactional |\n| 1-30 | Blog | What Is Marula Oil? Skin Benefits (Day 7) | marula oil benefits for skin | Informational |\n| 1-30 | Blog | How to Use Face Oil in Summer Heat (Day 14) | how to use face oil | Informational |\n| 1-30 | Landing | Christmas Gift Sets (Day 21) | natural skincare gift set South Africa | Transactional |\n| 1-30 | Blog | What \"Small-Batch\" Skincare Means (Day 28) | small batch skincare | Informational |\n| 31-60 | Landing | Rooibos Body Butter (Day 35) | rooibos body butter | Transactional |\n| 31-60 | Blog | Is Rooibos Good for Your Skin? (Day 38) | rooibos for skin | Informational |\n| 31-60 | Blog | Body Butter vs Lotion (Day 45) | body butter vs lotion | Commercial |\n| 31-60 | Landing | Natural Skincare in Pretoria East: Delivery and Pickup (Day 52) | natural skincare Pretoria East | Local/Transactional |\n| 31-60 | Blog | Dry Highveld Skin Routine (Day 58) | dry skin care Gauteng | Informational |\n| 61-90 | Blog | Best South African Natural Body Care Brands (Day 63) | natural body care brands South Africa | Commercial |\n| 61-90 | Blog | Marula Oil vs Argan Oil (Day 70) | marula oil vs argan oil | Commercial |\n| 61-90 | Blog | Botanical Body Care Ingredients to Look For (Day 77) | natural body care ingredients | Informational |\n| 61-90 | Landing | Face Oil and Body Butter Bundle (Day 82) | skincare bundle South Africa | Transactional |\n| 61-90 | Blog | Botanical Skincare FAQs (Day 88) | is natural skincare better | Informational |\n\nNext: pick the Day 3 landing page and confirm the keyword with a quick Google search. That takes about 5 minutes.",
+  "source_log": "experience/evidence/g02-runs/cached/blog-calendar-2026-10-27T20-45-23-528Z.stream.jsonl",
+  "cached_run": {
+    "tag": "cached run",
+    "what": "A real recorded run of the named skill, replayed when the live run fails, cannot reach the runner, or has no complete result 20 s after the scene reveal.",
+    "recorded_at": "2026-10-27T20:45:23.533Z",
+    "recorded_via": "live-runner/run-once.mjs (the same code path as live-runner/server.mjs)",
+    "claude_code_version": "2.1.311",
+    "model": "claude-sonnet-5-5",
+    "tools_offered": [
+      "Skill",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "wall_ms": 27598,
+    "num_turns": 3,
+    "firecrawl_scan": null,
+    "skill_marker": "stream line 4: \"Base directory for this skill\" for blog-calendar",
+    "timing_file": "experience/evidence/g02-runs/cached/blog-calendar-2026-10-27T20-45-23-528Z.timing.json",
+    "result_file": "experience/evidence/g02-runs/cached/blog-calendar-2026-10-27T20-45-23-528Z.result.md",
+    "prompt_sha256": "3e5b3b3998cd4beec507866366a523c79a5f7ae25143418cf166cb8bf25de945"
+  }
+}

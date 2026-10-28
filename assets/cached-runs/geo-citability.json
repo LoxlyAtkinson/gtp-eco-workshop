@@ -1,0 +1,45 @@
+{
+  "kind": "geo-citability",
+  "skill": "geo-citability",
+  "business": "GTP ECO workshop (owner own public site)",
+  "label": "Scan target: the workshop's own published deck, a stand-in because the Amberkloof demo site does not exist yet",
+  "recorded_at": "2026-10-27T20:46:15.564Z",
+  "request": {
+    "business": "GTP ECO workshop (owner own public site)",
+    "category": "small-business marketing workshop",
+    "area": "South Africa",
+    "url": "https://loxlyatkinson.github.io/gtp-eco-workshop/",
+    "target": "business-site"
+  },
+  "target": {
+    "type": "stand-in site",
+    "url": "https://loxlyatkinson.github.io/gtp-eco-workshop/",
+    "owner": "the presenter (his own public workshop deck)",
+    "note": "Not Amberkloof. The hero brand has no website yet (D9), so the site kinds scan the owner's own published deck."
+  },
+  "text": "**Assumption:** I scored the scanned homepage text only. I did not fetch live HTML, so headings, schema and meta tags are unchecked. I wrote no file.\n\n## Citability score: 41/100\n\n| Category | Score | Weight |\n|---|---|---|\n| Answer blocks | 48 | 30% |\n| Self-containment | 38 | 25% |\n| Structure | 40 | 20% |\n| Statistics | 25 | 15% |\n| Uniqueness | 60 | 10% |\n\nWeighted total: about 41. Estimated citability coverage (blocks above 70): about 10%.\n\n## Reasons\n\n1. **Answers are buried.** Headings are slogans (\"Be found. Be chosen.\", \"A clearer next move.\"), not questions. The best answer, \"Start with 20 main portions…\", sits inside a fictional demo.\n2. **Passages depend on context.** Text like \"Choose a channel to see…\" and \"Apply the brief…\" is UI copy. Pronouns and scroll-step cues mean the passages fail alone.\n3. **Almost no real data.** The numbers (6 of 10 orders, 3 sales) are labelled fictional. AI systems have no sourced statistic to quote.\n4. **The page never defines itself.** There is no \"The ECO workshop is a 60-minute… for…\" sentence. Its date, price, venue, host and audience are missing. The SEO/AEO/GEO definitions sit only in a presenter note.\n5. **Strength:** The ECO framework (Engage → Convert → Optimize) is original, and the 30/60/90 plan is a clear structure.\n\n## Top 3 fixes\n\n1. **Add a 50–60 word definition block at the top.** Example: \"The GTP ECO workshop is a 60-minute session for South African small-business owners. It teaches Engage, Convert, Optimize, a three-step loop for choosing one customer, one channel and one action. Hosted by [name], [date/venue/price].\" Expected lift: +10 points.\n2. **Turn the headings into questions and answer each in 134–167 words.** Use \"What is the ECO framework?\", \"How much lunch for 20?\" and \"What should a small business measure weekly?\". Each answer should name its subject and not use \"it\" or \"this\". Expected lift: +8 points.\n3. **Add real, sourced facts and entity markup.** Include the date, location, price, facilitator bio and one real result with a source. Add Event and FAQPage schema and a visible \"Last updated\" date. Expected lift: +6 points.\n\nNext: write the fix 1 definition block with your real date, venue and host. It takes about 5 minutes.",
+  "source_log": "experience/evidence/g02-runs/cached/geo-citability-2026-10-27T20-46-15-558Z.stream.jsonl",
+  "cached_run": {
+    "tag": "cached run",
+    "what": "A real recorded run of the named skill, replayed when the live run fails, cannot reach the runner, or has no complete result 20 s after the scene reveal.",
+    "recorded_at": "2026-10-27T20:46:15.564Z",
+    "recorded_via": "live-runner/run-once.mjs (the same code path as live-runner/server.mjs)",
+    "claude_code_version": "2.1.311",
+    "model": "claude-sonnet-5-5",
+    "tools_offered": [
+      "Skill",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "wall_ms": 24760,
+    "num_turns": 3,
+    "firecrawl_scan": {
+      "ok": true,
+      "bytes": 24000
+    },
+    "skill_marker": "stream line 4: \"Base directory for this skill\" for geo-citability",
+    "timing_file": "experience/evidence/g02-runs/cached/geo-citability-2026-10-27T20-46-15-558Z.timing.json",
+    "result_file": "experience/evidence/g02-runs/cached/geo-citability-2026-10-27T20-46-15-558Z.result.md",
+    "prompt_sha256": "4169a53e5d7cbafc09a0bdbaa3ac11a6cfce81941595aabee86e8d97416e1c1b"
+  }
+}

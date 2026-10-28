@@ -1,0 +1,39 @@
+{
+  "kind": "competitor-scan",
+  "skill": "competitor-analysis",
+  "business": "Amberkloof",
+  "label": "Demo data: Amberkloof is an invented brand · category-only request, no website",
+  "recorded_at": "2026-10-27T20:45:23.226Z",
+  "request": {
+    "business": "Amberkloof",
+    "category": "small-batch botanical body care (marula face oil, rooibos body butter)",
+    "area": "Pretoria East, Gauteng, South Africa",
+    "target": "category-provisional"
+  },
+  "target": {
+    "type": "category-only",
+    "note": "The hero brand Amberkloof is invented and has no website; the request names its category and area only (PROVISIONAL, spine D-06)."
+  },
+  "text": "**Assumptions:** Website none given. \"Competitor\" means a South African marula or rooibos body-care brand. I found no verified small-batch Pretoria East competitor. Platform and content-recipe rows marked *inferred* are not confirmed. The Firecrawl scan wasn't given, and the Instagram and Facebook pages weren't checked.\n\n## 1. African Botanics (LA-based, South African founders)\nSource: https://coolhunting.com/style/products-by-african-botanics/\n- **Platforms:** Own website (confirmed). Instagram and press are *inferred*.\n- **Messages:** \"Love letter\" to South Africa. Marula is the hero ingredient, with rooibos from Western Cape estates. Fair trade, rural communities and conservation.\n- **Recipe:** The hook is a story and a hero ingredient. The body is ingredient science (absorption, antioxidants). The offer is a cause tie-in: 20% of proceeds to Baby2Baby in the 2020 campaign.\n- **Works:** A clear provenance story, and it won editorial coverage.\n- **Doesn't:** Premium, export-focused positioning. Nothing local, and no body butter or giveaway seen.\n\n## 2. AFRAKARI (Pretoria presence)\nSource: https://skinmiles.com/product/afrakari-pure-marula-oil/ (the page returned 403, so this comes from the search snippet only)\n- **Platforms:** Retail listings such as Skinmiles. Pretoria collection is offered. Social channels are unverified.\n- **Messages:** Wild-harvested, sustainable, virgin cold-pressed marula oil.\n- **Recipe:** The hook is purity. The body is a sourcing claim. The offer is local collection, with no giveaway seen.\n- **Works:** Clear \"pure, cold-pressed\" claims, and a local pickup option.\n- **Doesn't:** Product-spec content only. No visible face, founder or routine content, and I found no rooibos product.\n\n## 3. Bee-utiful Botanicals (Pretoria)\nSource: AGOA business listing at https://www.AGOA.info/connect/manufacturing/cosmetics/289.html. The fetch didn't contain the listing, so this relies on the search snippet.\n- **Platforms:** B2B and manufacturing directory (confirmed). Consumer social is unverified.\n- **Messages:** Baobab, marula and moringa botanicals, made in Pretoria.\n- **Recipe:** Not observable.\n- **Works:** Local manufacturing credibility and an export-ready profile.\n- **Doesn't:** Weak consumer-facing presence in the results, and no rooibos or body butter.\n\n## Gaps\n1. **Pretoria East locality.** No competitor markets to Menlyn, Lynnwood or Faerie Glen buyers, or at local markets.\n2. **Marula and rooibos together.** Competitors lead with only one of them.\n3. **Batch transparency.** Nobody shows batch numbers, a pour or make video, or a \"this week's batch\" drop.\n4. **Giveaways and community.** No evidence of giveaways, refills or sampling from any of the three.\n5. **Skin-routine education.** There is no routine content for dry Highveld winters.\n\n**Next:** open Instagram, search \"marula\" with \"Pretoria\", and verify two local makers. About 10 minutes.\n\nSources: [Cool Hunting](https://coolhunting.com/style/products-by-african-botanics/), [Skinmiles](https://skinmiles.com/product/afrakari-pure-marula-oil/), [AGOA.info](https://www.AGOA.info/connect/manufacturing/cosmetics/289.html)",
+  "source_log": "experience/evidence/g02-runs/cached/competitor-scan-2026-10-27T20-45-23-220Z.stream.jsonl",
+  "cached_run": {
+    "tag": "cached run",
+    "what": "A real recorded run of the named skill, replayed when the live run fails, cannot reach the runner, or has no complete result 20 s after the scene reveal.",
+    "recorded_at": "2026-10-27T20:45:23.226Z",
+    "recorded_via": "live-runner/run-once.mjs (the same code path as live-runner/server.mjs)",
+    "claude_code_version": "2.1.311",
+    "model": "claude-sonnet-5-5",
+    "tools_offered": [
+      "Skill",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "wall_ms": 51749,
+    "num_turns": 8,
+    "firecrawl_scan": null,
+    "skill_marker": "stream line 5: \"Base directory for this skill\" for competitor-analysis",
+    "timing_file": "experience/evidence/g02-runs/cached/competitor-scan-2026-10-27T20-45-23-220Z.timing.json",
+    "result_file": "experience/evidence/g02-runs/cached/competitor-scan-2026-10-27T20-45-23-220Z.result.md",
+    "prompt_sha256": "34d5302423aa802591ce12013d30824a09461e165dec03bbee756c481da433f7"
+  }
+}

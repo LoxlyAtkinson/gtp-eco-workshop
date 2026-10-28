@@ -50,6 +50,8 @@ for(const viewport of [{width:1366,height:768,label:'projector'},{width:390,heig
   await page.locator('.mock-quote input[name="guests"]').fill('20');
   await page.locator('.mock-quote select[name="dietary"]').selectOption('Vegetarian options');
   await page.locator('.mock-quote button[type="submit"]').click();
+  await page.locator('#mockQuoteResult').scrollIntoViewIfNeeded();
+  await page.evaluate(()=>{const box=document.getElementById('mockQuoteResult').getBoundingClientRect();if(box.bottom>innerHeight-90)scrollBy({top:box.bottom-(innerHeight-110),behavior:'instant'})});
   await save(page,`${viewport.label}-12-preview`);
   await page.locator('#mockReplyJump').click();
   await page.waitForTimeout(1900);

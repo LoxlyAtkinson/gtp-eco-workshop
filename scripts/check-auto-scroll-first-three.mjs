@@ -1,0 +1,47 @@
+import {chromium} from 'playwright-core';
+import {writeFileSync,mkdirSync} from 'node:fs';
+import {join} from 'node:path';
+
+const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});
+const out=join(process.cwd(),'experience','evidence','auto-first-three-local');
+mkdirSync(out,{recursive:true});
+const observations=[];
+for(const viewport of [{width:1366,height:768,label:'projector'},{width:390,height:844,label:'phone'}]){
+  const page=await browser.newPage({viewport,reducedMotion:'no-preference'});
+  const errors=[];
+  page.on('pageerror',error=>errors.push(error.message));
+  await page.goto('http://127.0.0.1:8767/#01',{waitUntil:'networkidle'});
+  await page.evaluate(()=>document.fonts.ready);
+  const state=()=>page.evaluate(()=>({scene:document.body.dataset.scene,scrollY,hash:location.hash,eco:document.querySelector('.scene[data-scene="02"]').dataset.ecoFocus,paused:document.body.classList.contains('motion-paused')}));
+  const start=await state();
+  await page.waitForTimeout(3500);
+  const moving=await state();
+  if(moving.scene!=='01'||moving.scrollY<=start.scrollY+2)throw Error(`${viewport.label}: opening did not move in place: ${JSON.stringify({start,moving})}`);
+  await page.getByRole('button',{name:/Pause automatic scroll/}).click();
+  const paused=await state();
+  await page.waitForTimeout(1800);
+  const still=await state();
+  if(Math.abs(still.scrollY-paused.scrollY)>2)throw Error(`${viewport.label}: pause moved: ${JSON.stringify({paused,still})}`);
+  await page.getByRole('button',{name:/Resume automatic scroll/}).click();
+  await page.getByRole('button',{name:/Next/}).click();
+  await page.waitForTimeout(2500);
+  const next=await state();
+  if(next.scene!=='02')throw Error(`${viewport.label}: Next did not reach scene 02: ${JSON.stringify(next)}`);
+  await page.locator('[data-eco="convert"]').click();
+  const chosen=await state();
+  if(chosen.eco!=='convert')throw Error(`${viewport.label}: Convert did not take focus: ${JSON.stringify(chosen)}`);
+  await page.waitForTimeout(2200);
+  const held=await state();
+  if(held.eco!=='convert'||Math.abs(held.scrollY-chosen.scrollY)>2)throw Error(`${viewport.label}: manual ECO choice did not hold: ${JSON.stringify({chosen,held})}`);
+  await page.getByRole('button',{name:/Next/}).click();
+  await page.waitForTimeout(2600);
+  const third=await state();
+  if(third.scene!=='03')throw Error(`${viewport.label}: Next did not reach scene 03: ${JSON.stringify(third)}`);
+  await page.screenshot({path:join(out,`${viewport.label}-scene03.png`)});
+  observations.push({viewport,start,moving,paused,still,next,chosen,held,third,errors});
+  await page.close();
+}
+await browser.close();
+if(observations.some(x=>x.errors.length))throw Error(JSON.stringify(observations));
+writeFileSync(join(out,'browser-log.json'),JSON.stringify(observations,null,2));
+console.log(JSON.stringify({viewports:observations.length,errors:0,output:out}));

@@ -1,0 +1,45 @@
+{
+  "kind": "backlink-analyzer",
+  "skill": "backlink-analyzer",
+  "business": "GTP ECO workshop (owner own public site)",
+  "label": "Scan target: the workshop's own published deck, a stand-in because the Amberkloof demo site does not exist yet",
+  "recorded_at": "2026-10-27T20:46:15.510Z",
+  "request": {
+    "business": "GTP ECO workshop (owner own public site)",
+    "category": "small-business marketing workshop",
+    "area": "South Africa",
+    "url": "https://loxlyatkinson.github.io/gtp-eco-workshop/",
+    "target": "business-site"
+  },
+  "target": {
+    "type": "stand-in site",
+    "url": "https://loxlyatkinson.github.io/gtp-eco-workshop/",
+    "owner": "the presenter (his own public workshop deck)",
+    "note": "Not Amberkloof. The hero brand has no website yet (D9), so the site kinds scan the owner's own published deck."
+  },
+  "text": "**Assumptions:** \"GTP\" is the workshop's own name. Public search only, no paid backlink data, nothing written to disk.\n\n## Result: no linking or mentioning pages found\n\nTwo searches (the exact domain path, and \"GTP ECO workshop\" with South Africa) found no page that links to or mentions this site or the business name. Because search engines don't list inbound links, this means \"no evidence found\". It doesn't prove there are none.\n\n| Linking or mentioning page | URL |\n|---|---|\n| None found | n/a |\n\n- **Self-links:** the site itself links out to [Oryzo](https://oryzo.ai/), [House Down Studios](https://housedownstudios.co.za/) and [Refero](https://styles.refero.design/). Those are outbound links and are not backlinks to you.\n- **Unrelated results:** the closest search hits were different \"GTP\" topics, such as a [UCAR GTP meeting PDF](https://www.mmm.ucar.edu/sites/default/files/2022-07/gtp-2013-annual-meeting-minutes.pdf) and the [Gauteng supplier workshops page](https://www.gauteng.gov.za/News/NewsDetails/DEB458AD-710C-49CA-B9CB-6D75CE25A3A1). Neither mentions you.\n- **Metrics:** I have no domain rating, link counts or toxic-link data. I didn't invent any.\n\n## 3 link opportunities\n\n1. **Reciprocal mention from the sites you cite.** Ask House Down Studios to list the workshop. You already link to them as a live example of a work-to-contact path.\n2. **South African small-business workshop listings.** Submit the workshop to the Gauteng supplier development workshop programme and local SMME event calendars, such as the Bizcommunity events pages.\n3. **Owner-controlled profiles.** Link to the field guide from your GitHub profile, LinkedIn and the Business Profile. Also publish the \"How much lunch for 20?\" style answer as a guest post that links back.\n\nNext: search `\"GTP ECO\"` and `\"Field Guide\" Loxly Atkinson` on LinkedIn, to check for unlinked mentions. This takes about 5 minutes.\n\nSources:\n- [UCAR GTP 2013 meeting minutes](https://www.mmm.ucar.edu/sites/default/files/2022-07/gtp-2013-annual-meeting-minutes.pdf)\n- [Gauteng supplier development workshops](https://www.gauteng.gov.za/News/NewsDetails/DEB458AD-710C-49CA-B9CB-6D75CE25A3A1)",
+  "source_log": "experience/evidence/g02-runs/cached/backlink-analyzer-2026-10-27T20-46-15-505Z.stream.jsonl",
+  "cached_run": {
+    "tag": "cached run",
+    "what": "A real recorded run of the named skill, replayed when the live run fails, cannot reach the runner, or has no complete result 20 s after the scene reveal.",
+    "recorded_at": "2026-10-27T20:46:15.510Z",
+    "recorded_via": "live-runner/run-once.mjs (the same code path as live-runner/server.mjs)",
+    "claude_code_version": "2.1.311",
+    "model": "claude-sonnet-5-5",
+    "tools_offered": [
+      "Skill",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "wall_ms": 34675,
+    "num_turns": 5,
+    "firecrawl_scan": {
+      "ok": true,
+      "bytes": 24000
+    },
+    "skill_marker": "stream line 5: \"Base directory for this skill\" for backlink-analyzer",
+    "timing_file": "experience/evidence/g02-runs/cached/backlink-analyzer-2026-10-27T20-46-15-505Z.timing.json",
+    "result_file": "experience/evidence/g02-runs/cached/backlink-analyzer-2026-10-27T20-46-15-505Z.result.md",
+    "prompt_sha256": "d71f7f02dc1de3c6ab4cec992aa2fbb7b00b883bf7bbf4e49f1665a4f5d4611e"
+  }
+}

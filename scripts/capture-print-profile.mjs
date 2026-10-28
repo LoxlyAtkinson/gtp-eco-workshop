@@ -1,0 +1,20 @@
+import { chromium } from 'playwright-core';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { createHash } from 'node:crypto';
+
+const out = join(process.cwd(), 'experience', 'evidence', process.env.GTP_EVIDENCE_DIR || 'print-profile-final');
+mkdirSync(out, { recursive: true });
+const base = process.env.GTP_BASE_URL || 'http://127.0.0.1:8767/';
+const browser = await chromium.launch({ headless: true, executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
+const page = await browser.newPage({ viewport: { width: 1366, height: 768 } });
+const errors = [];
+page.on('pageerror', error => errors.push(error.message));
+await page.goto(base, { waitUntil: 'networkidle' });
+await page.evaluate(() => document.fonts.ready);
+await page.pdf({ path: join(out, 'print.pdf'), format: 'A4', printBackground: true });
+const files = ['index.html', 'scroll-experience.css', 'scroll-presentation.js', 'experience/cinematic-scroll-contract.md'];
+const hashes = Object.fromEntries(files.map(file => [file, createHash('sha256').update(readFileSync(file)).digest('hex')]));
+writeFileSync(join(out, 'browser-log.json'), JSON.stringify({ checkedAt: new Date().toISOString(), route: base, viewport: page.viewportSize(), errors, hashes }, null, 2));
+await browser.close();
+console.log(JSON.stringify({ pdf: join(out, 'print.pdf'), errors, hashes }));

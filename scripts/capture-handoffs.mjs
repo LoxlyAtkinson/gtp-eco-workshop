@@ -4,6 +4,8 @@ import {join} from 'node:path';
 
 const out=join(process.cwd(),'experience','evidence',process.env.GTP_EVIDENCE_DIR||'scroll-handoffs');
 const base=process.env.GTP_BASE_URL||'http://127.0.0.1:8767/';
+const selected=process.env.GTP_HANDOFFS?.split(',').map(Number).filter(Number.isInteger);
+const beats=process.env.GTP_BEATS?.split(',').map(Number).filter(value=>Number.isFinite(value)&&value>=0&&value<=1)||[0,.5,.9];
 mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});
 const records=[];
@@ -17,7 +19,8 @@ for(const viewport of [{label:'projector',width:1366,height:768},{label:'phone',
   const count=await page.locator('.scene-bridge,.scene-handoff').count();
   if(count!==14)throw new Error(`Expected 14 handoffs at ${viewport.label}, found ${count}`);
   for(let i=0;i<count;i++){
-    for(const progress of [0,.5,.9]){
+    if(selected?.length&&!selected.includes(i+1))continue;
+    for(const progress of beats){
       await page.evaluate(({i,progress})=>{
         const el=document.querySelectorAll('.scene-bridge,.scene-handoff')[i];
         const travel=Math.max(1,el.offsetHeight-innerHeight);

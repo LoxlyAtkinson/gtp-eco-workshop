@@ -1,0 +1,41 @@
+import {chromium} from 'playwright-core';
+import {mkdirSync,writeFileSync} from 'node:fs';
+import {join} from 'node:path';
+
+const root=process.cwd();
+const out=join(root,'experience','evidence',process.env.GTP_EVIDENCE_DIR||'quote-preview-current-2026-10-27');
+mkdirSync(out,{recursive:true});
+const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});
+const records=[];
+for(const viewport of [{label:'projector',width:1366,height:768},{label:'phone',width:390,height:844}]){
+  const page=await browser.newPage({viewport:{width:viewport.width,height:viewport.height}});
+  const errors=[]; const requests=[];
+  page.on('pageerror',error=>errors.push(error.message));
+  page.on('request',request=>{if(request.method()!=='GET')requests.push({method:request.method(),url:request.url()})});
+  await page.goto('http://127.0.0.1:8767/#12',{waitUntil:'networkidle'});
+  await page.evaluate(()=>document.fonts.ready);
+  await page.locator('#motionButton').click();
+  await page.locator('[data-mock="quote"]').first().click();
+  const quote=page.locator('[data-mock-panel="quote"]');
+  await quote.locator('input[name="date"]').fill('2026-11-04');
+  await quote.locator('input[name="guests"]').fill('20');
+  await quote.locator('select[name="dietary"]').selectOption('Vegetarian options');
+  await quote.locator('button[type="submit"]').click();
+  await page.locator('#mockQuoteResult').scrollIntoViewIfNeeded();
+  await page.screenshot({path:join(out,`${viewport.label}-preview.png`)});
+  const preview=await page.evaluate(()=>({scene:document.body.dataset.scene,result:document.getElementById('mockQuoteResult').textContent.trim(),replyButtonVisible:!document.getElementById('mockReplyJump').hidden,quoteVisible:!document.querySelector('[data-mock-panel="quote"]').hidden,overflow:document.documentElement.scrollWidth-innerWidth}));
+  const previewPass=preview.scene==='12'&&preview.quoteVisible&&preview.replyButtonVisible&&/20 guests on 4 November 2026/.test(preview.result)&&/Vegetarian options/.test(preview.result);
+  records.push({viewport:viewport.label,step:'filled preview',pass:previewPass,actual:preview});
+  await page.locator('[data-mock="menu"]').first().click();
+  await page.locator('[data-mock-panel="menu"]').scrollIntoViewIfNeeded();
+  await page.screenshot({path:join(out,`${viewport.label}-returned-to-menu.png`)});
+  const returned=await page.evaluate(()=>({menuVisible:!document.querySelector('[data-mock-panel="menu"]').hidden,quoteHidden:document.querySelector('[data-mock-panel="quote"]').hidden,response:document.getElementById('mockResponse').textContent.trim(),overflow:document.documentElement.scrollWidth-innerWidth}));
+  records.push({viewport:viewport.label,step:'return to menu',pass:returned.menuVisible&&returned.quoteHidden&&returned.overflow<=1,actual:returned});
+  records.push({viewport:viewport.label,step:'local only and no script errors',pass:requests.length===0&&errors.length===0,actual:{requests,errors}});
+  await page.close();
+}
+await browser.close();
+writeFileSync(join(out,'browser-log.json'),JSON.stringify(records,null,2));
+const failed=records.filter(row=>!row.pass);
+console.log(JSON.stringify({checks:records.length,failed:failed.map(row=>`${row.viewport}: ${row.step}`),out}));
+if(failed.length)process.exitCode=1;
