@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test api/*.test.js",
-    "serve": "python -m http.server 8765 --bind 127.0.0.1"
+    "serve": "python -m http.server 8765 --bind 127.0.0.1",
+    "stage": "node live-runner/server.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0"

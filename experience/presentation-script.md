@@ -278,7 +278,7 @@ Before anything runs on your business, here's what you're saying yes to. I'll re
 
 **08-5 · 0:20** **[PLAY: R1 reel, attributed]** "Here's a reel I love. [Play.] For the first eight seconds, this is Good. Ideas, movement, things worth watching. Then the end card. A flat coupon, bolted on. That's Average. The ask feels stuck on afterwards."
 
-**08-6 · 0:15** **[PLAY: our ad]** "Our Good. The gift set floats out of the phone and into a WhatsApp chat. 'Order for Friday?' The ask lives inside the story."
+**08-6 · 0:15** **[PLAY: our ad]** "Our Good. The bottle floats in a warm studio, and the next step sits right beside it in a WhatsApp chat. 'Order for Friday?' The ask lives inside the story."
 
 **08-7 · 0:45** **[PLAY]** "Real ads that do this. One opens a WhatsApp chat. One collects an email with a sign-up form. One asks a business for a quote. [Click one to play.] Each card says what the button does and what people did with it."
 - **If a card is empty (these were still being sourced):** "We're still finding good examples of this one, so here's the pattern instead. The button opens a conversation, asks for details, or asks for a quote. Never 'learn more'."
@@ -290,12 +290,12 @@ Before anything runs on your business, here's what you're saying yes to. I'll re
 **08-10 · 0:10** "And once we have those details, the real work starts."
 [NEXT. The filled card drops into the first box of the follow-up track.]
 
-### Scene 09 · Convert: Follow up · 4:55 (34:50 to 39:45)
+### Scene 09 · Convert: Follow up · 4:35 (34:50 to 39:25; the Slack beat 09-5 was cut on 28 Oct, so later scenes start 20 s earlier and the talk runs 60:20)
 
-- **New here:** the four places AI answers; reply speed; what a sales lifecycle is; the simplest funnel; the pipeline; reviews; two more funnels; a CRM built with AI; the follow-up skills.
+- **New here:** the three places AI answers; reply speed; what a sales lifecycle is; the simplest funnel; the pipeline; reviews; two more funnels; a CRM built with AI; the follow-up skills.
 - **On screen:** the channel places spiral into orbit around the order; a response clock; the email and WhatsApp timeline; the pipeline boxes; review stars.
 
-**09-1 · 0:15** "A sale is often won after the first reply. So where does AI come in? Four places."
+**09-1 · 0:15** "A sale is often won after the first reply. So where does AI come in? Three places."
 
 **09-2 · 0:10** "Place one. The helper on your website. You've just seen it."
 
@@ -303,7 +303,6 @@ Before anything runs on your business, here's what you're saying yes to. I'll re
 
 **09-4 · 0:10** "Place three. Instagram and Facebook messages. Someone comments, 'Do you deliver to Centurion?' AI answers, and asks for their details."
 
-**09-5 · 0:20** "And Slack? Honestly, mostly for your team. AI posts 'new lead' in your Slack and helps you reply. Customers rarely message a small business on Slack. A few business clients might share a channel with you, and that's about it."
 
 **09-6 · 0:30** **[VOLUNTEER from the room]** "Speed matters. A message comes in at four on a Thursday afternoon: 'How much would a gift set for 20 guests cost?' Two possible replies. Who wants to pick? [A room member picks Helpful or Vague. CLICK it.] Vague: 'Hi, price is R450.' Helpful: [read the helpful reply on screen]. And a reply in two minutes beats a reply in two days. Every time."
 - **[ASK]** "Be honest. How long does it take you to answer a WhatsApp inquiry?"
@@ -490,7 +489,7 @@ Be found. Be chosen. Keep learning. Thank you."
 | 06 | AI drafts; skills and how to run one; bare prompt looks like everyone's; brand guideline; real ads; voice (slopmonster); Last 30 Days; habit week | "Copy what works. Then fill the gap." (said once, in 05) |
 | 07 | Website and Google; AI searches the web; SEO, AEO, GEO; four checks; authority; 30/60/90 | copying competitors' social formats (05; trimmed from 07-8) |
 | 08 | Where capture goes; AI helper; timed pop-up; CTA inside the ad; capture skills | why capture and name, surname, email (02) |
-| 09 | Four places AI answers; reply speed; lifecycle; funnel; pipeline; reviews; CRM; follow-up skills | capture skills (08) |
+| 09 | Three places AI answers; reply speed; lifecycle; funnel; pipeline; reviews; CRM; follow-up skills | capture skills (08) |
 | 10 | What to count; the giveaway trap; doubling down in practice | failures and successes (02) |
 | 11 | Attract vs Interact; the five layers; why beauty sells; 3D floating product vs flat photo | |
 | 12 | Every tap pays back; walkthrough vs static grid; real oryzo.ai vs our plain version; teach, judge, recreate | "a skill beats a bare prompt" (06; 12-9 and 12-10 merged to one line) |

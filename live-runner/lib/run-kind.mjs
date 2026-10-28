@@ -12,6 +12,8 @@ const SECRET_PATTERNS = [
   /sk-ant-[A-Za-z0-9_-]{16,}/g,    // Anthropic
   /apify_api_[A-Za-z0-9]{16,}/g,   // Apify
   /sk-[A-Za-z0-9]{32,}/g,          // generic OpenAI-style
+  /sb_secret_[A-Za-z0-9_-]{16,}/g, // Supabase secret key
+  /eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}/g, // JWT (Supabase service role)
 ];
 
 export function redact(text) {
@@ -75,19 +77,22 @@ export function runKind({ kindName, kind, request, cwd, onEvent, onRaw = () => {
 
   const missing = missingEnv(kind);
   if (missing.length) {
-    emit('error', { code: 'BLOCKED_KEY', message: `Blocked: ${missing.join(', ')} is not configured on this machine`, kind: kindName, skill: kind.skill });
+    emit('error', { code: 'BLOCKED_KEY', message: `Blocked: ${missing.join(' and ')} ${missing.length > 1 ? 'are' : 'is'} not set on this laptop, so this run cannot start`, kind: kindName, skill: kind.skill, label: kind.label, missing });
     return { cancel() {}, done: Promise.resolve({ kind: kindName, blocked: missing, wall_ms: 0 }) };
   }
 
   const spend = spendAllowed(kind.class);
   if (!spend.ok) {
-    emit('error', { code: 'HELD_SPEND', message: `Held: the overnight ceiling of ${spend.max} claude -p runs is reached`, kind: kindName });
+    const unit = kind.class === 'firecrawl' ? 'Firecrawl credits' : 'claude -p runs';
+    emit('error', { code: 'HELD_SPEND', message: `Held: the overnight ceiling of ${spend.max} ${unit} is reached`, kind: kindName });
     return { cancel() {}, done: Promise.resolve({ kind: kindName, held: true, wall_ms: 0 }) };
   }
-  emit('started', { kind: kindName, skill: kind.skill, business: request.business, target: request.target });
+  emit('started', { kind: kindName, skill: kind.skill, label: kind.label, business: request.business, target: request.target });
 
   if (kind.type === 'apify') { logSpend({ event: 'start', kind: kindName, class: kind.class, skill: kind.skill, target: request.target }); }
   if (kind.type === 'apify') return runApify({ kindName, kind, request, emit, t0 });
+  // Stage kinds (lib/stage.mjs) bring their own run(); they log their own spend.
+  if (typeof kind.run === 'function') return runCustom({ kindName, kind, request, emit, t0 });
 
   let finished = false;
   let cancelled = false;
@@ -237,6 +242,34 @@ export function firecrawlScan(url, kindName) {
   });
   scanCache.set(url, { at: Date.now(), promise });
   return promise;
+}
+
+// A kind with its own run({ kindName, kind, request, emit, signal, t0 }). It emits
+// progress and exactly one result; a thrown error (with .code) becomes the error
+// event. Timeout and cancel abort the signal; run() must stop its child work then.
+function runCustom({ kindName, kind, request, emit, t0 }) {
+  const ac = new AbortController();
+  let settled = false;
+  let reason = null;
+  const once = (type, data) => {
+    if (settled) return;
+    if (type === 'result' || type === 'error') settled = true;
+    emit(type, data);
+  };
+  const timer = setTimeout(() => { reason = 'TIMEOUT'; ac.abort(); }, kind.timeoutMs);
+  const done = (async () => {
+    try {
+      const summary = await kind.run({ kindName, kind, request, emit: once, signal: ac.signal, t0 });
+      if (!settled) once('error', { code: 'RUN_FAILED', message: 'Run ended without a result', kind: kindName });
+      return { kind: kindName, wall_ms: Date.now() - t0, ...(summary || {}) };
+    } catch (err) {
+      const code = reason || err.code || 'RUN_FAILED';
+      const message = reason === 'TIMEOUT' ? `Run timed out after ${Math.round(kind.timeoutMs / 1000)} s` : String(err.message || err);
+      once('error', { code, message, kind: kindName, ...(err.data ? { data: err.data } : {}) });
+      return { kind: kindName, wall_ms: Date.now() - t0, error: code };
+    } finally { clearTimeout(timer); }
+  })();
+  return { cancel: () => { reason = reason || 'CANCELLED'; settled = true; ac.abort(); }, done };
 }
 
 // B2B find: Apify Google Maps Scraper, called on Apify's API with the token in a

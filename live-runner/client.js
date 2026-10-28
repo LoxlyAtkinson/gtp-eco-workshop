@@ -86,7 +86,8 @@ export function createLiveRun({
       state.source = { tag: 'live', business: data.business, at: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), skill: data.skill };
       update();
     } else if (type === 'error') {
-      const reason = data.code === 'BLOCKED_KEY' || data.code === 'BLOCKED_REVIEW' ? 'blocked' : data.code === 'HELD_SPEND' ? 'held' : 'error';
+      // BLOCKED_KEY, BLOCKED_REVIEW and BLOCKED_HIGGSFIELD (stage-ad-video) all read as "blocked".
+      const reason = String(data.code || '').startsWith('BLOCKED_') ? 'blocked' : data.code === 'HELD_SPEND' ? 'held' : 'error';
       fallback(reason, data.message);
     }
   }

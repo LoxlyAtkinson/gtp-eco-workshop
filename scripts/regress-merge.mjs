@@ -37,7 +37,8 @@ for(const [name,vp] of [['desktop',{width:1366,height:768}],['phone',{width:390,
     const id=String(n).padStart(2,'0');
     const row={scene:id};
     // A fresh load per scene: the deep link lands at 97% of the scene, then the engine runs to the hold.
-    await page.goto(`${BASE}?s=${id}#${id}-97`,{waitUntil:'load'});
+    // 60 s: landing in scene 12 auto-loads the live oryzo.ai frame (third party), which can hold 'load' past 30 s.
+    await page.goto(`${BASE}?s=${id}#${id}-97`,{waitUntil:'load',timeout:60000});
     const t0=Date.now();let s;
     do{await sleep(250);s=await st()}while(s.state!=="waiting"&&Date.now()-t0<20000);
     row.holdState=s.state;row.holdAfterMs=Date.now()-t0;row.holdScene=s.scene;

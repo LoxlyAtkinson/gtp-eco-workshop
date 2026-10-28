@@ -1,0 +1,44 @@
+/* Scene 15 closing beat (15-8): still here, still building.
+   Static layout first (reduced motion, print, no script): the young tree stands
+   with its two stakes and all four lines read in order. In motion mode
+   chapters/closing.js scrubs the seed into a staked tree inside the beat. */
+.c15-motion .c15-s15{min-height:520svh}
+.c15-still{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-rows:auto auto auto;grid-template-areas:"title grow" "list grow" "keep grow";gap:.4rem 2.6rem;align-items:center;align-content:center}
+.c15-s15 .c15-still__title{grid-area:title;align-self:end;margin:0 0 .9rem;font:800 clamp(2.2rem,5vw,4.6rem)/.95 var(--display);letter-spacing:-.06em;color:#1e1a17;text-wrap:balance}
+.c15-still__title>span,.c15-still__title>em{display:inline-block}
+.c15-still__title>em{font-family:var(--c15-serif);font-style:italic;font-weight:400;color:#a8541a}
+.c15-still__beats{grid-area:list;align-self:start;list-style:none;margin:0;padding:0;display:grid;gap:.6rem;counter-reset:still}
+.c15-still__beats li{counter-increment:still;position:relative;padding:.3rem 0 .3rem 2.5rem;font:700 clamp(1rem,1.6vw,1.4rem)/1.28 var(--body);color:#1e1a17;text-wrap:pretty;transition:color .3s}
+.c15-still__beats li::before{content:counter(still);position:absolute;left:0;top:.25rem;display:grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;border:1px solid #1e1a1740;font:800 .74rem/1 var(--body);color:#8a4a17;transition:background-color .3s,border-color .3s,color .3s}
+.c15-still__beats li.is-on::before{background:#a8541a;border-color:#a8541a;color:#fffaf1}
+.c15-still__beats li.is-past{color:#6b6158}
+.c15-still__cite{display:block;margin-top:.35rem;font:italic 400 clamp(.8rem,1vw,.92rem)/1.4 var(--c15-serif);color:#5c544b}
+.c15-still__grow{grid-area:grow;position:relative;justify-self:center;height:min(46svh,25rem);aspect-ratio:240/260;max-width:100%}
+.c15-still__grow svg{display:block;width:100%;height:100%;overflow:visible}
+.c15-still .st-cloud{visibility:hidden}
+/* GSAP does not write stroke-dashoffset on this path, so the draw runs through --draw. */
+.c15-still .st-stem{stroke-dasharray:1;stroke-dashoffset:var(--draw,0)}
+.c15-still__tag{position:absolute;top:63%;padding:.22rem .55rem;border-radius:999px;background:#fffaf1;box-shadow:0 4px 12px #5a3a1a2e;font:800 .68rem/1.2 var(--body);letter-spacing:.03em;color:#8a4a17;white-space:nowrap}
+.c15-still__tag--a{right:65%}
+.c15-still__tag--b{left:65%}
+.c15-still__keep{display:none}
+.c15-motion .c15-still__keep{grid-area:keep;display:flex;gap:.8rem;align-items:center;justify-self:start;margin-top:.8rem;padding:.55rem .7rem;border-radius:12px;background:#fffaf1;box-shadow:0 8px 20px #5a3a1a1f}
+.c15-still__keep img{width:clamp(58px,9vh,76px);height:auto;flex:none}
+.c15-still__keep p{margin:0}
+.c15-still__keep strong{display:block;font:800 .9rem/1.2 var(--display)}
+.c15-still__keep a{display:block;font-size:.72rem;overflow-wrap:anywhere;color:#1e1a17}
+@media (max-width:900px){
+  .c15-still{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:"title" "grow" "list" "keep";gap:.55rem;align-content:center}
+  .c15-s15 .c15-still__title{margin:0;font-size:clamp(2rem,9.4vw,2.6rem)}
+  .c15-still__grow{height:min(20svh,10.5rem)}
+  .c15-still__beats{gap:.35rem}
+  .c15-still__beats li{padding-left:2.1rem;font-size:.98rem}
+  .c15-still__beats li::before{width:1.45rem;height:1.45rem;font-size:.68rem}
+  .c15-still__cite{font-size:.78rem}
+  .c15-still__tag{font-size:.6rem;padding:.15rem .4rem}
+  .c15-motion .c15-still__keep{justify-self:start;padding:.4rem .55rem}
+}
+/* The phone rule in scroll-experience.css pads scene 15 by 30svh, which lifts the
+   sticky stage 250px at the final hold and hides the headline under the bar. */
+@media (max-width:620px){.c15-motion .c15-s15.scene[data-scene="15"]{padding-bottom:0!important}}
+@media print{.c15-still__grow{height:14rem}}

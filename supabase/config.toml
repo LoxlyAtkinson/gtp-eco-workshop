@@ -3,3 +3,8 @@
 # report routes enforce their own credentials; no service key reaches Pages.
 verify_jwt = false
 
+
+[functions.skills-request]
+# Public skills-pack form. The function validates, rate limits and checks the
+# Origin itself; it only ever emails the address that was typed in.
+verify_jwt = false

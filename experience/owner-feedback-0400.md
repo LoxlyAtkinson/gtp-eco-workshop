@@ -36,3 +36,18 @@ Source: the owner's chat message at ~04:00, reviewing the CURRENT live deck (old
     - Do NOT relabel them as another brand; that would misrepresent the creators' work.
     - Do NOT ship them in the public github.io build (G6, no re-hosting). The public build uses links or embeds instead.
     - The 6 ElevenLabs clips in assets/gen/ stay available as Amberkloof examples where they help.
+
+## Live stage and skills decisions (2026-10-28 ~09:40, owner via AskUserQuestion)
+18. Audience flow: the owner presents from his laptop; the audience follows the PUBLIC GitHub page, scans the QR or clicks the link there, a form POPS UP, they type their website and submit. The presenter presses Retrieve (websites populate with an "amazing animation"), Choose Website (back-to-front drum spins, random winner), Scan, and so on.
+19. Supabase project = "SAIS Website" (ref efkgdafxzbsdhjbspavs), owner-approved. Tables stage_submissions (anon insert only) and skills_requests (RLS on, no anon policies) were created 09:40. Keys live only in the git-ignored .env.local (DataForSEO login/password, Supabase URL/anon/service/access token). No Apify key was found in the owner's .env files; the Apify plugin shows "needs authentication".
+20. Skills pack: the main download stays the 8 official Anthropic marketing skills. A SEPARATE special link gives access to three more skills (slopmonster, last30days, competitor-analysis), stored in a SEPARATE Supabase bucket and renamed with a "Smart" prefix (owner example: SmartMarketScan). Before shipping: keep each original licence and credit inside the renamed zip; any skill without a licence that allows sharing is left out and reported.
+
+## Feedback ~09:55 (owner, binding)
+21. Presenter assistant: "Mic in the deck + Jev drives" (owner choice). The deck listens through the laptop mic (Chrome speech-to-text), matches the owner's words to cues taken from presentation-script.md and brings in the right transition or reveal; Jev Ultrafast (C:/Users/loxly/.agents/tools/jev/, start-ultrafast.ps1) opens and runs the localhost deck in the background. "Train it" = the cue map per scene from the script.
+22. Replace every 2D, paper-cut-out looking picture with real-looking images. Examples: the gift/present box at "Keep learning" (keep the animation, the box must look real); the drawn bottle in the scene 11 Average/Good pair.
+23. Every Amberkloof bottle in photos must carry the actual Amberkloof label; the good-looking AI images must show the name on the product.
+24. Make an actual product video for the Amberkloof marula oil: a proper 3D look with floating objects around it.
+25. Scene 09: remove Slack (not a South African channel).
+26. The Instagram reel must never open off-site: play the downloaded clip (stage) or a generated equivalent.
+27. Keep: the shop animation and the move-in; the Keep learning animation.
+28. Images: owner says Codex is linked to an OLD account; re-run Codex OAuth to his current account and use Codex for the images. Apify key: owner pastes APIFY_API_TOKEN into .env.local himself.

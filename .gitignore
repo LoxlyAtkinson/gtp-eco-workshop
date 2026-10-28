@@ -20,3 +20,9 @@ participant-tool-plan.md
 
 # Reference clips from the owner's Pinterest and Instagram pins: local stage deck only, never committed or published (rule G6).
 assets/ref/
+
+# Stage chapter: the local website list, scans and raw run streams (participant data, never committed).
+live-runner/.stage/
+
+# Smart skills pack build output (private Supabase bucket only, never on Pages).
+build/
