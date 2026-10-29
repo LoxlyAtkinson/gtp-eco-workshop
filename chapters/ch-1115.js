@@ -15,7 +15,7 @@
 
   // The closing route now leaves out the extra site gallery, report/tool panels,
   // and the intermediate learning-plan plates in both motion and static modes.
-  const skippedBeats = new Set(['12-6', '14-2', '14-8', '14-13', '15-3', '15-5', '15-6']);
+  const skippedBeats = new Set(['12-6', '15-3', '15-5', '15-6']);
   scenes.forEach(scene => qa(scene, '.c15-beat').forEach(beat => {
     if (skippedBeats.has(beat.dataset.beat)) { beat.hidden = true; beat.style.display = 'none'; }
   }));
@@ -274,7 +274,7 @@
   // Talk seconds per beat after the owner's tier 1-3 cuts (spine v2.1 section 8).
   const seconds = {
     '11-1': 40, '11-2': 90, '11-7': 45, '11-8': 38, '11-9': 20, '11-10': 12,
-    '12-1': 25, '12-2': 25, '12-4': 45, '12-5': 45, '12-9': 10, '12-11': 30, '12-12': 35, '12-13': 30, '12-14': 10, '12-16': 10,
+    '12-1': 25, '12-2': 25, '12-4': 45, '12-9': 10, '12-11': 30, '12-12': 35, '12-13': 30, '12-14': 10, '12-16': 10,
     '13-1': 65, '13-3': 40, '13-5': 20, '13-6': 10,
     '14-1': 15, '14-12': 20, '14-12b': 40,
     '15-1': 55, '15-7': 25, '15-8': 20
@@ -359,16 +359,13 @@
 
   // 12 · Interact
   if (s12) {
-    const front = B(s12, '.c15-front'), burst = B(s12, '.c15-burst'), sel = B(s12, '.c15-select'), sites = B(s12, '.c15-sites'), judge = B(s12, '.c15-judge'), rec = B(s12, '.c15-recreate'), reint = B(s12, '.c15-reint'), shat = B(s12, '.c15-shatter'), teach = B(s12, '.c15-teach'), ask = B(s12, '.c15-askus');
+    const front = B(s12, '.c15-front'), burst = B(s12, '.c15-burst'), sel = B(s12, '.c15-select'), judge = B(s12, '.c15-judge'), rec = B(s12, '.c15-recreate'), reint = B(s12, '.c15-reint'), shat = B(s12, '.c15-shatter'), teach = B(s12, '.c15-teach'), ask = B(s12, '.c15-askus');
     build(s12, (tl, at) => {
       tl.fromTo(B(front, '.c15-window'), { scale: 1 }, { scale: 1.12, duration: .07 }, at(front, 0));
       tl.fromTo(qa(burst, '.c15-prod'), { autoAlpha: 0, y: 70 }, { autoAlpha: 1, y: 0, duration: .02, stagger: .008, ease: 'power3.out' }, at(burst, .04));
       tl.fromTo(B(sel, '.c15-grid'), { autoAlpha: 0, x: -40 }, { autoAlpha: 1, x: 0, duration: .02 }, at(sel, .04))
         .fromTo(B(sel, '.c15-builder'), { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, duration: .02 }, at(sel, .12))
         .fromTo(B(sel, '.c15-builder__box'), { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .03, ease: 'power3.out' }, at(sel, .1));
-      tl.fromTo(B(sites, '.c15-plain'), { autoAlpha: 0, x: -50 }, { autoAlpha: 1, x: 0, duration: .02 }, at(sites, .04))
-        .fromTo(B(sites, '.c15-live'), { autoAlpha: 0, x: 50 }, { autoAlpha: 1, x: 0, duration: .02 }, at(sites, .14))
-        .fromTo(B(sites, '.c15-plain__page'), { y: 0 }, { y: -14, duration: .1 }, at(sites, .2));
       tl.fromTo(qa(teach, 'h3, p'), { autoAlpha: 0, y: 30, letterSpacing: '0.02em' }, { autoAlpha: 1, y: 0, letterSpacing: '-0.06em', duration: .012, stagger: .008 }, at(teach, .05));
       tl.fromTo(qa(judge, '.c15-critic'), { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .015, stagger: .012 }, at(judge, .06))
         .fromTo(qa(judge, '.c15-critic b'), { scale: 2.6, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .008, stagger: .012, ease: 'power4.in' }, at(judge, .3))
@@ -393,7 +390,6 @@
         const have = qa(s12, 'button[data-pick][aria-pressed="true"]').length;
         if (want !== have) { qa(s12, 'button[data-pick]').forEach(b => b.setAttribute('aria-pressed', String(autoPicks.indexOf(b.dataset.pick) > -1 && autoPicks.indexOf(b.dataset.pick) < want))); syncBuilder(want > have ? q(s12, `button[data-pick="${autoPicks[want - 1]}"]`) : null); }
       }
-      if (local(sites, p) > 0 && p < ranges.get(sites)[1] + .1) loadFrame(liveBtn);
     };
     loop(s12,
       G.to(qa(s12, '.c15-prod svg'), { y: -8, duration: 2.3, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: .35 }),
@@ -448,8 +444,7 @@
     });
     loop(s14,
       G.to(B(s14, '.c15-orbit'), { rotation: 360, duration: 9, ease: 'none', repeat: -1 }),
-      G.to(qa(s14, '.c15-qrcard'), { yPercent: -3, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: .6 }),
-      G.to(B(s14, '.c15-post svg'), { y: -6, rotation: 3, duration: 2, ease: 'sine.inOut', yoyo: true, repeat: -1 })
+      G.to(qa(s14, '.c15-qrcard'), { yPercent: -3, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: .6 })
     );
   }
 

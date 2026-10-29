@@ -67,6 +67,24 @@
       .panel{grid-area:panel}
     }
     @media (prefers-reduced-motion:no-preference){.panel{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}@keyframes rise{from{opacity:0;transform:translateY(14px)}}}
+    .fb{border:1.5px solid #1e1a1726;border-radius:14px;background:var(--paper)}
+    .fb summary{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 1rem;cursor:pointer;font-weight:700;list-style:none}
+    .fb summary::-webkit-details-marker{display:none}
+    .fb summary::after{content:"+";font:800 1.3rem/1 var(--display);color:var(--accent-ink)}
+    .fb[open] summary::after{content:"\2212"}
+    .fb summary small{margin-left:auto;font-weight:500;color:var(--muted);font-size:.82rem}
+    .fb__body{display:grid;gap:1rem;padding:0 1rem 1rem}
+    .field textarea{width:100%;padding:.7rem .9rem;border:1.5px solid #1e1a1733;border-radius:12px;background:#fff;color:var(--ink);font:400 1rem/1.45 var(--body);resize:vertical}
+    .field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px #a8541a29}
+    .fb__value{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.45rem}
+    .fb__value legend{font-weight:700;font-size:.95rem;margin-bottom:.5rem;padding:0}
+    .pill{position:relative;cursor:pointer}
+    .pill input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+    .pill span{display:inline-block;padding:.55rem .9rem;border-radius:999px;border:1.5px solid #1e1a1733;background:#fff;font-size:.92rem;font-weight:600}
+    .pill input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+    .pill input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+    .help{margin:1.1rem 0 0;padding:.8rem 1rem;border-radius:12px;background:#24644614;color:var(--ink);font-size:.92rem;text-align:center}
+    .help a{font-weight:800}
   </style>
 </head>
 <body>
@@ -120,6 +138,29 @@
           <label class="check" id="consent-box"><input id="consent" name="consent" type="checkbox" required aria-describedby="consent-err"><span>Email me the skills pack. Nothing else.</span></label>
           <p class="err" id="consent-err" aria-live="polite"></p>
         </div>
+        <details class="fb" id="feedback">
+          <summary><span>Quick feedback on the session</span><small>Optional · 1 minute</small></summary>
+          <div class="fb__body">
+            <div class="field">
+              <label for="takeaway">What's the biggest thing you took away from the session?</label>
+              <textarea id="takeaway" name="takeaway" rows="3" maxlength="600" aria-describedby="takeaway-err"></textarea>
+              <p class="err" id="takeaway-err" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="change">Is there anything you would change in the session, or about it?</label>
+              <textarea id="change" name="change" rows="3" maxlength="600" aria-describedby="change-err"></textarea>
+              <p class="err" id="change-err" aria-live="polite"></p>
+            </div>
+            <fieldset class="field fb__value">
+              <legend>Did we give you value, as a person and as a business?</legend>
+              <label class="pill"><input type="radio" name="value" value="yes-both"><span>Yes, both</span></label>
+              <label class="pill"><input type="radio" name="value" value="yes-business"><span>Yes, for my business</span></label>
+              <label class="pill"><input type="radio" name="value" value="yes-me"><span>Yes, for me</span></label>
+              <label class="pill"><input type="radio" name="value" value="some"><span>Some</span></label>
+              <label class="pill"><input type="radio" name="value" value="no"><span>Not really</span></label>
+            </fieldset>
+          </div>
+        </details>
         <div class="trap" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
         <button class="btn btn--accent" id="submit" type="submit">Send me the skills</button>
         <p class="mode" id="mode" hidden></p>
@@ -130,23 +171,23 @@
         <h2 id="result-title"></h2>
         <p id="result-text"></p>
         <div class="btn-row">
-          <a class="btn btn--accent" id="download" href="../downloads/gtp-workshop-skills.zip" download>Download the skills</a>
           <a class="btn btn--ghost" href="../guide/">Read the 7-day guide</a>
         </div>
-        <p class="fine" id="result-tip">On your phone? Save the zip now. You'll install it on a computer, and the guide shows you how.</p>
+        <p class="fine">Open the email on a computer to install the skills. The guide in the email shows you how.</p>
         <p class="fine" id="again-row" hidden><button class="btn btn--ghost" type="button" id="again">Try the email again</button></p>
       </div>
 
+      <p class="help">Need help installing the skills or setting this up for your business? <a href="https://www.smartaisolutions.co.za/contact" target="_blank" rel="noopener noreferrer">Contact Smart AI Solutions</a>.</p>
       <p class="trust"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>One email. No newsletter. No list.</p>
     </section>
   </div>
 
   <div class="legal">
     <p>Anthropic skills from <a href="https://github.com/anthropics/knowledge-work-plugins/tree/c71b6f3082b1e5ace3d1a9e30ac9205934134c9c/marketing">anthropics/knowledge-work-plugins</a> (Apache 2.0). The four stage skills are by Smart AI Solutions. Not endorsed by Anthropic.</p>
-    <p><a href="../">See every skill one by one</a> · <a href="../../">Back to the workshop</a></p>
+    <p><a href="../../">Back to the workshop</a></p>
   </div>
 </main>
-<script src="./config.js"></script>
-<script src="./get.js"></script>
+<script src="./config.js?v=2"></script>
+<script src="./get.js?v=2"></script>
 </body>
 </html>

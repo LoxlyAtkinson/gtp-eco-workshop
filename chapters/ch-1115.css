@@ -289,6 +289,8 @@ a.c15-sitecard:hover{border-color:var(--c15-amber)}
 .c15-shatter{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
 .c15-shatter>p{grid-column:1/-1;margin:0;text-align:center}
 .c15-generic{position:relative;min-height:clamp(150px,30vh,260px);border-radius:18px;background:linear-gradient(135deg,#7b5cff,#d06bff 50%,#ff8fb3);display:grid;place-items:center;padding:1rem;text-align:center;font:800 clamp(1.1rem,2vw,1.8rem)/1.1 var(--display);color:#fff}
+.c15-generic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;filter:saturate(.6) hue-rotate(250deg) brightness(.55)}
+.c15-generic span{position:relative;z-index:1;max-width:12ch;text-shadow:0 2px 18px #17121acc}
 .c15-shard{position:absolute;inset:0;border-radius:inherit;background:inherit;opacity:0}
 .c15-taught{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;padding:1.2rem;border-radius:18px;background:radial-gradient(80% 90% at 30% 40%,#f3dcc0,#a7744c 60%,#3a2416);color:#fff;min-height:clamp(150px,30vh,260px)}
 .c15-taught svg{height:clamp(100px,22vh,190px);filter:drop-shadow(0 16px 14px #0009)}
@@ -394,6 +396,7 @@ a.c15-sitecard:hover{border-color:var(--c15-amber)}
 .c15-gift__name{margin:0;font:800 clamp(1.1rem,1.9vw,1.5rem)/1.1 var(--display);color:#7fd3c9}
 .c15-gift__list{margin:0;padding-left:1.1rem;display:grid;gap:.4rem;font-size:clamp(.95rem,1.3vw,1.1rem)}
 .c15-gift__copy small{opacity:.7}
+.scene .c15-gift__open{text-decoration:none}
 @media (max-width:760px){.c15-gift{grid-template-columns:1fr}}
 .c15-tolearn{display:grid;place-items:center;min-height:clamp(200px,40vh,340px)}
 .c15-learncard{display:grid;gap:.3rem;padding:1.4rem 2rem;border-radius:18px;background:#f6f0e4;color:#1e1a17;box-shadow:0 24px 50px #000a}

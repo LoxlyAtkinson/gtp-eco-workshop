@@ -14,8 +14,8 @@ import path from 'node:path';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BUCKET = process.env.SKILLS_BUCKET || 'skills-pack';
-const OBJECT = process.env.SKILLS_OBJECT || 'anthropic-marketing-skills.zip';
-const zipPath = path.join(root, 'skills', 'downloads', 'anthropic-marketing-skills.zip');
+const OBJECT = process.env.SKILLS_OBJECT || 'gtp-workshop-skills.zip';
+const zipPath = path.join(root, 'skills', 'downloads', OBJECT);
 const sumsPath = path.join(root, 'skills', 'downloads', 'SHA256SUMS.txt');
 const dryRun = process.argv.includes('--dry-run');
 
@@ -24,9 +24,9 @@ const die = (msg, code = 1) => { console.error(`upload-skills-pack: ${msg}`); pr
 
 const zip = await readFile(zipPath).catch(() => die(`missing ${path.relative(root, zipPath)}`));
 const sums = await readFile(sumsPath, 'utf8').catch(() => die(`missing ${path.relative(root, sumsPath)}`));
-const expected = sums.split(/\r?\n/).map(l => l.trim().split(/\s+/)).find(([, name]) => name === 'anthropic-marketing-skills.zip')?.[0];
+const expected = sums.split(/\r?\n/).map(l => l.trim().split(/\s+/)).find(([, name]) => name?.replace(/^\*/, '') === OBJECT)?.[0];
 const actual = sha(zip);
-if (!expected) die('SHA256SUMS.txt has no line for anthropic-marketing-skills.zip');
+if (!expected) die(`SHA256SUMS.txt has no line for ${OBJECT}`);
 if (expected !== actual) die(`checksum mismatch: SHA256SUMS.txt says ${expected}, file is ${actual}. Rebuild with scripts/build-skills-zip.mjs.`);
 console.log(`zip ok: ${zip.length} bytes, sha256 ${actual}`);
 if (dryRun) { console.log('dry run: no network calls made'); process.exit(0); }

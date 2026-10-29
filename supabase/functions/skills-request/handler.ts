@@ -11,7 +11,7 @@ export type Deps = {
   env: (key: string) => string;
   claimIpLimit: (key: string, bucket: string, limit: number) => Promise<boolean>;
   recentCount: (email: string, sinceIso: string) => Promise<number>;
-  insertRequest: (row: { name: string; email: string; consent: true }) => Promise<string>;
+  insertRequest: (row: { name: string; email: string; consent: true } & Feedback) => Promise<string>;
   signUrl: (bucket: string, path: string, seconds: number) => Promise<string>;
   sendEmail: (message: OutgoingEmail, idempotencyKey: string) => Promise<string>;
   markDelivery: (id: string, status: 'sent' | 'failed', messageId?: string) => Promise<void>;
@@ -20,7 +20,10 @@ export type Deps = {
 };
 
 export type OutgoingEmail = { from: string; to: string[]; subject: string; text: string; html: string; reply_to?: string };
-export type Valid = { name: string; email: string; honeypot: boolean };
+export type Feedback = { feedback_takeaway?: string; feedback_change?: string; feedback_value?: string };
+export type Valid = { name: string; email: string; honeypot: boolean; feedback: Feedback };
+export const VALUE_CHOICES = ['yes-both', 'yes-business', 'yes-me', 'some', 'no'];
+export const HELP_URL = 'https://www.smartaisolutions.co.za/contact';
 
 const json = (body: unknown, status: number, headers: Record<string, string>) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...headers } });
@@ -48,44 +51,98 @@ export function validate(value: unknown): { ok: true; value: Valid } | { ok: fal
   const email = typeof v.email === 'string' ? v.email.trim().toLowerCase() : '';
   if (email.length < 6 || email.length > 254 || !EMAIL_RE.test(email)) return { ok: false, field: 'email', error: 'That email address does not look right.' };
   if (v.consent !== true) return { ok: false, field: 'consent', error: 'Tick the box so we may email you the link.' };
-  return { ok: true, value: { name, email, honeypot } };
+  // Session feedback is optional. Long answers are refused, not cut.
+  const text = (k: string) => typeof v[k] === 'string' ? (v[k] as string).normalize('NFC').trim() : '';
+  const feedback: Feedback = {};
+  for (const [k, col] of [['takeaway', 'feedback_takeaway'], ['change', 'feedback_change']] as const) {
+    const t = text(k);
+    if (t.length > 600) return { ok: false, field: k, error: 'Please keep this under 600 characters.' };
+    if (t) feedback[col] = t;
+  }
+  const worth = text('value');
+  if (worth && !VALUE_CHOICES.includes(worth)) return { ok: false, field: 'value', error: 'Pick one of the options.' };
+  if (worth) feedback.feedback_value = worth;
+  return { ok: true, value: { name, email, honeypot, feedback } };
 }
 
 export function escapeHtml(s: string) {
   return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string));
 }
 
+// The how-to guide that travels in every email: install once, then the stage demo as copy-paste prompts.
+export const INSTALL_STEPS = [
+  'Open claude.ai on a computer and sign in. The free plan works.',
+  'Go to Settings, then Capabilities. Switch on "Code execution and file creation".',
+  'Go to Customize, then Skills. Click +, then "Create skill", then "Upload a skill".',
+  "Open the upload-to-claude folder in your zip. Upload one zip at a time. Don't unzip them.",
+];
+export const DEMO_PROMPTS: [string, string][] = [
+  ['Know your website', "Use the seo-audit skill on [yourwebsite.co.za]. Tell me what I sell, who it's for, and the 5 things to fix first so people in South Africa find me on Google."],
+  ['Know your competitors', "Use the competitive-brief skill. Find the businesses in South Africa that sell what I sell to the same people. For each one: what they say, what they charge, and one thing they do that I don't."],
+  ['Know what people are saying', 'Use the smart-ai-trends skill on [your product]. What are people asking about this month?'],
+  ['Make a 30-day plan', 'Use the campaign-plan skill. Using my website, my competitors and what people are saying, make a 30-day plan. 5 steps. One platform. One number to check every Friday.'],
+  ['Get ad ideas', 'Use the smart-ai-ad-ideas skill. Give me 5 ad ideas for [one product]. Each one needs a hook, the words on the ad, and why it beats the competitors above.'],
+  ['Make it sound like you', 'Use the smart-ai-unslop skill on idea number [2]. Take out anything that sounds like AI wrote it. Keep the facts.'],
+  ['Write the ad and the follow-up', 'Use the draft-content skill to write the final ad for Instagram. Then use the email-sequence skill to write 3 follow-up emails for people who reply.'],
+  ['Build your follow-up funnel', 'Use the smart-ai-funnels skill. Map my sales funnel and my support funnel, then write every WhatsApp and email message in order.'],
+];
+
 // Plain text has no markdown. HTML uses inline styles on every element, no <style> block, contrast above 4.5:1.
 export function emailContent(name: string, link: string, guideUrl: string) {
-  const subject = 'Your marketing skills pack';
+  const subject = 'Your free marketing skills, and how to use them';
   const text = [
     `Hi ${name},`,
     '',
-    'Here is your marketing skills pack from the GTP ECO workshop:',
+    'Here are your free skills from the GTP ECO workshop: 4 Smart AI Solutions skills from the live demo, plus 8 by Anthropic.',
+    '',
+    'Download them here (the link works for 7 days):',
     link,
     '',
-    'The link works for 7 days. The pack is a zip with eight free marketing skills written by Anthropic.',
+    'PUT THE SKILLS INTO CLAUDE (once, about 3 minutes per skill)',
+    ...INSTALL_STEPS.map((s, i) => `${i + 1}. ${s}`),
     '',
-    'The 7-day guide shows where to install them and what to try each day:',
+    'RUN THE STAGE DEMO ON YOUR OWN BUSINESS',
+    'Do these in one chat, in this order. Swap the words in [brackets] for your own.',
+    '',
+    ...DEMO_PROMPTS.flatMap(([title, prompt], i) => [`Step ${i + 1}. ${title}`, `"${prompt}"`, '']),
+    'The same guide is in the zip as HOW-TO-USE.txt. More ideas for each day:',
     guideUrl,
     '',
-    'You get this email because you asked for the pack. We will not send you anything else.',
+    'Need help installing the skills or setting this up for your business? Contact us:',
+    HELP_URL,
     '',
-    'GTP ECO workshop',
+    'You get this email because you asked for the skills. We will not send you anything else.',
+    '',
+    'Smart AI Solutions, for the GTP ECO workshop',
   ].join('\n');
   const n = escapeHtml(name), l = escapeHtml(link), g = escapeHtml(guideUrl);
   const font = "font-family:Arial,Helvetica,sans-serif;";
+  const row = (inner: string, pad = '0 28px 16px 28px') => `<tr><td style="padding:${pad};${font}font-size:16px;line-height:24px;color:#1e1a17;">${inner}</td></tr>`;
+  const heading = (s: string) => `<tr><td style="padding:24px 28px 10px 28px;border-top:1px solid #e3d8c6;${font}font-size:13px;line-height:18px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#8a4413;">${s}</td></tr>`;
+  const install = INSTALL_STEPS.map((s, i) => `<tr><td style="padding:0 28px 10px 28px;${font}font-size:15px;line-height:22px;color:#1e1a17;"><span style="display:inline-block;width:22px;font-weight:bold;color:#8a4413;">${i + 1}.</span>${escapeHtml(s)}</td></tr>`).join('');
+  const prompts = DEMO_PROMPTS.map(([title, prompt], i) =>
+    `<tr><td style="padding:0 28px 14px 28px;">`
+    + `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background-color:#f6f0e4;border-left:3px solid #a8541a;">`
+    + `<tr><td style="padding:12px 14px 4px 14px;${font}font-size:14px;line-height:20px;font-weight:bold;color:#1e1a17;">Step ${i + 1}. ${escapeHtml(title)}</td></tr>`
+    + `<tr><td style="padding:0 14px 12px 14px;${font}font-size:14px;line-height:21px;color:#3d3630;">"${escapeHtml(prompt)}"</td></tr>`
+    + `</table></td></tr>`).join('');
   const html = `<!doctype html><html lang="en"><body style="margin:0;padding:0;background-color:#f6f0e4;">`
     + `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f6f0e4;border-collapse:collapse;">`
     + `<tr><td align="center" style="padding:24px 12px;">`
-    + `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:520px;background-color:#fffaf1;border-collapse:collapse;border:1px solid #e3d8c6;">`
-    + `<tr><td style="padding:28px 24px 8px 24px;${font}font-size:12px;line-height:16px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:#8a4413;">GTP ECO workshop</td></tr>`
-    + `<tr><td style="padding:4px 24px 12px 24px;${font}font-size:26px;line-height:32px;font-weight:bold;color:#1e1a17;">Your marketing skills pack</td></tr>`
-    + `<tr><td style="padding:0 24px 16px 24px;${font}font-size:16px;line-height:24px;color:#1e1a17;">Hi ${n}, here is the pack you asked for: eight free marketing skills written by Anthropic, in one zip.</td></tr>`
-    + `<tr><td style="padding:4px 24px 20px 24px;"><a href="${l}" style="display:inline-block;padding:14px 22px;background-color:#a8541a;color:#ffffff;${font}font-size:16px;line-height:20px;font-weight:bold;text-decoration:none;border-radius:999px;">Download the pack</a></td></tr>`
-    + `<tr><td style="padding:0 24px 16px 24px;${font}font-size:14px;line-height:21px;color:#5c544b;">The link works for 7 days. If the button does not work, copy this address into your browser:<br><a href="${l}" style="color:#1e1a17;text-decoration:underline;word-break:break-all;">${l}</a></td></tr>`
-    + `<tr><td style="padding:0 24px 20px 24px;${font}font-size:16px;line-height:24px;color:#1e1a17;">Not sure where to start? <a href="${g}" style="color:#1e1a17;font-weight:bold;text-decoration:underline;">Read the 7-day guide</a>. It shows where to install the skills and what to try each day.</td></tr>`
-    + `<tr><td style="padding:16px 24px 24px 24px;border-top:1px solid #e3d8c6;${font}font-size:13px;line-height:19px;color:#5c544b;">You get this email because you asked for the pack. We will not send you anything else.</td></tr>`
+    + `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;background-color:#fffaf1;border-collapse:collapse;border:1px solid #e3d8c6;">`
+    + `<tr><td style="padding:28px 28px 8px 28px;${font}font-size:12px;line-height:16px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:#8a4413;">Smart AI Solutions · GTP ECO workshop</td></tr>`
+    + `<tr><td style="padding:4px 28px 12px 28px;${font}font-size:26px;line-height:32px;font-weight:bold;color:#1e1a17;">Your free marketing skills</td></tr>`
+    + row(`Hi ${n}, here they are: 4 Smart AI Solutions skills from the live demo, plus 8 by Anthropic, in one zip.`)
+    + `<tr><td style="padding:4px 28px 12px 28px;"><a href="${l}" style="display:inline-block;padding:14px 24px;background-color:#a8541a;color:#ffffff;${font}font-size:16px;line-height:20px;font-weight:bold;text-decoration:none;border-radius:999px;">Download the skills</a></td></tr>`
+    + `<tr><td style="padding:0 28px 8px 28px;${font}font-size:13px;line-height:19px;color:#5c544b;">The link works for 7 days. Button not working? Copy this address into your browser:<br><a href="${l}" style="color:#1e1a17;text-decoration:underline;word-break:break-all;">${l}</a></td></tr>`
+    + heading('Put the skills into Claude')
+    + install
+    + heading('Run the stage demo on your own business')
+    + row('Do these in one chat, in this order. Swap the words in [brackets] for your own.', '0 28px 14px 28px')
+    + prompts
+    + row(`The same guide is in the zip as HOW-TO-USE.txt. <a href="${g}" style="color:#1e1a17;font-weight:bold;text-decoration:underline;">More ideas for each day</a>.`, '6px 28px 20px 28px')
+    + row(`Need help installing the skills or setting this up for your business? <a href="${HELP_URL}" style="color:#1e1a17;font-weight:bold;text-decoration:underline;">Contact Smart AI Solutions</a>.`, '0 28px 20px 28px')
+    + `<tr><td style="padding:16px 28px 24px 28px;border-top:1px solid #e3d8c6;${font}font-size:13px;line-height:19px;color:#5c544b;">You get this email because you asked for the skills. We will not send you anything else.</td></tr>`
     + `</table></td></tr></table></body></html>`;
   return { subject, text, html };
 }
@@ -96,10 +153,12 @@ async function sha256(value: string) {
 }
 
 export function missingConfig(env: (k: string) => string) {
-  const from = env('SKILLS_MAIL_FROM') || env('MAIL_FROM');
-  const missing = ['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'RESEND_API_KEY', 'RATE_LIMIT_SALT'].filter(k => !env(k));
-  if (!from) missing.push('SKILLS_MAIL_FROM');
-  return missing;
+  return ['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'SMTP_HOST', 'SMTP_USER', 'SMTP_PASS', 'RATE_LIMIT_SALT'].filter(k => !env(k));
+}
+
+// Same sender as the Smart AI Solutions website: SMTP_FROM (else SMTP_USER) and SMTP_FROM_NAME. SKILLS_MAIL_FROM overrides.
+export function mailFrom(env: (k: string) => string) {
+  return env('SKILLS_MAIL_FROM') || `"${env('SMTP_FROM_NAME') || 'Smart AI Solutions'}" <${env('SMTP_FROM') || env('SMTP_USER')}>`;
 }
 
 export async function handle(req: Request, deps: Deps): Promise<Response> {
@@ -125,7 +184,7 @@ export async function handle(req: Request, deps: Deps): Promise<Response> {
   try { body = JSON.parse(raw); } catch { return fail('BAD_JSON', 'Send the form as JSON.', 400, h); }
   const checked = validate(body);
   if (!checked.ok) return json({ ok: false, code: 'INVALID', field: checked.field, error: checked.error }, 400, h);
-  const { name, email, honeypot } = checked.value;
+  const { name, email, honeypot, feedback } = checked.value;
   if (honeypot) {
     deps.log('skills_request_honeypot', { requestId });
     return json({ ok: true, sent: true }, 200, h);
@@ -141,17 +200,17 @@ export async function handle(req: Request, deps: Deps): Promise<Response> {
       deps.log('skills_request_email_limited', { requestId });
       return fail('RATE_LIMIT', 'This address already asked for the pack today. Check your inbox, or download it on this page.', 429, h);
     }
-    const id = await deps.insertRequest({ name, email, consent: true });
+    const id = await deps.insertRequest({ name, email, consent: true, ...feedback });
     let link: string;
     try {
-      link = await deps.signUrl(env('SKILLS_BUCKET') || 'skills-pack', env('SKILLS_OBJECT') || 'anthropic-marketing-skills.zip', LINK_SECONDS);
+      link = await deps.signUrl(env('SKILLS_BUCKET') || 'skills-pack', env('SKILLS_OBJECT') || 'gtp-workshop-skills.zip', LINK_SECONDS);
     } catch (cause) {
       await deps.markDelivery(id, 'failed').catch(() => {});
       deps.log('skills_request_sign_failed', { requestId, id, reason: cause instanceof Error ? cause.message : 'unknown' });
       return fail('SIGN_FAILED', 'We could not make your download link. Download the pack on this page instead.', 502, h);
     }
     const content = emailContent(name, link, env('SKILLS_GUIDE_URL') || DEFAULT_GUIDE);
-    const message: OutgoingEmail = { from: env('SKILLS_MAIL_FROM') || env('MAIL_FROM'), to: [email], ...content };
+    const message: OutgoingEmail = { from: mailFrom(env), to: [email], ...content };
     if (env('SKILLS_REPLY_TO')) message.reply_to = env('SKILLS_REPLY_TO');
     try {
       const messageId = await deps.sendEmail(message, `skills-request/${id}`);
@@ -165,6 +224,6 @@ export async function handle(req: Request, deps: Deps): Promise<Response> {
     }
   } catch (cause) {
     deps.log('skills_request_error', { requestId, reason: cause instanceof Error ? cause.message : 'unknown' });
-    return fail('SERVER', 'Something went wrong on our side. Download the pack on this page instead.', 500, h);
+    return fail('SERVER', 'Something went wrong on our side. Please try again in a minute.', 500, h);
   }
 }

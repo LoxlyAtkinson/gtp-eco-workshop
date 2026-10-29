@@ -1,13 +1,13 @@
 // Run: deno test --no-remote supabase/functions/skills-request/handler.test.ts
-// Test fixtures only: fake Supabase and fake Resend. No network.
+// Test fixtures only: fake Supabase and a fake SMTP sender. No network.
 import { handle, validate, emailContent, LINK_SECONDS, type Deps, type OutgoingEmail } from './handler.ts';
 
 function assert(cond: unknown, msg: string) { if (!cond) throw new Error(msg); }
 function eq(a: unknown, b: unknown, msg: string) { if (JSON.stringify(a) !== JSON.stringify(b)) throw new Error(`${msg}: got ${JSON.stringify(a)}, want ${JSON.stringify(b)}`); }
 
 const CONFIG: Record<string, string> = {
-  SUPABASE_URL: 'https://fixture.supabase.co', SUPABASE_SERVICE_ROLE_KEY: 'fixture-service', RESEND_API_KEY: 'fixture-resend',
-  SKILLS_MAIL_FROM: 'GTP <skills@example.test>', RATE_LIMIT_SALT: 'fixture-salt',
+  SUPABASE_URL: 'https://fixture.supabase.co', SUPABASE_SERVICE_ROLE_KEY: 'fixture-service', SMTP_HOST: 'smtp.example.test', SMTP_USER: 'skills@example.test',
+  SMTP_PASS: 'fixture-pass', SMTP_FROM_NAME: 'GTP', RATE_LIMIT_SALT: 'fixture-salt',
 };
 
 function fakeDeps(over: Partial<Deps> = {}, envOver: Record<string, string> = {}) {
@@ -38,19 +38,19 @@ Deno.test('valid request saves, signs a 7-day link, emails it and marks it sent'
   eq(await res.json(), { ok: true, sent: true }, 'body');
   eq(res.headers.get('access-control-allow-origin'), 'https://loxlyatkinson.github.io', 'cors');
   eq(calls.inserted, [{ name: 'Thandi', email: 'thandi@example.co.za', consent: true }], 'insert');
-  eq(calls.signed, [{ bucket: 'skills-pack', path: 'anthropic-marketing-skills.zip', seconds: LINK_SECONDS }], 'signed');
+  eq(calls.signed, [{ bucket: 'skills-pack', path: 'gtp-workshop-skills.zip', seconds: LINK_SECONDS }], 'signed');
   eq(LINK_SECONDS, 604800, '7 days');
   eq(calls.sent.length, 1, 'one email');
   eq(calls.sent[0].message.to, ['thandi@example.co.za'], 'to');
-  eq(calls.sent[0].message.from, 'GTP <skills@example.test>', 'from is configurable');
+  eq(calls.sent[0].message.from, '"GTP" <skills@example.test>', 'from uses the website SMTP sender');
   eq(calls.sent[0].key, 'skills-request/row-1', 'idempotency key');
   eq(calls.marks, [{ id: 'row-1', status: 'sent', messageId: 'msg-1' }], 'marked sent');
   const logged = JSON.stringify(calls.logs);
-  assert(!logged.includes('thandi') && !logged.includes('fixture-resend'), 'logs carry no address or secret');
+  assert(!logged.includes('thandi') && !logged.includes('fixture-pass'), 'logs carry no address or secret');
 });
 
 Deno.test('missing config returns 503 NOT_CONFIGURED and touches nothing', async () => {
-  const { deps, calls } = fakeDeps({}, { RESEND_API_KEY: '' });
+  const { deps, calls } = fakeDeps({}, { SMTP_PASS: '' });
   const res = await handle(post(good), deps);
   eq(res.status, 503, 'status');
   eq((await res.json()).code, 'NOT_CONFIGURED', 'code');
@@ -134,4 +134,22 @@ Deno.test('email content: plain text has no markdown; HTML is inline-styled and 
   const tags = c.html.match(/<(td|a|table)\b[^>]*>/g) || [];
   assert(tags.length > 0 && tags.every(t => /style="/.test(t)), 'every td, a and table carries an inline style');
   assert(!/[–—]/.test(c.text + c.html), 'no em or en dashes');
+  assert(c.text.includes('Step 7.') && c.html.includes('Step 7.'), 'how-to guide with all 7 demo steps in both parts');
+  assert(c.text.includes('smart-ai-unslop') && !/slopmonster|last30days/i.test(c.text + c.html), 'Smart AI skill names only');
+});
+
+Deno.test('optional session feedback is saved with the request; bad values are refused', async () => {
+  const { deps, calls } = fakeDeps();
+  const res = await handle(post({ ...good, takeaway: ' Skills save time. ', change: '', value: 'yes-both' }), deps);
+  eq(res.status, 200, 'status');
+  eq(calls.inserted, [{ name: 'Thandi', email: 'thandi@example.co.za', consent: true, feedback_takeaway: 'Skills save time.', feedback_value: 'yes-both' }], 'feedback saved, empty answer left out');
+  const bad = await handle(post({ ...good, value: 'maybe' }), fakeDeps().deps);
+  eq(bad.status, 400, 'unknown choice refused');
+  const long = await handle(post({ ...good, change: 'x'.repeat(601) }), fakeDeps().deps);
+  eq((await long.json()).field, 'change', 'long answer refused on its field');
+});
+
+Deno.test('email offers help with installing, linking the Smart AI contact page', () => {
+  const c = emailContent('Thandi', 'https://x.test/p', 'https://g.test/');
+  assert(c.text.includes('https://www.smartaisolutions.co.za/contact') && c.html.includes('Contact Smart AI Solutions'), 'help line in both parts');
 });

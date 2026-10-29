@@ -304,25 +304,9 @@ The on-screen card at 01-4 matches **A**. If you pick B or C, change the one lin
 **09-6 · 0:30** **[VOLUNTEER from the room]** "Speed matters. A message comes in at four on a Thursday afternoon: 'How much would a gift set for 20 guests cost?' Two possible replies. Who wants to pick? [A room member picks Helpful or Vague. CLICK it.] Vague: 'Hi, price is R450.' Helpful: [read the helpful reply on screen]. And a reply in two minutes beats a reply in two days. Every time."
 - **[ASK]** "Be honest. How long does it take you to answer a WhatsApp inquiry?"
 
-**09-7 · 0:15** "People say 'sales lifecycle'. That's a fancy way to say we'll WhatsApp you and email you a series of useful things, so you trust us, and you can see we know our stuff."
-
-**09-8 · 0:40** "Here's the simplest funnel. [CLICK Send.] The moment someone leaves their details, a welcome and thank-you email goes out. Then a short series of emails and a short series of WhatsApps run side by side. Every message has their permission and a way to opt out. That's POPIA. It's also just manners."
-
-**09-9 · 0:35** "To keep track of it all, you need a pipeline. A pipeline puts each customer in a box, so nobody gets forgotten. Here's Tumelo's deal for Amberkloof's gift boxes. Quotation. [CLICK Advance.] Order. Invoice. Follow-up. You can ask AI to build this with you."
-
-**09-10 · 0:20** "The follow-up box does one more job. It asks for a review, on Google and on social. Ask everyone, not only the happy ones. And never pay for a review."
-
-**09-11 · 0:15** "Every one of these is a funnel. So what's a funnel? A funnel sends something with a specific goal in mind. Abandoned cart: reminders after an hour, a day, three days. Automatic."
-
-**09-12 · 0:15** "Onboarding: a new customer gets to know your business one section at a time."
+**09-8 · 0:40** "Here's the simplest funnel. [CLICK Send.] The moment someone leaves their details, a welcome and thank-you email goes out. Then a short series of emails and a short series of WhatsApps run side by side. Every message has their permission and a way to opt out. That's POPIA. It's also just manners. And the skill that builds this for you, Smart AI Funnels, is free in the download at the end."
 
 **09-13 · 0:20** "And this is a simple CRM we built with AI. A CRM is just your customer list, knowing which box each person is in. The same customer, moving between boxes. Ask AI to build it with you. The funnels. The CRM. The emails."
-
-**09-14 · 0:30** "The skills behind the follow-up. email-sequence writes the email series, and it's in the download at the end. whatsapp-sequences does the WhatsApp side. That one runs on my own machine, so it's not in the download."
-
-**09-15 · 0:10** "Reviews come in. The week's results pour out. Now, did any of it work?"
-[NEXT.]
-
 ### Scene 10 · Optimize · 2:40 (39:45 to 42:25)
 
 - **New here (scene 02 gave failures and successes):** what to count, the giveaway trap, and what doubling down looks like in practice.
@@ -486,7 +470,7 @@ Be found. Be chosen. Keep learning. Thank you."
 | 06 | AI drafts; skills and how to run one; bare prompt looks like everyone's; brand guideline; real ads; voice (slopmonster); Last 30 Days; habit week | "Copy what works. Then fill the gap." (said once, in 05) |
 | 07 | Website and Google; AI searches the web; SEO, AEO, GEO; four checks; authority; 30/60/90 | copying competitors' social formats (05; trimmed from 07-8) |
 | 08 | Where capture goes; AI helper; timed pop-up; CTA inside the ad; capture skills | why capture and name, surname, email (02) |
-| 09 | Three places AI answers; reply speed; lifecycle; funnel; pipeline; reviews; CRM; follow-up skills | capture skills (08) |
+| 09 | Sales / support funnels: three places AI answers; reply speed; the funnel (free Smart AI Funnels skill); CRM | capture skills (08) |
 | 10 | What to count; the giveaway trap; doubling down in practice | failures and successes (02) |
 | 11 | Attract vs Interact; the five layers; why beauty sells; 3D floating product vs flat photo | |
 | 12 | Every tap pays back; walkthrough vs static grid; real oryzo.ai vs our plain version; teach, judge, recreate | "a skill beats a bare prompt" (06; 12-9 and 12-10 merged to one line) |

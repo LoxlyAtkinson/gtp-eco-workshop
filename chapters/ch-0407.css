@@ -762,7 +762,13 @@ html:not(.c47-motion) .c7-checks{grid-template-columns:1fr}
 .c6-how__gift{margin:.7rem 0 0;padding:.55rem .85rem;border-radius:12px;background:#f2b15e24;border:1px solid #f2b15e66;font-size:.95rem}
 .c6-how__gift b{color:#f2b15e}
 @media screen{.c47-motion .c6-how__gift{position:absolute;left:auto;right:var(--gx);top:1.2rem;bottom:auto;width:min(480px,38vw);max-width:none;margin:0}}
-@media screen and (max-width:900px){.c47-motion .c6-how__gift{top:6.2rem;bottom:auto;left:1rem;right:1rem;width:auto;font-size:.82rem;line-height:1.25;padding:.4rem .55rem}}
+@media screen and (max-width:900px){
+  /* The two-line title fills the first eight rem on a phone. Keep the gift below it. */
+  .c47-motion .c6-how__gift{top:9.1rem;bottom:auto;left:1rem;right:1rem;width:auto;font-size:.86rem;line-height:1.3;padding:.5rem .65rem}
+  .c47-motion .c6-how__pair{top:14.2rem}
+  .c47-motion .c6-how__plan{bottom:5.6rem}
+  .c47-motion .c6-chef{bottom:.65rem}
+}
 @media (prefers-reduced-motion:reduce){
   .c47 .scene__stage{position:relative;top:auto;min-height:0;justify-content:flex-start;padding-top:5rem}
 }
@@ -784,3 +790,9 @@ html:not(.c47-motion) .c7-checks{grid-template-columns:1fr}
 .c7-word__eg{display:block;margin-top:.5rem;padding:.6rem .75rem;border-left:3px solid #a8541a;border-radius:0 10px 10px 0;background:#fffdf8;color:#1e1a17;font:500 .95rem/1.4 var(--body,inherit);box-shadow:0 8px 20px #0001}
 .c7-words__eg{flex-basis:100%;margin:0 0 -.4rem;font-weight:800;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#a8541a}
 @media screen{.c47-motion .c47 .c7-words{flex-wrap:wrap;align-items:flex-start}}
+.c6-same__card{overflow:hidden;background:#2a2622}
+.c6-same__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.c6-same__card span,.c6-same__card em{position:relative;z-index:1}
+.c6-same__card span{position:absolute;padding:.15rem .45rem;border-radius:6px;background:#000a}
+@media screen{.c47-motion .c6-same{top:12.6rem}}
+@media screen and (max-width:900px){.c47-motion .c6-same{top:12.4rem}}

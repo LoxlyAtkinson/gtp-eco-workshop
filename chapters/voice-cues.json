@@ -4,14 +4,14 @@
  "model": "p0/p1 = beat share of scene talk seconds x 0.92; lead = p0 + a small step into the beat; scene totals from scroll-presentation.js sceneSeconds",
  "counts": {
   "scenes": 15,
-  "beats": 134,
-  "cues": 130,
-  "triggers": 164,
+  "beats": 127,
+  "cues": 123,
+  "triggers": 157,
   "silentBeats": 4,
   "sources": {
    "cue-cards": 0,
    "script-braces": 0,
-   "first-words": 130
+   "first-words": 123
   }
  },
  "silentBeats": [
@@ -79,11 +79,16 @@
   },
   {
    "scene": "09",
-   "scriptSeconds": 275,
-   "deckSeconds": 295,
-   "reservedGapSeconds": 20,
+   "scriptSeconds": 135,
+   "deckSeconds": 140,
+   "reservedGapSeconds": 5,
    "cutBeats": [
-    "09-5"
+    "09-5",
+    "09-7",
+    "09-9",
+    "09-10",
+    "09-11",
+    "09-12"
    ]
   },
   {
@@ -103,7 +108,7 @@
   {
    "scene": "12",
    "scriptSeconds": 280,
-   "deckSeconds": 280,
+   "deckSeconds": 255,
    "reservedGapSeconds": 0,
    "cutBeats": [
     "12-10"
@@ -119,14 +124,14 @@
   {
    "scene": "14",
    "scriptSeconds": 215,
-   "deckSeconds": 215,
+   "deckSeconds": 105,
    "reservedGapSeconds": 0,
    "cutBeats": []
   },
   {
    "scene": "15",
    "scriptSeconds": 220,
-   "deckSeconds": 220,
+   "deckSeconds": 100,
    "reservedGapSeconds": 0,
    "cutBeats": []
   }
@@ -2814,8 +2819,8 @@
    "seconds": 15,
    "glideSeconds": 15,
    "p0": 0,
-   "p1": 0.0468,
-   "lead": 0.02,
+   "p1": 0.0986,
+   "lead": 0.03,
    "silent": false,
    "source": "first-words",
    "cue": "A sale is often …",
@@ -2837,8 +2842,8 @@
    ],
    "action": {
     "kind": "enter-scene",
-    "hash": "#09-02",
-    "pct": 2
+    "hash": "#09-03",
+    "pct": 3
    }
   },
   {
@@ -2848,9 +2853,9 @@
    "sceneTitle": "Convert: Follow up",
    "seconds": 10,
    "glideSeconds": 10,
-   "p0": 0.0468,
-   "p1": 0.078,
-   "lead": 0.06,
+   "p0": 0.0986,
+   "p1": 0.1643,
+   "lead": 0.12,
    "silent": false,
    "source": "first-words",
    "cue": "Place one. The helper …",
@@ -2871,8 +2876,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-06",
-    "pct": 6
+    "hash": "#09-12",
+    "pct": 12
    }
   },
   {
@@ -2882,9 +2887,9 @@
    "sceneTitle": "Convert: Follow up",
    "seconds": 10,
    "glideSeconds": 10,
-   "p0": 0.078,
-   "p1": 0.1092,
-   "lead": 0.09,
+   "p0": 0.1643,
+   "p1": 0.23,
+   "lead": 0.19,
    "silent": false,
    "source": "first-words",
    "cue": "Place two. WhatsApp. AI …",
@@ -2907,8 +2912,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-09",
-    "pct": 9
+    "hash": "#09-19",
+    "pct": 19
    }
   },
   {
@@ -2918,9 +2923,9 @@
    "sceneTitle": "Convert: Follow up",
    "seconds": 10,
    "glideSeconds": 10,
-   "p0": 0.1092,
-   "p1": 0.1403,
-   "lead": 0.12,
+   "p0": 0.23,
+   "p1": 0.2957,
+   "lead": 0.25,
    "silent": false,
    "source": "first-words",
    "cue": "Place three. Instagram and …",
@@ -2944,8 +2949,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-12",
-    "pct": 12
+    "hash": "#09-25",
+    "pct": 25
    }
   },
   {
@@ -2955,9 +2960,9 @@
    "sceneTitle": "Convert: Follow up",
    "seconds": 30,
    "glideSeconds": 30,
-   "p0": 0.2027,
-   "p1": 0.2963,
-   "lead": 0.24,
+   "p0": 0.3012,
+   "p1": 0.4983,
+   "lead": 0.34,
    "silent": false,
    "source": "first-words",
    "cue": "Speed matters. A message …",
@@ -2989,44 +2994,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-24",
-    "pct": 24
-   }
-  },
-  {
-   "id": "09-7",
-   "label": "09-7",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 15,
-   "glideSeconds": 15,
-   "p0": 0.2963,
-   "p1": 0.3431,
-   "lead": 0.31,
-   "silent": false,
-   "source": "first-words",
-   "cue": "People say 'sales lifecycle' …",
-   "card": "People say 'sales lifecycle'. That's a fancy way to say we'll WhatsApp you and email you …",
-   "text": "\"People say 'sales lifecycle'. That's a fancy way to say we'll WhatsApp you and email you a series of useful things, so you trust us, and you can see we know our stuff.\"",
-   "cueSpan": null,
-   "triggers": [
-    {
-     "kind": "first-words",
-     "phrase": "people say sales lifecycle thats a fancy way",
-     "keys": [
-      "people",
-      "say",
-      "sales",
-      "lifecycle",
-      "fancy",
-      "way"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-31",
-    "pct": 31
+    "hash": "#09-34",
+    "pct": 34
    }
   },
   {
@@ -3036,14 +3005,14 @@
    "sceneTitle": "Convert: Follow up",
    "seconds": 40,
    "glideSeconds": 40,
-   "p0": 0.3431,
-   "p1": 0.4678,
-   "lead": 0.38,
+   "p0": 0.5038,
+   "p1": 0.7667,
+   "lead": 0.54,
    "silent": false,
    "source": "first-words",
    "cue": "Here's the simplest funnel …",
    "card": "Here's the simplest funnel. [CLICK Send.] The moment someone leaves their details, a welcome and thank-you …",
-   "text": "\"Here's the simplest funnel. [CLICK Send.] The moment someone leaves their details, a welcome and thank-you email goes out. Then a short series of emails and a short series of WhatsApps run side by side. Every message has their permission and a way to opt out. That's POPIA. It's also just manners.\"",
+   "text": "\"Here's the simplest funnel. [CLICK Send.] The moment someone leaves their details, a welcome and thank-you email goes out. Then a short series of emails and a short series of WhatsApps run side by side. Every message has their permission and a way to opt out. That's POPIA. It's also just manners. And the skill that builds this for you, Smart AI Funnels, is free in the download at the end.\"",
    "cueSpan": null,
    "triggers": [
     {
@@ -3060,145 +3029,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-38",
-    "pct": 38
-   }
-  },
-  {
-   "id": "09-9",
-   "label": "09-9",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 35,
-   "glideSeconds": 35,
-   "p0": 0.4678,
-   "p1": 0.5769,
-   "lead": 0.51,
-   "silent": false,
-   "source": "first-words",
-   "cue": "To keep track of …",
-   "card": "To keep track of it all, you need a pipeline. A pipeline puts each customer in …",
-   "text": "\"To keep track of it all, you need a pipeline. A pipeline puts each customer in a box, so nobody gets forgotten. Here's Tumelo's deal for Amberkloof's gift boxes. Quotation. [CLICK Advance.] Order. Invoice. Follow-up. You can ask AI to build this with you.\"",
-   "cueSpan": null,
-   "triggers": [
-    {
-     "kind": "first-words",
-     "phrase": "to keep track of it all you need",
-     "keys": [
-      "keep",
-      "track",
-      "all",
-      "need"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-51",
-    "pct": 51
-   }
-  },
-  {
-   "id": "09-10",
-   "label": "09-10",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 20,
-   "glideSeconds": 20,
-   "p0": 0.5769,
-   "p1": 0.6393,
-   "lead": 0.6,
-   "silent": false,
-   "source": "first-words",
-   "cue": "The follow-up box does …",
-   "card": "The follow-up box does one more job. It asks for a review, on Google and on …",
-   "text": "\"The follow-up box does one more job. It asks for a review, on Google and on social. Ask everyone, not only the happy ones. And never pay for a review.\"",
-   "cueSpan": null,
-   "triggers": [
-    {
-     "kind": "first-words",
-     "phrase": "the follow up box does 1 more job",
-     "keys": [
-      "follow",
-      "box",
-      "1",
-      "more",
-      "job"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-60",
-    "pct": 60
-   }
-  },
-  {
-   "id": "09-11",
-   "label": "09-11",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 15,
-   "glideSeconds": 15,
-   "p0": 0.6393,
-   "p1": 0.6861,
-   "lead": 0.66,
-   "silent": false,
-   "source": "first-words",
-   "cue": "Every one of these …",
-   "card": "Every one of these is a funnel. So what's a funnel? A funnel sends something with …",
-   "text": "\"Every one of these is a funnel. So what's a funnel? A funnel sends something with a specific goal in mind. Abandoned cart: reminders after an hour, a day, three days. Automatic.\"",
-   "cueSpan": null,
-   "triggers": [
-    {
-     "kind": "first-words",
-     "phrase": "every 1 of these is a funnel so whats a",
-     "keys": [
-      "every",
-      "1",
-      "funnel"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-66",
-    "pct": 66
-   }
-  },
-  {
-   "id": "09-12",
-   "label": "09-12",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 15,
-   "glideSeconds": 15,
-   "p0": 0.6861,
-   "p1": 0.7329,
-   "lead": 0.7,
-   "silent": false,
-   "source": "first-words",
-   "cue": "Onboarding: a new customer …",
-   "card": "Onboarding: a new customer gets to know your business one section at a time",
-   "text": "\"Onboarding: a new customer gets to know your business one section at a time.\"",
-   "cueSpan": null,
-   "triggers": [
-    {
-     "kind": "first-words",
-     "phrase": "onboarding a new customer gets to know your",
-     "keys": [
-      "onboarding",
-      "new",
-      "customer",
-      "gets",
-      "know"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-70",
-    "pct": 70
+    "hash": "#09-54",
+    "pct": 54
    }
   },
   {
@@ -3208,9 +3040,9 @@
    "sceneTitle": "Convert: Follow up",
    "seconds": 20,
    "glideSeconds": 20,
-   "p0": 0.7329,
-   "p1": 0.7953,
-   "lead": 0.75,
+   "p0": 0.7886,
+   "p1": 0.92,
+   "lead": 0.83,
    "silent": false,
    "source": "first-words",
    "cue": "And this is a …",
@@ -3231,78 +3063,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-75",
-    "pct": 75
-   }
-  },
-  {
-   "id": "09-14",
-   "label": "09-14",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 30,
-   "glideSeconds": 30,
-   "p0": 0.7953,
-   "p1": 0.8888,
-   "lead": 0.83,
-   "silent": false,
-   "source": "first-words",
-   "cue": "The skills behind the …",
-   "card": "The skills behind the follow-up. email-sequence writes the email series, and it's in the download at …",
-   "text": "\"The skills behind the follow-up. email-sequence writes the email series, and it's in the download at the end. whatsapp-sequences does the WhatsApp side. That one runs on my own machine, so it's not in the download.\"",
-   "cueSpan": null,
-   "triggers": [
-    {
-     "kind": "first-words",
-     "phrase": "the skills behind the follow up email sequence",
-     "keys": [
-      "skills",
-      "behind",
-      "follow",
-      "email",
-      "sequence"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
     "hash": "#09-83",
     "pct": 83
-   }
-  },
-  {
-   "id": "09-15",
-   "label": "09-15",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 10,
-   "glideSeconds": 10,
-   "p0": 0.8888,
-   "p1": 0.92,
-   "lead": 0.9,
-   "silent": false,
-   "source": "first-words",
-   "cue": "Reviews come in. The …",
-   "card": "Reviews come in. The week's results pour out. Now, did any of it work",
-   "text": "\"Reviews come in. The week's results pour out. Now, did any of it work?\" [NEXT.]",
-   "cueSpan": null,
-   "triggers": [
-    {
-     "kind": "first-words",
-     "phrase": "reviews come in the weeks results pour out",
-     "keys": [
-      "reviews",
-      "come",
-      "weeks",
-      "results",
-      "pour"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-90",
-    "pct": 90
    }
   },
   {
