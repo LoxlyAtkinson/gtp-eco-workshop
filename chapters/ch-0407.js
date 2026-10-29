@@ -146,7 +146,10 @@
       el.dataset.phase = st.phase;
       const src = st.source || {};
       if (st.phase === 'live') el.textContent = `Current check for ${src.business || 'this business'} · ${src.at || 'in progress'}`;
-      else if (st.phase === 'cached') el.textContent = `Illustrative result${src.business ? ` for ${src.business}` : ''}${src.label ? ` · ${src.label}` : ''}`;
+      else if (st.phase === 'cached') {
+        const who = /amberkloof/i.test(src.business || '') ? 'Amberkloof' : /gtp|workshop/i.test(src.business || '') ? 'GTP workshop site' : 'example business';
+        el.textContent = `Illustrative result · ${who}`;
+      }
       else if (st.phase === 'running') el.textContent = `Checking the example · ${(st.progress || []).slice(-1)[0] || 'started'}`;
       else el.textContent = 'Illustrative example · no current result';
     });
@@ -361,15 +364,22 @@
     s.dataset.flip = 'graphic';
     qa(s, '[data-flip]').forEach((b) => { if (b.closest('.c47-toggle')) b.addEventListener('click', () => { hold(); s.dataset.flip = b.dataset.flip; qa(b.parentElement, 'button').forEach((o) => o.setAttribute('aria-pressed', String(o === b))); }); });
     const orbit = q(s, '#c6Orbit'), outs = qa(orbit, '.c6-out');
-    render('content', (result) => {
+    render('content', (result, st) => {
       const t = String(result.text || '');
       const sec = (name) => { const m = new RegExp(`##\\s*${name}[^\\n]*\\n([\\s\\S]*?)(?=\\n##\\s|$)`, 'i').exec(t); return m ? m[1].trim() : ''; };
       const ideas = sec('Post Ideas').split('\n').map((l) => /^\s*\d+\.\s+(.*)/.exec(l)).filter(Boolean).map((m) => m[1]);
       const caption = sec('(?:Instagram )?Caption');
       const product = sec('Product Description').split(/\n\s*\nNext:/)[0].replace(/\nNext:[\s\S]*$/, '');
       const ol = q(orbit, '[data-fill="ideas"]');
-      ol.innerHTML = (ideas.length ? ideas : [t.slice(0, 160)]).slice(0, 3).map((x) => `<li>${inline(x)}</li>`).join('');
-      q(orbit, '[data-fill="caption"]').innerHTML = inline(caption || '');
+      const screenIdeas = st.phase === 'cached' ? [
+        'Instagram Reel: show the marula pour. “3 drops. That’s the whole routine.”',
+        'Facebook: ask Pretoria East about winter skin; offer a rooibos sample.',
+        'Instagram carousel: show ingredients, mixing, jar and label. End with “DM to order.”',
+      ] : (ideas.length ? ideas : [t.slice(0, 160)]).slice(0, 3);
+      ol.innerHTML = screenIdeas.map((x) => `<li>${inline(x)}</li>`).join('');
+      q(orbit, '[data-fill="caption"]').innerHTML = st.phase === 'cached'
+        ? inline('Dry Highveld air doesn’t care about your schedule. 🌿\nThree drops of marula face oil on damp skin. Small batches from Pretoria East.\nWhich one are you reaching for? Comment or DM to order.')
+        : inline(caption || '');
       q(orbit, '[data-fill="product"]').innerHTML = md(product || '');
     });
     function spiralOut() {
@@ -474,10 +484,10 @@
     });
     // live check panels
     const fill = (k, html) => { const el = q(s, `[data-fill="${k}"]`); if (el) el.innerHTML = html; };
-    render('keywords', (r) => { const rows = tableRows(r.text).slice(1, 7); fill('keywords', rows.length ? `<table>${rows.map((c) => `<tr><td><b>${inline(c[1] || '')}</b></td><td>${inline(c[2] || '')}</td></tr>`).join('')}</table>` : md(r.text)); });
-    render('seo-audit', (r) => { const items = [...String(r.text).matchAll(/^\s*\d+\.\s+\*\*(.+?)\*\*/gm)].map((m) => m[1]).filter((x) => !/catering|lunch|amina/i.test(x)).slice(0, 3); fill('seo-audit', items.length ? `<ol>${items.map((x) => `<li>${inline(x)}</li>`).join('')}</ol>` : md(r.text)); });
-    render('backlink-analyzer', (r) => { const t = String(r.text); const head = (/^##\s+Result:\s*(.+)$/m.exec(t) || [])[1]; const opp = [...t.matchAll(/^\s*\d+\.\s+\*\*(.+?)\*\*/gm)].map((m) => m[1]).slice(0, 3); fill('backlink-analyzer', head ? `<p><b>Result:</b> ${inline(head)}</p><p><b>Link opportunities</b></p><ol>${opp.map((x) => `<li>${inline(x)}</li>`).join('')}</ol>` : md(t)); });
-    render('geo-citability', (r) => { const t = String(r.text); const sc = (/Citability score:\s*([\d/]+)/i.exec(t) || [])[1]; const rows = tableRows(t).slice(1, 6); fill('geo-citability', sc ? `<p class="c7-score">${esc(sc)}</p><table>${rows.map((c) => `<tr><td>${inline(c[0])}</td><td><b>${inline(c[1])}</b></td></tr>`).join('')}</table>` : md(t)); });
+    render('keywords', (r) => { const rows = tableRows(r.text).slice(1, 3); fill('keywords', rows.length ? `<p><b>Illustrative Amberkloof ideas:</b></p><ol>${rows.map((c) => `<li>${inline(c[1] || '')}</li>`).join('')}</ol><p>Check demand before writing.</p>` : md(r.text)); });
+    render('seo-audit', (r) => { const items = [...String(r.text).matchAll(/^\s*\d+\.\s+\*\*(.+?)\*\*/gm)].map((m) => m[1]).filter((x) => !/catering|lunch|amina/i.test(x)).slice(0, 2); fill('seo-audit', items.length ? `<p><b>Illustrative earlier GTP scan:</b></p><ol>${items.map((x) => `<li>${inline(x)}</li>`).join('')}</ol>` : md(r.text)); });
+    render('backlink-analyzer', (r) => { const t = String(r.text); const head = (/^##\s+Result:\s*(.+)$/m.exec(t) || [])[1]; fill('backlink-analyzer', head ? '<p><b>Illustrative earlier scan:</b> no public links found for the workshop site.</p><p>Next: seek workshop and partner listings.</p>' : md(t)); });
+    render('geo-citability', (r) => { const t = String(r.text); const sc = (/Citability score:\s*([\d/]+)/i.exec(t) || [])[1]; fill('geo-citability', sc ? `<p><b>Illustrative earlier GTP scan:</b></p><p class="c7-score">${esc(sc)}</p><p>Make answers easy to quote: clear headings, facts and sources.</p>` : md(t)); });
     const plan = { goal: '', windows: {}, items: [] };
     let win = '30';
     function paintPlan() {
@@ -502,7 +512,12 @@
     const panelOf = (k) => q(s, `.c7-panel[data-slot="${k}"]`);
     onBeat(s, (id) => {
       const map = { '07-4': 'keywords', '07-5': 'seo-audit', '07-6': 'backlink-analyzer', '07-7': 'geo-citability' };
-      if (map[id]) { reveal(map[id]); const p = panelOf(map[id]); p.classList.remove('is-traced'); void p.offsetWidth; p.classList.add('is-traced'); }
+      if (map[id]) {
+        // A direct link to a later beat still needs the earlier check results.
+        const order = ['07-4', '07-5', '07-6', '07-7'];
+        order.slice(0, order.indexOf(id) + 1).forEach((beat) => reveal(map[beat]));
+        const p = panelOf(map[id]); p.classList.remove('is-traced'); void p.offsetWidth; p.classList.add('is-traced');
+      }
       if (!motion()) Object.values(map).forEach(reveal);
       if (id === '07-9' || id === '07-10' || !motion()) { reveal('seo-plan'); reveal('blog-calendar'); }
       if (id === '07-1' && G && motion()) G.from(q(s, '.c7-ask'), { scale: 0.7, autoAlpha: 0, duration: 0.8, ease: 'back.out(1.8)', clearProps: 'opacity,visibility,transform' });

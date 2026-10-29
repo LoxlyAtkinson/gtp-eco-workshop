@@ -5,4 +5,11 @@
 - google-business-profile.svg: Simple Icons has no Google Business Profile icon. Drawn for this deck after the Google Business Profile storefront mark (awning over a blue shopfront), Google blues, with the Simple Icons Google G in white. Not Google's own file; check it against Google's brand page before public release.
 - website.svg: a plain globe drawn for this deck. Not a brand mark.
 
+## AI assistants (scene 07.1)
+
+- llm-googlegemini.svg, llm-claude.svg, llm-perplexity.svg: Simple Icons 16.36.0, CC0 1.0, path data unchanged, brand hex fill (Gemini 8E75B2, Claude D97757, Perplexity 1FB8CD).
+- llm-openai.svg (ChatGPT): Simple Icons 15.22.0 (removed in later releases), CC0 1.0, OpenAI black.
+- llm-copilot.svg: Microsoft Copilot 2026 mark, Wikimedia Commons File:Microsoft-copilot-2026-seeklogo.svg, public domain (trademarked). Unchanged file.
+- Google uses google.svg above.
+
 The brand names and logos belong to their owners. Simple Icons disclaimer: https://github.com/simple-icons/simple-icons/blob/develop/DISCLAIMER.md

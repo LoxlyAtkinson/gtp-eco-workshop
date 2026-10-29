@@ -30,8 +30,8 @@ Step 2. Know your competitors
 what I sell to the same people. For each one: what they say, what they charge if
 it's on their site, and one thing they do that I don't."
 
-Step 3. Know what people are saying (needs the last30days setup in its SKILL.md)
-"Use the last30days skill on [your product or industry]. What are people asking
+Step 3. Know what people are saying (needs the smart-ai-trends setup in its SKILL.md)
+"Use the smart-ai-trends skill on [your product or industry]. What are people asking
 about this month?" It reads YouTube and Reddit, plus X.
 
 Step 4. Make a 30-day plan
@@ -40,16 +40,20 @@ are saying, make a 30-day plan. 5 steps. One platform. One number to check
 every Friday."
 
 Step 5. Get ad ideas
-"Use the ad-creative skill. Give me 5 ad ideas for [one product]. Each one
+"Use the smart-ai-ad-ideas skill. Give me 5 ad ideas for [one product]. Each one
 needs a hook, the words on the ad, and why it beats the competitors above."
 
 Step 6. Make it sound like you
-"Use the slopmonster skill on idea number [2]. Take out anything that sounds
+"Use the smart-ai-unslop skill on idea number [2]. Take out anything that sounds
 like AI wrote it. Keep the facts."
 
 Step 7. Write the ad and the follow-up
 "Use the draft-content skill to write the final ad for Instagram. Then use the
 email-sequence skill to write 3 follow-up emails for people who reply."
+
+Step 8. Build your follow-up funnel
+"Use the smart-ai-funnels skill. Map my sales funnel and my support funnel,
+then write every WhatsApp and email message in order."
 
 
 PART 3. KEEP GOING (15 minutes, every weekday)
@@ -73,8 +77,7 @@ TIPS
 WHAT'S IN THE ZIP
 
 Eight skills by Anthropic (Apache 2.0 licence).
-Three skills from the live demo (MIT licence), by Corey Haines, Jack Roberts
-and Matt Van Horn.
+Four Smart AI Solutions skills from the live demo.
 The folder names tell you which is which.
 Each skill keeps its licence file. Free to keep and share.
 
