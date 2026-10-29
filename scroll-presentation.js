@@ -160,6 +160,8 @@
     if(!h||!list.some(s=>s.title))return;
     const title=list.slice(0,section+1).reverse().find(s=>s.title)?.title;
     if(title&&h.innerHTML!==title)h.innerHTML=title;
+    // Long titles get a wider, smaller heading so they stay on two lines and clear the content below.
+    h.classList.toggle('is-long',h.textContent.length>40);
   }
   function stepTarget(dir){
     const from=auto.state==='jumping'&&navTarget?navTarget:{i:index,k:section};
