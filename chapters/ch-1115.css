@@ -706,3 +706,5 @@ body.motion-paused .c15-window>.c15-media{animation-play-state:paused}
 @media (max-width:760px){.c15-builder__stage{grid-template-columns:1fr}.c15-builder__box{max-width:260px}}
 @media (prefers-reduced-motion:reduce){.c15-builder__picks button,.c15-builder__picks button img,.c15-builder__count{transition:none}}
 .c15-builder__lid{top:auto;right:auto;transform:none;border-radius:0;background:none;box-shadow:none}
+.c15-takeaway--app{margin-top:.7rem}
+.c15-takeaway--app img{width:clamp(120px,14vw,180px);aspect-ratio:16/10;height:auto;object-fit:cover;border-radius:10px}
