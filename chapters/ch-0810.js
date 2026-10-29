@@ -58,10 +58,12 @@
   qa(document, '.cx [data-local-clip]').forEach(box => {
     q(box, '.cx-embed__play')?.addEventListener('click', async () => {
       let src = box.dataset.fallback, note = box.dataset.fallbackNote;
-      try {
-        const r = await fetch(box.dataset.localClip);
-        if (r.ok) { src = URL.createObjectURL(await r.blob()); note = ''; }
-      } catch { /* missing: keep the fallback */ }
+      if (!location.hostname.endsWith('.github.io')) {
+        try {
+          const r = await fetch(box.dataset.localClip);
+          if (r.ok) { src = URL.createObjectURL(await r.blob()); note = ''; }
+        } catch { /* missing: keep the fallback */ }
+      }
       const v = Object.assign(document.createElement('video'), { src, controls: true, loop: true, playsInline: true });
       v.setAttribute('playsinline', '');
       box.append(v);

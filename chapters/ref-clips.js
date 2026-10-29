@@ -36,7 +36,9 @@
     .then(r => { if (!r.ok) throw new Error('missing'); return r.blob(); })
     .then(b => URL.createObjectURL(b))).get(tile);
   // Nothing is requested at page load: the first fetch, when scene 11 comes near, doubles as the presence check.
-  const warm = () => tiles.forEach(tile => loadBlob(tile).then(url => {
+  const warm = () => tiles.forEach(tile => {
+    if (location.hostname.endsWith('.github.io')) { toLink(tile); return; }
+    loadBlob(tile).then(url => {
     const v = document.createElement('video');
     Object.assign(v, { muted: true, loop: true, playsInline: true, preload: 'metadata' });
     v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
@@ -45,7 +47,8 @@
     tile.querySelector('.rc-tile__play').append(v);
     tile.dataset.ok = '1';
     sync();
-  }).catch(() => toLink(tile)));
+    }).catch(() => toLink(tile));
+  });
   if ('IntersectionObserver' in window && scene) {
     const near = new IntersectionObserver(([e]) => { if (e.isIntersecting) { near.disconnect(); warm(); } }, { rootMargin: '150% 0px' });
     near.observe(scene);
