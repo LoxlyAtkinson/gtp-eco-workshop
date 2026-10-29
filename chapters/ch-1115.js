@@ -13,6 +13,11 @@
   const phone = () => innerWidth <= 900;
   const byId = n => scenes.find(s => s.dataset.scene === n);
 
+  // 14-12b: the live-app button only on the presenter laptop, where the live runner answers.
+  const liveApp = document.querySelector('.c15-gift__live');
+  if (liveApp) fetch('http://localhost:8790/health', { signal: AbortSignal.timeout(3000) })
+    .then(r => { if (r.ok) { liveApp.hidden = false; document.querySelector('.c15-gift__open').hidden = true; } }).catch(() => {});
+
   // The closing route now leaves out the extra site gallery, report/tool panels,
   // and the intermediate learning-plan plates in both motion and static modes.
   const skippedBeats = new Set(['12-6', '15-3', '15-5', '15-6']);

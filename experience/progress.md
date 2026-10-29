@@ -174,6 +174,14 @@ Participants complete the live presentation and analysis journey; organiser sees
   - **Raw findings kept:** first capture showed bullet 3 still fading at the pause point and a small heading (fixed: earlier reveal, larger heading). Headless captures of this page intermittently paint blank frames (seen 3 times); re-runs painted correctly.
   - **Not done:** `experience/presentation-script.md` and `chapters/voice-cues.json` not updated for 14-12b; not released to Pages.
 
+- **2026-10-29 ~11:20 (one-click live app on beat 14-12b + laptop transfer; builder evidence, not a judge verdict):**
+  - **App repo.** Private `LoxlyAtkinson/smart-ai-social-assistant` (main): Postiz 64f00fd + `gtp-brand/` (Dockerfile bakes the rebrand into `smart-ai-social-assistant:local`, base pinned by digest; `demo-login.json` test account; `.gitattributes` keeps `patch.sh` LF). `docker compose up -d` gives the rebranded app; no runtime patch step.
+  - **Live runner.** `live-runner/lib/smart-ai.mjs` + 2 lines in `server.mjs`: `GET /smart-ai/open` (starting page) and `POST /smart-ai/start` (Docker Desktop start if needed, `docker compose up -d`, waits for `/api/auth/can-register`, signs in, registers on first run, re-issues Postiz's `auth` cookie host-only for localhost, page redirects to `localhost:4007/launches`). App folder: `SMART_AI_DIR`, else `../smart-ai-social-assistant`, else the main PC path. Own-origin rule; foreign origin -> 403.
+  - **Deck.** Beat 14-12b keeps the "Ask Loxly..." line; a hidden "Open the live app" button replaces it only when `localhost:8790/health` answers (presenter laptop), so the public site shows no dead localhost link. Speaker note line added.
+  - **Checked** (headless system Chrome, fresh context, test runner on 8791 because another session's runner holds 8790): button visible with href `http://localhost:8790/smart-ai/open` target `_blank`; click flow -> `localhost:4007/launches` "Smart AI Social Assistant Calendar" signed in, `auth` cookie, 34 s (`experience/evidence/giveaway/open-live-app.png`: dashboard, AI logo, no login form). First-run path: new email registered and signed in (200, `auth` cookie). Foreign origin 403.
+  - **Raw findings kept:** (1) readiness on the frontend gave 502 at sign-in; fixed by waiting on the backend and retrying 5xx. (2) Postiz closes pages that have an opener; the starting page clears `window.opener` and the button uses `rel="noopener"`. (3) After a container recreate the backend took ~13 min to answer on this PC; warm the app up before the talk.
+  - **Not done:** the 8790 runner on this PC still runs old code (restart it to get the route). Not verified on the laptop itself.
+
 ## Outstanding work
 
 - [ ] Expanded cinematic scroll revision: complete source-bound whole-journey review, repair remaining rendered findings, reach builder and three independent blind 100/100 scores, then publish and verify C1–C13 on github.io.

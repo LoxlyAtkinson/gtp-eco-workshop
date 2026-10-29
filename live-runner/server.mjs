@@ -10,6 +10,7 @@ import { runKind } from './lib/run-kind.mjs';
 import { claudeRunsInWindow, MAX_CLAUDE_RUNS, firecrawlCreditsInWindow, MAX_FIRECRAWL_CREDITS } from './lib/spend.mjs';
 import { isStageKind, validateStageRequest, handleStageRoute, stageHealth } from './lib/stage.mjs';
 import { handleRehearsalRoute } from './lib/rehearsal.mjs';
+import { handleSmartAiRoute } from './lib/smart-ai.mjs';
 
 const HOST = '127.0.0.1';
 const PORT = Number(process.env.LIVE_RUNNER_PORT || 8790);
@@ -41,6 +42,8 @@ const server = createServer((req, res) => {
   // DNS-rebinding guard: only our own host names.
   const host = String(req.headers.host || '');
   if (host !== `${HOST}:${PORT}` && host !== `localhost:${PORT}`) return sendJson(res, 421, { error: 'bad host' });
+  // Giveaway app (beat 14-12b): its own page and origin rule (lib/smart-ai.mjs).
+  if (req.url.startsWith('/smart-ai/')) return void handleSmartAiRoute(req, res, new URL(req.url, `http://${host}`));
   // Browsers always send Origin on cross-origin requests; refuse unknown ones.
   if (origin && !ALLOWED_ORIGINS.has(origin)) return sendJson(res, 403, { error: 'origin not allowed' });
 

@@ -396,7 +396,9 @@ a.c15-sitecard:hover{border-color:var(--c15-amber)}
 .c15-gift__name{margin:0;font:800 clamp(1.1rem,1.9vw,1.5rem)/1.1 var(--display);color:#7fd3c9}
 .c15-gift__list{margin:0;padding-left:1.1rem;display:grid;gap:.4rem;font-size:clamp(.95rem,1.3vw,1.1rem)}
 .c15-gift__copy small{opacity:.7}
-.scene .c15-gift__open{text-decoration:none}
+.c15-gift__open{margin:0}
+.scene .c15-gift__live{text-decoration:none}
+.scene .c15-gift__live[hidden],.c15-gift__open[hidden]{display:none}
 @media (max-width:760px){.c15-gift{grid-template-columns:1fr}}
 .c15-tolearn{display:grid;place-items:center;min-height:clamp(200px,40vh,340px)}
 .c15-learncard{display:grid;gap:.3rem;padding:1.4rem 2rem;border-radius:18px;background:#f6f0e4;color:#1e1a17;box-shadow:0 24px 50px #000a}
