@@ -225,6 +225,15 @@
       else if (!play && !oursVideo.paused) oursVideo.pause();
     }
   }
+  // Scene 09 keeps three funnel stops (owner 2026-10-29: max 3 slides on funnels). The scroll plays only
+  // these stretches of the original timeline, end to end: orbit + fast reply, the funnel, the CRM.
+  const KEEP9 = [[0, .296], [.344, .467], [.734, .781]];
+  const KEEP9_LEN = KEEP9.reduce((s, [a, b]) => s + b - a, 0);
+  function remap9(p) {
+    let x = Math.max(0, Math.min(1, p)) * KEEP9_LEN;
+    for (const [a, b] of KEEP9) { if (x <= b - a) return a + x; x -= b - a; }
+    return KEEP9[KEEP9.length - 1][1];
+  }
   function on09(p) {
     const auto = p < .078 ? 0 : p < .1092 ? 1 : 2;
     if (chManual && chOrder.indexOf(chManual) < auto) chManual = null;
@@ -264,7 +273,7 @@
         if (p > .372 && p < .478 && !document.hidden && document.body.dataset.scene === '08') dwellState.real += dt * (dwellState.ff ? 10 : 1);
         on08(p);
       }
-      if (near(S9)) on09(progressOf(S9));
+      if (near(S9)) on09(remap9(progressOf(S9)));
       if (near(S10)) on10(progressOf(S10));
     }
     requestAnimationFrame(loop);
@@ -276,8 +285,10 @@
     const ambient = [], cleanups = [];
     const scenes = [S8, S9, S10];
     const FROM = { rise: { y: 40 }, up: { y: 70 }, fade: {}, zoom: { scale: .9 }, none: {} };
-    function build(scene, extra) {
-      const tl = G.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: scene, start: 'top top', end: 'bottom bottom', scrub: .5, invalidateOnRefresh: true } });
+    function build(scene, extra, map) {
+      const st = { trigger: scene, start: 'top top', end: 'bottom bottom', invalidateOnRefresh: true };
+      const tl = G.timeline(map ? { defaults: { ease: 'none' }, paused: true } : { defaults: { ease: 'none' }, scrollTrigger: { ...st, scrub: .5 } });
+      if (map) ST.create({ ...st, onUpdate: self => G.to(tl, { progress: map(self.progress), duration: .5, ease: 'power2.out', overwrite: true }), onRefresh: self => tl.progress(map(self.progress)) });
       qa(scene, '[data-in]').forEach(el => {
         const a = Number(el.dataset.in), b = el.dataset.out ? Number(el.dataset.out) : null, fx = FROM[el.dataset.fx || 'rise'];
         if (a === 0) G.set(el, { autoAlpha: 1 });
@@ -351,7 +362,7 @@
         if (k < beats.length - 1) tl.fromTo(b, { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: -50, duration: .003, immediateRender: false }, at + .0055);
       });
       tl.fromTo(q(S9, '.cx09-track__pour'), { autoAlpha: 0, x: -60 }, { autoAlpha: 1, x: 0, duration: .02 }, .895);
-    });
+    }, remap9);
     ST.create({ trigger: S9, start: 'top 60%', onEnter: () => G.fromTo(qa(S9, '.cx-head h2 > *'), { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .8, stagger: .15, ease: 'power3.out' }) });
     ambient.push(
       G.to(qa(S9, '.cx09-dial--good .cx09-dial__face i'), { rotation: 540, duration: 2.4, ease: 'none', repeat: -1 }),

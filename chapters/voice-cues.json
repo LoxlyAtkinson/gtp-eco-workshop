@@ -1,15 +1,22 @@
 {
  "generated": "node scripts/build-voice-cues.mjs",
  "source": "experience/presentation-script.md section 4",
- "model": "landing pct = beat start share of scene talk seconds x 0.92 (+ a small step into the beat); scene totals from scroll-presentation.js sceneSeconds",
+ "model": "p0/p1 = beat share of scene talk seconds x 0.92; lead = p0 + a small step into the beat; scene totals from scroll-presentation.js sceneSeconds",
  "counts": {
   "scenes": 15,
-  "cues": 130,
-  "triggers": 166,
-  "silentBeats": 3
+  "beats": 127,
+  "cues": 123,
+  "triggers": 157,
+  "silentBeats": 4,
+  "sources": {
+   "cue-cards": 0,
+   "script-braces": 0,
+   "first-words": 123
+  }
  },
  "silentBeats": [
   "01-1",
+  "03-4",
   "12-7",
   "12-8"
  ],
@@ -30,8 +37,8 @@
   },
   {
    "scene": "03",
-   "scriptSeconds": 345,
-   "deckSeconds": 345,
+   "scriptSeconds": 305,
+   "deckSeconds": 305,
    "reservedGapSeconds": 0,
    "cutBeats": []
   },
@@ -40,9 +47,7 @@
    "scriptSeconds": 250,
    "deckSeconds": 250,
    "reservedGapSeconds": 0,
-   "cutBeats": [
-    "04-8"
-   ]
+   "cutBeats": []
   },
   {
    "scene": "05",
@@ -74,11 +79,16 @@
   },
   {
    "scene": "09",
-   "scriptSeconds": 275,
-   "deckSeconds": 295,
-   "reservedGapSeconds": 20,
+   "scriptSeconds": 135,
+   "deckSeconds": 140,
+   "reservedGapSeconds": 5,
    "cutBeats": [
-    "09-5"
+    "09-5",
+    "09-7",
+    "09-9",
+    "09-10",
+    "09-11",
+    "09-12"
    ]
   },
   {
@@ -98,7 +108,7 @@
   {
    "scene": "12",
    "scriptSeconds": 280,
-   "deckSeconds": 280,
+   "deckSeconds": 255,
    "reservedGapSeconds": 0,
    "cutBeats": [
     "12-10"
@@ -114,29 +124,61 @@
   {
    "scene": "14",
    "scriptSeconds": 215,
-   "deckSeconds": 215,
+   "deckSeconds": 105,
    "reservedGapSeconds": 0,
    "cutBeats": []
   },
   {
    "scene": "15",
    "scriptSeconds": 220,
-   "deckSeconds": 220,
+   "deckSeconds": 100,
    "reservedGapSeconds": 0,
    "cutBeats": []
   }
  ],
  "cues": [
   {
+   "id": "01-1",
+   "label": "01-1",
+   "scene": "01",
+   "sceneTitle": "Open",
+   "seconds": 10,
+   "glideSeconds": 10,
+   "p0": 0,
+   "p1": 0.0767,
+   "lead": 0.03,
+   "silent": true,
+   "source": null,
+   "cue": null,
+   "card": "Arrive. Say nothing for three seconds. Let the bottle land.",
+   "text": "[Arrive. Say nothing for three seconds. Let the bottle land.]",
+   "cueSpan": null,
+   "triggers": [],
+   "action": {
+    "kind": "enter-scene",
+    "hash": "#01-03",
+    "pct": 3
+   }
+  },
+  {
    "id": "01-2",
    "label": "01-2",
    "scene": "01",
    "sceneTitle": "Open",
    "seconds": 29,
+   "glideSeconds": 29,
    "p0": 0.0767,
    "p1": 0.299,
+   "lead": 0.12,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Morning, everyone. I'm Today …",
+   "card": "Morning, everyone. I'm [your name]. Today is about sales, marketing and AI, for businesses like yours …",
+   "text": "\"Morning, everyone. I'm [your name]. Today is about sales, marketing and AI, for businesses like yours. Three lines on the screen. Be found. Be chosen. Keep learning. If you walk out knowing how to do those three for your own business, this was worth your morning.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "morning everyone im today is about sales marketing",
      "keys": [
       "morning",
@@ -148,7 +190,7 @@
     }
    ],
    "action": {
-    "kind": "enter-scene",
+    "kind": "reveal-beat",
     "hash": "#01-12",
     "pct": 12
    }
@@ -159,10 +201,19 @@
    "scene": "01",
    "sceneTitle": "Open",
    "seconds": 33,
+   "glideSeconds": 33,
    "p0": 0.299,
    "p1": 0.552,
+   "lead": 0.34,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And this is our …",
+   "card": "And this is our guest for the hour. Amberkloof marula face oil, from a small body-care …",
+   "text": "[The bottle turns.] \"And this is our guest for the hour. Amberkloof marula face oil, from a small body-care brand in Pretoria East. Two people and a part-time packer. It's a brand we made up for today, so nobody's real secrets are on the screen. Watch this bottle. It follows us all the way through.\" [If you picked opener B, say B here instead, and use A's show of hands at 01-4.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and this is our guest for the hour amberkloof marula",
      "keys": [
       "guest",
@@ -172,6 +223,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "this bottle isnt real amberkloof is a brand",
      "keys": [
       "bottle",
@@ -194,10 +246,19 @@
    "scene": "01",
    "sceneTitle": "Open",
    "seconds": 26,
+   "glideSeconds": 26,
    "p0": 0.552,
    "p1": 0.7513,
+   "lead": 0.59,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Quick show of hands …",
+   "card": "Quick show of hands. Who's posted on three platforms this month and still can't tell you …",
+   "text": "[The opener card fades up.] Say your opener (A or C).\n• [ASK] The opener is this scene's question.",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "quick show of hands whos posted on 3",
      "keys": [
       "quick",
@@ -209,6 +270,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "hands up if you know who your best",
      "keys": [
       "hands",
@@ -230,10 +292,19 @@
    "scene": "01",
    "sceneTitle": "Open",
    "seconds": 22,
+   "glideSeconds": 22,
    "p0": 0.7513,
    "p1": 0.92,
+   "lead": 0.79,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So how does a …",
+   "card": "So how does a business get found, get chosen, and keep getting better at it? It's …",
+   "text": "[E, C and O start to orbit the bottle.] \"So how does a business get found, get chosen, and keep getting better at it? It's a loop. Three letters. E, C, O. Let's open it up.\" [NEXT when the page stops.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "so how does a business get found get chosen",
      "keys": [
       "how",
@@ -255,10 +326,19 @@
    "scene": "02",
    "sceneTitle": "Growth is a loop",
    "seconds": 23,
+   "glideSeconds": 23,
    "p0": 0,
    "p1": 0.1176,
+   "lead": 0.04,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Growth is a loop …",
+   "card": "Growth is a loop. Make each turn useful. We call it ECO. Engage, Convert, Optimize. Every …",
+   "text": "\"Growth is a loop. Make each turn useful. We call it ECO. Engage, Convert, Optimize. Every business already runs this loop, whether they know it or not. Today we run it on purpose.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "growth is a loop make each turn useful",
      "keys": [
       "growth",
@@ -282,10 +362,19 @@
    "scene": "02",
    "sceneTitle": "Growth is a loop",
    "seconds": 55,
+   "glideSeconds": 55,
    "p0": 0.1176,
    "p1": 0.3987,
+   "lead": 0.16,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Engage first. Engagement is …",
+   "card": "Engage first. Engagement is anything that makes people respond to you. A like. A comment. A …",
+   "text": "[CLICK Engage, or let it swing in.] \"Engage first. Engagement is anything that makes people respond to you. A like. A comment. A save. A message. And what makes them respond? Usually one of four things. A question answered. A striking picture. An offer. A story. Look at that comment: 'Is this OK for sensitive skin?' That's engagement. Somebody cared enough to ask.\"\n• [ASK] \"Think of your last post that did well. What did people react to? The question, the picture, the offer or the story? Shout it out.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "engage first engagement is anything that makes people",
      "keys": [
       "engage",
@@ -297,6 +386,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "think of your last post that did well what",
      "keys": [
       "think",
@@ -318,10 +408,19 @@
    "scene": "02",
    "sceneTitle": "Growth is a loop",
    "seconds": 59,
+   "glideSeconds": 59,
    "p0": 0.3987,
    "p1": 0.7002,
+   "lead": 0.44,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Convert comes right after …",
+   "card": "Convert comes right after. Engagement got their attention. So while you have it, give them a …",
+   "text": "[CLICK Convert.] \"Convert comes right after. Engagement got their attention. So while you have it, give them a clear next step. And here's the catch. You can't convert people you don't know. So it starts small. A name. A surname. An email. Two ways to get it. One, ask for their details while they're engaging with you. Two, give them something worth having. Amberkloof gives a free 5 ml sample for an email address. Fair swap.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "convert comes right after engagement got their attention",
      "keys": [
       "convert",
@@ -344,10 +443,19 @@
    "scene": "02",
    "sceneTitle": "Growth is a loop",
    "seconds": 43,
+   "glideSeconds": 43,
    "p0": 0.7002,
    "p1": 0.92,
+   "lead": 0.74,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Then Optimize. We measure …",
+   "card": "Then Optimize. We measure both ends. Failures: the posts nobody engaged with. And the sneaky ones …",
+   "text": "[CLICK Optimize.] \"Then Optimize. We measure both ends. Failures: the posts nobody engaged with. And the sneaky ones, the posts people liked, but nobody bought from. Successes: the posts that did both. Then two questions. Why did it work? And to whom? To whom is the big one. So that's where we start.\" [NEXT. The \"to whom\" chip punches through into the next scene.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "then optimize we measure both ends failures the",
      "keys": [
       "optimize",
@@ -370,10 +478,19 @@
    "scene": "03",
    "sceneTitle": "Engage: Who?",
    "seconds": 43,
+   "glideSeconds": 43,
    "p0": 0,
-   "p1": 0.1147,
+   "p1": 0.1297,
+   "lead": 0.04,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Engage... with who? Before …",
+   "card": "Engage... with who? [Let the question mark land.] Before we post anything, we need to know …",
+   "text": "[Let the title build and say it with it.] \"Engage... with who? [Let the question mark land.] Before we post anything, we need to know who we're talking to. The proper name is your ideal customer profile. ICP. All it means is a clear picture of the people who buy from you.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "engage with who before we post anything we",
      "keys": [
       "engage",
@@ -396,10 +513,19 @@
    "scene": "03",
    "sceneTitle": "Engage: Who?",
    "seconds": 43,
-   "p0": 0.1147,
-   "p1": 0.2293,
+   "glideSeconds": 43,
+   "p0": 0.1297,
+   "p1": 0.2594,
+   "lead": 0.17,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So let me ask …",
+   "card": "So let me ask. Do you really know who buys from you? If you do, kudos …",
+   "text": "\"So let me ask. Do you really know who buys from you? If you do, kudos to you. Most of us don't, and I include myself. Amberkloof's owner was sure. 'Our customer is women 25 to 34 who love natural skincare.' [The stamp lands.] That's a feeling. A guess. And a guess is a fine place to start, as long as we test it.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "so let me ask do you really know who buys",
      "keys": [
       "ask",
@@ -411,8 +537,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#03-15",
-    "pct": 15
+    "hash": "#03-17",
+    "pct": 17
    }
   },
   {
@@ -421,10 +547,19 @@
    "scene": "03",
    "sceneTitle": "Engage: Who?",
    "seconds": 75,
-   "p0": 0.2293,
-   "p1": 0.4293,
+   "glideSeconds": 75,
+   "p0": 0.2594,
+   "p1": 0.4856,
+   "lead": 0.3,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So how do we …",
+   "card": "So how do we test it? Read it with me. 'Start with the people who actually …",
+   "text": "\"So how do we test it? Read it with me. 'Start with the people who actually buy, inquire, and come back.' Buy. Inquire. Come back. [The streams pour in.] Every order. Every WhatsApp question. Every repeat customer. They all go into one simple table. What they bought. Their area. Where they found us. Did they come back? Age group. Sex. And their circumstances, meaning what's going on in their life when they buy. Race only if they tell us themselves. We never guess it. Simple enough, right?\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "so how do we test it read it with me",
      "keys": [
       "how",
@@ -435,8 +570,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#03-27",
-    "pct": 27
+    "hash": "#03-30",
+    "pct": 30
    }
   },
   {
@@ -444,24 +579,22 @@
    "label": "03-4",
    "scene": "03",
    "sceneTitle": "Engage: Who?",
-   "seconds": 87,
-   "p0": 0.4293,
-   "p1": 0.6613,
-   "triggers": [
-    {
-     "phrase": "now where does that data come from we gather",
-     "keys": [
-      "where",
-      "data",
-      "come",
-      "gather"
-     ]
-    }
-   ],
+   "seconds": 47,
+   "glideSeconds": 47,
+   "p0": 0.4856,
+   "p1": 0.6274,
+   "lead": 0.53,
+   "silent": true,
+   "source": null,
+   "cue": null,
+   "card": "\"Now, where does that data come from? We gather it. Every sale adds a row. Every inquiry adds a row. Every repeat adds a row. And at checkout, three quick questions, all optional: age group, sex, and who it's for. No data? You're guessing.",
+   "text": "\"Now, where does that data come from? We gather it. Every sale adds a row. Every inquiry adds a row. Every repeat adds a row. And at checkout, three quick questions, all optional: age group, sex, and who it's for. No data? You're guessing.",
+   "cueSpan": null,
+   "triggers": [],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#03-47",
-    "pct": 47
+    "hash": "#03-53",
+    "pct": 53
    }
   },
   {
@@ -470,10 +603,19 @@
    "scene": "03",
    "sceneTitle": "Engage: Who?",
    "seconds": 61,
-   "p0": 0.6613,
-   "p1": 0.824,
+   "glideSeconds": 61,
+   "p0": 0.6274,
+   "p1": 0.8114,
+   "lead": 0.67,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Now watch Amberkloof's rows …",
+   "card": "Now watch Amberkloof's rows sort themselves. Sixty orders, an illustrative sample. Three groups. Gift planners, 24 …",
+   "text": "\"Now watch Amberkloof's rows sort themselves. Sixty orders, an illustrative sample. Three groups. Gift planners, 24. Self-care regulars, 21. Guesthouses and spas, 15. [The assumption card cracks.] Look who's biggest. Not women 25 to 34. Gift planners. Mostly men, by the survey, 35 to 49, buying a present twice a year. The feeling was wrong. The answer was in the records all along.\"\n• [ASK] \"Look at your own list. Is your biggest group the one you would have guessed? Hands up if it isn't.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "now watch amberkloofs rows sort themselves 60 orders",
      "keys": [
       "watch",
@@ -486,6 +628,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "look at your own list is your biggest",
      "keys": [
       "look",
@@ -497,8 +640,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#03-70",
-    "pct": 70
+    "hash": "#03-67",
+    "pct": 67
    }
   },
   {
@@ -507,10 +650,19 @@
    "scene": "03",
    "sceneTitle": "Engage: Who?",
    "seconds": 36,
-   "p0": 0.824,
+   "glideSeconds": 36,
+   "p0": 0.8114,
    "p1": 0.92,
+   "lead": 0.85,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And that group becomes …",
+   "card": "And that group becomes a person. Meet the Gift Planner. 35 to 49. Midrand and Centurion …",
+   "text": "\"And that group becomes a person. Meet the Gift Planner. 35 to 49. Midrand and Centurion. Busy. Wants it wrapped and delivered. Finds us on Instagram, orders on WhatsApp. That's an ICP, and it works in any business. A salon counts bookings and rebookings. A plumber counts call-outs and repeat clients. [TAP B2B] And if you sell to other businesses, here's Tumelo Print & Pack, the printer that makes Amberkloof's gift box. Their best customer is the Launching Founder. A small product brand, one to ten staff, about to launch, needing 500 to 2,000 boxes before a market date.\" [NEXT. The \"found us on\" field pops off and becomes the hub of the platform wheel.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and that group becomes a person meet the",
      "keys": [
       "group",
@@ -522,43 +674,35 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#03-86",
-    "pct": 86
+    "hash": "#03-85",
+    "pct": 85
    }
   },
   {
    "id": "04-1",
    "label": "04-1",
    "scene": "04",
-   "sceneTitle": "Engage: Where?",
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
    "seconds": 35,
+   "glideSeconds": 35,
    "p0": 0,
    "p1": 0.1288,
+   "lead": 0.04,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Right. Skills, and what …",
+   "card": "Right. Skills, and what to use when. A skill is a job you teach AI once …",
+   "text": "\"Right. Skills, and what to use when. A skill is a job you teach AI once. After that, it does that job the same way every time. [Point down the cards.] There's one that takes all of your data and puts it aside, so every other skill starts from the same facts. Then a competitor scan. A B2B finder, for when you sell to businesses. A content scanner. Last 30 days, for what people are saying right now. Trending keywords. And the website ones. An SEO check, backlinks and citations.\"",
+   "cueSpan": null,
    "triggers": [
     {
-     "phrase": "now i need some help from agreed to",
+     "kind": "first-words",
+     "phrase": "right skills and what to use when a",
      "keys": [
-      "need",
-      "some",
-      "help",
-      "agreed"
-     ]
-    },
-    {
-     "phrase": "well scan your public website and your public social",
-     "keys": [
-      "scan",
-      "public",
-      "website",
-      "social"
-     ]
-    },
-    {
-     "phrase": "thats completely fine thank you",
-     "keys": [
-      "completely",
-      "fine",
-      "thank"
+      "skills",
+      "what",
+      "use",
+      "when"
      ]
     }
    ],
@@ -572,45 +716,61 @@
    "id": "04-2",
    "label": "04-2",
    "scene": "04",
-   "sceneTitle": "Engage: Where?",
-   "seconds": 25,
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
+   "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.1288,
-   "p1": 0.2208,
+   "p1": 0.2024,
+   "lead": 0.15,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Every one of them …",
+   "card": "Every one of them starts from the same six answers. What you sell, who buys most …",
+   "text": "\"Every one of them starts from the same six answers. What you sell, who buys most, your area, where people find you, and whether you sell to people or to businesses. [The demo answers type in.] Here it's Amberkloof.\"",
+   "cueSpan": null,
    "triggers": [
     {
-     "phrase": "answered 6 questions at the door what they",
+     "kind": "first-words",
+     "phrase": "every 1 of them starts from the same",
      "keys": [
-      "answered",
-      "6",
-      "questions",
-      "door",
-      "what"
+      "every",
+      "1",
+      "starts",
+      "same"
      ]
     }
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#04-16",
-    "pct": 16
+    "hash": "#04-15",
+    "pct": 15
    }
   },
   {
    "id": "04-3",
    "label": "04-3",
    "scene": "04",
-   "sceneTitle": "Engage: Where?",
-   "seconds": 15,
-   "p0": 0.2208,
-   "p1": 0.276,
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
+   "seconds": 30,
+   "glideSeconds": 30,
+   "p0": 0.2024,
+   "p1": 0.3128,
+   "lead": 0.24,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Watch. First it gathers …",
+   "card": "Watch. First it gathers the data. Then the competitor scan runs. Then the B2B finder. Then …",
+   "text": "[CLICK Start the runs.] \"Watch. First it gathers the data. Then the competitor scan runs. Then the B2B finder. Then the content scan. One by one, down the list. [Let it play to the end.] This is a picture of the runs, not a live run. Done for real, some take a minute or two. So you start them early and let them work while you get on with your day.\"",
+   "cueSpan": null,
    "triggers": [
     {
-     "phrase": "back to our gift planner we know who",
+     "kind": "first-words",
+     "phrase": "watch first it gathers the data then the",
      "keys": [
-      "back",
-      "gift",
-      "planner",
-      "know",
-      "who"
+      "watch",
+      "first",
+      "gathers",
+      "data"
      ]
     }
    ],
@@ -624,38 +784,89 @@
    "id": "04-4",
    "label": "04-4",
    "scene": "04",
-   "sceneTitle": "Engage: Where?",
-   "seconds": 30,
-   "p0": 0.276,
-   "p1": 0.3864,
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
+   "seconds": 25,
+   "glideSeconds": 25,
+   "p0": 0.3128,
+   "p1": 0.4048,
+   "lead": 0.35,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So what runs all …",
+   "card": "So what runs all of this for us? Apify. That's a Google scraper. Last 30 days …",
+   "text": "\"So what runs all of this for us? Apify. That's a Google scraper. Last 30 days is an official skill. It checks things like YouTube and Reddit, and even X or Twitter. And then there's an MCP called DataForSEO. It finds the right keywords, the backlinks and the citations we need to put into our website.\"",
+   "cueSpan": null,
    "triggers": [
     {
-     "phrase": "we asked ai to research where these people",
+     "kind": "first-words",
+     "phrase": "so what runs all of this for us apify",
      "keys": [
-      "asked",
-      "ai",
-      "research",
-      "where",
-      "people"
+      "what",
+      "runs",
+      "all",
+      "apify"
      ]
     }
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#04-31",
-    "pct": 31
+    "hash": "#04-35",
+    "pct": 35
    }
   },
   {
    "id": "04-5",
    "label": "04-5",
    "scene": "04",
-   "sceneTitle": "Engage: Where?",
-   "seconds": 15,
-   "p0": 0.3864,
-   "p1": 0.4416,
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
+   "seconds": 30,
+   "glideSeconds": 30,
+   "p0": 0.4048,
+   "p1": 0.5152,
+   "lead": 0.44,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Back to our Gift …",
+   "card": "Back to our Gift Planner. Where do they spend their time? We asked AI to research …",
+   "text": "\"Back to our Gift Planner. Where do they spend their time? We asked AI to research it, with sources. Google still handles more than nine in ten searches in South Africa. And of South Africans on social media, about 94 in every 100 use WhatsApp. For our Gift Planner, it says: searches Google, scrolls Facebook and TikTok, orders on WhatsApp. But our own records said they found us on Instagram. When the research and your records disagree, your records win.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
+     "phrase": "back to our gift planner where do they",
+     "keys": [
+      "back",
+      "gift",
+      "planner",
+      "where"
+     ]
+    }
+   ],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#04-44",
+    "pct": 44
+   }
+  },
+  {
+   "id": "04-6",
+   "label": "04-6",
+   "scene": "04",
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
+   "seconds": 15,
+   "glideSeconds": 15,
+   "p0": 0.5152,
+   "p1": 0.5704,
+   "lead": 0.53,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Seven places you could …",
+   "card": "Seven places you could be. WhatsApp. Facebook. Instagram. TikTok. LinkedIn. Google Business Profile. And your website …",
+   "text": "[The mouse clicks; seven tiles burst into an arc.] \"Seven places you could be. WhatsApp. Facebook. Instagram. TikTok. LinkedIn. Google Business Profile. And your website on Google search. Most of us try to be on all seven. Let's not.\"",
+   "cueSpan": null,
+   "triggers": [
+    {
+     "kind": "first-words",
      "phrase": "7 places you could be whatsapp facebook instagram",
      "keys": [
       "7",
@@ -668,20 +879,29 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#04-41",
-    "pct": 41
+    "hash": "#04-53",
+    "pct": 53
    }
   },
   {
-   "id": "04-6",
-   "label": "04-6",
+   "id": "04-7",
+   "label": "04-7",
    "scene": "04",
-   "sceneTitle": "Engage: Where?",
-   "seconds": 30,
-   "p0": 0.4416,
-   "p1": 0.552,
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
+   "seconds": 25,
+   "glideSeconds": 25,
+   "p0": 0.5704,
+   "p1": 0.6624,
+   "lead": 0.6,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Let's spin it for …",
+   "card": "Let's spin it for the Gift Planner. [It lands on Instagram.] Instagram. Why? Because that's where …",
+   "text": "[CLICK to spin.] \"Let's spin it for the Gift Planner. [It lands on Instagram.] Instagram. Why? Because that's where our records say they found us, and people find gift ideas by browsing pictures. So this is where Amberkloof gets seen.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "lets spin it for the gift planner instagram",
      "keys": [
       "spin",
@@ -693,20 +913,29 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#04-48",
-    "pct": 48
+    "hash": "#04-60",
+    "pct": 60
    }
   },
   {
-   "id": "04-7",
-   "label": "04-7",
+   "id": "04-8",
+   "label": "04-8",
    "scene": "04",
-   "sceneTitle": "Engage: Where?",
-   "seconds": 30,
-   "p0": 0.552,
-   "p1": 0.6624,
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
+   "seconds": 20,
+   "glideSeconds": 20,
+   "p0": 0.6624,
+   "p1": 0.736,
+   "lead": 0.69,
+   "silent": false,
+   "source": "first-words",
+   "cue": "WhatsApp. Why? Because that's …",
+   "card": "WhatsApp. Why? Because that's where they buy. Nobody wants a checkout form for a birthday present …",
+   "text": "[Next landing: WhatsApp.] \"WhatsApp. Why? Because that's where they buy. Nobody wants a checkout form for a birthday present. They want to send a message and have it sorted.\" [Google Business Profile comes alive only if you click it: \"And Google Business, for the self-care regulars who search for something nearby.\"]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "whatsapp why because thats where they buy nobody",
      "keys": [
       "whatsapp",
@@ -718,6 +947,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "and google business for the self care regulars",
      "keys": [
       "google",
@@ -730,20 +960,29 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#04-59",
-    "pct": 59
+    "hash": "#04-69",
+    "pct": 69
    }
   },
   {
    "id": "04-9",
    "label": "04-9",
    "scene": "04",
-   "sceneTitle": "Engage: Where?",
-   "seconds": 25,
-   "p0": 0.6624,
-   "p1": 0.7544,
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
+   "seconds": 15,
+   "glideSeconds": 15,
+   "p0": 0.736,
+   "p1": 0.7912,
+   "lead": 0.76,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Same wheel for Tumelo …",
+   "card": "Same wheel for Tumelo. [It lands.] Google search and LinkedIn. A founder searches Google for a …",
+   "text": "[B2B swap.] \"Same wheel for Tumelo. [It lands.] Google search and LinkedIn. A founder searches Google for a printer, then checks them out on LinkedIn before asking for a quote.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "same wheel for tumelo google search and linkedin",
      "keys": [
       "same",
@@ -757,20 +996,29 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#04-69",
-    "pct": 69
+    "hash": "#04-76",
+    "pct": 76
    }
   },
   {
    "id": "04-10",
    "label": "04-10",
    "scene": "04",
-   "sceneTitle": "Engage: Where?",
-   "seconds": 25,
-   "p0": 0.7544,
-   "p1": 0.8464,
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
+   "seconds": 20,
+   "glideSeconds": 20,
+   "p0": 0.7912,
+   "p1": 0.8648,
+   "lead": 0.82,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So here's Amberkloof's verdict …",
+   "card": "So here's Amberkloof's verdict. Instagram to be seen. WhatsApp to sell. Google Business to be found …",
+   "text": "\"So here's Amberkloof's verdict. Instagram to be seen. WhatsApp to sell. Google Business to be found. TikTok, later. Average is the same post copied to all seven, and calling that being everywhere. Good is two or three, each with a reason you can say out loud. Fewer places. Better reasons.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "so heres amberkloofs verdict instagram to be seen",
      "keys": [
       "amberkloofs",
@@ -782,33 +1030,42 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#04-79",
-    "pct": 79
+    "hash": "#04-82",
+    "pct": 82
    }
   },
   {
    "id": "04-11",
    "label": "04-11",
    "scene": "04",
-   "sceneTitle": "Engage: Where?",
-   "seconds": 20,
-   "p0": 0.8464,
+   "sceneTitle": "Engage: Skills and what to use when, then Where?",
+   "seconds": 15,
+   "glideSeconds": 15,
+   "p0": 0.8648,
    "p1": 0.92,
+   "lead": 0.88,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Now you. Which two …",
+   "card": "Now you. Which two or three fit your business? Hands up for... [point at the tiles …",
+   "text": "- [ASK] \"Now you. Which two or three fit your business? Hands up for... [point at the tiles one by one].\" [Any tile can be clicked.] [NEXT. The Instagram post slides off the phone onto a shelf.]",
+   "cueSpan": null,
    "triggers": [
     {
-     "phrase": "now their customers are which 2 or 3",
+     "kind": "first-words",
+     "phrase": "now you which 2 or 3 fit your",
      "keys": [
-      "customers",
       "which",
       "2",
-      "3"
+      "3",
+      "fit"
      ]
     }
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#04-87",
-    "pct": 87
+    "hash": "#04-88",
+    "pct": 88
    }
   },
   {
@@ -817,10 +1074,19 @@
    "scene": "05",
    "sceneTitle": "Engage: What?",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0,
    "p1": 0.0347,
+   "lead": 0.01,
+   "silent": false,
+   "source": "first-words",
+   "cue": "We know who, and …",
+   "card": "We know who, and we know where. Now, what do we give them",
+   "text": "\"We know who, and we know where. Now, what do we give them?\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "we know who and we know where now what",
      "keys": [
       "know",
@@ -842,10 +1108,19 @@
    "scene": "05",
    "sceneTitle": "Engage: What?",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.0347,
    "p1": 0.1389,
+   "lead": 0.07,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Two kinds of post …",
+   "card": "Two kinds of post. Education, and promotion. [TOGGLE] Education answers a real question, like: 'Can I …",
+   "text": "\"Two kinds of post. Education, and promotion. [TOGGLE] Education answers a real question, like: 'Can I use face oil under my make-up?' Promotion makes an offer: 'Gift set, wrapped, delivered Friday.' [TOGGLE the audience.] And each group wants a different mix. The self-care regulars want the answers. The Gift Planners want the offer. So the mix follows the person.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "2 kinds of post education and promotion education",
      "keys": [
       "2",
@@ -868,10 +1143,19 @@
    "scene": "05",
    "sceneTitle": "Engage: What?",
    "seconds": 60,
+   "glideSeconds": 60,
    "p0": 0.1389,
    "p1": 0.3472,
+   "lead": 0.18,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Remember the runs we …",
+   "card": "Remember the runs we started? The first one's back. This is a competitor scan on [business] …",
+   "text": "[LIVE: competitor scan]\n• Live: \"Remember the runs we started? The first one's back. This is a competitor scan on [business]. AI went looking for their competitors, where they post, what they say, and which of their posts people respond to. [Read two of the three cards: the name, the platform, the main message.]\"\n• Cached: \"So this is Amberkloof. It found African Botanics and Afrakari, among others. And look, where it isn't sure, it says 'inferred'. Good. A tool that tells you where it's guessing is a tool you can trust.\"\n• Not running: \"This scan didn't come back today. Here's what it would show: their competitors, where each one posts, and what works.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "remember the runs we started the first ones",
      "keys": [
       "remember",
@@ -882,6 +1166,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "so this is amberkloof it found african botanics",
      "keys": [
       "amberkloof",
@@ -891,6 +1176,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "this scan didnt come back today heres what",
      "keys": [
       "scan",
@@ -914,10 +1200,19 @@
    "scene": "05",
    "sceneTitle": "Engage: What?",
    "seconds": 50,
+   "glideSeconds": 50,
    "p0": 0.3472,
    "p1": 0.5208,
+   "lead": 0.39,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Let's open their best …",
+   "card": "Let's open their best post and see how it's built. [It splits apart.] The hook, the …",
+   "text": "\"Let's open their best post and see how it's built. [It splits apart.] The hook, the first line that stops your thumb. The body. The offer, or the giveaway. The format: a video, a photo, a carousel. And the platform. Now a weak post, split the same way. [Point.] See the difference? Usually one or two of these pieces carry the whole post.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "lets open their best post and see how",
      "keys": [
       "open",
@@ -940,10 +1235,19 @@
    "scene": "05",
    "sceneTitle": "Engage: What?",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.5208,
    "p1": 0.6249,
+   "lead": 0.56,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Now the useful bit …",
+   "card": "Now the useful bit. The same scan looks for gaps. Things none of them do. [Read …",
+   "text": "\"Now the useful bit. The same scan looks for gaps. Things none of them do. [Read the gaps on screen, for example: nobody shows the gift wrapped.] That gap is exactly where Amberkloof fits. [The bottle slides into the slot.]\"\n• [ASK] \"What's one thing your competitors never post about? Think of it now. That's your gap.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "now the useful bit the same scan looks",
      "keys": [
       "useful",
@@ -954,6 +1258,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "whats 1 thing your competitors never post about",
      "keys": [
       "1",
@@ -976,10 +1281,19 @@
    "scene": "05",
    "sceneTitle": "Engage: What?",
    "seconds": 35,
+   "glideSeconds": 35,
    "p0": 0.6249,
    "p1": 0.7464,
+   "lead": 0.66,
+   "silent": false,
+   "source": "first-words",
+   "cue": "If you sell to …",
+   "card": "If you sell to businesses, AI can find buyers too. Two steps. Step one, it collects …",
+   "text": "[LIVE: B2B find] \"If you sell to businesses, AI can find buyers too. Two steps. Step one, it collects every business on Google Maps in your area that could buy from you. Step two, a tool called Apify fills in each one's website, social pages and size.\"\n• Not running (expected today, it needs a key): \"This one needs a key that isn't switched on today, so you're seeing the two steps, not results.\"\n• Live: \"[Read the first two rows. The names are blurred on the public deck.]\"\n• Always say: \"One rule. A list like this is for research. Before you market to anyone on it, POPIA's direct-marketing rules apply. Consent first.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "if you sell to businesses ai can find",
      "keys": [
       "sell",
@@ -989,6 +1303,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "this 1 needs a key that isnt switched",
      "keys": [
       "1",
@@ -999,6 +1314,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "1 rule a list like this is for",
      "keys": [
       "1",
@@ -1020,10 +1336,19 @@
    "scene": "05",
    "sceneTitle": "Engage: What?",
    "seconds": 35,
+   "glideSeconds": 35,
    "p0": 0.7464,
    "p1": 0.8679,
+   "lead": 0.79,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And this is the …",
+   "card": "And this is the bit I care about most. B2B or B2C, it doesn't matter. The …",
+   "text": "\"And this is the bit I care about most. B2B or B2C, it doesn't matter. The method is the same. Copy what works. Then fill the gap. Average is copying their post. Good is copying their recipe, then doing the thing they're not doing.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and this is the bit i care about most b2b",
      "keys": [
       "bit",
@@ -1045,10 +1370,19 @@
    "scene": "05",
    "sceneTitle": "Engage: What?",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.8679,
    "p1": 0.92,
+   "lead": 0.89,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So that empty slot …",
+   "card": "So that empty slot? That's our next post",
+   "text": "[A spotlight finds the bottle in the gap.] \"So that empty slot? That's our next post.\" [NEXT. The slot becomes a blank post canvas.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "so that empty slot thats our next post",
      "keys": [
       "empty",
@@ -1070,10 +1404,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0,
    "p1": 0.0245,
+   "lead": 0.01,
+   "silent": false,
+   "source": "first-words",
+   "cue": "AI drafts fast. You …",
+   "card": "AI drafts fast. You make it yours. Let's see both halves",
+   "text": "\"AI drafts fast. You make it yours. Let's see both halves.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "ai drafts fast you make it yours lets",
      "keys": [
       "ai",
@@ -1096,10 +1439,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 60,
+   "glideSeconds": 60,
    "p0": 0.0245,
    "p1": 0.1717,
+   "lead": 0.06,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Three post ideas. A …",
+   "card": "Three post ideas. A caption. A product description. A simple picture. And a short video. [PLAY …",
+   "text": "[LIVE: content] [Five outputs burst out.] \"Three post ideas. A caption. A product description. A simple picture. And a short video. [PLAY the short video.] One request. When we timed it, the writing took about twenty seconds.\"\n• Live: \"This is for [business]. [Read the first post idea and the first line of the caption.] [Name], would you post that?\"\n• Cached: \"So this is Amberkloof. Look at idea one: a pour shot of the oil, with the line 'Three drops. That's the whole routine.' That's usable. Today.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "3 post ideas a caption a product description",
      "keys": [
       "3",
@@ -1111,6 +1463,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "so this is amberkloof look at idea 1",
      "keys": [
       "amberkloof",
@@ -1132,10 +1485,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.1717,
    "p1": 0.2208,
+   "lead": 0.19,
+   "silent": false,
+   "source": "first-words",
+   "cue": "How did we make …",
+   "card": "How did we make that? Two tools. Claude, the app you chat to. And Claude Code …",
+   "text": "\"How did we make that? Two tools. Claude, the app you chat to. And Claude Code, the same assistant working on your computer, running skills. A skill is a saved recipe. To use one, paste the skill's link into Claude and say, 'Follow this skill, please.' A normal Claude Pro plan is enough.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "how did we make that 2 tools claude",
      "keys": [
       "how",
@@ -1158,10 +1520,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0.2208,
    "p1": 0.2453,
+   "lead": 0.23,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Think of a chef …",
+   "card": "Think of a chef. Good ingredients, that's your brand, your photos, your customer data. Plus a …",
+   "text": "\"Think of a chef. Good ingredients, that's your brand, your photos, your customer data. Plus a recipe, that's the skill. A bare prompt is a chef with an empty fridge.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "think of a chef good ingredients thats your",
      "keys": [
       "think",
@@ -1183,10 +1554,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.2453,
    "p1": 0.2944,
+   "lead": 0.26,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Watch what a bare …",
+   "card": "Watch what a bare prompt does. 'Make me a launch video.' [Three identical cards.] Theirs. Yours …",
+   "text": "\"Watch what a bare prompt does. 'Make me a launch video.' [Three identical cards.] Theirs. Yours. Everyone's. Big text, a gradient, a fade. [FLIP to With media.] Now the same thing with the real product photo in it. Already better.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "watch what a bare prompt does make me",
      "keys": [
       "watch",
@@ -1209,10 +1589,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 25,
+   "glideSeconds": 25,
    "p0": 0.2944,
    "p1": 0.3557,
+   "lead": 0.32,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So when you make …",
+   "card": "So when you make video with AI, five habits. Pick a style first. Use real references …",
+   "text": "\"So when you make video with AI, five habits. Pick a style first. Use real references. Write the brief in numbers: seconds, sizes, colours. Decide if it loops. And check the actual frames before you post. [The short clip plays, muted.]\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "so when you make video with ai 5",
      "keys": [
       "when",
@@ -1235,10 +1624,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 35,
+   "glideSeconds": 35,
    "p0": 0.3557,
    "p1": 0.4416,
+   "lead": 0.39,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Now, your look and …",
+   "card": "Now, your look and your voice. We gave Claude's Design System everything Amberkloof already had. The …",
+   "text": "\"Now, your look and your voice. We gave Claude's Design System everything Amberkloof already had. The posts, the labels, the website. It gave back a brand guideline. Colours. Fonts. Voice rules, like: no medical claims, ever. And from that guideline, one new post that looks like it came from the brand. That's how AI learns your look.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "now your look and your voice we gave claudes",
      "keys": [
       "look",
@@ -1260,10 +1658,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.4416,
    "p1": 0.5152,
+   "lead": 0.47,
+   "silent": false,
+   "source": "first-words",
+   "cue": "These are real ads …",
+   "card": "These are real ads, from real South African brands. The brand's name is on every card …",
+   "text": "[PLAY] \"These are real ads, from real South African brands. The brand's name is on every card. Oh So Heavenly. Feel Silki. And from Tumelo's world, Dash Labels. [Click one to play. Let it run about ten seconds.] Under each one, what people did with it on the day we checked. And next to them, our own pair, Good and Average. Same product. Look how differently they land.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "these are real ads from real south african",
      "keys": [
       "real",
@@ -1285,10 +1692,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.5152,
    "p1": 0.5643,
+   "lead": 0.53,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Quick one. Hands up …",
+   "card": "Quick one. Hands up if you've ever posted something AI wrote without changing a word. [Beat.] …",
+   "text": "- [ASK] \"Quick one. Hands up if you've ever posted something AI wrote without changing a word. [Beat.] Me too.\" \"So, does AI copy sound like you? There's a skill called slopmonster. It finds the giveaways that make writing sound like a machine did it, and takes them out. Pair one, an Instagram caption. Without the skill: 'One little night-time ritual', a sparkle emoji, a flag emoji. With it: 'That's it. Marula does the quiet work.' [The generic pane shatters.] Four emoji down to none.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "quick 1 hands up if youve ever posted",
      "keys": [
       "quick",
@@ -1299,6 +1715,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "so does ai copy sound like you theres",
      "keys": [
       "ai",
@@ -1320,10 +1737,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.5643,
    "p1": 0.6133,
+   "lead": 0.58,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Pair two, the product …",
+   "card": "Pair two, the product description. Without: made-up promises about how your skin will look by morning …",
+   "text": "\"Pair two, the product description. Without: made-up promises about how your skin will look by morning. With: 'No promises about how you'll look by morning.' And a line only a person would write: count your two drops in the dark.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "pair 2 the product description without made up",
      "keys": [
       "pair",
@@ -1347,10 +1773,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.6133,
    "p1": 0.6624,
+   "lead": 0.63,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Pair three, a WhatsApp …",
+   "card": "Pair three, a WhatsApp follow-up. Without: 'Your feedback means a lot.' With: 'A short review helps …",
+   "text": "\"Pair three, a WhatsApp follow-up. Without: 'Your feedback means a lot.' With: 'A short review helps a two-person business like ours a lot.' Now, the skill also gives each draft a score, and on these three the score barely moved. The drafts were fairly clean already. What changed was the voice. So the score helps, and you still read it yourself.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "pair 3 a whatsapp follow up without your",
      "keys": [
       "pair",
@@ -1373,10 +1808,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.6624,
    "p1": 0.6992,
+   "lead": 0.68,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Same for Tumelo on …",
+   "card": "Same for Tumelo on LinkedIn. [Point at the marked words.] Those are the giveaways it took …",
+   "text": "\"Same for Tumelo on LinkedIn. [Point at the marked words.] Those are the giveaways it took out. The before could be any printer anywhere. The after sounds like Tumelo.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "same for tumelo on linkedin those are the giveaways",
      "keys": [
       "same",
@@ -1398,10 +1842,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 50,
+   "glideSeconds": 50,
    "p0": 0.6992,
    "p1": 0.8219,
+   "lead": 0.74,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Last piece: what to …",
+   "card": "Last piece: what to post about. There's a skill called Last 30 Days. Every morning it …",
+   "text": "[LIVE: Last 30 Days] \"Last piece: what to post about. There's a skill called Last 30 Days. Every morning it reads what people are saying about your niche on social media, Reddit and YouTube, and gives you a brief. What they're talking about. What they're complaining about. With dates and sources. You pick one complaint, and you answer it with an opinion or a how-to post.\"\n• Not running (expected today): \"This one needs a key and a review before I'll run it on a stage, so it's not live today. The idea is what matters: one brief a morning, one complaint answered.\"\n• Live or cached: \"[Read one talk theme and one complaint.] That complaint is Monday's post.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "last piece what to post about theres a",
      "keys": [
       "last",
@@ -1411,6 +1864,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "this 1 needs a key and a review",
      "keys": [
       "1",
@@ -1420,6 +1874,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "that complaint is mondays post",
      "keys": [
       "complaint",
@@ -1440,10 +1895,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.8219,
    "p1": 0.8955,
+   "lead": 0.85,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Put it together and …",
+   "card": "Put it together and marketing becomes a habit. Every weekday morning, fifteen minutes. Read the brief …",
+   "text": "\"Put it together and marketing becomes a habit. Every weekday morning, fifteen minutes. Read the brief. Draft with AI. Your edit. Schedule. Monday, an answer from the brief. Wednesday, the competitor gap. Friday, the offer.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "put it together and marketing becomes a habit",
      "keys": [
       "put",
@@ -1466,10 +1930,19 @@
    "scene": "06",
    "sceneTitle": "Engage: Make it yours",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0.8955,
    "p1": 0.92,
+   "lead": 0.9,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And Friday's post turns …",
+   "card": "And Friday's post turns into something people type. [The card becomes a search: 'marula face oil …",
+   "text": "\"And Friday's post turns into something people type. [The card becomes a search: 'marula face oil Pretoria'.]\" [NEXT.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and fridays post turns into something people type",
      "keys": [
       "fridays",
@@ -1493,10 +1966,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0,
    "p1": 0.0312,
+   "lead": 0.01,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Be found where people …",
+   "card": "Be found where people ask. And for most businesses, that's still your website and Google",
+   "text": "\"Be found where people ask. And for most businesses, that's still your website and Google.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "be found where people ask and for most",
      "keys": [
       "found",
@@ -1519,10 +2001,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.0312,
    "p1": 0.1247,
+   "lead": 0.06,
+   "silent": false,
+   "source": "first-words",
+   "cue": "People search Google, or …",
+   "card": "People search Google, or they ask an AI. ChatGPT. Copilot. Gemini. Claude. Perplexity. And they trust …",
+   "text": "\"People search Google, or they ask an AI. ChatGPT. Copilot. Gemini. Claude. Perplexity. And they trust what comes back. But AI can't go into social media all by itself. So most of the time, it searches the web. [The social cards bounce off the glass.] So your website has to carry your proof.\" [Optional, only if you've decided to add it (Q-FACT): \"To be fair, some public posts do show up through Google. But AI doesn't scroll your feed or read your DMs.\"]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "people search google or they ask an ai",
      "keys": [
       "people",
@@ -1533,6 +2024,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "to be fair some public posts do show",
      "keys": [
       "fair",
@@ -1555,10 +2047,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.1247,
    "p1": 0.2183,
+   "lead": 0.16,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Three words you'll hear …",
+   "card": "Three words you'll hear. SEO: Google ranks you. AEO: an AI answers with you. GEO: an …",
+   "text": "[One word at a time.] \"Three words you'll hear. SEO: Google ranks you. AEO: an AI answers with you. GEO: an AI names you as its source. Same goal. Be the answer.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "3 words youll hear seo google ranks you",
      "keys": [
       "3",
@@ -1582,10 +2083,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 25,
+   "glideSeconds": 25,
    "p0": 0.2183,
    "p1": 0.2963,
+   "lead": 0.25,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Now four quick checks …",
+   "card": "Now four quick checks on a website. The words to rank for. What's blocking it. Who …",
+   "text": "[LIVE: keywords] \"Now four quick checks on a website. The words to rank for. What's blocking it. Who links to it. And who quotes it.\"\n• Live: \"Back to [business]. Which words should they try to rank for? [Read the top two.]\"\n• Cached: \"So Amberkloof. 'Pure marula oil South Africa.' 'Marula face oil Pretoria.' And it says plainly there's no search-volume data behind these. Check them in Google Search Console before you write a word.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "now 4 quick checks on a website the",
      "keys": [
       "4",
@@ -1595,6 +2105,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "back to which words should they try to",
      "keys": [
       "back",
@@ -1604,6 +2115,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "so amberkloof pure marula oil south africa marula",
      "keys": [
       "amberkloof",
@@ -1627,10 +2139,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 25,
+   "glideSeconds": 25,
    "p0": 0.2963,
    "p1": 0.3742,
+   "lead": 0.32,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Next, an SEO check …",
+   "card": "Next, an SEO check on their site. What stops Google finding it? [Read the top issue.]",
+   "text": "[LIVE: SEO check]\n• Live: \"Next, an SEO check on their site. What stops Google finding it? [Read the top issue.]\"\n• Cached: \"Amberkloof doesn't have a website, so last night we pointed this check at this workshop's own site. And it didn't go well. No sitemap, so Google has no list of our pages. So I'm not above any of this.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "next an seo check on their site what",
      "keys": [
       "next",
@@ -1641,6 +2162,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "amberkloof doesnt have a website so last night",
      "keys": [
       "amberkloof",
@@ -1663,10 +2185,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 25,
+   "glideSeconds": 25,
    "p0": 0.3742,
    "p1": 0.4522,
+   "lead": 0.4,
+   "silent": false,
+   "source": "first-words",
+   "cue": "A backlink is another …",
+   "card": "A backlink is another website pointing to yours. Each one is a vote for you",
+   "text": "[LIVE: backlinks] \"A backlink is another website pointing to yours. Each one is a vote for you.\"\n• Live: \"[Read one example from the run.]\"\n• Cached: \"Our workshop site? Nobody links to it yet. Not one. Honest.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "a backlink is another website pointing to yours",
      "keys": [
       "backlink",
@@ -1677,6 +2208,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "our workshop site nobody links to it yet",
      "keys": [
       "workshop",
@@ -1699,10 +2231,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 25,
+   "glideSeconds": 25,
    "p0": 0.4522,
    "p1": 0.5302,
+   "lead": 0.48,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And citations. When someone …",
+   "card": "And citations. When someone asks an AI about your kind of business, who does it quote …",
+   "text": "[LIVE: citations] \"And citations. When someone asks an AI about your kind of business, who does it quote? References are the other way round: the sources your own page names. Name good ones.\"\n• Live: \"[Read who gets cited for the sample question.]\"\n• Cached: \"Our own site scored 41 out of 100 for how easily an AI could quote it. Lots of room.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and citations when someone asks an ai about",
      "keys": [
       "citations",
@@ -1713,6 +2254,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "our own site scored 41 out of 100",
      "keys": [
       "own",
@@ -1735,10 +2277,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.5302,
    "p1": 0.5925,
+   "lead": 0.55,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So how do you …",
+   "card": "So how do you show up? Become the authority in your niche, and make your website …",
+   "text": "\"So how do you show up? Become the authority in your niche, and make your website prove it. Average: 'We are the best natural skincare.' Good: a page that answers the question people really ask, with proof.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "so how do you show up become the authority",
      "keys": [
       "how",
@@ -1760,10 +2311,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 75,
+   "glideSeconds": 75,
    "p0": 0.5925,
    "p1": 0.8264,
+   "lead": 0.63,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And then a plan …",
+   "card": "And then a plan. Thirty, sixty, ninety days of blog posts and landing pages. [TAP 30 …",
+   "text": "[LIVE: 30/60/90 plan] \"And then a plan. Thirty, sixty, ninety days of blog posts and landing pages. [TAP 30, then 60, then 90.]\"\n• Live: \"[Read one item from each tab for [business].]\"\n• Cached: \"Days one to thirty, the foundation. Claim the Google Business Profile. Set up Search Console. Add a WhatsApp button. Make sure AI tools are allowed to read the site. And on day 21, a Christmas gift-set page. Days thirty-one to sixty: reviews on the product pages, and guides an AI can quote. Sixty-one to ninety: earn links and mentions, and once a month ask ChatGPT, Perplexity and Gemini your own questions to see if you come up.\"\n• [ASK] \"If someone asked ChatGPT tonight for a business like yours in your area, would it name you? Who's sure? And who's not sure?\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and then a plan 30 60 90 days",
      "keys": [
       "plan",
@@ -1774,6 +2334,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "days 1 to 30 the foundation claim the",
      "keys": [
       "days",
@@ -1784,6 +2345,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "if someone asked chatgpt tonight for a business",
      "keys": [
       "someone",
@@ -1806,10 +2368,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.8264,
    "p1": 0.8732,
+   "lead": 0.84,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Tumelo's version: a page …",
+   "card": "Tumelo's version: a page for 'custom product labels Johannesburg', plus LinkedIn articles that show they know …",
+   "text": "\"Tumelo's version: a page for 'custom product labels Johannesburg', plus LinkedIn articles that show they know their stuff.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "tumelos version a page for custom product labels",
      "keys": [
       "tumelos",
@@ -1833,10 +2404,19 @@
    "scene": "07",
    "sceneTitle": "Engage: Be found",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.8732,
    "p1": 0.92,
+   "lead": 0.89,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And when someone clicks …",
+   "card": "And when someone clicks that answer, where do they land? [The answer card punches through to …",
+   "text": "\"And when someone clicks that answer, where do they land? [The answer card punches through to full screen.]\" [NEXT.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and when someone clicks that answer where do",
      "keys": [
       "when",
@@ -1859,10 +2439,19 @@
    "scene": "08",
    "sceneTitle": "Convert: Capture",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0,
    "p1": 0.0531,
+   "lead": 0.02,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Now the where and …",
+   "card": "Now the where and the how. Capture their details as soon as you can, on your …",
+   "text": "\"Now the where and the how. Capture their details as soon as you can, on your website or on social media.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "now the where and the how capture their details",
      "keys": [
       "where",
@@ -1884,10 +2473,19 @@
    "scene": "08",
    "sceneTitle": "Convert: Capture",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.0531,
    "p1": 0.1592,
+   "lead": 0.09,
+   "silent": false,
+   "source": "first-words",
+   "cue": "First, where do people …",
+   "card": "First, where do people land? [The pane ranks the pages.] This is demo data, but your …",
+   "text": "\"First, where do people land? [The pane ranks the pages.] This is demo data, but your own analytics shows the same thing. Most visits go to two or three pages, and often it's not the home page. Put your capture where people land.\"\n• [ASK] \"On your website, which page do most people land on? Do you know? If you don't, that's tonight's homework.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "first where do people land this is demo",
      "keys": [
       "first",
@@ -1898,6 +2496,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "on your website which page do most people",
      "keys": [
       "website",
@@ -1920,10 +2519,19 @@
    "scene": "08",
    "sceneTitle": "Convert: Capture",
    "seconds": 60,
+   "glideSeconds": 60,
    "p0": 0.1592,
    "p1": 0.3715,
+   "lead": 0.2,
+   "silent": false,
+   "source": "first-words",
+   "cue": "The best one I've …",
+   "card": "The best one I've seen is an AI helper that pops up and offers to help …",
+   "text": "[LIVE: AI helper, demo data] \"The best one I've seen is an AI helper that pops up and offers to help. [It pops up and offers to help choose a gift.] The visitor says they need a birthday present for their mom. It suggests the gift set. Then it asks for their name and surname, and then an email address and a WhatsApp number, so it can send the details. Everything typed in here is made-up demo data. Nobody real.\"\n• Cached: \"Same demo, recorded last night. Same point.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "the best 1 ive seen is an ai",
      "keys": [
       "best",
@@ -1934,6 +2542,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "same demo recorded last night same point",
      "keys": [
       "same",
@@ -1957,10 +2566,19 @@
    "scene": "08",
    "sceneTitle": "Convert: Capture",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.3715,
    "p1": 0.4777,
+   "lead": 0.41,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Second spot. Someone has …",
+   "card": "Second spot. Someone has sat on the gift page for thirty seconds. They're interested, or they're …",
+   "text": "\"Second spot. Someone has sat on the gift page for thirty seconds. They're interested, or they're stuck. [Fast-forward the timer.] So the page says, 'We're here to help,' and offers to take their details. Same on the FAQ page.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "second spot someone has sat on the gift",
      "keys": [
       "second",
@@ -1983,10 +2601,19 @@
    "scene": "08",
    "sceneTitle": "Convert: Capture",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.4777,
    "p1": 0.5485,
+   "lead": 0.5,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Here's a reel I …",
+   "card": "Here's a reel I love. [Play.] For the first eight seconds, this is Good. Ideas, movement …",
+   "text": "[PLAY: R1 reel, attributed] \"Here's a reel I love. [Play.] For the first eight seconds, this is Good. Ideas, movement, things worth watching. Then the end card. A flat coupon, bolted on. That's Average. The ask feels stuck on afterwards.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "heres a reel i love for the first 8",
      "keys": [
       "reel",
@@ -2008,10 +2635,19 @@
    "scene": "08",
    "sceneTitle": "Convert: Capture",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.5485,
    "p1": 0.6015,
+   "lead": 0.57,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Our Good. The bottle …",
+   "card": "Our Good. The bottle floats in a warm studio, and the next step sits right beside …",
+   "text": "[PLAY: our ad] \"Our Good. The bottle floats in a warm studio, and the next step sits right beside it in a WhatsApp chat. 'Order for Friday?' The ask lives inside the story.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "our good the bottle floats in a warm",
      "keys": [
       "good",
@@ -2033,10 +2669,19 @@
    "scene": "08",
    "sceneTitle": "Convert: Capture",
    "seconds": 45,
+   "glideSeconds": 45,
    "p0": 0.6015,
    "p1": 0.7608,
+   "lead": 0.64,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Real ads that do …",
+   "card": "Real ads that do this. One opens a WhatsApp chat. One collects an email with a …",
+   "text": "[PLAY] \"Real ads that do this. One opens a WhatsApp chat. One collects an email with a sign-up form. One asks a business for a quote. [Click one to play.] Each card says what the button does and what people did with it.\"\n• If a card is empty (these were still being sourced): \"We're still finding good examples of this one, so here's the pattern instead. The button opens a conversation, asks for details, or asks for a quote. Never 'learn more'.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "real ads that do this 1 opens a",
      "keys": [
       "real",
@@ -2046,6 +2691,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "were still finding good examples of this 1",
      "keys": [
       "still",
@@ -2068,10 +2714,19 @@
    "scene": "08",
    "sceneTitle": "Convert: Capture",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.7608,
    "p1": 0.8315,
+   "lead": 0.79,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Setting this up? Three …",
+   "card": "Setting this up? Three free skills. C-R-O, for which page and which form fields. popups, for …",
+   "text": "\"Setting this up? Three free skills. C-R-O, for which page and which form fields. popups, for the helper and the timed pop-up. signup, for the newsletter or the freebie. They're in a collection called marketingskills, by Corey Haines. The address is on screen. Take a photo.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "setting this up 3 free skills cro for",
      "keys": [
       "setting",
@@ -2094,10 +2749,19 @@
    "scene": "08",
    "sceneTitle": "Convert: Capture",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.8315,
    "p1": 0.8846,
+   "lead": 0.85,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Tumelo does it with …",
+   "card": "Tumelo does it with a form. 'Quote in 24 hours.' Company, role, quantity. Three fields, and …",
+   "text": "\"Tumelo does it with a form. 'Quote in 24 hours.' Company, role, quantity. Three fields, and they know exactly who's asking.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "tumelo does it with a form quote in 24",
      "keys": [
       "tumelo",
@@ -2119,10 +2783,19 @@
    "scene": "08",
    "sceneTitle": "Convert: Capture",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0.8846,
    "p1": 0.92,
+   "lead": 0.9,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And once we have …",
+   "card": "And once we have those details, the real work starts",
+   "text": "\"And once we have those details, the real work starts.\" [NEXT. The filled card drops into the first box of the follow-up track.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and once we have those details the real work",
      "keys": [
       "once",
@@ -2144,10 +2817,19 @@
    "scene": "09",
    "sceneTitle": "Convert: Follow up",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0,
-   "p1": 0.0468,
+   "p1": 0.0986,
+   "lead": 0.03,
+   "silent": false,
+   "source": "first-words",
+   "cue": "A sale is often …",
+   "card": "A sale is often won after the first reply. So where does AI come in? Three …",
+   "text": "\"A sale is often won after the first reply. So where does AI come in? Three places.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "a sale is often won after the first",
      "keys": [
       "sale",
@@ -2160,8 +2842,8 @@
    ],
    "action": {
     "kind": "enter-scene",
-    "hash": "#09-02",
-    "pct": 2
+    "hash": "#09-03",
+    "pct": 3
    }
   },
   {
@@ -2170,10 +2852,19 @@
    "scene": "09",
    "sceneTitle": "Convert: Follow up",
    "seconds": 10,
-   "p0": 0.0468,
-   "p1": 0.078,
+   "glideSeconds": 10,
+   "p0": 0.0986,
+   "p1": 0.1643,
+   "lead": 0.12,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Place one. The helper …",
+   "card": "Place one. The helper on your website. You've just seen it",
+   "text": "\"Place one. The helper on your website. You've just seen it.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "place 1 the helper on your website youve",
      "keys": [
       "place",
@@ -2185,8 +2876,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-06",
-    "pct": 6
+    "hash": "#09-12",
+    "pct": 12
    }
   },
   {
@@ -2195,10 +2886,19 @@
    "scene": "09",
    "sceneTitle": "Convert: Follow up",
    "seconds": 10,
-   "p0": 0.078,
-   "p1": 0.1092,
+   "glideSeconds": 10,
+   "p0": 0.1643,
+   "p1": 0.23,
+   "lead": 0.19,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Place two. WhatsApp. AI …",
+   "card": "Place two. WhatsApp. AI drafts the replies and the quick answers. You stay inside WhatsApp's rules …",
+   "text": "\"Place two. WhatsApp. AI drafts the replies and the quick answers. You stay inside WhatsApp's rules: people opt in, and when you message first, you use approved templates.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "place 2 whatsapp ai drafts the replies and",
      "keys": [
       "place",
@@ -2212,8 +2912,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-09",
-    "pct": 9
+    "hash": "#09-19",
+    "pct": 19
    }
   },
   {
@@ -2222,10 +2922,19 @@
    "scene": "09",
    "sceneTitle": "Convert: Follow up",
    "seconds": 10,
-   "p0": 0.1092,
-   "p1": 0.1403,
+   "glideSeconds": 10,
+   "p0": 0.23,
+   "p1": 0.2957,
+   "lead": 0.25,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Place three. Instagram and …",
+   "card": "Place three. Instagram and Facebook messages. Someone comments, 'Do you deliver to Centurion?' AI answers, and …",
+   "text": "\"Place three. Instagram and Facebook messages. Someone comments, 'Do you deliver to Centurion?' AI answers, and asks for their details.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "place 3 instagram and facebook messages someone comments",
      "keys": [
       "place",
@@ -2240,8 +2949,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-12",
-    "pct": 12
+    "hash": "#09-25",
+    "pct": 25
    }
   },
   {
@@ -2250,10 +2959,19 @@
    "scene": "09",
    "sceneTitle": "Convert: Follow up",
    "seconds": 30,
-   "p0": 0.2027,
-   "p1": 0.2963,
+   "glideSeconds": 30,
+   "p0": 0.3012,
+   "p1": 0.4983,
+   "lead": 0.34,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Speed matters. A message …",
+   "card": "Speed matters. A message comes in at four on a Thursday afternoon: 'How much would a …",
+   "text": "[VOLUNTEER from the room] \"Speed matters. A message comes in at four on a Thursday afternoon: 'How much would a gift set for 20 guests cost?' Two possible replies. Who wants to pick? [A room member picks Helpful or Vague. CLICK it.] Vague: 'Hi, price is R450.' Helpful: [read the helpful reply on screen]. And a reply in two minutes beats a reply in two days. Every time.\"\n• [ASK] \"Be honest. How long does it take you to answer a WhatsApp inquiry?\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "speed matters a message comes in at 4",
      "keys": [
       "speed",
@@ -2264,6 +2982,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "be honest how long does it take you",
      "keys": [
       "honest",
@@ -2275,35 +2994,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-24",
-    "pct": 24
-   }
-  },
-  {
-   "id": "09-7",
-   "label": "09-7",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 15,
-   "p0": 0.2963,
-   "p1": 0.3431,
-   "triggers": [
-    {
-     "phrase": "people say sales lifecycle thats a fancy way",
-     "keys": [
-      "people",
-      "say",
-      "sales",
-      "lifecycle",
-      "fancy",
-      "way"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-31",
-    "pct": 31
+    "hash": "#09-34",
+    "pct": 34
    }
   },
   {
@@ -2312,10 +3004,19 @@
    "scene": "09",
    "sceneTitle": "Convert: Follow up",
    "seconds": 40,
-   "p0": 0.3431,
-   "p1": 0.4678,
+   "glideSeconds": 40,
+   "p0": 0.5038,
+   "p1": 0.7667,
+   "lead": 0.54,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Here's the simplest funnel …",
+   "card": "Here's the simplest funnel. [CLICK Send.] The moment someone leaves their details, a welcome and thank-you …",
+   "text": "\"Here's the simplest funnel. [CLICK Send.] The moment someone leaves their details, a welcome and thank-you email goes out. Then a short series of emails and a short series of WhatsApps run side by side. Every message has their permission and a way to opt out. That's POPIA. It's also just manners. And the skill that builds this for you, Smart AI Funnels, is free in the download at the end.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "heres the simplest funnel the moment someone leaves",
      "keys": [
       "simplest",
@@ -2328,109 +3029,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-38",
-    "pct": 38
-   }
-  },
-  {
-   "id": "09-9",
-   "label": "09-9",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 35,
-   "p0": 0.4678,
-   "p1": 0.5769,
-   "triggers": [
-    {
-     "phrase": "to keep track of it all you need",
-     "keys": [
-      "keep",
-      "track",
-      "all",
-      "need"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-51",
-    "pct": 51
-   }
-  },
-  {
-   "id": "09-10",
-   "label": "09-10",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 20,
-   "p0": 0.5769,
-   "p1": 0.6393,
-   "triggers": [
-    {
-     "phrase": "the follow up box does 1 more job",
-     "keys": [
-      "follow",
-      "box",
-      "1",
-      "more",
-      "job"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-60",
-    "pct": 60
-   }
-  },
-  {
-   "id": "09-11",
-   "label": "09-11",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 15,
-   "p0": 0.6393,
-   "p1": 0.6861,
-   "triggers": [
-    {
-     "phrase": "every 1 of these is a funnel so whats a",
-     "keys": [
-      "every",
-      "1",
-      "funnel"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-66",
-    "pct": 66
-   }
-  },
-  {
-   "id": "09-12",
-   "label": "09-12",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 15,
-   "p0": 0.6861,
-   "p1": 0.7329,
-   "triggers": [
-    {
-     "phrase": "onboarding a new customer gets to know your",
-     "keys": [
-      "onboarding",
-      "new",
-      "customer",
-      "gets",
-      "know"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-70",
-    "pct": 70
+    "hash": "#09-54",
+    "pct": 54
    }
   },
   {
@@ -2439,10 +3039,19 @@
    "scene": "09",
    "sceneTitle": "Convert: Follow up",
    "seconds": 20,
-   "p0": 0.7329,
-   "p1": 0.7953,
+   "glideSeconds": 20,
+   "p0": 0.7886,
+   "p1": 0.92,
+   "lead": 0.83,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And this is a …",
+   "card": "And this is a simple CRM we built with AI. A CRM is just your customer …",
+   "text": "\"And this is a simple CRM we built with AI. A CRM is just your customer list, knowing which box each person is in. The same customer, moving between boxes. Ask AI to build it with you. The funnels. The CRM. The emails.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and this is a simple crm we built with ai",
      "keys": [
       "simple",
@@ -2454,60 +3063,8 @@
    ],
    "action": {
     "kind": "reveal-beat",
-    "hash": "#09-75",
-    "pct": 75
-   }
-  },
-  {
-   "id": "09-14",
-   "label": "09-14",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 30,
-   "p0": 0.7953,
-   "p1": 0.8888,
-   "triggers": [
-    {
-     "phrase": "the skills behind the follow up email sequence",
-     "keys": [
-      "skills",
-      "behind",
-      "follow",
-      "email",
-      "sequence"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
     "hash": "#09-83",
     "pct": 83
-   }
-  },
-  {
-   "id": "09-15",
-   "label": "09-15",
-   "scene": "09",
-   "sceneTitle": "Convert: Follow up",
-   "seconds": 10,
-   "p0": 0.8888,
-   "p1": 0.92,
-   "triggers": [
-    {
-     "phrase": "reviews come in the weeks results pour out",
-     "keys": [
-      "reviews",
-      "come",
-      "weeks",
-      "results",
-      "pour"
-     ]
-    }
-   ],
-   "action": {
-    "kind": "reveal-beat",
-    "hash": "#09-90",
-    "pct": 90
    }
   },
   {
@@ -2516,10 +3073,19 @@
    "scene": "10",
    "sceneTitle": "Optimize",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0,
    "p1": 0.115,
+   "lead": 0.04,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Here's Amberkloof's week. Five …",
+   "card": "Here's Amberkloof's week. Five posts. [The lights lower.] Let's look at them properly",
+   "text": "\"Here's Amberkloof's week. Five posts. [The lights lower.] Let's look at them properly.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "heres amberkloofs week 5 posts lets look at",
      "keys": [
       "amberkloofs",
@@ -2542,10 +3108,19 @@
    "scene": "10",
    "sceneTitle": "Optimize",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.115,
    "p1": 0.2875,
+   "lead": 0.16,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Same posts, through a …",
+   "card": "Same posts, through a results lens. Each one now shows how many people saw it, how …",
+   "text": "[The website morphs into a dashboard.] \"Same posts, through a results lens. Each one now shows how many people saw it, how many commented, and how many asked to buy. Demo numbers, but your own pages give you the same three.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "same posts through a results lens each 1",
      "keys": [
       "same",
@@ -2570,10 +3145,19 @@
    "scene": "10",
    "sceneTitle": "Optimize",
    "seconds": 60,
+   "glideSeconds": 60,
    "p0": 0.2875,
    "p1": 0.6325,
+   "lead": 0.33,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Let's sort. Tuesday's flat …",
+   "card": "Let's sort. Tuesday's flat photo: hardly anyone engaged, no inquiries. Thursday's giveaway: 1,200 likes. Zero inquiries …",
+   "text": "[TAP to sort.] \"Let's sort. Tuesday's flat photo: hardly anyone engaged, no inquiries. Thursday's giveaway: 1,200 likes. Zero inquiries. [Pause.] Monday's how-to post answered a real question, and the self-care regulars asked to buy. Friday's ad looked like a gift worth giving, and the Gift Planners ordered. Average is counting likes. Good is counting inquiries, and knowing who they came from.\"\n• [ASK] \"What do you count every week? Likes, or inquiries?\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "lets sort tuesdays flat photo hardly anyone engaged",
      "keys": [
       "sort",
@@ -2586,6 +3170,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "what do you count every week likes or",
      "keys": [
       "what",
@@ -2608,10 +3193,19 @@
    "scene": "10",
    "sceneTitle": "Optimize",
    "seconds": 35,
+   "glideSeconds": 35,
    "p0": 0.6325,
    "p1": 0.8337,
+   "lead": 0.67,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So we double down …",
+   "card": "So we double down. Monday and Friday get copied into next week. Tuesday and Thursday are …",
+   "text": "[The success cards clone into next week.] \"So we double down. Monday and Friday get copied into next week. Tuesday and Thursday are marked stop or fix. Tumelo does the same, but it counts quote requests from founders, not followers.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "so we double down monday and friday get",
      "keys": [
       "double",
@@ -2633,10 +3227,19 @@
    "scene": "10",
    "sceneTitle": "Optimize",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.8337,
    "p1": 0.92,
+   "lead": 0.86,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Tuesday's post. Let's fix …",
+   "card": "Tuesday's post. Let's fix it",
+   "text": "[Near-black. Only Tuesday's photo stays lit. Wait three seconds.] \"Tuesday's post. Let's fix it.\" [NEXT.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "tuesdays post lets fix it",
      "keys": [
       "tuesdays",
@@ -2657,10 +3260,19 @@
    "scene": "11",
    "sceneTitle": "Attract (the peak)",
    "seconds": 40,
+   "glideSeconds": 40,
    "p0": 0,
    "p1": 0.1502,
+   "lead": 0.04,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So far: E, C …",
+   "card": "So far: E, C, O. Now, AI. And no, not that AI. [The letters resolve.] A …",
+   "text": "\"So far: E, C, O. Now, AI. And no, not that AI. [The letters resolve.] A for Attract. I for Interact. They sound like Engage and Convert, but they're different. Engage gets people to respond. Attract is why they stop at all: it looks worth it. Convert asks for the next step. Interact lets them get to know you first.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "so far eco now ai and no not",
      "keys": [
       "far",
@@ -2682,10 +3294,19 @@
    "scene": "11",
    "sceneTitle": "Attract (the peak)",
    "seconds": 17,
+   "glideSeconds": 17,
    "p0": 0.1502,
    "p1": 0.214,
+   "lead": 0.17,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Here's Tuesday's photo. White …",
+   "card": "Here's Tuesday's photo. White table, harsh flash. That's Average. Watch what happens, one layer at a …",
+   "text": "\"Here's Tuesday's photo. White table, harsh flash. That's Average. Watch what happens, one layer at a time. Layer one: light. [Warm plaster, one key light.]\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "heres tuesdays photo white table harsh flash thats",
      "keys": [
       "tuesdays",
@@ -2709,10 +3330,19 @@
    "scene": "11",
    "sceneTitle": "Attract (the peak)",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.214,
    "p1": 0.2704,
+   "lead": 0.23,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Layer two: depth. A …",
+   "card": "Layer two: depth. A plinth. Stone behind it. Things at different distances",
+   "text": "\"Layer two: depth. A plinth. Stone behind it. Things at different distances.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "layer 2 depth a plinth stone behind it",
      "keys": [
       "layer",
@@ -2736,10 +3366,19 @@
    "scene": "11",
    "sceneTitle": "Attract (the peak)",
    "seconds": 18,
+   "glideSeconds": 18,
    "p0": 0.2704,
    "p1": 0.338,
+   "lead": 0.29,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Layer three: break-out. A …",
+   "card": "Layer three: break-out. [The products float out of the phone.] A flat product photo sits there …",
+   "text": "\"Layer three: break-out. [The products float out of the phone.] A flat product photo sits there. A product that floats out to meet you makes you look twice.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "layer 3 break out a flat product photo",
      "keys": [
       "layer",
@@ -2763,10 +3402,19 @@
    "scene": "11",
    "sceneTitle": "Attract (the peak)",
    "seconds": 13,
+   "glideSeconds": 13,
    "p0": 0.338,
    "p1": 0.3868,
+   "lead": 0.36,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Layer four: the offer …",
+   "card": "Layer four: the offer. 'Gift set. Wrapped. Delivered Friday.'",
+   "text": "\"Layer four: the offer. 'Gift set. Wrapped. Delivered Friday.'\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "layer 4 the offer gift set wrapped delivered",
      "keys": [
       "layer",
@@ -2791,10 +3439,19 @@
    "scene": "11",
    "sceneTitle": "Attract (the peak)",
    "seconds": 27,
+   "glideSeconds": 27,
    "p0": 0.3868,
    "p1": 0.4882,
+   "lead": 0.42,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Layer five: the button …",
+   "card": "Layer five: the button, inside the picture. 'Order on WhatsApp.' [The label flips to Good.]",
+   "text": "\"Layer five: the button, inside the picture. 'Order on WhatsApp.' [The label flips to Good.]\"\n• [ASK] \"Now you choose. Which layer should I switch off? Shout it.\" [Switch off what they call. Then switch it back on.] \"See what fell apart? That one decision was doing a lot of the work.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "layer 5 the button inside the picture order",
      "keys": [
       "layer",
@@ -2806,6 +3463,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "now you choose which layer should i switch",
      "keys": [
       "choose",
@@ -2827,10 +3485,19 @@
    "scene": "11",
    "sceneTitle": "Attract (the peak)",
    "seconds": 45,
+   "glideSeconds": 45,
    "p0": 0.4882,
    "p1": 0.6571,
+   "lead": 0.53,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Why does this work …",
+   "card": "Why does this work? Because we're wired to like things that look good. It's why shops …",
+   "text": "\"Why does this work? Because we're wired to like things that look good. It's why shops pack everything neatly. It's why merchandising is a whole job. It's why beauty, make-up and clothing are such big industries. [The neat shelf and the messy shelf.] Whatever you're creating, it needs to be attractive.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "why does this work because were wired to",
      "keys": [
       "why",
@@ -2852,10 +3519,19 @@
    "scene": "11",
    "sceneTitle": "Attract (the peak)",
    "seconds": 38,
+   "glideSeconds": 38,
    "p0": 0.6571,
    "p1": 0.7998,
+   "lead": 0.7,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Real ads that get …",
+   "card": "Real ads that get this right. [Tap one.] Each card says what pulls you in, and …",
+   "text": "[PLAY] \"Real ads that get this right. [Tap one.] Each card says what pulls you in, and what people did with it. And remember the Oh So Heavenly and Dash Labels ads from earlier? Look at them again with this lens.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "real ads that get this right each card",
      "keys": [
       "real",
@@ -2877,10 +3553,19 @@
    "scene": "11",
    "sceneTitle": "Attract (the peak)",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.7998,
    "p1": 0.8749,
+   "lead": 0.83,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Our own pair. The …",
+   "card": "Our own pair. The flat snapshot, and the floating ad. And Tumelo's version: your packaging is …",
+   "text": "\"Our own pair. The flat snapshot, and the floating ad. And Tumelo's version: your packaging is your shelf ad.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "our own pair the flat snapshot and the",
      "keys": [
       "own",
@@ -2902,10 +3587,19 @@
    "scene": "11",
    "sceneTitle": "Attract (the peak)",
    "seconds": 12,
+   "glideSeconds": 12,
    "p0": 0.8749,
    "p1": 0.92,
+   "lead": 0.89,
+   "silent": false,
+   "source": "first-words",
+   "cue": "This is the reference …",
+   "card": "This is the reference we learned from. We took the ideas, not the pictures. [The camera …",
+   "text": "\"This is the reference we learned from. We took the ideas, not the pictures. [The camera pulls back to a shop window at dusk.]\" [NEXT.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "this is the reference we learned from we took the",
      "keys": [
       "reference",
@@ -2926,10 +3620,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 25,
+   "glideSeconds": 25,
    "p0": 0,
    "p1": 0.0821,
+   "lead": 0.03,
+   "silent": false,
+   "source": "first-words",
+   "cue": "First attract, then interact …",
+   "card": "First attract, then interact. Think of a lit shop window at night. It pulls you in …",
+   "text": "\"First attract, then interact. Think of a lit shop window at night. It pulls you in. And then you want to know more. Interaction is letting people get to know you.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "first attract then interact think of a lit",
      "keys": [
       "first",
@@ -2952,10 +3655,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 25,
+   "glideSeconds": 25,
    "p0": 0.0821,
    "p1": 0.1643,
+   "lead": 0.11,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Tap the bottle. Ingredients …",
+   "card": "Tap the bottle. [The detail arc bursts out.] Ingredients. Size. Price. Proof. 'Ask us on WhatsApp.' …",
+   "text": "[TAP the bottle.] \"Tap the bottle. [The detail arc bursts out.] Ingredients. Size. Price. Proof. 'Ask us on WhatsApp.' Every tap gives you something back, straight away.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "tap the bottle ingredients size price proof ask",
      "keys": [
       "tap",
@@ -2980,10 +3692,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.1643,
    "p1": 0.23,
+   "lead": 0.19,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And with ads, people …",
+   "card": "And with ads, people do more than look. They comment, save, share, tap a product tag …",
+   "text": "\"And with ads, people do more than look. They comment, save, share, tap a product tag, try it on, send a message. Each of those is a door to the next step.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and with ads people do more than look",
      "keys": [
       "ads",
@@ -3005,10 +3726,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.23,
    "p1": 0.3286,
+   "lead": 0.26,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Average: a grid of …",
+   "card": "Average: a grid of products, and a 'Contact us' button that goes nowhere you can see …",
+   "text": "\"Average: a grid of products, and a 'Contact us' button that goes nowhere you can see. Good: you walk through it. Pick the oil. Pick the butter. Pick the box. And it ends in a WhatsApp chat with your order already typed.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "average a grid of products and a contact",
      "keys": [
       "average",
@@ -3030,10 +3760,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.3286,
    "p1": 0.3779,
+   "lead": 0.35,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Now a website. First …",
+   "card": "Now a website. First, our own plain version of a scrolling product page. Decent. Tidy. That's …",
+   "text": "\"Now a website. First, our own plain version of a scrolling product page. Decent. Tidy. That's Average. [Open the real oryzo.ai, in the frame or the presenter tab.] And this is the site that inspired it, oryzo.ai, built by the studio Lusion. That's Good. [Scroll it.] One object you follow the whole way down. That's the bar.\"\n• [ASK] \"When last did a website make you want to click around? Which one was it?\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "now a website first our own plain version",
      "keys": [
       "website",
@@ -3044,6 +3783,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "when last did a website make you want",
      "keys": [
       "when",
@@ -3066,10 +3806,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.3779,
    "p1": 0.4271,
+   "lead": 0.4,
+   "silent": false,
+   "source": "first-words",
+   "cue": "House Down Studio. Watch …",
+   "card": "House Down Studio. Watch how their work leads you, step by step, to contacting them",
+   "text": "\"House Down Studio. Watch how their work leads you, step by step, to contacting them.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "house down studio watch how their work leads",
      "keys": [
       "house",
@@ -3089,15 +3838,70 @@
    }
   },
   {
+   "id": "12-7",
+   "label": "12-7",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 15,
+   "glideSeconds": 15,
+   "p0": 0.4271,
+   "p1": 0.4764,
+   "lead": 0.44,
+   "silent": true,
+   "source": null,
+   "cue": null,
+   "card": "If a third site is loaded: one line on what you do there and what it gives back. If not: stay on oryzo and keep scrolling.",
+   "text": "[If a third site is loaded: one line on what you do there and what it gives back. If not: stay on oryzo and keep scrolling.]",
+   "cueSpan": null,
+   "triggers": [],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-44",
+    "pct": 44
+   }
+  },
+  {
+   "id": "12-8",
+   "label": "12-8",
+   "scene": "12",
+   "sceneTitle": "Interact, then teach AI",
+   "seconds": 20,
+   "glideSeconds": 20,
+   "p0": 0.4764,
+   "p1": 0.5421,
+   "lead": 0.5,
+   "silent": true,
+   "source": null,
+   "cue": null,
+   "card": "If two provider quotes are on screen: read them, with who said them. If not: skip straight to 12-9.",
+   "text": "[If two provider quotes are on screen: read them, with who said them. If not: skip straight to 12-9.]",
+   "cueSpan": null,
+   "triggers": [],
+   "action": {
+    "kind": "reveal-beat",
+    "hash": "#12-50",
+    "pct": 50
+   }
+  },
+  {
    "id": "12-9",
    "label": "12-9",
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.5421,
    "p1": 0.5914,
+   "lead": 0.56,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Here's the catch. AI …",
+   "card": "Here's the catch. AI doesn't know what good looks like, or how a good interaction works …",
+   "text": "\"Here's the catch. AI doesn't know what good looks like, or how a good interaction works. You have to show it success. [The slider: one line of prompt, against the same request with real examples.]\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "heres the catch ai doesnt know what good",
      "keys": [
       "catch",
@@ -3121,10 +3925,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.5914,
    "p1": 0.6571,
+   "lead": 0.61,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Then we let AI …",
+   "card": "Then we let AI judge. Three critics score the work, round by round. [Step through.] It …",
+   "text": "\"Then we let AI judge. Three critics score the work, round by round. [Step through.] It fails, we fix it, it goes again, until all three agree. That skill is called design-loop.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "then we let ai judge 3 critics score",
      "keys": [
       "ai",
@@ -3147,10 +3960,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.6571,
    "p1": 0.7229,
+   "lead": 0.68,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Recreate the look. Amberkloof's …",
+   "card": "Recreate the look. Amberkloof's design system makes a new piece that matches the brand",
+   "text": "\"Recreate the look. Amberkloof's design system makes a new piece that matches the brand.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "recreate the look amberkloofs design system makes a",
      "keys": [
       "recreate",
@@ -3174,10 +3996,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 25,
+   "glideSeconds": 25,
    "p0": 0.7229,
    "p1": 0.805,
+   "lead": 0.75,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Recreate an interaction. We …",
+   "card": "Recreate an interaction. We gave AI the click-and-burst idea from a reference, and it rebuilt it …",
+   "text": "\"Recreate an interaction. We gave AI the click-and-burst idea from a reference, and it rebuilt it for Amberkloof. That's what you just tapped.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "recreate an interaction we gave ai the click",
      "keys": [
       "recreate",
@@ -3200,10 +4031,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0.805,
    "p1": 0.8379,
+   "lead": 0.82,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Show AI what success …",
+   "card": "Show AI what success looks like",
+   "text": "[The generic AI look shatters.] \"Show AI what success looks like.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "show ai what success looks like",
      "keys": [
       "show",
@@ -3227,10 +4067,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.8379,
    "p1": 0.8871,
+   "lead": 0.86,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Tumelo's version: build your …",
+   "card": "Tumelo's version: build your box. Size, finish, and an instant quote",
+   "text": "\"Tumelo's version: build your box. Size, finish, and an instant quote.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "tumelos version build your box size finish and",
      "keys": [
       "tumelos",
@@ -3254,10 +4103,19 @@
    "scene": "12",
    "sceneTitle": "Interact, then teach AI",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0.8871,
    "p1": 0.92,
+   "lead": 0.9,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Tap 'Ask us', and …",
+   "card": "Tap 'Ask us', and the chat asks first: 'May we use your details?' Which brings us …",
+   "text": "\"Tap 'Ask us', and the chat asks first: 'May we use your details?' Which brings us to doing this properly.\" [NEXT.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "tap ask us and the chat asks first",
      "keys": [
       "tap",
@@ -3280,10 +4138,19 @@
    "scene": "13",
    "sceneTitle": "Use AI responsibly",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0,
    "p1": 0.1022,
+   "lead": 0.04,
+   "silent": false,
+   "source": "first-words",
+   "cue": "AI wrote this product …",
+   "card": "AI wrote this product description for the bottle. Before you post anything AI wrote: check it …",
+   "text": "\"AI wrote this product description for the bottle. Before you post anything AI wrote: check it, be honest, protect people's information.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "ai wrote this product description for the bottle",
      "keys": [
       "ai",
@@ -3306,10 +4173,19 @@
    "scene": "13",
    "sceneTitle": "Use AI responsibly",
    "seconds": 50,
+   "glideSeconds": 50,
    "p0": 0.1022,
    "p1": 0.443,
+   "lead": 0.14,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Exercise one. No source …",
+   "card": "Exercise one. [CLICK 'clinically proven'.] No source. Gone. [CLICK 'heals eczema'.] That's a medical claim, and …",
+   "text": "\"Exercise one. [CLICK 'clinically proven'.] No source. Gone. [CLICK 'heals eczema'.] That's a medical claim, and Amberkloof never makes those. Gone. [CLICK the five-star review.] And this review? AI made it up. A fake review is a lie with your name on it. Gone. What's left is true, and it says AI helped write it.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "exercise 1 no source gone thats a medical",
      "keys": [
       "exercise",
@@ -3333,10 +4209,19 @@
    "scene": "13",
    "sceneTitle": "Use AI responsibly",
    "seconds": 40,
+   "glideSeconds": 40,
    "p0": 0.443,
    "p1": 0.7156,
+   "lead": 0.48,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Exercise two. Would you …",
+   "card": "Exercise two. Would you paste this into ChatGPT? Yes or no",
+   "text": "- [ASK] \"Exercise two. Would you paste this into ChatGPT? Yes or no?\" \"A customer list with names and numbers? [Room answers.] No. Take the names out first. Sales totals with no names? Yes. A customer's WhatsApp chat? No. [Tap each one for the reason on screen.] And a race field? Only if the customer told you, and never into a public tool.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "exercise 2 would you paste this into chatgpt",
      "keys": [
       "exercise",
@@ -3346,6 +4231,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "a customer list with names and numbers no",
      "keys": [
       "customer",
@@ -3368,10 +4254,19 @@
    "scene": "13",
    "sceneTitle": "Use AI responsibly",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.7156,
    "p1": 0.8519,
+   "lead": 0.76,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Three words. Check. Be …",
+   "card": "Three words. Check. Be honest. Protect. And if you sell to businesses: don't scrape personal emails …",
+   "text": "\"Three words. Check. Be honest. Protect. And if you sell to businesses: don't scrape personal emails off LinkedIn for cold mail. Under POPIA, direct marketing needs consent.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "3 words check be honest protect and if",
      "keys": [
       "3",
@@ -3394,10 +4289,19 @@
    "scene": "13",
    "sceneTitle": "Use AI responsibly",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0.8519,
    "p1": 0.92,
+   "lead": 0.88,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Which is why said …",
+   "card": "Which is why [Name] said yes earlier. Their public pages and socials, and their own answers …",
+   "text": "\"Which is why [Name] said yes earlier. Their public pages and socials, and their own answers about the business. No customer details. Deleted in 30 days. Their results are ready.\" [NEXT.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "which is why said yes earlier their public",
      "keys": [
       "which",
@@ -3421,10 +4325,19 @@
    "scene": "14",
    "sceneTitle": "Your turn: Tool A and Tool B",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0,
    "p1": 0.0642,
+   "lead": 0.02,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Now for a real …",
+   "card": "Now for a real business in the room. [Name], this one's yours. These runs started [read …",
+   "text": "\"Now for a real business in the room. [Name], this one's yours. These runs started [read the time on screen], when you said yes.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "now for a real business in the room this ones",
      "keys": [
       "real",
@@ -3446,10 +4359,19 @@
    "scene": "14",
    "sceneTitle": "Your turn: Tool A and Tool B",
    "seconds": 55,
+   "glideSeconds": 55,
    "p0": 0.0642,
    "p1": 0.2995,
+   "lead": 0.1,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Tool A scans the …",
+   "card": "Tool A scans the whole business. What you do, from your website. Your social pages. Your …",
+   "text": "[LIVE: Tool A] \"Tool A scans the whole business. What you do, from your website. Your social pages. Your competitors, and what we'd suggest you do on social. Whether AI can even reach your site. And whether AI quotes you when people ask about what you do. [Spend your time on competitors and AI reach. One line each for the other three.]\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "tool a scans the whole business what you",
      "keys": [
       "tool",
@@ -3472,10 +4394,19 @@
    "scene": "14",
    "sceneTitle": "Your turn: Tool A and Tool B",
    "seconds": 40,
+   "glideSeconds": 40,
    "p0": 0.2995,
    "p1": 0.4707,
+   "lead": 0.34,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Then three tabs. What's …",
+   "card": "Then three tabs. What's working. What isn't. And what to do next. [Read one strength, one …",
+   "text": "\"Then three tabs. What's working. What isn't. And what to do next. [Read one strength, one gap and one next step.] [Name], which of these would you fix first?\"\n• If Tool A is not live: \"Tool A isn't public yet. So let's put together what the tools already found on [business] today: the competitor scan, the keywords, the SEO check, the backlinks and the citations. That's the same picture, in pieces.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "then 3 tabs whats working what isnt and",
      "keys": [
       "3",
@@ -3486,6 +4417,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "tool a isnt public yet so lets put",
      "keys": [
       "tool",
@@ -3508,10 +4440,19 @@
    "scene": "14",
    "sceneTitle": "Your turn: Tool A and Tool B",
    "seconds": 15,
+   "glideSeconds": 15,
    "p0": 0.4707,
    "p1": 0.5349,
+   "lead": 0.49,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Tool B starts from …",
+   "card": "Tool B starts from the six answers [Name] gave at the door",
+   "text": "[LIVE: Tool B] \"Tool B starts from the six answers [Name] gave at the door.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "tool b starts from the 6 answers gave",
      "keys": [
       "tool",
@@ -3535,10 +4476,19 @@
    "scene": "14",
    "sceneTitle": "Your turn: Tool A and Tool B",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.5349,
    "p1": 0.6633,
+   "lead": 0.57,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And here's their customer …",
+   "card": "And here's their customer, as a card, just like the Gift Planner. [Read the card.] [Name] …",
+   "text": "\"And here's their customer, as a card, just like the Gift Planner. [Read the card.] [Name], does that sound like your customers?\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and heres their customer as a card just like the",
      "keys": [
       "customer",
@@ -3559,10 +4509,19 @@
    "scene": "14",
    "sceneTitle": "Your turn: Tool A and Tool B",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.6633,
    "p1": 0.7916,
+   "lead": 0.7,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Then a brand kit …",
+   "card": "Then a brand kit from their current content. Colours, fonts, voice. And one post for their …",
+   "text": "\"Then a brand kit from their current content. Colours, fonts, voice. And one post for their best platform, in their own look.\"\n• If Tool B is not live: \"Tool B isn't open to the public yet. It does for your business what you saw us do for Amberkloof: the customer card, then the brand kit.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "then a brand kit from their current content",
      "keys": [
       "brand",
@@ -3572,6 +4531,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "tool b isnt open to the public yet",
      "keys": [
       "tool",
@@ -3595,10 +4555,19 @@
    "scene": "14",
    "sceneTitle": "Your turn: Tool A and Tool B",
    "seconds": 20,
+   "glideSeconds": 20,
    "p0": 0.7916,
    "p1": 0.8772,
+   "lead": 0.82,
+   "silent": false,
+   "source": "first-words",
+   "cue": "thank you. Give them …",
+   "card": "[Name], thank you. Give them a hand. [Applause.] Two codes. One for each tool. Scan now …",
+   "text": "\"[Name], thank you. Give them a hand. [Applause.] Two codes. One for each tool. Scan now, and run your own business.\"\n• If the codes aren't on screen: \"These open to the public soon. [Say how people will get the links: through GTP, or your own channel. Your call.]\"\n• [ASK] \"Who's running theirs tonight? Hands up.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "thank you give them a hand 2 codes",
      "keys": [
       "thank",
@@ -3609,6 +4578,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "these open to the public soon",
      "keys": [
       "open",
@@ -3617,6 +4587,7 @@
      ]
     },
     {
+     "kind": "first-words",
      "phrase": "whos running theirs tonight hands up",
      "keys": [
       "whos",
@@ -3639,10 +4610,19 @@
    "scene": "14",
    "sceneTitle": "Your turn: Tool A and Tool B",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0.8772,
    "p1": 0.92,
+   "lead": 0.89,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And everything you need …",
+   "card": "And everything you need next goes in one box",
+   "text": "\"And everything you need next goes in one box.\" [NEXT.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and everything you need next goes in 1",
      "keys": [
       "everything",
@@ -3665,10 +4645,19 @@
    "scene": "15",
    "sceneTitle": "Keep learning, the 7-day test, the close",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0,
    "p1": 0.0418,
+   "lead": 0.01,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Keep learning. Tumelo made …",
+   "card": "Keep learning. [The box opens.] Tumelo made this box, by the way",
+   "text": "\"Keep learning. [The box opens.] Tumelo made this box, by the way.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "keep learning tumelo made this box by the",
      "keys": [
       "keep",
@@ -3691,10 +4680,19 @@
    "scene": "15",
    "sceneTitle": "Keep learning, the 7-day test, the close",
    "seconds": 45,
+   "glideSeconds": 45,
    "p0": 0.0418,
    "p1": 0.23,
+   "lead": 0.08,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Inside: eight free marketing …",
+   "card": "Inside: eight free marketing skills from Anthropic, the company that makes Claude, on an open licence …",
+   "text": "\"Inside: eight free marketing skills from Anthropic, the company that makes Claude, on an open licence. [They rise one by one.] Brand review checks your work against your brand. Campaign plan plans a campaign. Competitive brief sizes up a competitor. Content creation and draft content write the first draft. Email sequence writes your follow-up emails. Performance report tells you what worked. And SEO audit checks your website.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "inside 8 free marketing skills from anthropic the",
      "keys": [
       "inside",
@@ -3718,10 +4716,19 @@
    "scene": "15",
    "sceneTitle": "Keep learning, the 7-day test, the close",
    "seconds": 30,
+   "glideSeconds": 30,
    "p0": 0.23,
    "p1": 0.3555,
+   "lead": 0.27,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Does a skill make …",
+   "card": "Does a skill make a difference? Same request, a campaign plan, with the skill and without …",
+   "text": "\"Does a skill make a difference? Same request, a campaign plan, with the skill and without it. [Read one line from each.] Hear the difference? That's what a recipe does.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "does a skill make a difference same request",
      "keys": [
       "skill",
@@ -3744,10 +4751,19 @@
    "scene": "15",
    "sceneTitle": "Keep learning, the 7-day test, the close",
    "seconds": 10,
+   "glideSeconds": 10,
    "p0": 0.3555,
    "p1": 0.3973,
+   "lead": 0.37,
+   "silent": false,
+   "source": "first-words",
+   "cue": "And the capture skills …",
+   "card": "And the capture skills from earlier, C-R-O, popups and signup? They're not in this box. Their …",
+   "text": "\"And the capture skills from earlier, C-R-O, popups and signup? They're not in this box. Their address is on screen. Take a photo.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "and the capture skills from earlier cro popups",
      "keys": [
       "capture",
@@ -3770,10 +4786,19 @@
    "scene": "15",
    "sceneTitle": "Keep learning, the 7-day test, the close",
    "seconds": 40,
+   "glideSeconds": 40,
    "p0": 0.3973,
    "p1": 0.5645,
+   "lead": 0.44,
+   "silent": false,
+   "source": "first-words",
+   "cue": "Where to learn more …",
+   "card": "Where to learn more, by stage. [CLICK Engage.] Meta Blueprint, and the WhatsApp Business app. [CLICK …",
+   "text": "\"Where to learn more, by stage. [CLICK Engage.] Meta Blueprint, and the WhatsApp Business app. [CLICK Convert.] HubSpot Academy, and Google Skillshop. [CLICK Optimize.] Search Console Help, and Google Analytics. [CLICK Attract and Interact.] Google Business Profile, and Grow with Google. [CLICK AI skills.] Claude Academy, and the Information Regulator's POPIA guidance. Every link is on the skills page.\"",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "where to learn more by stage meta blueprint",
      "keys": [
       "where",
@@ -3797,10 +4822,19 @@
    "scene": "15",
    "sceneTitle": "Keep learning, the 7-day test, the close",
    "seconds": 60,
+   "glideSeconds": 60,
    "p0": 0.5645,
    "p1": 0.8155,
+   "lead": 0.6,
+   "silent": false,
+   "source": "first-words",
+   "cue": "So here's your test …",
+   "card": "So here's your test for the next seven days. It's small on purpose. Four picks. One …",
+   "text": "\"So here's your test for the next seven days. It's small on purpose. Four picks. One customer, from the list you wrote earlier. One platform where they already are. One action: post something, capture details, or follow someone up. And one number you'll check next Friday. Write it down. Forty seconds. Go.\" [The plan card builds: tonight, this week, 30-60-90. Copy works offline. The timer holds the page.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "so heres your test for the next 7 days",
      "keys": [
       "test",
@@ -3822,10 +4856,19 @@
    "scene": "15",
    "sceneTitle": "Keep learning, the 7-day test, the close",
    "seconds": 25,
+   "glideSeconds": 25,
    "p0": 0.8155,
    "p1": 0.92,
+   "lead": 0.85,
+   "silent": false,
+   "source": "first-words",
+   "cue": "An hour ago, this …",
+   "card": "An hour ago, this bottle was a brand nobody had heard of. We found out who …",
+   "text": "[The bottle settles into the box. The lid closes on the QR.] \"An hour ago, this bottle was a brand nobody had heard of. We found out who buys it, and it wasn't who we guessed. We picked where to show up, and why. We let AI write the first draft, and we kept our own voice. We gave people a next step, and we followed up. We counted what worked. We made it worth stopping for. And we ran one of your businesses through the same tools, live. None of that needs a big budget. It needs one week, and the card in your hand. Be found. Be chosen. Keep learning. Thank you.\" [Hold. Leave the QR up.]",
+   "cueSpan": null,
    "triggers": [
     {
+     "kind": "first-words",
      "phrase": "an hour ago this bottle was a brand",
      "keys": [
       "hour",

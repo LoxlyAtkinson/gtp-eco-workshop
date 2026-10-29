@@ -29,5 +29,17 @@
 .gtp-voice__try button{min-height:2rem;padding:.25rem .7rem;border:1px solid var(--v-line);border-radius:8px;background:transparent;font-size:.78rem}
 .gtp-voice__keys{margin:.5rem 0 0;color:var(--v-muted);font-size:.7rem}
 @media(max-width:620px){.gtp-voice{bottom:4.6rem;left:1rem}}
+/* Keep the speaker control off the teaching metrics and skills-pack QR. */
+@media(min-width:901px){
+  body[data-scene="10"] .gtp-voice{top:5.4rem;left:38%;right:auto;bottom:auto}
+  body[data-scene="11"] .gtp-voice{top:5.4rem;left:auto;right:6.5rem;bottom:auto}
+  body[data-scene="12"] .gtp-voice{top:5.4rem;left:auto;right:6.5rem;bottom:auto}
+  body[data-scene="15"] .gtp-voice{top:5.4rem;left:auto;right:6.5rem;bottom:auto}
+}
+@media(max-width:900px){
+  body[data-scene="15"] .gtp-voice{top:4.2rem;left:auto;right:1rem;bottom:auto}
+}
+@media(max-width:620px){body[data-scene="04"] .gtp-voice{top:18.5rem;left:auto;right:1rem;bottom:auto}}
+@media(prefers-reduced-motion:reduce) and (max-width:620px){body[data-scene="04"] .gtp-voice{display:none}}
 @media(prefers-reduced-motion:reduce){.gtp-voice[data-status="listening"] .gtp-voice__dot{animation:none}}
 @media print{.gtp-voice{display:none}}

@@ -32,6 +32,7 @@ jobs:
           cp -R chapters _site/chapters
           mkdir -p _site/assets/gen _site/assets/cached-runs _site/live-runner
           cp assets/gen/*.webp assets/gen/*.jpg assets/gen/*.mp4 _site/assets/gen/
+          mkdir -p _site/assets/icons && cp assets/icons/*.svg _site/assets/icons/
           cp assets/cached-runs/*.json _site/assets/cached-runs/
           cp live-runner/client.js _site/live-runner/
           cp -R skills _site/skills

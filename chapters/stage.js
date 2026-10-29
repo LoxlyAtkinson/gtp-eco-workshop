@@ -1,7 +1,7 @@
 // Live stage (scene 14): a full-screen presenter overlay.
-// Invite (QR) -> show websites -> spin the drum -> scan -> ad ideas ->
-// competitors and keywords -> two ads. Every step waits for its own presenter
-// button; nothing runs or appears on its own. Runs stream from the local live
+// Invite (QR) -> show websites -> spin the wheel -> scan -> competitors and
+// keywords -> 30-day plan -> ad ideas -> two ads. Every step waits for its own
+// presenter button; nothing runs on its own (a shown list refreshes itself). Runs stream from the local live
 // runner (live-runner/server.mjs) through live-runner/client.js. No cached or
 // sample results are ever shown here: a failed step says why and offers Retry.
 import { createLiveRun, RUNNER_URL } from '../live-runner/client.js';
@@ -146,72 +146,76 @@ function randomIndex(n) {
   return a[0] % n;
 }
 
-// ---------- the drum: faces around the X axis, seen edge-on ----------
-// A fixed ring of F faces carries a virtual reel: each face shows whichever entry
-// sits at its position right now, so 1 to 60 entries all roll the same way.
-// Positive progress p moves the front surface DOWN: names come over the top from
-// the back and roll toward the viewer, like a slot reel.
-function makeDrum() {
-  const F = 18;
-  const STEP = 360 / F;
-  const TURNS = 4;
-  const root = h('div', { class: 'stg-drum', role: 'img', 'aria-label': 'Website drum' });
-  const reel = h('div', { class: 'stg-drum__reel' });
-  const faces = Array.from({ length: F }, (_, k) => {
-    const face = h('div', { class: 'stg-drum__face', 'data-k': String(k) }, h('span', { class: 'stg-drum__host' }), h('span', { class: 'stg-drum__name' }));
-    reel.append(face);
-    return face;
-  });
-  root.append(h('i', { class: 'stg-drum__line', 'aria-hidden': 'true' }), reel, h('i', { class: 'stg-drum__shade', 'aria-hidden': 'true' }));
-  const st = { p: 0, items: [], r: 200, tween: null, landed: null };
+// ---------- the wheel: website cards on a tilted 3D ring ----------
+// A fixed ring of F cards carries a virtual list: each card shows whichever entry
+// sits at its slot right now, so 1 to 60 entries all spin the same way. A card
+// only changes its text while it faces away. With 8 to 14 entries each shows once.
+function makeRing() {
+  const TURNS = 3;
+  const root = h('div', { class: 'stg-ring', role: 'img', 'aria-label': 'Website wheel' });
+  const reel = h('div', { class: 'stg-ring__reel' });
+  root.append(h('div', { class: 'stg-ring__tilt' }, reel), h('i', { class: 'stg-ring__mark', 'aria-hidden': 'true' }));
+  const st = { p: 0, items: [], r: 400, F: 0, faces: [], tween: null, landed: null, pending: null };
 
+  const slots = (n) => (n >= 8 ? Math.min(n, 14) : n ? n * Math.ceil(8 / n) : 8);
+  const hue = (s) => [...s].reduce((x, c) => (x * 31 + c.charCodeAt(0)) % 360, 7);
+  function rebuild(F) {
+    st.F = F;
+    st.faces = Array.from({ length: F }, (_, k) => h('div', { class: 'stg-ring__face', 'data-k': String(k) },
+      h('div', { class: 'stg-ring__card' }, h('b', { class: 'stg-ring__dot', 'aria-hidden': 'true' }), h('strong', { class: 'stg-ring__host' }), h('span', { class: 'stg-ring__name' }))));
+    reel.replaceChildren(...st.faces);
+  }
   function measure() {
-    const fh = faces[0].offsetHeight || 72;
-    st.r = fh / (2 * Math.tan(Math.PI / F));
-    faces.forEach((f, k) => { f.style.transform = `rotateX(${k * STEP}deg) translateZ(${st.r.toFixed(2)}px)`; });
+    const w = st.faces[0]?.offsetWidth || 220;
+    st.r = (w * 1.14) / (2 * Math.tan(Math.PI / st.F));
+    st.faces.forEach((f, k) => { f.style.transform = `rotateY(${((k * 360) / st.F).toFixed(3)}deg) translateZ(${st.r.toFixed(1)}px)`; });
   }
   function render() {
     const N = st.items.length;
-    const angle = -st.p * STEP;
-    reel.style.transform = `translateZ(${(-st.r).toFixed(2)}px) rotateX(${angle.toFixed(3)}deg)`;
-    reel.dataset.angle = angle.toFixed(3);
+    const F = st.F;
+    const step = 360 / F;
+    reel.style.transform = `translateZ(${(-st.r).toFixed(1)}px) rotateY(${(-st.p * step).toFixed(3)}deg)`;
     for (let k = 0; k < F; k += 1) {
-      const face = faces[k];
+      const face = st.faces[k];
       const v = k + F * Math.round((st.p - k) / F);
-      const delta = (v - st.p) * STEP;
-      const vis = Math.max(0, Math.cos((delta * Math.PI) / 180));
-      face.style.opacity = vis < 0.02 ? '0' : (0.25 + 0.75 * vis ** 1.6).toFixed(3);
+      const vis = Math.cos(((v - st.p) * step * Math.PI) / 180);
+      face.style.opacity = vis <= 0 ? '0' : (0.3 + 0.7 * vis ** 1.5).toFixed(3);
       if (face.dataset.v !== String(v)) {
         face.dataset.v = String(v);
         const it = N ? st.items[mod(v, N)] : null;
+        const [dot, host, name] = face.firstChild.children;
         face.dataset.index = it ? String(mod(v, N)) : '';
-        face.children[0].textContent = it ? it.host : '';
-        face.children[1].textContent = it ? it.name : '';
+        host.textContent = it ? it.host.replace(/\./g, '.​') : ''; // long names wrap at a dot
+        name.textContent = it ? it.name : '';
+        dot.textContent = it ? it.host.charAt(0).toUpperCase() : '';
+        dot.style.background = it ? `hsl(${hue(it.host)} 60% 62%)` : 'transparent';
       }
     }
   }
-  // keep = index of an already chosen entry: the drum rests on it, still highlighted.
+  // keep = index of an already chosen entry: the wheel rests on it, still highlighted.
   function setItems(items, keep = -1) {
     st.tween?.kill();
     st.tween = null;
     if (st.pending) { const r = st.pending; st.pending = null; r(null); }
     st.items = items;
+    const F = slots(items.length);
+    if (F !== st.F) rebuild(F);
     st.p = keep >= 0 ? keep : 0;
     st.landed = null;
-    faces.forEach((f) => { f.dataset.v = ''; f.classList.remove('is-winner'); });
+    st.faces.forEach((f) => { f.dataset.v = ''; f.classList.remove('is-winner'); });
     root.classList.remove('is-landed');
     delete root.dataset.landed;
     measure();
     render();
     if (keep >= 0) { frontFace()?.classList.add('is-winner'); root.classList.add('is-landed'); st.landed = keep; root.dataset.landed = String(keep); }
   }
-  function frontFace() { return faces.find((f) => Number(f.dataset.v) === Math.round(st.p)); }
+  function frontFace() { return st.faces.find((f) => Number(f.dataset.v) === Math.round(st.p)); }
   function spin(winnerIndex) {
     const N = st.items.length;
     st.tween?.kill();
-    faces.forEach((f) => f.classList.remove('is-winner'));
+    st.faces.forEach((f) => f.classList.remove('is-winner'));
     root.classList.remove('is-landed');
-    const base = Math.ceil(st.p) + TURNS * F;
+    const base = Math.ceil(st.p) + TURNS * st.F;
     const end = base + mod(winnerIndex - mod(base, N), N);
     root.dataset.target = String(winnerIndex);
     return new Promise((resolve) => {
@@ -221,8 +225,7 @@ function makeDrum() {
         st.pending = null;
         st.tween = null;
         st.p = end; render();
-        const face = frontFace();
-        face?.classList.add('is-winner');
+        frontFace()?.classList.add('is-winner');
         root.classList.add('is-landed');
         st.landed = winnerIndex;
         root.dataset.landed = String(winnerIndex);
@@ -230,14 +233,15 @@ function makeDrum() {
       };
       const gsap = G();
       if (reduced.matches || !gsap) {
-        // Reduced motion: no rolling, a short fade straight to the winner.
+        // Reduced motion: no spinning, a short fade straight to the winner.
         const fade = (o, d, cb) => (gsap ? gsap.to(reel, { opacity: o, duration: d, onComplete: cb }) : (reel.style.opacity = String(o), cb && cb()));
         fade(0, 0.2, () => { st.p = end; render(); fade(1, 0.35, land); });
         return;
       }
-      st.tween = gsap.to(st, { p: end, duration: 6.2, ease: 'power4.out', onUpdate: render, onComplete: land });
+      st.tween = gsap.to(st, { p: end, duration: 7, ease: 'power4.out', onUpdate: render, onComplete: land });
     });
   }
+  rebuild(8);
   return { root, setItems, spin, measure, render, state: st };
 }
 
@@ -245,18 +249,18 @@ function makeDrum() {
 const S = {
   items: null, source: null, listShown: false,
   winner: null, // {id, website, host, name}
-  scan: null, ideas: null, idea: 0, comp: null, kw: null, adPlain: null, adVideo: null,
+  scan: null, ideas: null, idea: 0, unslop: null, comp: null, kw: null, check: null, plan: null, adPlain: null, adVideo: null,
 };
 
 const STEPS = [
   ['invite', 'Invite'], ['list', 'Websites'], ['spin', 'Spin'], ['scan', 'Scan'],
-  ['ideas', 'Ad ideas'], ['research', 'Research'], ['ads', 'Two ads'],
+  ['research', 'Competitors'], ['check', 'Website check'], ['plan', 'Plan'], ['ideas', 'Ad ideas'], ['ads', 'Two ads'],
 ];
 
 let overlay = null;
 let opener = null;
 let isOpen = false;
-let drum = null;
+let wheel = null;
 const panels = {};
 const tick = new Set(); // running timers
 
@@ -275,7 +279,7 @@ function build() {
   overlay.append(top, body);
   document.body.append(overlay);
 
-  buildInvite(); buildList(); buildSpin(); buildScan(); buildIdeas(); buildResearch(); buildAds();
+  buildInvite(); buildList(); buildSpin(); buildScan(); buildResearch(); buildCheck(); buildPlan(); buildIdeas(); buildAds();
 
   rail.addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (b) go(b.dataset.go); });
   overlay.addEventListener('click', (e) => {
@@ -287,7 +291,7 @@ function build() {
     if (e.key === 'Tab') trapTab(e);
     e.stopPropagation();
   });
-  addEventListener('resize', () => { if (isOpen && drum) { drum.measure(); drum.render(); } });
+  addEventListener('resize', () => { if (isOpen && wheel) { wheel.measure(); wheel.render(); } });
   // The deck behind never scrolls while the stage is open.
   const bodyEl = overlay.querySelector('.stg-body');
   const guard = (e) => { if (!bodyEl.contains(e.target) || bodyEl.scrollHeight <= bodyEl.clientHeight + 1) e.preventDefault(); };
@@ -320,7 +324,7 @@ function go(id) {
   overlay.querySelectorAll('[data-go]').forEach((b) => { if (b.dataset.go === id) { b.setAttribute('aria-current', 'step'); b.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } else b.removeAttribute('aria-current'); });
   overlay.dataset.step = id;
   overlay.querySelector('.stg-body').scrollTop = 0;
-  if (id === 'spin' && drum) requestAnimationFrame(() => { drum.measure(); drum.render(); });
+  if (id === 'spin' && wheel) requestAnimationFrame(() => { wheel.measure(); wheel.render(); });
   refreshGates();
   const head = panels[id].querySelector('h2'); head?.focus({ preventScroll: true });
 }
@@ -492,14 +496,20 @@ function buildList() {
     stepHead('list', 2, 'Websites from the room.', 'Nothing shows until you press the button.', show),
     h('div', { class: 'stg-list' }, h('div', { class: 'stg-list__main' }, status, err, count, empty, grid),
       h('aside', { class: 'stg-list__side' }, add, clearBtn, h('p', { class: 'stg-source', 'data-source': true }))),
-    nextBtn('spin', 'Next: spin the drum'));
+    nextBtn('spin', 'Next: spin the wheel'));
 
-  async function load() {
-    show.disabled = true; err.hidden = true;
-    status.textContent = 'Fetching the list…';
+  // quiet = the 6 s refresh while the list is on screen: no status text, and no
+  // redraw unless someone new joined.
+  let loading = false;
+  async function load(quiet = false) {
+    if (loading) return;
+    loading = true;
+    if (!quiet) { show.disabled = true; err.hidden = true; status.textContent = 'Fetching the list…'; }
     try {
       const j = await api('/stage/submissions');
-      S.items = arr(j.items).map((it, i) => ({ id: str(it.id, 80) || String(i), website: str(it.website, 200), host: hostOf(it.website), name: str(it.name, 40), at: str(it.at, 40) })).filter((it) => it.website);
+      const items = arr(j.items).map((it, i) => ({ id: str(it.id, 80) || String(i), website: str(it.website, 200), host: hostOf(it.website), name: str(it.name, 40), at: str(it.at, 40) })).filter((it) => it.website);
+      if (quiet && S.items && items.length === S.items.length && items.every((it, i) => it.id === S.items[i].id)) return;
+      S.items = items;
       S.source = j.source === 'supabase' ? 'supabase' : 'local';
       S.listShown = true;
       status.textContent = '';
@@ -508,26 +518,36 @@ function buildList() {
       if (S.winner) {
         const k = S.items.findIndex((it) => it.id === S.winner.id || it.website === S.winner.website);
         if (k < 0) { S.winner = null; resetFrom('scan'); updateChosen(); }
-        if (drum) drum.setItems(S.items, k);
-      } else if (drum) drum.setItems(S.items);
+        if (wheel) wheel.setItems(S.items, k);
+      } else if (wheel) wheel.setItems(S.items);
       show.textContent = 'Refresh the list';
     } catch (ex) {
-      status.textContent = '';
-      err.textContent = ex.status ? `The list did not load: ${ex.message}` : REASON.unreachable;
-      err.hidden = false;
-    } finally { show.disabled = false; refreshGates(); }
+      if (!quiet) {
+        status.textContent = '';
+        err.textContent = ex.status ? `The list did not load: ${ex.message}` : REASON.unreachable;
+        err.hidden = false;
+      }
+    } finally { loading = false; if (!quiet) show.disabled = false; refreshGates(); }
   }
+  // First show: the cards arrive one after another. Later: only newcomers glow in.
+  const seen = new Set();
   function renderList() {
     const n = S.items.length;
+    const first = seen.size === 0;
     count.hidden = false;
-    count.textContent = n === 1 ? '1 website' : `${n} websites`;
+    count.textContent = `${n === 1 ? '1 website' : `${n} websites`} · new ones appear by themselves`;
     empty.hidden = n > 0;
     empty.textContent = 'No websites yet. Ask the room to scan the code, or add one called out.';
-    grid.replaceChildren(...S.items.map((it) => h('li', { class: 'stg-site' }, h('strong', { text: it.host }), it.name ? h('span', { text: it.name }) : null)));
+    grid.replaceChildren(...S.items.map((it, i) => {
+      const cls = seen.has(it.id) ? 'stg-site is-still' : first ? 'stg-site' : 'stg-site is-new';
+      return h('li', { class: cls, style: `--i:${Math.min(i, 30)}` }, h('strong', { text: it.host }), it.name ? h('span', { text: it.name }) : null);
+    }));
+    S.items.forEach((it) => seen.add(it.id));
     grid.classList.toggle('is-dense', n > 18);
     p.querySelector('[data-source]').textContent = S.source === 'supabase' ? 'Source: the join form (Supabase).' : 'Source: the local list on this laptop. The join form is not connected today.';
   }
-  show.addEventListener('click', load);
+  show.addEventListener('click', () => load());
+  setInterval(() => { if (isOpen && !p.hidden && S.listShown) load(true); }, 6000);
 
   add.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -569,13 +589,13 @@ function buildList() {
 // ---------- c. Spin ----------
 function buildSpin() {
   const p = panels.spin;
-  drum = makeDrum();
+  wheel = makeRing();
   const spinBtn = h('button', { type: 'button', class: 'stg-primary stg-primary--big', 'data-act': 'spin', text: 'Spin' });
   const result = h('p', { class: 'stg-winner', role: 'status', 'aria-live': 'polite' });
   p.append(
-    stepHead('spin', 3, 'Who goes on the big screen?', 'The drum lands on one website at random.', spinBtn),
-    gateNote('Show the websites first (step 2). The drum uses that list.'),
-    h('div', { class: 'stg-spin' }, drum.root, result),
+    stepHead('spin', 3, 'Who goes on the big screen?', 'The wheel lands on one website at random.', spinBtn),
+    gateNote('Show the websites first (step 2). The wheel uses that list.'),
+    h('div', { class: 'stg-spin' }, wheel.root, result),
     nextBtn('scan', 'Next: scan this website'));
   spinBtn.addEventListener('click', async () => {
     if (!S.items?.length) return;
@@ -585,7 +605,7 @@ function buildSpin() {
     if (S.winner) resetFrom('scan');
     S.winner = null; updateChosen(); refreshGates();
     const i = randomIndex(items.length);
-    const landed = await drum.spin(i);
+    const landed = await wheel.spin(i);
     busy(spinBtn, false);
     if (landed === null || items !== S.items) { result.textContent = 'The list changed during the spin. Spin again.'; return; }
     S.winner = items[i];
@@ -601,7 +621,7 @@ function updateChosen() {
   const c = overlay.querySelector('[data-chosen]');
   c.hidden = !S.winner;
   c.textContent = S.winner ? `Website: ${S.winner.host}` : '';
-  for (const id of ['scan', 'ideas', 'research', 'ads']) {
+  for (const id of ['scan', 'research', 'check', 'plan', 'ideas', 'ads']) {
     const t = panels[id].querySelector('[data-target]');
     if (t) t.textContent = S.winner ? S.winner.host : 'no website chosen yet';
   }
@@ -610,10 +630,12 @@ function updateChosen() {
 // Changing the website clears every result that belonged to the old one.
 const slots = {};
 function resetFrom(step) {
-  const order = ['scan', 'ideas', 'research', 'ads'];
+  const order = ['scan', 'research', 'check', 'plan', 'ideas', 'ads'];
   for (const id of order.slice(order.indexOf(step))) {
     if (id === 'scan') S.scan = null;
-    if (id === 'ideas') { S.ideas = null; S.idea = 0; }
+    if (id === 'check') S.check = null;
+    if (id === 'plan') S.plan = null;
+    if (id === 'ideas') { S.ideas = null; S.idea = 0; S.unslop = null; }
     if (id === 'research') { S.comp = null; S.kw = null; }
     if (id === 'ads') { S.adPlain = null; S.adVideo = null; }
   }
@@ -637,17 +659,25 @@ function refreshGates() {
     panels[id].querySelectorAll('[data-act]').forEach((b) => { if (!b.dataset.busy) b.disabled = !ok; });
   };
   gate('spin', hasList);
-  if (hasList && drum && drum.state.items !== S.items) drum.setItems(S.items);
-  if (!hasList && drum && drum.state.items.length) drum.setItems([]);
+  if (hasList && wheel && wheel.state.items !== S.items) wheel.setItems(S.items);
+  if (!hasList && wheel && wheel.state.items.length) wheel.setItems([]);
   gate('scan', !!S.winner);
   gate('ideas', !!(S.winner && S.scan));
   gate('research', !!S.winner);
+  gate('check', !!S.winner);
+  gate('plan', !!(S.winner && S.comp));
   gate('ads', !!(S.winner && S.scan));
+  const hasIdeas = !!(S.ideas && S.ideas.length);
+  panels.ideas.querySelector('[data-unslop]').hidden = !hasIdeas;
+  const ub = panels.ideas.querySelector('[data-act="unslop"]');
+  if (ub && !ub.dataset.busy) ub.disabled = !hasIdeas;
   panels.list.querySelector('[data-next]').hidden = !hasList;
   panels.spin.querySelector('[data-next]').hidden = !S.winner;
   panels.scan.querySelector('[data-next]').hidden = !S.scan;
   panels.ideas.querySelector('[data-next]').hidden = !S.ideas;
   panels.research.querySelector('[data-next]').hidden = !(S.comp || S.kw);
+  panels.check.querySelector('[data-next]').hidden = !S.check;
+  panels.plan.querySelector('[data-next]').hidden = !S.plan;
 }
 
 function targetLine() { return h('p', { class: 'stg-target' }, h('span', { text: 'Website ' }), h('strong', { 'data-target': true, text: S.winner ? S.winner.host : 'no website chosen yet' })); }
@@ -685,7 +715,7 @@ function buildScan() {
     startRun(slot, 'stage-scan', { target: S.winner.website }, (r) => { S.scan = r; renderScan(slot.out, r); }, (st) => { if (st.phase !== 'running') busy(btn, false); });
   }
   p.append(stepHead('scan', 4, 'What does their website look like?', 'Colours, type, spacing, corners, shadows, components and assets, straight from the page.', btn),
-    targetLine(), gateNote('Spin the drum first (step 3) to choose a website.'), slot.root, nextBtn('ideas', 'Next: three ad ideas'));
+    targetLine(), gateNote('Spin the wheel first (step 3) to choose a website.'), slot.root, nextBtn('research', 'Next: competitors and keywords'));
 }
 
 function chipList(title, values, render) {
@@ -733,7 +763,7 @@ function renderScan(out, r) {
   const product = (pr.name || pr.what || pr.who || arr(pr.proof).length) ? h('div', { class: 'stg-product' },
     h('h3', { text: str(pr.name, 80) || 'What they sell' }),
     pr.what ? h('p', { text: str(pr.what, 300) }) : null,
-    pr.who ? h('p', { class: 'stg-product__who' }, h('b', { text: 'For ' }), str(pr.who, 200)) : null,
+    pr.who ? h('p', { class: 'stg-product__who' }, h('b', { text: 'For ' }), str(pr.who, 200).replace(/^for\s+/i, '')) : null,
     arr(pr.proof).length ? h('ul', { class: 'stg-proof' }, arr(pr.proof).slice(0, 4).map((x) => h('li', h('q', { text: str(x, 200) })))) : null) : null;
 
   const sw = colors.length ? h('div', { class: 'stg-tok' }, h('h3', { text: 'Colours' }), h('ul', { class: 'stg-swatches' }, colors.map((c) => {
@@ -784,16 +814,54 @@ function buildIdeas() {
     slot.onRetry = go2;
     startRun(slot, 'stage-ideas', { target: S.winner.website, context: briefContext() }, (r) => { S.ideas = arr(r?.data?.ideas).slice(0, 3); renderIdeas(slot.out, r); refreshGates(); }, (st) => { if (st.phase !== 'running') busy(btn, false); });
   }
-  p.append(stepHead('ideas', 5, 'Three ad ideas, each from a fact on their page.', 'Pick the one to build in step 7.', btn),
-    targetLine(), gateNote('Scan the website first (step 4). The ideas come from its facts.'), slot.root, nextBtn('research', 'Next: competitors and keywords'));
+  // Unslop: the chosen idea goes through the slopmonster skill; the ads then use the clean version.
+  const uSlot = runSlot('stage-unslop · slopmonster');
+  slots['ideas:u'] = uSlot;
+  const uBtn = runButton('unslop', 'Unslop the chosen idea', () => goU());
+  function goU() {
+    const idea = S.ideas?.[S.idea];
+    if (!S.winner || !idea) return;
+    S.unslop = null;
+    busy(uBtn, true);
+    uSlot.onRetry = goU;
+    const idx = S.idea;
+    startRun(uSlot, 'stage-unslop', { target: S.winner.website, context: { brief: '', idea: { title: str(idea.title, 120), hook: str(idea.hook, 240), fact: str(idea.fact, 240), format: str(idea.format, 60), product: str(idea.product, 120) } } },
+      (r) => { S.unslop = { idx, data: r?.data || {} }; renderUnslop(uSlot.out, r); }, (st) => { if (st.phase !== 'running') busy(uBtn, false); });
+  }
+  p.append(stepHead('ideas', 8, 'Three ad ideas, each from a fact on their page.', 'Pick one, then unslop it. Step 9 builds the ads from the clean version.', btn),
+    targetLine(), gateNote('Scan the website first (step 4). The ideas come from its facts.'), slot.root,
+    h('div', { class: 'stg-unslop', 'data-unslop': true, hidden: true },
+      h('div', { class: 'stg-unslop__head' }, h('h3', { text: 'Unslop it' }), h('p', { class: 'stg-lede', text: 'The slopmonster skill checks the chosen idea for AI tells, rewrites it, has a second AI from another company clean it, then checks it again.' }), uBtn),
+      uSlot.root),
+    nextBtn('ads', 'Next: make the two ads'));
+}
+function renderUnslop(out, r) {
+  const d = r?.data || {};
+  const side = (label, x, cls) => h('div', { class: `stg-unslop__side ${cls}` },
+    h('span', { class: 'stg-unslop__label', text: label }),
+    h('b', { class: 'stg-unslop__score', text: x?.score != null ? `${str(x.score, 2)}/5` : '?/5' }),
+    h('h4', { text: str(x?.title, 120) }),
+    h('p', { text: str(x?.hook, 300) }),
+    arr(x?.tells).length ? h('ul', { class: 'stg-chips' }, arr(x.tells).slice(0, 6).map((t) => h('li', { text: str(t, 40) }))) : null);
+  out.replaceChildren(
+    h('div', { class: 'stg-unslop__pair' }, side('Before', d.before, 'is-before'), h('span', { class: 'stg-unslop__arrow', 'aria-hidden': 'true', text: '→' }), side('After', d.after, 'is-after')),
+    arr(d.notes).length ? h('div', { class: 'stg-gaps' }, h('h4', { text: 'What changed' }), h('ul', arr(d.notes).slice(0, 4).map((n) => h('li', { text: fit(n, 160) })))) : null,
+    h('p', { class: 'stg-source', text: arr(d.steps).map((s) => str(s, 60)).join(' → ') }));
 }
 function renderIdeas(out, r) {
   const ideas = S.ideas || [];
   if (!ideas.length) { out.replaceChildren(h('p', { class: 'stg-missing', text: 'The run finished without ideas.' })); return; }
   const cards = ideas.map((it, i) => {
     const pick = h('button', { type: 'button', class: 'stg-pick', 'aria-pressed': String(i === S.idea), text: i === S.idea ? 'Chosen for the ads' : 'Use this idea' });
-    pick.addEventListener('click', () => { S.idea = i; out.querySelectorAll('.stg-pick').forEach((b, j) => { b.setAttribute('aria-pressed', String(j === i)); b.textContent = j === i ? 'Chosen for the ads' : 'Use this idea'; b.closest('.stg-idea').classList.toggle('is-chosen', j === i); }); });
+    pick.addEventListener('click', () => {
+      // A different pick makes the last unslop result stale.
+      if (S.unslop && S.unslop.idx !== i) { S.unslop = null; const u = slots['ideas:u']; u.out.replaceChildren(); u.root.dataset.phase = 'idle'; u.root.querySelector('.stg-run__status').textContent = ''; }
+      S.idea = i; out.querySelectorAll('.stg-pick').forEach((b, j) => { b.setAttribute('aria-pressed', String(j === i)); b.textContent = j === i ? 'Chosen for the ads' : 'Use this idea'; b.closest('.stg-idea').classList.toggle('is-chosen', j === i); }); });
+    // The product photo from their own page that this idea (and its video) is built on.
+    const photo = it.product ? arr(S.scan?.data?.assets).find((a) => a?.kind === 'product' && str(a.alt, 120).toLowerCase() === str(it.product, 120).toLowerCase()) : null;
+    const src = safeImg(photo?.url);
     return h('article', { class: `stg-idea${i === S.idea ? ' is-chosen' : ''}` },
+      src ? h('figure', { class: 'stg-idea__photo' }, h('img', { src, alt: str(it.product, 80), loading: 'lazy', referrerpolicy: 'no-referrer' }), h('figcaption', { text: str(it.product, 80) })) : null,
       it.format ? h('span', { class: 'stg-idea__fmt', text: str(it.format, 40) }) : null,
       h('h3', { text: str(it.title, 90) || `Idea ${i + 1}` }),
       it.hook ? h('p', { class: 'stg-idea__hook', text: str(it.hook, 220) }) : null,
@@ -833,14 +901,18 @@ function buildResearch() {
     if (st.phase === 'cached' && st.reason === 'blocked') {
       kSlot.root.querySelector('.stg-run__err p').textContent = 'Keyword data needs the DataForSEO login. Not set today.';
       kSlot.root.dataset.phase = 'blocked';
+    } else if (st.phase === 'cached' && /no (keyword|south african search) data/i.test(String(st.detail || ''))) {
+      // A small or overseas site often has no South African search data yet: say so plainly.
+      kSlot.root.querySelector('.stg-run__err p').textContent = `Google has no South African search data for ${S.winner?.host || 'this website'} yet. The plan works from the competitors.`;
+      kSlot.root.dataset.phase = 'blocked';
     }
   };
-  p.append(stepHead('research', 6, 'Who else sells this, and what do people search for?', 'Both run at once: competitors on the left, keywords on the right.', btn),
-    targetLine(), gateNote('Spin the drum first (step 3) to choose a website.'),
+  p.append(stepHead('research', 5, 'Who else sells this, and what do people search for?', 'Both run at once: competitors on the left, keywords on the right.', btn),
+    targetLine(), gateNote('Spin the wheel first (step 3) to choose a website.'),
     h('div', { class: 'stg-two' },
       h('div', { class: 'stg-col' }, h('h3', { class: 'stg-col__h', text: 'Competitors' }), cSlot.root),
       h('div', { class: 'stg-col' }, h('h3', { class: 'stg-col__h', text: 'Keywords to rank for' }), kSlot.root)),
-    nextBtn('ads', 'Next: make the two ads'));
+    nextBtn('check', 'Next: check their website'));
 }
 function onceSettled(fn) { let done = false; return (st) => { if (!done && st.phase !== 'running' && st.phase !== 'idle') { done = true; fn(st); } }; }
 
@@ -868,23 +940,130 @@ function renderKw(out, r) {
       h('thead', h('tr', h('th', { scope: 'col', text: 'Phrase' }), h('th', { scope: 'col', text: 'Searches / mo' }), h('th', { scope: 'col', text: 'Difficulty' }), h('th', { scope: 'col', text: 'Their rank' }))),
       h('tbody', rows.map((k) => h('tr', h('th', { scope: 'row', text: str(k?.phrase, 80) }), h('td', { text: num(k?.volume) }), h('td', { text: num(k?.difficulty) }), h('td', { text: num(k?.position) }))))) : h('p', { class: 'stg-missing', text: 'No keywords came back.' }),
     advice.length ? h('div', { class: 'stg-gaps' }, h('h4', { text: 'What to rank for' }), h('ul', advice.map((a) => h('li', { text: a })))) : null,
-    h('p', { class: 'stg-source', text: 'Source: DataForSEO Labs · South Africa · English' }));
+    h('p', { class: 'stg-source', text: `${arr(d.seeds).length ? `Started from: ${arr(d.seeds).map((x) => str(x, 40)).join(', ')} · ` : ''}Source: DataForSEO · South Africa · English` }));
+}
+
+// ---------- Website check (DataForSEO) ----------
+function buildCheck() {
+  const p = panels.check;
+  const slot = runSlot('stage-sitecheck · DataForSEO');
+  slots['check'] = slot;
+  const btn = runButton('check', 'Check the website', () => go2());
+  function go2() {
+    if (!S.winner) return;
+    resetFrom('check');
+    busy(btn, true);
+    slot.onRetry = go2;
+    const competitors = arr(S.comp?.data?.competitors).slice(0, 3).map((c) => ({ name: str(c?.name, 80), url: str(c?.url, 200) })).filter((c) => c.url);
+    startRun(slot, 'stage-sitecheck', { target: S.winner.website, context: { brief: '', competitors } }, (r) => { S.check = r; renderCheck(slot.out, r); refreshGates(); }, (st) => { if (st.phase !== 'running') busy(btn, false); });
+  }
+  p.append(stepHead('check', 6, 'How does Google see their website?', 'Six checks at once: Google top 10, Google\'s AI answer, AI citations, links from other sites, searches competitors win, and Google reviews.', btn),
+    targetLine(), gateNote('Spin the wheel first (step 3) to choose a website. Run the competitors first (step 5) to compare.'), slot.root, nextBtn('plan', 'Next: the 30-day plan'));
+}
+function renderCheck(out, r) {
+  const d = r?.data || {};
+  const host = S.winner?.host || 'this website';
+  const tag = (x) => (x?.you ? h('b', { class: 'stg-tag stg-tag--you', text: 'you' }) : x?.rival ? h('b', { class: 'stg-tag', text: 'competitor' }) : null);
+  const card = (title, ...kids) => h('section', { class: 'stg-chk' }, h('h3', { text: title }), ...kids);
+  const fixes = arr(d.fixes).map((f) => fit(f, 260)).filter(Boolean).slice(0, 6);
+  const top = arr(d.top10).slice(0, 10);
+  const cites = arr(d.aiAnswer?.cites).slice(0, 6);
+  const links = arr(d.links).slice(0, 4);
+  const maxLinks = Math.max(1, ...links.map((l) => Number(l?.referringDomains) || 0));
+  const gap = arr(d.gap).slice(0, 6);
+  const you = d.business?.you;
+  const rivals = arr(d.business?.competitors).filter((c) => c?.found).slice(0, 3);
+  const stars = (p) => (p?.rating != null ? `${str(p.rating, 4)} ★ · ${str(p.reviews ?? 0, 6)} reviews` : 'no rating yet');
+  const search = str(d.search, 60);
+  out.replaceChildren(
+    fixes.length ? h('div', { class: 'stg-fixes' }, h('h4', { text: 'What to fix first' }), h('ol', fixes.map((f) => h('li', { text: f })))) : null,
+    h('div', { class: 'stg-check' },
+      card(`Google top 10 for "${search}"`,
+        top.length ? h('ol', { class: 'stg-top10' }, top.map((t) => h('li', { class: t?.you ? 'is-you' : t?.rival ? 'is-rival' : null }, h('span', { text: str(t?.rank, 3) }), h('strong', { text: str(t?.domain, 60) }), tag(t)))) : h('p', { class: 'stg-missing', text: 'No Google results came back.' }),
+        h('p', { class: 'stg-chk__note', text: d.yourRank ? `${host} is #${str(d.yourRank, 3)}.` : `${host} is not on page one.` })),
+      card('Google\'s AI answer',
+        d.aiAnswer?.shown ? h('blockquote', { class: 'stg-chk__ai', text: fit(d.aiAnswer.text, 260) || 'Google showed an AI answer.' }) : h('p', { class: 'stg-chk__note', text: `Google showed no AI answer for "${search}" today.` }),
+        cites.length ? h('ul', { class: 'stg-chips' }, cites.map((c) => h('li', { class: c?.you ? 'is-you' : null }, str(c?.domain, 50), tag(c)))) : null,
+        d.aiCitations ? h('p', { class: 'stg-chk__note' }, h('b', { text: `${str(d.aiCitations.total ?? 0, 8)} ` }), `Google AI answers cite ${host}.`) : null),
+      card('Links from other websites',
+        links.length ? h('ul', { class: 'stg-bars' }, links.map((l) => {
+          const bar = h('i'); bar.style.width = `${Math.max(3, Math.round(((Number(l?.referringDomains) || 0) / maxLinks) * 100))}%`;
+          return h('li', { class: l?.you ? 'is-you' : null }, h('span', { text: str(l?.domain, 50) }), h('b', { text: str(l?.referringDomains ?? 0, 8) }), h('em', bar));
+        })) : h('p', { class: 'stg-missing', text: 'No link counts came back.' }),
+        h('p', { class: 'stg-chk__note', text: 'Number of websites that link to each one.' })),
+      card('Google Business and reviews',
+        h('p', { class: `stg-chk__biz${you?.found ? '' : ' is-missing'}` }, h('strong', { text: host }), ' ', you?.found ? stars(you) : 'no Google Business profile found'),
+        rivals.length ? h('ul', { class: 'stg-chk__list' }, rivals.map((c) => h('li', h('strong', { text: str(c?.name, 60) }), ` ${stars(c)}`))) : null,
+        arr(d.mapPack).length ? h('p', { class: 'stg-chk__note', text: `Top of Google Maps for "${search}": ${arr(d.mapPack).slice(0, 3).map((m) => `${str(m?.title, 40)}${m?.rating != null ? ` (${str(m.rating, 4)} ★)` : ''}`).join(', ')}` }) : null),
+      card('Searches their competitors win',
+        gap.length ? h('table', { class: 'stg-kw' },
+          h('thead', h('tr', h('th', { scope: 'col', text: 'Search' }), h('th', { scope: 'col', text: 'Per month' }), h('th', { scope: 'col', text: 'Who shows up' }))),
+          h('tbody', gap.map((g) => h('tr', h('th', { scope: 'row', text: str(g?.phrase, 60) }), h('td', { text: str(g?.volume ?? '–', 8) }), h('td', { text: `${str(g?.competitor, 40)} #${str(g?.theirRank, 3)}` }))))) : h('p', { class: 'stg-chk__note', text: S.comp ? 'No search found that a competitor wins and this site misses.' : 'Run the competitors (step 5) to compare.' }))),
+    h('p', { class: 'stg-source', text: 'Source: DataForSEO (Google results, AI answers, backlinks, Labs, Business Data) · South Africa · English' }));
+}
+
+// ---------- 30-day plan ----------
+// Everything the room has seen so far goes in: scan brief, competitors, gaps, keywords.
+function planContext() { return [briefContext(1500), researchContext()].filter(Boolean).join('\n').slice(0, 5800); }
+function researchContext() {
+  const c = S.comp?.data || {};
+  const k = S.kw?.data || {};
+  return [
+    arr(c.competitors).length ? `Competitors: ${arr(c.competitors).slice(0, 5).map((x) => `${str(x?.name, 60)} (${hostOf(x?.url)}): ${str(x?.whatWorks, 160)}`).join(' | ')}` : '',
+    arr(c.gaps).length ? `Gaps no competitor fills: ${arr(c.gaps).slice(0, 5).map((g) => str(g, 160)).join(' | ')}` : '',
+    arr(k.keywords).length ? `Keywords (phrase, searches a month): ${arr(k.keywords).slice(0, 10).map((x) => `${str(x?.phrase, 60)} (${str(x?.volume, 10) || '?'})`).join(', ')}` : '',
+    arr(S.check?.data?.fixes).length ? `Website check (DataForSEO) found: ${arr(S.check.data.fixes).slice(0, 6).map((f) => str(f, 200)).join(' | ')}` : '',
+  ].filter(Boolean).join('\n').slice(0, 4200);
+}
+function buildPlan() {
+  const p = panels.plan;
+  const slot = runSlot('stage-plan · marketing-plan');
+  slots['plan'] = slot;
+  const btn = runButton('plan', 'Write the 30-day plan', () => go2());
+  function go2() {
+    if (!S.winner || !S.comp) return;
+    resetFrom('plan');
+    busy(btn, true);
+    slot.onRetry = go2;
+    startRun(slot, 'stage-plan', { target: S.winner.website, context: planContext() }, (r) => { S.plan = r; renderPlan(slot.out, r); refreshGates(); }, (st) => { if (st.phase !== 'running') busy(btn, false); });
+  }
+  p.append(stepHead('plan', 7, 'Your next 30 days, in five steps.', 'Claude builds it from the scan, the competitors, the keywords and the website check.', btn),
+    targetLine(), gateNote('Run the competitors first (step 5). The plan builds on them.'), slot.root, nextBtn('ideas', 'Next: three ad ideas'));
+}
+function renderPlan(out, r) {
+  const d = r?.data || {};
+  const steps = arr(d.plan).slice(0, 6);
+  if (!steps.length) { out.replaceChildren(h('p', { class: 'stg-missing', text: 'The run finished without a plan.' })); return; }
+  out.replaceChildren(
+    d.oneLine ? h('p', { class: 'stg-plan__line', text: fit(d.oneLine, 200) }) : null,
+    h('ol', { class: 'stg-plan' }, steps.map((s) => h('li', { class: 'stg-plan__step' },
+      s?.when ? h('span', { class: 'stg-plan__when', text: str(s.when, 30) }) : null,
+      h('h3', { text: fit(s?.title, 100) }),
+      h('p', { text: fit(s?.do, 260) }),
+      s?.why ? h('p', { class: 'stg-plan__why' }, h('b', { text: 'Why: ' }), fit(s.why, 200)) : null))));
 }
 
 // ---------- g. The two ads ----------
 function buildAds() {
   const p = panels.ads;
   const aSlot = runSlot('stage-ad-plain · no skill');
-  const vSlot = runSlot('stage-ad-video · higgsfield-generate');
+  const vSlot = runSlot('stage-ad-video · video skill + Veo 3.1');
   slots['ads:a'] = aSlot; slots['ads:v'] = vSlot;
   const btn = runButton('ads', 'Make the 2 ads', () => go2());
   let pending = 0;
   const settle = () => { pending -= 1; if (pending <= 0) busy(btn, false); };
   // Context object: the scan brief plus the chosen idea as fields (lib/stage.mjs normalizeContext).
-  const ctx = () => {
+  // The unslopped wording wins when it belongs to the chosen idea.
+  const chosenIdea = () => {
     const idea = S.ideas?.[S.idea];
-    const brief = briefContext(2000);
-    return idea ? { brief, idea: { title: str(idea.title, 120), hook: str(idea.hook, 240), fact: str(idea.fact, 240), format: str(idea.format, 60) } } : brief;
+    if (!idea) return null;
+    const u = S.unslop && S.unslop.idx === S.idea ? S.unslop.data.after : null;
+    return { title: str(u?.title || idea.title, 120), hook: str(u?.hook || idea.hook, 240), fact: str(idea.fact, 240), format: str(idea.format, 60), product: str(idea.product, 120) };
+  };
+  const ctx = () => {
+    const idea = chosenIdea();
+    const brief = [briefContext(1600), researchContext()].filter(Boolean).join('\n').slice(0, 5500);
+    return idea ? { brief, idea } : brief;
   };
   function goA() { startRun(aSlot, 'stage-ad-plain', { target: S.winner.website, context: ctx() }, (r) => { S.adPlain = r; renderPlainAd(aSlot.out, r); }, onceSettled(settle)); }
   function goV() { startRun(vSlot, 'stage-ad-video', { target: S.winner.website, context: ctx() }, (r) => { S.adVideo = r; renderVideoAd(vSlot.out, r); }, onceSettled(settle)); }
@@ -896,7 +1075,7 @@ function buildAds() {
     vSlot.onRetry = () => { pending += 1; busy(btn, true); goV(); };
     goA(); goV();
   }
-  // A blocked or failed Higgsfield run says so in plain words; nothing stands in for the video.
+  // A blocked or failed video run says so in plain words; nothing stands in for the video.
   const vView = vSlot.view;
   vSlot.view = (st, fn) => {
     vView(st, fn);
@@ -906,16 +1085,17 @@ function buildAds() {
     }
   };
   const chosen = h('p', { class: 'stg-target stg-target--idea' });
-  p.append(stepHead('ads', 7, 'Two ads: a plain prompt against a skill.', 'Same website, same idea. Left: one plain prompt, no skill. Right: the Higgsfield skill makes a video.', btn),
+  p.append(stepHead('ads', 9, 'Two ads: a plain prompt against a skill.', 'Same website, same idea. Left: one plain prompt, no skill. Right: a video skill uses the competitors and keywords to plan a short video from their own product photo.', btn),
     targetLine(), chosen, gateNote('Scan the website first (step 4). Both ads use its brief.'),
     h('div', { class: 'stg-two stg-two--ads' },
       h('div', { class: 'stg-col' }, h('h3', { class: 'stg-col__h stg-col__h--label', text: 'Plain prompt, no skill' }), aSlot.root),
-      h('div', { class: 'stg-col' }, h('h3', { class: 'stg-col__h stg-col__h--label stg-col__h--skill', text: 'With a skill: Higgsfield video' }), vSlot.root)));
+      h('div', { class: 'stg-col' }, h('h3', { class: 'stg-col__h stg-col__h--label stg-col__h--skill', text: 'With a skill: video generation' }), vSlot.root)));
   // Keep the "chosen idea" line current whenever the step is shown.
   new MutationObserver(() => {
     if (p.hidden) return;
-    const idea = S.ideas?.[S.idea];
-    chosen.textContent = idea ? `Idea: ${str(idea.title, 90)}` : 'Idea: none chosen. The ads work from the scan brief.';
+    const idea = chosenIdea();
+    const clean = S.unslop && S.unslop.idx === S.idea;
+    chosen.textContent = idea ? `Idea${clean ? ' (unslopped)' : ''}: ${str(idea.title, 90)}` : 'Idea: none chosen. The ads work from the scan brief.';
   }).observe(p, { attributes: true, attributeFilter: ['hidden'] });
 }
 
@@ -965,13 +1145,16 @@ function renderVideoAd(out, r) {
   const status = str(d.status, 40) || 'unknown';
   const meta = h('dl', { class: 'stg-vmeta' },
     h('div', h('dt', { text: 'Status' }), h('dd', { text: status })),
-    d.jobId ? h('div', h('dt', { text: 'Job' }), h('dd', { text: str(d.jobId, 80) })) : null,
+    d.model ? h('div', h('dt', { text: 'Model' }), h('dd', { text: str(d.model, 60) })) : null,
+    d.startFrom ? h('div', h('dt', { text: 'Starts from' }), h('dd', { text: str(d.startFrom, 40) })) : null,
+    d.costUsd != null ? h('div', h('dt', { text: 'Cost' }), h('dd', { text: `about $${Number(d.costUsd).toFixed(2)}` })) : null,
     d.creditsUsed !== undefined && d.creditsUsed !== null ? h('div', h('dt', { text: 'Credits used' }), h('dd', { text: str(d.creditsUsed, 12) })) : null);
+  const why = d.why ? h('p', { class: 'stg-source', text: `Why this video: ${fit(d.why, 200)}` }) : null;
   if (url) {
-    out.replaceChildren(h('video', { class: 'stg-video', src: url, controls: true, playsinline: true, muted: true, loop: true, preload: 'metadata' }), meta);
+    out.replaceChildren(h('video', { class: 'stg-video', src: url, controls: true, playsinline: true, muted: true, loop: true, preload: 'metadata' }), meta, why);
     const v = out.querySelector('video'); v.muted = true; v.play?.().catch(() => {});
   } else {
-    out.replaceChildren(h('div', { class: 'stg-vpending' }, h('strong', { text: /complete|done|succe/i.test(status) ? 'The job finished but no video link came back.' : 'The video is still rendering on Higgsfield.' }), h('p', { text: 'No video is shown until a real link comes back.' })), meta);
+    out.replaceChildren(h('div', { class: 'stg-vpending' }, h('strong', { text: /complete|done|succe/i.test(status) ? 'The job finished but no video link came back.' : 'The video is still rendering.' }), h('p', { text: 'No video is shown until a real link comes back.' })), meta);
   }
 }
 

@@ -13,6 +13,13 @@
   const phone = () => innerWidth <= 900;
   const byId = n => scenes.find(s => s.dataset.scene === n);
 
+  // The closing route now leaves out the extra site gallery, report/tool panels,
+  // and the intermediate learning-plan plates in both motion and static modes.
+  const skippedBeats = new Set(['12-6', '15-3', '15-5', '15-6']);
+  scenes.forEach(scene => qa(scene, '.c15-beat').forEach(beat => {
+    if (skippedBeats.has(beat.dataset.beat)) { beat.hidden = true; beat.style.display = 'none'; }
+  }));
+
   // Holding the auto-scroll uses the engine's own header button, so the engine's
   // state, status chip and Space key stay the single source of truth.
   let pausedByUs = false;
@@ -101,27 +108,78 @@
     dead?.addEventListener('click', () => { out.classList.add('is-on'); if (G && !reduced.matches) G.fromTo(dead, { x: -6 }, { x: 0, duration: .4, ease: 'elastic.out(1,.3)' }); });
   }
   let builderTouched = false;
+  // The box shows exactly the picked items. New picks fly in from their card; the third pick closes the lid.
+  const SLOTS = [{ x: 30, b: 26, r: -4 }, { x: 50, b: 30, r: 2 }, { x: 70, b: 34, r: 5 }];
+  let typeTimer = 0;
+  function typeMsg(el, text) {
+    clearInterval(typeTimer);
+    if (!G || reduced.matches) { el.textContent = text; return; }
+    let n = 0; el.textContent = '';
+    typeTimer = setInterval(() => { el.textContent = text.slice(0, ++n); if (n >= text.length) clearInterval(typeTimer); }, 18);
+  }
   function syncBuilder(animateBtn) {
     if (!s12) return;
-    const picks = qa(s12, '[data-pick][aria-pressed="true"]').map(b => b.dataset.pick);
+    const on = qa(s12, 'button[data-pick][aria-pressed="true"]');
+    const picks = on.map(b => b.dataset.pick);
+    const box = q(s12, '.c15-builder__box'), items = q(box, '.c15-builder__items'), lid = q(box, '.c15-builder__lid');
+    const motion = G && !reduced.matches;
+    // Remove items that are no longer picked.
+    qa(items, 'img').forEach(img => {
+      if (picks.includes(img.dataset.pick)) return;
+      if (motion) G.to(img, { y: -40, autoAlpha: 0, scale: .8, duration: .35, ease: 'power2.in', onComplete: () => img.remove() }); else img.remove();
+    });
+    // Add new ones, then lay every item out in its slot.
+    on.forEach((btn, i) => {
+      let img = items.querySelector(`img[data-pick="${btn.dataset.pick}"]`);
+      const slot = SLOTS[i];
+      if (!img) {
+        img = document.createElement('img'); img.alt = ''; img.src = btn.dataset.img; img.dataset.pick = btn.dataset.pick;
+        img.className = 'c15-builder__item' + (/Cream/.test(btn.dataset.pick) ? ' is-jar' : /wrap/i.test(btn.dataset.pick) ? ' is-wrap' : '');
+        items.appendChild(img);
+        img.style.left = `${slot.x}%`; img.style.bottom = `${slot.b}%`;
+        if (motion && btn === animateBtn) {
+          const a = btn.getBoundingClientRect(), r = img.getBoundingClientRect();
+          const dx = a.left + a.width / 2 - (r.left + r.width / 2), dy = a.top + a.height / 2 - (r.top + r.height / 2);
+          G.timeline()
+            .fromTo(img, { x: dx, y: dy, scale: .55, rotation: slot.r * 4, autoAlpha: 0 }, { autoAlpha: 1, duration: .12 })
+            .to(img, { x: dx * .45, y: Math.min(dy, 0) - 90, scale: 1.08, rotation: slot.r * 2, duration: .38, ease: 'power2.out' }, 0)
+            .to(img, { x: 0, y: 0, scale: 1, rotation: slot.r, duration: .5, ease: 'bounce.out' }, .38);
+          G.fromTo(box, { scaleY: 1 }, { scaleY: .97, duration: .09, yoyo: true, repeat: 1, delay: .78, transformOrigin: '50% 100%' });
+          G.fromTo(q(box, '.c15-builder__glow'), { opacity: 1, scale: 1.15 }, { opacity: .55, scale: 1, duration: 1.2, ease: 'power2.out', delay: .7 });
+        } else img.style.rotate = `${slot.r}deg`;
+      } else {
+        img.style.left = `${slot.x}%`; img.style.bottom = `${slot.b}%`;
+      }
+    });
+    const full = picks.length === 3;
+    q(box, '.c15-builder__count').textContent = full ? 'Ready to send' : `${picks.length} of 3`;
+    box.classList.toggle('is-full', full);
+    // Three picks: the wrapped, bow-tied box drops in over the open one.
+    const open = qa(box, '.c15-builder__base, .c15-builder__items, .c15-builder__front');
+    if (motion) {
+      if (full) {
+        G.timeline({ delay: .95 })
+          .fromTo(lid, { autoAlpha: 0, y: -70, scale: 1.06 }, { autoAlpha: 1, y: 0, scale: 1, duration: .55, ease: 'power3.in' })
+          .to(open, { autoAlpha: 0, duration: .25 }, .4)
+          .fromTo(box, { scaleY: 1, scaleX: 1 }, { scaleY: .95, scaleX: 1.02, duration: .1, yoyo: true, repeat: 1, transformOrigin: '50% 100%' }, .55)
+          .fromTo(q(box, '.c15-builder__spark'), { scale: .3, opacity: 0 }, { scale: 1.7, opacity: 1, duration: .4, ease: 'power2.out', yoyo: true, repeat: 1 }, .58)
+          .fromTo(q(box, '.c15-builder__glow'), { opacity: .55 }, { opacity: 1, duration: .5, yoyo: true, repeat: 1 }, .58);
+      } else if (lid.style.opacity !== '0' || box.dataset.closed) {
+        G.to(lid, { autoAlpha: 0, y: -40, duration: .35, overwrite: 'auto' }); G.to(open, { autoAlpha: 1, duration: .3 });
+      }
+    } else { lid.style.opacity = full ? '1' : '0'; open.forEach(el => { el.style.opacity = full ? '0' : '1'; }); }
+    if (full) box.dataset.closed = '1'; else delete box.dataset.closed;
     const msg = q(s12, '.c15-chat__msg');
-    msg.textContent = picks.length ? `Hi Amberkloof, I'd like a gift set: ${picks.join(', ')}. Can it arrive by Friday?` : 'Pick items and the order writes itself.';
-    if (animateBtn && G && !reduced.matches) {
-      const box = q(s12, '.c15-builder__box');
-      const tok = document.createElement('b'); tok.className = 'c15-token'; box.appendChild(tok);
-      const a = animateBtn.getBoundingClientRect(), b = box.getBoundingClientRect();
-      G.fromTo(tok, { x: a.left - b.left - b.width * .3, y: a.top - b.top - b.height * .2, scale: 1.4, autoAlpha: 1 }, { x: 0, y: b.height * .2, scale: .4, autoAlpha: 0, duration: .55, ease: 'power2.in', onComplete: () => tok.remove() });
-      G.fromTo(q(box, '.c15-builder__lid'), { rotationX: 62 }, { rotationX: 30, duration: .25, yoyo: true, repeat: 1 });
-    }
+    typeMsg(msg, picks.length ? `Hi Amberkloof, I'd like a gift set: ${picks.join(', ')}. Can it arrive by Friday?` : 'Pick items and the order writes itself.');
   }
   function pick(btn, byUser) {
     const on = btn.getAttribute('aria-pressed') !== 'true';
-    if (on && qa(s12, '[data-pick][aria-pressed="true"]').length >= 3) return;
+    if (on && qa(s12, 'button[data-pick][aria-pressed="true"]').length >= 3) return;
     btn.setAttribute('aria-pressed', String(on));
     syncBuilder(on ? btn : null);
     if (byUser) { builderTouched = true; holdScroll(); }
   }
-  if (s12) qa(s12, '[data-pick]').forEach(b => b.addEventListener('click', () => pick(b, true)));
+  if (s12) qa(s12, 'button[data-pick]').forEach(b => b.addEventListener('click', () => pick(b, true)));
 
   // ---- 12 · The real oryzo.ai, in-scene ----
   function loadFrame(btn) {
@@ -216,14 +274,14 @@
   // Talk seconds per beat after the owner's tier 1-3 cuts (spine v2.1 section 8).
   const seconds = {
     '11-1': 40, '11-2': 90, '11-7': 45, '11-8': 38, '11-9': 20, '11-10': 12,
-    '12-1': 25, '12-2': 25, '12-4': 45, '12-5': 45, '12-6': 25, '12-9': 10, '12-11': 30, '12-12': 35, '12-13': 30, '12-14': 10, '12-16': 10,
+    '12-1': 25, '12-2': 25, '12-4': 45, '12-9': 10, '12-11': 30, '12-12': 35, '12-13': 30, '12-14': 10, '12-16': 10,
     '13-1': 65, '13-3': 40, '13-5': 20, '13-6': 10,
-    '14-1': 15, '14-2': 95, '14-8': 75, '14-12': 20, '14-13': 10,
-    '15-1': 55, '15-3': 40, '15-5': 40, '15-6': 60, '15-7': 25
+    '14-1': 15, '14-12': 20, '14-12b': 40,
+    '15-1': 55, '15-7': 25, '15-8': 20
   };
   const ranges = new Map();
   scenes.forEach(scene => {
-    const beats = qa(scene, '.c15-beat');
+    const beats = qa(scene, '.c15-beat:not([hidden])');
     const total = beats.reduce((s, b) => s + (seconds[b.dataset.beat] || 20), 0);
     let at = 0;
     beats.forEach(b => { const w = (seconds[b.dataset.beat] || 20) / total * .92; ranges.set(b, [at, at + w]); at += w; });
@@ -233,7 +291,7 @@
   const loop = (scene, ...tweens) => ambient.get(scene).push(...tweens);
 
   function build(scene, inner) {
-    const beats = qa(scene, '.c15-beat');
+    const beats = qa(scene, '.c15-beat:not([hidden])');
     const tl = G.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: scene, start: 'top top', end: 'bottom bottom', scrub: .5, invalidateOnRefresh: true, onUpdate: self => state(scene, self.progress), onRefresh: self => state(scene, self.progress) } });
     beats.forEach((beat, i) => {
       const [a, b] = ranges.get(beat), d = Math.min(.022, (b - a) * .22);
@@ -301,16 +359,13 @@
 
   // 12 · Interact
   if (s12) {
-    const front = B(s12, '.c15-front'), burst = B(s12, '.c15-burst'), sel = B(s12, '.c15-select'), sites = B(s12, '.c15-sites'), judge = B(s12, '.c15-judge'), rec = B(s12, '.c15-recreate'), reint = B(s12, '.c15-reint'), shat = B(s12, '.c15-shatter'), teach = B(s12, '.c15-teach'), ask = B(s12, '.c15-askus');
+    const front = B(s12, '.c15-front'), burst = B(s12, '.c15-burst'), sel = B(s12, '.c15-select'), judge = B(s12, '.c15-judge'), rec = B(s12, '.c15-recreate'), reint = B(s12, '.c15-reint'), shat = B(s12, '.c15-shatter'), teach = B(s12, '.c15-teach'), ask = B(s12, '.c15-askus');
     build(s12, (tl, at) => {
       tl.fromTo(B(front, '.c15-window'), { scale: 1 }, { scale: 1.12, duration: .07 }, at(front, 0));
       tl.fromTo(qa(burst, '.c15-prod'), { autoAlpha: 0, y: 70 }, { autoAlpha: 1, y: 0, duration: .02, stagger: .008, ease: 'power3.out' }, at(burst, .04));
       tl.fromTo(B(sel, '.c15-grid'), { autoAlpha: 0, x: -40 }, { autoAlpha: 1, x: 0, duration: .02 }, at(sel, .04))
         .fromTo(B(sel, '.c15-builder'), { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, duration: .02 }, at(sel, .12))
-        .fromTo(B(sel, '.c15-builder__box'), { rotationY: -25 }, { rotationY: 25, duration: .1 }, at(sel, .1));
-      tl.fromTo(B(sites, '.c15-plain'), { autoAlpha: 0, x: -50 }, { autoAlpha: 1, x: 0, duration: .02 }, at(sites, .04))
-        .fromTo(B(sites, '.c15-live'), { autoAlpha: 0, x: 50 }, { autoAlpha: 1, x: 0, duration: .02 }, at(sites, .14))
-        .fromTo(B(sites, '.c15-plain__page'), { y: 0 }, { y: -14, duration: .1 }, at(sites, .2));
+        .fromTo(B(sel, '.c15-builder__box'), { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .03, ease: 'power3.out' }, at(sel, .1));
       tl.fromTo(qa(teach, 'h3, p'), { autoAlpha: 0, y: 30, letterSpacing: '0.02em' }, { autoAlpha: 1, y: 0, letterSpacing: '-0.06em', duration: .012, stagger: .008 }, at(teach, .05));
       tl.fromTo(qa(judge, '.c15-critic'), { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .015, stagger: .012 }, at(judge, .06))
         .fromTo(qa(judge, '.c15-critic b'), { scale: 2.6, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .008, stagger: .012, ease: 'power4.in' }, at(judge, .3))
@@ -332,10 +387,9 @@
       if (!burstTouched && tb > .7 && tb < 1 && q(burst, '[data-prod="oil"]').getAttribute('aria-expanded') === 'true') openProduct(q(burst, '[data-prod="gift"]'), false);
       if (!builderTouched) {
         const ts = local(sel, p), want = ts > .78 ? 3 : ts > .58 ? 2 : ts > .38 ? 1 : 0;
-        const have = qa(s12, '[data-pick][aria-pressed="true"]').length;
-        if (want !== have) { qa(s12, '[data-pick]').forEach(b => b.setAttribute('aria-pressed', String(autoPicks.indexOf(b.dataset.pick) > -1 && autoPicks.indexOf(b.dataset.pick) < want))); syncBuilder(want > have ? q(s12, `[data-pick="${autoPicks[want - 1]}"]`) : null); }
+        const have = qa(s12, 'button[data-pick][aria-pressed="true"]').length;
+        if (want !== have) { qa(s12, 'button[data-pick]').forEach(b => b.setAttribute('aria-pressed', String(autoPicks.indexOf(b.dataset.pick) > -1 && autoPicks.indexOf(b.dataset.pick) < want))); syncBuilder(want > have ? q(s12, `button[data-pick="${autoPicks[want - 1]}"]`) : null); }
       }
-      if (local(sites, p) > 0 && p < ranges.get(sites)[1] + .1) loadFrame(liveBtn);
     };
     loop(s12,
       G.to(qa(s12, '.c15-prod svg'), { y: -8, duration: 2.3, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: .35 }),
@@ -378,48 +432,35 @@
 
   // 14 · Tools: a data tunnel, the site morphs into the report, panels punch through
   if (s14) {
-    const ped = B(s14, '.c15-pedestal'), rep = B(s14, '.c15-report'), tb = B(s14, '.c15-toolb'), qr = B(s14, '.c15-qr'), tl2 = B(s14, '.c15-tolearn');
-    rep.dataset.enter = 'punch'; tl2.dataset.enter = 'drop';
+    const ped = B(s14, '.c15-pedestal'), qr = B(s14, '.c15-qr');
     build(s14, (tl, at) => {
       tl.fromTo(qa(ped, '.c15-tunnel i:not(.c15-orbit)'), { scale: 1 }, { scale: 1.9, autoAlpha: 0, duration: .07, stagger: .006 }, at(ped, .25))
         .fromTo(qa(ped, '.c15-site-morph__body i'), { borderRadius: 6, scaleY: 1 }, { borderRadius: 14, scaleY: 1.5, backgroundColor: '#7fd3a833', duration: .04, stagger: .006 }, at(ped, .4))
         .fromTo(B(ped, '.c15-site-morph'), { scale: 1 }, { scale: 1.6, autoAlpha: 0, duration: .03 }, at(ped, .75));
-      tl.fromTo(qa(rep, '.c15-panel'), { autoAlpha: 0, scale: 1.25, filter: 'blur(8px)' }, { autoAlpha: 1, scale: 1, filter: 'blur(0px)', duration: .02, stagger: .02 }, at(rep, .05))
-        .fromTo(B(rep, '.c15-tabs'), { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .02 }, at(rep, .5));
-      tl.fromTo(qa(tb, '.c15-flow > *'), { autoAlpha: 0, x: 60, rotationY: -20 }, { autoAlpha: 1, x: 0, rotationY: 0, duration: .025, stagger: .03 }, at(tb, .05))
-        .fromTo(qa(tb, '.c15-kit__sw i'), { scale: 0 }, { scale: 1, duration: .01, stagger: .005, ease: 'back.out(3)' }, at(tb, .6));
       tl.fromTo(qa(qr, '.c15-qrcard'), { autoAlpha: 0, y: 60, rotation: i => (i ? 4 : -4) }, { autoAlpha: 1, y: 0, rotation: 0, duration: .02, stagger: .015 }, at(qr, .08));
-      tl.fromTo(B(tl2, '.c15-learncard'), { scale: 1.2 }, { scale: .8, y: 60, duration: .03 }, at(tl2, .4));
+      const gift = B(s14, '.c15-gift');
+      tl.fromTo(B(gift, '.c15-gift__shot'), { autoAlpha: 0, x: -60, rotationY: 18 }, { autoAlpha: 1, x: 0, rotationY: 0, duration: .03 }, at(gift, .05))
+        .fromTo(qa(gift, '.c15-gift__list li'), { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: .015, stagger: .012 }, at(gift, .12));
     });
-    const keys = ['strong', 'gaps', 'next'];
-    s14._state = p => { if (!tabsTouched) { const t = local(rep, p); selectTab(reportTabs, reportPanels, keys[t > .82 ? 2 : t > .66 ? 1 : 0], 'tab', 'tabpanel'); } };
     loop(s14,
       G.to(B(s14, '.c15-orbit'), { rotation: 360, duration: 9, ease: 'none', repeat: -1 }),
-      G.to(B(s14, '.c15-learncard'), { yPercent: -8, rotation: 2, duration: 2, ease: 'sine.inOut', yoyo: true, repeat: -1 }),
-      G.to(qa(s14, '.c15-qrcard'), { yPercent: -3, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: .6 }),
-      G.to(B(s14, '.c15-post svg'), { y: -6, rotation: 3, duration: 2, ease: 'sine.inOut', yoyo: true, repeat: -1 })
+      G.to(qa(s14, '.c15-qrcard'), { yPercent: -3, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: .6 })
     );
   }
 
   // 15 · Keep learning: the box opens, skills spiral into orbit, the lid closes
   if (s15) {
-    const box = B(s15, '.c15-box'), ws = B(s15, '.c15-withskill'), learn = B(s15, '.c15-learn'), plan = B(s15, '.c15-plan'), close = B(s15, '.c15-close');
+    const box = B(s15, '.c15-box'), close = B(s15, '.c15-close');
     build(s15, (tl, at) => {
       tl.fromTo(B(box, '.c15-giftbox__lid'), { y: 0, rotation: 0 }, { y: -70, rotation: -10, duration: .03, ease: 'power2.out' }, at(box, .05));
       const skills = qa(box, '.c15-skills li');
       tl.fromTo(skills, { autoAlpha: 0, scale: .1, rotation: i => 160 - i * 20, x: i => (i % 2 ? -1 : -1.6) * (phone() ? 60 : 260), y: i => (phone() ? -80 : 120) + i * 4 }, { autoAlpha: 1, scale: 1, rotation: 0, x: 0, y: 0, duration: .03, stagger: .018, ease: 'power3.out' }, at(box, .14))
         .fromTo(B(box, '.c15-skills__src'), { autoAlpha: 0 }, { autoAlpha: 1, duration: .02 }, at(box, .85));
-      tl.fromTo(qa(ws, '.c15-ws'), { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: .02, stagger: .02 }, at(ws, .05));
-      tl.fromTo(qa(learn, '.c15-links li'), { autoAlpha: .4, y: 10 }, { autoAlpha: 1, y: 0, duration: .02 }, at(learn, .05));
-      tl.fromTo(qa(plan, 'fieldset'), { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .015, stagger: .012 }, at(plan, .04))
-        .fromTo(B(plan, '.c15-plancard'), { autoAlpha: 0, x: 50 }, { autoAlpha: 1, x: 0, duration: .02 }, at(plan, .2));
       tl.fromTo(qa(close, '.c15-words span'), { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: .01, stagger: .012 }, at(close, .04))
         .fromTo(B(close, '.c15-closebox__bottle'), { y: -170 }, { y: 0, duration: .025, ease: 'power2.in' }, at(close, .2))
         .fromTo(B(close, '.c15-closebox__lid'), { y: -90, rotation: -14 }, { y: 0, rotation: 0, duration: .02, ease: 'bounce.out' }, at(close, .45))
         .fromTo(B(close, '.c15-takeaway'), { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .02 }, at(close, .55));
     });
-    const stageKeys = ['engage', 'convert', 'optimize', 'attract', 'ai', 'support'];
-    s15._state = p => { if (!stagesTouched) { const t = local(learn, p); const k = Math.min(5, Math.max(0, Math.floor(t * 6))); selectTab(stageTabs, stagePanels, stageKeys[k], 'stageTab', 'stagePanel'); } };
     loop(s15,
       G.to(qa(s15, '.c15-skills li'), { yPercent: -10, duration: 2, ease: 'sine.inOut', stagger: { each: .25, repeat: -1, yoyo: true } }),
       G.to(B(s15, '.c15-giftbox'), { y: -6, duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1 }),
