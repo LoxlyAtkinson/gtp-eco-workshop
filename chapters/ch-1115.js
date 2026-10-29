@@ -463,8 +463,7 @@
         .fromTo(B(box, '.c15-skills__src'), { autoAlpha: 0 }, { autoAlpha: 1, duration: .02 }, at(box, .85));
       tl.fromTo(qa(close, '.c15-words span'), { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: .01, stagger: .012 }, at(close, .04))
         .fromTo(B(close, '.c15-closebox__bottle'), { y: -170 }, { y: 0, duration: .025, ease: 'power2.in' }, at(close, .2))
-        .fromTo(B(close, '.c15-closebox__lid'), { y: -90, rotation: -14 }, { y: 0, rotation: 0, duration: .02, ease: 'bounce.out' }, at(close, .45))
-        .fromTo(B(close, '.c15-takeaway'), { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .02 }, at(close, .55));
+        .fromTo(B(close, '.c15-closebox__lid'), { y: -90, rotation: -14 }, { y: 0, rotation: 0, duration: .02, ease: 'bounce.out' }, at(close, .45));
     });
     loop(s15,
       G.to(qa(s15, '.c15-skills li'), { yPercent: -10, duration: 2, ease: 'sine.inOut', stagger: { each: .25, repeat: -1, yoyo: true } }),

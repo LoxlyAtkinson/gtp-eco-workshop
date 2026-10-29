@@ -48,7 +48,6 @@
   tl.to(q('.st-stem'), { '--draw': 0, duration: d * 2 }, at(.7));
   each(q('.st-trunk'), { scaleY: 0, transformOrigin: '50% 100%' }, { scaleY: 1, duration: d * 2 }, at(.72));
   each(qa('.st-canopy circle'), { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: d * 1.2, ease: 'back.out(1.5)' }, at(.76), d * .3);
-  each(q('.c15-still__keep'), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: d }, at(ALL));
   tl.to({}, { duration: .001 }, .999);
 
   // The line being spoken is lit; earlier lines step back until all four stand together.

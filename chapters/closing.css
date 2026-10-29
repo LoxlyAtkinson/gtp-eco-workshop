@@ -23,7 +23,7 @@
 .c15-still__tag--b{left:65%}
 .c15-still__keep{display:none}
 .c15-motion .c15-still__keep{grid-area:keep;display:flex;gap:.8rem;align-items:center;justify-self:start;margin-top:.8rem;padding:.55rem .7rem;border-radius:12px;background:#fffaf1;box-shadow:0 8px 20px #5a3a1a1f}
-.c15-still__keep img{width:clamp(58px,9vh,76px);height:auto;flex:none}
+.c15-still__keep img{width:clamp(110px,20vh,170px);height:auto;flex:none}
 .c15-still__keep p{margin:0}
 .c15-still__keep strong{display:block;font:800 .9rem/1.2 var(--display)}
 .c15-still__keep a{display:block;font-size:.72rem;overflow-wrap:anywhere;color:#1e1a17}
@@ -37,6 +37,7 @@
   .c15-still__cite{font-size:.78rem}
   .c15-still__tag{font-size:.6rem;padding:.15rem .4rem}
   .c15-motion .c15-still__keep{justify-self:start;padding:.4rem .55rem}
+  .c15-still__keep img{width:clamp(90px,13vh,115px)}
 }
 /* The phone rule in scroll-experience.css pads scene 15 by 30svh, which lifts the
    sticky stage 250px at the final hold and hides the headline under the bar. */
