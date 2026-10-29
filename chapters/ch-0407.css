@@ -796,3 +796,4 @@ html:not(.c47-motion) .c7-checks{grid-template-columns:1fr}
 .c6-same__card span{position:absolute;padding:.15rem .45rem;border-radius:6px;background:#000a}
 @media screen{.c47-motion .c6-same{top:12.6rem}}
 @media screen and (max-width:900px){.c47-motion .c6-same{top:12.4rem}}
+.scene h2.is-long{max-width:min(64rem,calc(100vw - 9rem))!important;font-size:clamp(1.7rem,2.6vw,3rem)!important;line-height:1.02!important}

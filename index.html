@@ -13,7 +13,7 @@
   <script defer src="./vendor/gsap.min.js"></script>
   <script defer src="./vendor/ScrollTrigger.min.js"></script>
   <script defer src="./vendor/Flip.min.js"></script>
-  <script defer src="./scroll-presentation.js?v=8"></script>
+  <script defer src="./scroll-presentation.js?v=9"></script>
 </head>
 <body class="deck-page">
   <a class="skip-link" href="#presentation">Skip to presentation</a>
@@ -859,7 +859,7 @@
       <div class="cx-glow" aria-hidden="true"></div>
 
       <div class="cx09-orbit" data-in="0" data-out="0.205" data-fx="none" aria-label="Where AI answers your customers">
-        <div class="cx09-orbit__core cx-glass" aria-hidden="true"><figure class="cx-media cx09-core__media" data-media-slot="B3-M32a"><img data-pending-src="./assets/gen/B3-M32a.webp" alt="" loading="lazy"><div class="cx-media__standin"><i class="cx-bubble-icon"></i></div></figure><b>Where does AI answer?</b></div>
+        <div class="cx09-orbit__core cx-glass" aria-hidden="true"><figure class="cx-media cx09-core__media"><div class="cx-media__standin"><i class="cx-bubble-icon"></i></div></figure><b>Where does AI answer?</b></div>
         <div class="cx09-channels" role="group" aria-label="Choose where AI answers">
           <button type="button" class="cx09-ch" data-cx-channel="web" aria-pressed="false"><small>01</small>Website chat</button>
           <button type="button" class="cx09-ch" data-cx-channel="whatsapp" aria-pressed="false"><small>02</small>WhatsApp</button>
@@ -904,13 +904,13 @@
       <div class="cx09-pipe" data-in="0.47" data-out="0.575" aria-label="A sales pipeline: quotation, order, invoice, follow-up">
         <p class="cx-kicker">A pipeline puts each customer in a box, so nobody gets forgotten.</p>
         <div class="cx09-boxes">
-          <div class="cx09-box" data-cx-box="0"><figure class="cx-media cx09-box__icon" data-media-slot="B3-M32c"><img data-pending-src="./assets/gen/B3-M32c.webp" alt="" loading="lazy"><div class="cx-media__standin"><i class="cx-doc-icon"></i></div></figure><b>Quotation</b><output>4</output></div>
+          <div class="cx09-box" data-cx-box="0"><figure class="cx-media cx09-box__icon"><div class="cx-media__standin"><i class="cx-doc-icon"></i></div></figure><b>Quotation</b><output>4</output></div>
           <i class="cx09-pipe__flow" aria-hidden="true"><i></i><i></i></i>
           <div class="cx09-box" data-cx-box="1"><b>Order</b><output>2</output></div>
           <i class="cx09-pipe__flow" aria-hidden="true"><i></i><i></i></i>
           <div class="cx09-box" data-cx-box="2"><b>Invoice</b><output>3</output></div>
           <i class="cx09-pipe__flow" aria-hidden="true"><i></i><i></i></i>
-          <div class="cx09-box" data-cx-box="3"><figure class="cx-media cx09-box__icon" data-media-slot="B3-M32b"><img data-pending-src="./assets/gen/B3-M32b.webp" alt="" loading="lazy"><div class="cx-media__standin"><i class="cx-cal-icon"></i></div></figure><b>Follow-up</b><output>5</output></div>
+          <div class="cx09-box" data-cx-box="3"><figure class="cx-media cx09-box__icon"><div class="cx-media__standin"><i class="cx-cal-icon"></i></div></figure><b>Follow-up</b><output>5</output></div>
         </div>
         <div class="cx09-deal cx-glass"><figure class="cx-media cx09-deal__media" data-media-slot="B3-M33"><video muted loop autoplay playsinline preload="auto" poster="./assets/gen/vid-tumelo-poster.jpg" aria-hidden="true"><source src="./assets/gen/vid-tumelo.mp4" type="video/mp4"></video><div class="cx-media__standin"><svg viewBox="0 0 200 160"><use href="#g1-giftbox"/></svg></div></figure><div><span>Tumelo Print &amp; Pack · deal</span><b>Amberkloof · 1,000 gift cartons</b><small>R18,500 · demo</small></div></div>
         <button type="button" class="cx-btn cx09-advance" data-cx-advance>Advance deal →</button>
@@ -1166,7 +1166,7 @@
         <div class="c15-critics">
           <div class="c15-critic"><span>Critic 1</span><q>FAIL. Ours does not win against the reference.</q><b>FAIL</b></div>
           <div class="c15-critic"><span>Critic 2</span><q>Reads as a slide deck with one moving hero.</q><b>FAIL</b></div>
-          <div class="c15-critic"><span>Critic 3</span><q>Oryzo wins.</q><b>FAIL</b></div>
+          <div class="c15-critic"><span>Critic 3</span><q>The reference keeps one product in focus. Ours loses the thread.</q><b>FAIL</b></div>
         </div>
         <div class="c15-fix"><span>The fix they asked for</span><p>One bottle that never leaves. Holds that keep moving. The bottle carried across each seam.</p><small>Real round 1 on this deck's own opening, 27 Oct 2026. You saw the rebuild in scenes 01 to 03. Round 2 is being judged now.</small></div>
       </div>
@@ -1290,6 +1290,7 @@
             <li>Posts to Facebook, Instagram, LinkedIn, TikTok, YouTube and more</li>
           </ul>
           <p class="c15-gift__open">Ask Loxly about the giveaway after the workshop.</p>
+          <a class="stage-launch c15-gift__live" href="http://localhost:8790/smart-ai/open" target="_blank" rel="noopener" hidden>Open the live app <span aria-hidden="true">↗</span></a>
           <small>Built on Postiz, open source.</small>
         </div>
       </div>
@@ -1299,6 +1300,7 @@
 14-1 · 0:15 "Now let's look at a business from the room. We'll use the live stage only with the owner's permission."
 14-12 · 0:20 "Thank you to our volunteer. Scan the code to explore the business scan preview."
 14-12b · 0:40 [GIVEAWAY] "Plan the week in one place, get an AI first draft and publish across your channels. Three people in this room will receive the Smart AI Social Assistant free. Speak to me after the session for details."
+• [LIVE, presenter laptop only] "Open the live app" shows when the live runner is running: a new tab starts the app and signs in. Open it once before the talk; the first start after a reboot can take up to 10 minutes.
 [NEXT.]</aside>
     </section>
 
@@ -1361,7 +1363,7 @@
       <div class="c15-beat c15-close" data-beat="15-7">
         <p class="c15-words c15-words--close"><span>Be found.</span><span>Be chosen.</span><span>Keep learning.</span></p>
         <div class="c15-closebox" aria-hidden="true"><svg class="c15-closebox__bottle" viewBox="0 0 200 440"><use href="#g1-bottle"/></svg><i class="c15-closebox__base"></i><i class="c15-closebox__lid"></i></div>
-        <div class="c15-takeaway"><img src="./presentation-qr.svg" width="132" height="132" alt="QR code for the workshop page"><div><strong>Keep the workshop</strong><a href="https://loxlyatkinson.github.io/gtp-eco-workshop/">loxlyatkinson.github.io/gtp-eco-workshop/</a><small>Explore the skills pack at /skills/</small></div></div>
+        <div class="c15-takeaway"><img src="./skills/get-qr.svg" width="180" height="180" alt="QR code for the free skills pack"><div><strong>Scan for your free skills</strong><a href="./skills/get/">loxlyatkinson.github.io/gtp-eco-workshop/skills/get/</a><small>Get the free skills pack.</small></div></div>
       </div>
       <div class="c15-beat c15-still" data-beat="15-8">
         <h3 class="c15-still__title"><span>Still here.</span> <em>Still building.</em></h3>
@@ -1388,7 +1390,7 @@
           <li>You are still here.</li>
           <li>Your 7-day test and the skills pack carry you on the tired days.</li>
         </ol>
-        <div class="c15-still__keep"><img src="./presentation-qr.svg" width="76" height="76" alt="QR code for the workshop page"><p><strong>Keep the workshop</strong><a href="https://loxlyatkinson.github.io/gtp-eco-workshop/">loxlyatkinson.github.io/gtp-eco-workshop/</a></p></div>
+        <div class="c15-still__keep"><img src="./skills/get-qr.svg" width="160" height="160" alt="QR code for the free skills pack"><p><strong>Scan for your free skills</strong><a href="./skills/get/">loxlyatkinson.github.io/gtp-eco-workshop/skills/get/</a></p></div>
       </div>
       <aside class="speaker-note">3:40 · • New here: the free skills download, where to learn by stage, and your own one-week test.
 • On screen: the kraft gift box opens; eight skills rise; the learn links by stage; the plan card; the bottle settles in the box; the QR to the skills page; then the closing, a seed that grows into a staked young tree: still here, still building.
@@ -1419,7 +1421,7 @@ You are still here. Now keep going. Thank you."
 
   <footer class="deck-controls" aria-label="Presentation controls"><div class="deck-controls__stage"><span id="stageLabel">START</span><div class="progress-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1"><span id="progressFill"></span></div><span id="sceneCount" aria-label="Scene 1 of 15, section 1">1.1 · 15</span></div><div class="deck-controls__actions"><span id="autoStatus" class="auto-status" role="status" aria-live="polite" data-state="running"><i aria-hidden="true"></i><span id="autoStatusText">Moving</span></span><label class="speed-control" title="Auto-scroll speed (keys - and +)">Speed <select id="speedSelect" aria-label="Auto-scroll speed"><option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label><button type="button" id="overviewButton" aria-label="Open scene overview">Overview</button><button type="button" id="notesButton" aria-label="Toggle speaker notes" aria-pressed="false">Notes</button><button type="button" id="prevButton" aria-label="Previous section">←</button><button type="button" id="nextButton" aria-label="Next section">Next <span aria-hidden="true">→</span></button></div></footer>
   <dialog id="overviewDialog" class="overview-dialog" aria-labelledby="overviewTitle"><div class="overview-dialog__top"><h2 id="overviewTitle">All scenes</h2><button type="button" id="closeOverview" aria-label="Close overview">✕</button></div><div id="overviewGrid" class="overview-grid"></div></dialog>
-  <link rel="stylesheet" href="./chapters/ch-0407.css?v=15">
+  <link rel="stylesheet" href="./chapters/ch-0407.css?v=16">
   <script defer src="./chapters/ch-0407.js?v=6"></script>
   <link rel="stylesheet" href="./chapters/ch-0810.css?v=4">
   <script defer src="./chapters/ch-0810.js?v=4"></script>
