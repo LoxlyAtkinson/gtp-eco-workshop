@@ -9,6 +9,7 @@ import { KINDS, validateRequest, blockedOn } from './lib/kinds.mjs';
 import { runKind } from './lib/run-kind.mjs';
 import { claudeRunsInWindow, MAX_CLAUDE_RUNS, firecrawlCreditsInWindow, MAX_FIRECRAWL_CREDITS } from './lib/spend.mjs';
 import { isStageKind, validateStageRequest, handleStageRoute, stageHealth } from './lib/stage.mjs';
+import { handleRehearsalRoute } from './lib/rehearsal.mjs';
 
 const HOST = '127.0.0.1';
 const PORT = Number(process.env.LIVE_RUNNER_PORT || 8790);
@@ -60,6 +61,8 @@ const server = createServer((req, res) => {
 
   // Stage chapter: the audience's websites (lib/stage.mjs).
   if (url.pathname.startsWith('/stage/')) return handleStageRoute(req, url, (status, obj) => sendJson(res, status, obj, origin));
+  // Rehearsal recorder: the owner's practice run (audio + slide log), stored locally.
+  if (url.pathname.startsWith('/rehearsal/')) return void handleRehearsalRoute(req, url, (status, obj) => sendJson(res, status, obj, origin));
 
   const m = url.pathname.match(/^\/run\/([a-z0-9-]{1,32})$/);
   if (req.method !== 'POST' || !m) return sendJson(res, 404, { error: 'not found' }, origin);

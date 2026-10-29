@@ -7,7 +7,7 @@
   const fields = { firstName: $('firstName'), email: $('email'), consent: $('consent') };
   const NAME_RE = /^[\p{L}\p{M}][\p{L}\p{M}' .-]{0,39}$/u;
   const EMAIL_RE = /^[^\s@<>"',;:()[\]\\]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/;
-  const PACK = '../downloads/anthropic-marketing-skills.zip';
+  const PACK = '../downloads/gtp-workshop-skills.zip';
 
   const apiUrl = (() => {
     const raw = (window.GTP_SKILLS_CONFIG && window.GTP_SKILLS_CONFIG.apiUrl) || '';
@@ -98,7 +98,7 @@
       clearTimeout(timer);
       busy = false;
       submit.disabled = false;
-      submit.textContent = 'Get the skills pack';
+      submit.textContent = 'Send me the skills';
       form.removeAttribute('aria-busy');
     }
   });

@@ -1,0 +1,89 @@
+<!doctype html>
+<!--
+  GTP presenter screen (two screens). Local only: not copied by .github/workflows/pages.yml.
+
+  Two-screen steps
+  1. Start: powershell -NoProfile -ExecutionPolicy Bypass -File scripts\start-presenter.ps1
+     (or open http://127.0.0.1:8765/presenter.html in Chrome).
+  2. Plug in the projector. Press Win+P, pick Extend.
+  3. On this page press "Open audience screen".
+  4. Drag that window to the projector. Click its title bar. Press F11.
+  5. Click this page once. Press "Mic on" (M). Allow the mic.
+  6. Say the cue word on the Next card, or press Next (Right arrow or Page Down).
+  The audience screen glides through each beat at the script's pace. It shows no voice UI.
+  Back: Left arrow or Page Up. Hold the glide: Esc. Click a card to play that beat.
+  Cue words: experience/cue-cards.md, or {{cue}} in the script; rebuild with
+  node scripts/build-voice-cues.mjs. Test map: presenter.html?cues=<url>.
+-->
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>GTP presenter</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./presenter.css?v=3">
+  <script defer src="./chapters/voice-match.js?v=1"></script>
+  <script defer src="./presenter.js?v=4"></script>
+</head>
+<body data-mic="off">
+  <header class="bar">
+    <strong class="bar__title">GTP presenter</strong>
+    <span id="audStatus" class="chip" data-state="off" role="status">Audience screen: off</span>
+    <button type="button" id="openAudience" class="btn">Open audience screen</button>
+    <label class="pace">Pace
+      <select id="pace">
+        <option value="0.75">Slower</option>
+        <option value="1">Script</option>
+        <option value="1.25">Faster</option>
+        <option value="1.5">Fastest</option>
+      </select>
+    </label>
+    <details class="help">
+      <summary>How to start</summary>
+      <div class="help__body">
+      <ol>
+        <li>Press Win+P. Pick Extend.</li>
+        <li>Press Open audience screen.</li>
+        <li>Drag it to the projector. Click its title bar. Press F11.</li>
+        <li>Click this page once. Press Mic on.</li>
+        <li>Say the Next cue word, or press Next.</li>
+      </ol>
+      <p>Keys: Right or Page Down = Next. Left or Page Up = Back. M = mic. Esc = hold.</p>
+      </div>
+    </details>
+  </header>
+
+  <main class="layout">
+    <section class="script" aria-labelledby="sceneTitle">
+      <div class="next" aria-live="polite">
+        <span class="next__label">Next cue</span>
+        <strong id="nextCue" class="next__cue">…</strong>
+        <span id="nextHint" class="next__hint"></span>
+      </div>
+      <h1 id="sceneTitle" class="script__title">Loading…</h1>
+      <ol id="cards" class="cards"></ol>
+    </section>
+
+    <aside class="side">
+      <div id="previewBox" class="preview">
+        <iframe id="preview" src="./?audience=1&amp;preview=1" title="Live copy of the audience screen" tabindex="-1" loading="eager" inert></iframe>
+      </div>
+      <p class="preview__note">Live copy of the audience screen. Sound off.</p>
+
+      <div class="mic">
+        <button type="button" id="micBtn" class="btn btn--mic" aria-pressed="false" disabled>Mic on</button>
+        <span id="micStatus" class="mic__status" role="status">Mic off.</span>
+      </div>
+      <p class="heard"><span class="heard__label">Heard</span> <span id="heard">Nothing yet.</span></p>
+      <p id="lastMove" class="heard heard--move">No move yet.</p>
+
+      <div class="nav">
+        <button type="button" id="backBtn" class="btn btn--nav" disabled>‹ Back</button>
+        <button type="button" id="nextBtn" class="btn btn--nav btn--next">Next ›</button>
+      </div>
+      <p id="mapNote" class="map-note"></p>
+    </aside>
+  </main>
+</body>
+</html>

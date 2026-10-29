@@ -492,3 +492,59 @@ html.cx-motion .cx-08 .cx08-ads__line{display:none}
 @media (min-width:901px){html.cx-motion .cx-08 .cx08-b2b{display:grid;grid-template-columns:minmax(0,380px) 1fr;column-gap:2.4rem;align-items:center;width:min(860px,84%);margin-left:max(-430px,-42%)}
 html.cx-motion .cx-08 .cx08-b2b .cx-kicker{grid-column:1/-1}
 html.cx-motion .cx-08 .cx08-b2b__line{margin:0;font-size:clamp(1.3rem,2.2vw,1.9rem)}}
+
+/* Visibility pass: the website conversion examples carry the teaching point. */
+@media screen and (min-width:901px){
+  .cx-08 .cx08-rank li{font-size:1.1rem}
+  .cx-08 .cx08-rank li b{font-size:1.12rem}
+  .cx-08 .cx08-analytics__head{font-size:.83rem}
+  .cx-08 .cx08-analytics__line{font-size:1.55rem}
+  .cx-08 .cx08-chat{width:min(440px,100%);padding:1.15rem 1.25rem}
+  html.cx-motion .cx-08 .cx08-chat{right:4%}
+  .cx-08 .cx08-chat__top{font-size:1.05rem}
+  .cx-08 .cx08-chat .cx-bubble{font-size:1.08rem;line-height:1.4}
+  .cx-08 .cx08-capture,.cx-08 .cx08-quote{width:min(410px,100%)}
+  .cx-08 .cx08-capture label,.cx-08 .cx08-quote label{font-size:.9rem;letter-spacing:.04em}
+  .cx-08 .cx08-capture output,.cx-08 .cx08-quote output{font-size:1.1rem;min-height:2.3rem}
+  .cx-08 .cx08-dwell__rule{font-size:1.1rem}
+}
+@media screen and (max-width:900px){
+  .cx-08 .cx08-rank li{font-size:.9rem}
+  .cx-08 .cx08-rank li b{font-size:.95rem}
+  .cx-08 .cx08-chat .cx-bubble{font-size:.9rem;line-height:1.35}
+  .cx-08 .cx08-capture label,.cx-08 .cx08-quote label{font-size:.78rem;letter-spacing:.03em}
+  .cx-08 .cx08-capture output,.cx-08 .cx08-quote output{font-size:.88rem;min-height:1.8rem;padding:.3rem .45rem}
+  html.cx-motion .cx-08 .cx08-capture{top:9.1rem;width:56%;gap:.2rem}
+}
+
+/* Scenes 09-10: make the conversion steps and measured outcomes legible. */
+@media screen and (min-width:901px){
+  .cx-09 .cx09-lane b{font-size:.95rem}
+  .cx-09 .cx09-lane span{font-size:1rem;line-height:1.35}
+  .cx-09 .cx09-lane span::after{font-size:.75rem}
+  .cx-09 .cx09-crm__stages i{font-size:.95rem}
+  .cx-09 .cx09-crm__prompt{font-size:1rem}
+  .cx-09 .cx09-skills li{font-size:1.05rem}
+  .cx-10 .cx10-kpis p{font-size:.95rem}
+  .cx-10 .cx10-post__art{aspect-ratio:16/9}
+  .cx-10 .cx10-post strong{font-size:1.05rem}
+  .cx-10 .cx10-post__stats{font-size:.9rem}
+  .cx-10 .cx10-why{font-size:1.05rem}
+}
+@media screen and (max-width:900px){
+  .cx-09 .cx09-lane{grid-template-columns:3.2rem repeat(3,minmax(0,1fr));gap:.2rem}
+  .cx-09 .cx09-lane b{font-size:.8rem}
+  .cx-09 .cx09-lane span{font-size:.78rem;line-height:1.25;padding:.4rem .3rem;overflow-wrap:anywhere}
+  .cx-09 .cx09-lane span::after{font-size:.68rem;letter-spacing:0}
+  .cx-09 .cx09-crm__stages i{font-size:.82rem}
+  .cx-09 .cx09-crm__prompt{font-size:.84rem}
+  .cx-09 .cx09-flow span{font-size:.86rem}
+  .cx-10 .cx10-kpis p{font-size:.82rem}
+  .cx-10 .cx10-why{font-size:.85rem}
+  .cx-10 .cx10-week{grid-template-columns:repeat(3,minmax(0,1fr));gap:.35rem}
+  .cx-10 .cx10-post strong{font-size:.8rem}
+  .cx-10 .cx10-post__day{font-size:.72rem}
+  .cx-10 .cx10-post__art{aspect-ratio:16/9}
+  .cx-10 .cx10-post__art q{font-size:.62rem}
+  .cx-10 .cx10-post__stats{display:block;font-size:.75rem;line-height:1.2}
+}

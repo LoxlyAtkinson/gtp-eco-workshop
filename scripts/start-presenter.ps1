@@ -1,7 +1,15 @@
 <#
 .SYNOPSIS
-  Opens the GTP deck with the voice presenter assistant (owner item 21) in a visible
-  browser that Jev Ultrafast owns and drives, with the microphone already allowed.
+  Opens the GTP presenter screen (presenter.html, two-screen voice presenting, owner
+  item 21) in a visible browser that Jev Ultrafast owns and drives, with the
+  microphone already allowed. The presenter page opens the audience window itself.
+
+  Two screens, after this script:
+    1. Win+P, pick Extend.
+    2. On the presenter page press "Open audience screen" (it opens /?audience=1).
+    3. Drag that window to the projector, click its title bar, press F11.
+    4. Click the presenter page once. The mic is already on (?listen=1).
+    5. Say the cue word on the Next card, or press Next (Right arrow / Page Down).
 
 .DESCRIPTION
   1. Deck server on 127.0.0.1:8765 and live runner on 127.0.0.1:8790: each is started
@@ -16,8 +24,9 @@
      is used; it does not fake the device).
   3. Jev Ultrafast's own runtime (its venv Python and the browser-harness CDP transport
      it drives browsers with) grants the deck origin the microphone permission, opens
-     http://127.0.0.1:8765/?voice=1 in the front tab and reads the voice pill's state
-     back, then stops its harness daemon. The browser and the deck keep running.
+     http://127.0.0.1:8765/presenter.html?listen=1 in the front tab and reads the
+     presenter's state back, then stops its harness daemon. The browser and the
+     presenter page keep running. The single-screen pill (/?voice=1) still works.
 
   Voice cues need internet: Chrome's speech recognition is a Google web service.
 
@@ -26,7 +35,7 @@
 .EXAMPLE
   powershell -NoProfile -ExecutionPolicy Bypass -File scripts\start-presenter.ps1 -Verify
   Proves the whole chain without a window or the real mic (headless, fake audio
-  device), prints the pill state, then closes the browser it started.
+  device), prints the presenter state, then closes the browser it started.
 #>
 param(
   [int]$DeckPort = 8765,
@@ -44,7 +53,7 @@ $StateDir = Join-Path $env:LOCALAPPDATA 'gtp-presenter'
 $BrowserProfile = Join-Path $StateDir 'browser-profile'
 if ($Verify) { $BrowserProfile = Join-Path $StateDir 'verify-profile' }
 $Origin = "http://127.0.0.1:$DeckPort"
-$Url = "$Origin/?voice=1"
+$Url = "$Origin/presenter.html?listen=1"
 
 function Get-Listener([int]$Port) {
   Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1
@@ -111,7 +120,7 @@ ensure_daemon(name=name)
 try:
     cdp('Browser.grantPermissions', origin=origin, permissions=['audioCapture'])
     pages = [t for t in cdp('Target.getTargets')['targetInfos'] if t['type'] == 'page']
-    deck = next((t for t in pages if t['url'].startswith(origin + '/')), None)
+    deck = next((t for t in pages if t['url'].startswith(origin + '/presenter.html')), None)
     if deck:
         target = deck['targetId']
     else:
@@ -121,7 +130,7 @@ try:
                 cdp('Target.closeTarget', targetId=t['targetId'])
     cdp('Target.activateTarget', targetId=target)
     session = cdp('Target.attachToTarget', targetId=target, flatten=True)['sessionId']
-    probe = "window.gtpVoice ? JSON.stringify(Object.assign({url: location.href}, window.gtpVoice.state)) : ''"
+    probe = "window.gtpPresenter ? JSON.stringify(Object.assign({url: location.href}, window.gtpPresenter.state)) : ''"
     # Wait for the cue map, then up to 8 s more for the mic to report listening (or its error).
     state, start = None, time.monotonic()
     while time.monotonic() - start < 30:
@@ -136,8 +145,8 @@ try:
                 break
         time.sleep(0.4)
     cdp('Target.detachFromTarget', sessionId=session)
-    keep = ('url', 'loaded', 'cues', 'status', 'lang', 'listening', 'current', 'next')
-    print(json.dumps({k: state.get(k) for k in keep} if state else {'error': 'voice pill did not load'}))
+    keep = ('url', 'loaded', 'cues', 'mic', 'listening', 'current', 'next', 'audiences')
+    print(json.dumps({k: state.get(k) for k in keep} if state else {'error': 'presenter page did not load'}))
 finally:
     restart_daemon(name)
 '@
@@ -148,7 +157,7 @@ $env:BU_NAME = 'gtp-presenter'
 $env:BROWSER_HARNESS_HOME = Join-Path $StateDir 'harness-state'
 $result = & $Py $openerPath $Url $Origin
 $code = $LASTEXITCODE
-Write-Host "Voice pill: $result"
+Write-Host "Presenter: $result"
 
 if ($Verify -and $startedPid) {
   Stop-Process -Id $startedPid -ErrorAction SilentlyContinue
@@ -156,7 +165,7 @@ if ($Verify -and $startedPid) {
   Write-Host "Verify: closed the headless browser it started (pid $startedPid)."
 } elseif ($code -eq 0) {
   Write-Host ''
-  Write-Host 'Ready. In the deck: V shows or hides the voice pill; Start/Stop listening is on the pill.'
-  Write-Host 'Speak the first words of the next line in experience/presentation-script.md to bring it in.'
+  Write-Host 'Ready. On the presenter page press Open audience screen.'
+  Write-Host 'Drag that window to the projector, click its title bar, press F11. Then say the Next cue word, or press Next.'
 }
 exit $code

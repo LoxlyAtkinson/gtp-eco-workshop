@@ -3,7 +3,9 @@
    - the engine owns auto-scroll, holds, Next and Space; this file reads scroll
      progress and switches each scene's beat plates (data-beats / data-on);
    - an in-scene click holds auto-scroll through the engine's own Pause button;
-   - live runs use live-runner/client.js and never start before consent. */
+   - scene 04 "Start the runs" plays a demo of the skill runs (owner rehearsal
+     r-20261028-184822: no volunteer, no consent card, no live run). Scenes 05-07
+     show the saved runs in assets/cached-runs, tagged "cached run". */
 (() => {
   const scenes = [...document.querySelectorAll('.c47')];
   if (!scenes.length) return;
@@ -133,32 +135,25 @@
   }
   const tableRows = (text) => String(text || '').split('\n').filter((l) => /^\s*\|/.test(l) && !/^\s*\|\s*-/.test(l)).map((l) => l.trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim()));
 
-  // ---- live slots: consent first, runs start at 04-2, reveal at each beat ----
+  // ---- saved-run slots: each later beat reveals the tagged cached run ----
   const SLOTS = {
     'competitor-scan': {}, content: {}, keywords: {}, 'seo-audit': {}, 'backlink-analyzer': {}, 'geo-citability': {}, 'seo-plan': {}, 'blog-calendar': {},
     'b2b-find': { blocked: 'needs the Apify key' }, last30days: { blocked: 'in review, needs a ScrapeCreators key' },
   };
   Object.entries(SLOTS).forEach(([kind, s]) => { s.kind = kind; s.cachedUrl = `./assets/cached-runs/${kind}.json`; s.renderers = []; s.revealed = false; s.state = null; });
-  let clientMod = null;
-  const loadClient = () => clientMod || (clientMod = import('../live-runner/client.js').catch(() => null));
-  const trayItem = (kind) => q(byScene['04'], `.c4-tray li[data-kind="${kind}"]`);
-  function trayPhase(kind, phase, label) { const li = trayItem(kind); if (!li) return; li.dataset.phase = phase; q(li, 'i').textContent = label || phase; }
   function runline(kind, st) {
     qa(document, `.c47 [data-slot-line="${kind}"]`).forEach((el) => {
       el.dataset.phase = st.phase;
       const src = st.source || {};
-      if (st.phase === 'live') el.textContent = `${src.business || ''} · ${src.at || ''} · skill ${src.skill || kind}`;
-      else if (st.phase === 'cached') el.textContent = `${src.business ? `${src.business} · ` : ''}${src.label || ''}${st.why ? ` · ${st.why}` : ''}`;
-      else if (st.phase === 'running') el.textContent = `${kind} is still running: ${(st.progress || []).slice(-1)[0] || 'started'}`;
-      else el.textContent = 'Waiting for the run';
+      if (st.phase === 'live') el.textContent = `Current check for ${src.business || 'this business'} · ${src.at || 'in progress'}`;
+      else if (st.phase === 'cached') el.textContent = `Illustrative result${src.business ? ` for ${src.business}` : ''}${src.label ? ` · ${src.label}` : ''}`;
+      else if (st.phase === 'running') el.textContent = `Checking the example · ${(st.progress || []).slice(-1)[0] || 'started'}`;
+      else el.textContent = 'Illustrative example · no current result';
     });
   }
   function settle(kind, st) {
     const slot = SLOTS[kind];
     slot.state = st;
-    if (st.phase === 'live') trayPhase(kind, 'live', 'live');
-    else if (st.phase === 'cached') trayPhase(kind, 'cached', 'cached run');
-    else if (st.phase === 'running') trayPhase(kind, 'running', 'running');
     if (!slot.revealed) return;
     runline(kind, st);
     if ((st.phase === 'live' || st.phase === 'cached') && st.result && !slot.painted) { slot.painted = true; slot.renderers.forEach((fn) => { try { fn(st.result, st); } catch (e) { console.error('[ch-0407 render]', kind, e); } }); }
@@ -169,30 +164,15 @@
     try { const r = await fetch(slot.cachedUrl, { cache: 'no-store' }); data = r.ok ? await r.json() : null; } catch {}
     settle(kind, { phase: 'cached', result: data || { text: '' }, why, source: { business: data && data.business, label: data && data.label } });
   }
-  async function startRuns(request) {
-    const mod = await loadClient();
-    Object.values(SLOTS).forEach((slot) => {
-      if (slot.blocked) { trayPhase(slot.kind, 'blocked', 'blocked'); return; }
-      if (slot.run) return;
-      if (!mod) { cachedOnly(slot.kind, 'live client unavailable'); return; }
-      slot.run = mod.createLiveRun({
-        kind: slot.kind, request, consent: true, cachedUrl: slot.cachedUrl,
-        onUpdate: (st) => settle(slot.kind, { ...st, why: st.phase === 'cached' ? mod.reasonLine(st) : '' }),
-      });
-      slot.run.start();
-      if (slot.revealed) slot.run.reveal();
-    });
-  }
   function reveal(kind) {
     const slot = SLOTS[kind];
     if (!slot || slot.revealed) return;
     slot.revealed = true;
-    if (slot.run) { slot.run.reveal(); if (slot.state) settle(kind, slot.state); }
-    else cachedOnly(kind, byScene['04'].dataset.consent === 'yes' ? 'runs not started' : 'no live run: consent not given');
+    cachedOnly(kind, '');
   }
   const render = (kind, fn) => SLOTS[kind].renderers.push(fn);
 
-  // ===================== scene 04: where? =====================
+  // ===================== scene 04: skills and what to use when, then where? =====================
   (function scene04() {
     const s = byScene['04'];
     const wheel = q(s, '#c4Wheel'), tiles = qa(wheel, '.c4-tile'), cursor = q(wheel, '.c4-cursor');
@@ -219,18 +199,24 @@
       },
     };
     const wh = { a: 0, burst: 0, spinning: false, current: null, drift: 0 };
-    const geom = () => { const phone = innerWidth <= 900; return { rx: phone ? 150 : Math.min(250, innerWidth * 0.19), ry: phone ? 96 : 150 }; };
+    // the wheel grows with the stage (1366x768 keeps 250x150), so big screens get readable tiles
+    const geom = () => {
+      if (innerWidth <= 900) return { rx: 150, ry: 96 };
+      const h = Math.max(1, (q(s, '.scene__stage') || s).clientHeight || innerHeight - 144);
+      return { rx: Math.min(250 * Math.max(1, h / 624), innerWidth * 0.19), ry: Math.max(120, Math.min(200, h * 0.216)) };
+    };
     function place() {
       const { rx, ry } = geom(), n = tiles.length;
+      wheel.style.setProperty('--rx', rx.toFixed(0) + 'px'); wheel.style.setProperty('--ry', ry.toFixed(0) + 'px');
       tiles.forEach((t, k) => {
         const a = wh.a + wh.drift + k * Math.PI * 2 / n - Math.PI / 2;
         const depth = (1 - Math.sin(a)) / 2; // 1 at the top
         const b = wh.burst;
         const x = Math.cos(a) * rx * b, y = Math.sin(a) * ry * b;
         const sel = t.getAttribute('aria-pressed') === 'true';
-        const sc = (0.72 + depth * 0.38) * (sel ? 1.12 : 1) * b;
+        const sc = (0.86 + depth * 0.24) * (sel ? 1.12 : 1) * b;
         t.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${sc.toFixed(3)})`;
-        t.style.opacity = String(b * (0.45 + depth * 0.55));
+        t.style.opacity = String(b * (0.72 + depth * 0.28));
         t.style.zIndex = String(Math.round(depth * 10));
         t.style.filter = wh.spinning ? 'blur(2.5px)' : '';
       });
@@ -269,17 +255,32 @@
     // R2 rhythm: a soft click pulse on the cursor while the wheel waits
     if (G) G.to(cursor, { scale: 0.9, duration: 0.35, repeat: -1, yoyo: true, repeatDelay: 2.2, ease: 'power2.inOut' });
 
-    // consent + questionnaire
-    const state = q(s, '#c4ConsentState'), start = q(s, '#c4Start'), form = q(s, '#c4Quiz');
-    qa(s, '[data-consent]').forEach((b) => b.addEventListener('click', () => {
-      hold();
-      const yes = b.dataset.consent === 'yes';
-      s.dataset.consent = yes ? 'yes' : 'no';
-      const t = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      state.textContent = yes ? `Agreed at ${t}. The runs can start.` : 'No consent. Every slot will show its tagged cached run.';
-      start.disabled = !yes;
-      window.gtpConsent = yes;
-    }));
+    // questionnaire + the demo runs: one skill at a time, then the tools that run them
+    const start = q(s, '#c4Start'), form = q(s, '#c4Quiz');
+    const runs = qa(s, '#c4Runs li'), runState = q(s, '#c4RunState');
+    let runTl = null;
+    const fill = (li, v) => { const u = q(li, 'u'); if (G) G.set(u, { scaleX: v }); else u.style.transform = ''; };
+    function setRun(li, phase) { li.dataset.phase = phase; q(li, 'i').textContent = phase; }
+    function finishRuns() {
+      if (runTl) { runTl.kill(); runTl = null; }
+      runs.forEach((li) => { setRun(li, 'done'); fill(li, 1); });
+      s.dataset.runs = 'done';
+      runState.textContent = `All ${runs.length} runs done. These three tools ran them.`;
+      start.disabled = false; start.textContent = 'Run them again';
+    }
+    function playRuns() {
+      if (runTl) { runTl.kill(); runTl = null; }
+      runs.forEach((li) => { setRun(li, 'waiting'); fill(li, 0); });
+      if (!G || !motion()) { finishRuns(); return; }
+      s.dataset.runs = 'running';
+      start.disabled = true; start.textContent = 'Running';
+      runTl = G.timeline({ onComplete: finishRuns });
+      runs.forEach((li, k) => {
+        runTl.call(() => { setRun(li, 'running'); runState.textContent = `Running ${k + 1} of ${runs.length}: ${q(li, 'b').textContent}`; })
+          .fromTo(q(li, 'u'), { scaleX: 0 }, { scaleX: 1, duration: 1.8, ease: 'power1.inOut' })
+          .call(() => setRun(li, 'done'));
+      });
+    }
     let typed = false;
     function fillDemo() {
       const inputs = qa(form, 'input');
@@ -290,25 +291,21 @@
     }
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (s.dataset.consent !== 'yes') return;
+      if (s.dataset.runs === 'running') return;
       hold();
-      const d = Object.fromEntries(new FormData(form));
-      const [business, url] = String(d.business || '').split('·').map((x) => x.trim());
-      const request = { business: business || 'Volunteer business', url: url && /\./.test(url) ? url : undefined, category: d.category, area: d.area, buyers: d.buyers, found: d.found, mode: d.mode };
-      q(s, '#c4AnswersChip').textContent = `Volunteer answers: ${request.business}, ${d.area || 'area not given'}`;
-      start.disabled = true; start.textContent = 'Runs started';
-      window.gtpRunRequest = request;
-      startRuns(request);
+      playRuns();
     });
 
     onBeat(s, (id, bi, prev, first) => {
       const idx = (x) => model.get(s).beats.findIndex((b) => b.id === x);
-      s.classList.toggle('is-phone', !motion() || bi >= idx('04-3'));
+      s.classList.toggle('is-phone', !motion() || bi >= idx('04-5'));
       if (id === '04-2') fillDemo();
-      if (bi < idx('04-5')) { if (wh.burst > 0) burst(false); if (motion()) showPlatform(null); }
-      if (id === '04-5') { setAudience('b2c'); burst(true); }
-      if (id === '04-6') { setAudience('b2c'); spinTo('instagram'); }
-      if (id === '04-7') { setAudience('b2c'); spinTo('whatsapp'); }
+      // the tools beat always shows finished runs, even if nobody pressed Start
+      if (id === '04-4' && s.dataset.runs !== 'done' && s.dataset.runs !== 'running') { fillDemo(); finishRuns(); }
+      if (bi < idx('04-6')) { if (wh.burst > 0) burst(false); if (motion()) showPlatform(null); }
+      if (id === '04-6') { setAudience('b2c'); burst(true); }
+      if (id === '04-7') { setAudience('b2c'); spinTo('instagram'); }
+      if (id === '04-8') { setAudience('b2c'); spinTo('whatsapp'); }
       if (id === '04-9') { setAudience('b2b'); spinTo('linkedin'); if (G && motion()) G.delayedCall(3.2, () => { if (s.dataset.beat === '04-9') spinTo('web'); }); }
       if (id === '04-10' || id === '04-11') { setAudience('b2c'); if (wh.current !== 'instagram') spinTo('instagram'); }
       if (!motion() && first && bi === model.get(s).beats.length - 1) { wh.burst = 1; showPlatform('instagram'); }
@@ -531,7 +528,7 @@
   // pause scene videos when the presenter pauses
   new MutationObserver(() => { if (document.body.classList.contains('motion-paused')) scenes.forEach(pauseVideosIn); }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
-  window.gtpEngage = { slots: SLOTS, reveal, startRuns };
+  window.gtpEngage = { slots: SLOTS, reveal };
   frame();
   addEventListener('load', frame);
 })();

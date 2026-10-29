@@ -31,8 +31,8 @@
 |---:|---|---:|---:|---|
 | 01 | Open: Be found. Be chosen. Keep learning. | 2:00 | 0:00 | none |
 | 02 | Growth is a loop (ECO) | 3:00 | 2:00 | none |
-| 03 | Engage: Who? | 5:45 | 5:00 | none |
-| 04 | Engage: Where? (volunteer, consent, runs start) | 4:10 | 10:45 | runs start at 04-2 |
+| 03 | Engage: Who? | 5:05 | 5:00 | none |
+| 04 | Engage: Skills and what to use when, then Where? | 4:10 | 10:45 | none: Start the runs is a demo (04-3) |
 | 05 | Engage: What? | 4:25 | 14:55 | competitor scan, B2B find |
 | 06 | Engage: Make it yours | 6:15 | 19:20 | content, Last 30 Days |
 | 07 | Engage: Be found | 4:55 | 25:35 | keywords, SEO, backlinks, citations, 30/60/90 |
@@ -99,7 +99,7 @@ The on-screen card at 01-4 matches **A**. If you pick B or C, change the one lin
 **02-4 · 0:43** [CLICK Optimize.] "Then Optimize. We measure both ends. Failures: the posts nobody engaged with. And the sneaky ones, the posts people liked, but nobody bought from. Successes: the posts that did both. Then two questions. Why did it work? And to whom? To whom is the big one. So that's where we start."
 [NEXT. The "to whom" chip punches through into the next scene.]
 
-### Scene 03 · Engage: Who? · 5:45 (5:00 to 10:45)
+### Scene 03 · Engage: Who? · 5:05 (5:00 to 10:05)
 
 - **New here:** you probably don't know your best customer yet. Gather the data, group it, and the customer profile comes from records, not a feeling.
 - **On screen:** ENGAGE, WITH WHO, a giant question mark; the assumption card; the data table; three groups; the persona card.
@@ -110,9 +110,7 @@ The on-screen card at 01-4 matches **A**. If you pick B or C, change the one lin
 
 **03-3 · 1:15** "So how do we test it? Read it with me. 'Start with the people who actually buy, inquire, and come back.' Buy. Inquire. Come back. [The streams pour in.] Every order. Every WhatsApp question. Every repeat customer. They all go into one simple table. What they bought. Their area. Where they found us. Did they come back? Age group. Sex. And their circumstances, meaning what's going on in their life when they buy. Race only if they tell us themselves. We never guess it. Simple enough, right?"
 
-**03-4 · 1:27 (47 s talk, then the 40 s write)** "Now, where does that data come from? We gather it. Every sale adds a row. Every inquiry adds a row. Every repeat adds a row. And at checkout, three quick questions, all optional: age group, sex, and who it's for. No data? You're guessing.
-Right, your turn. I know, writing things down in a workshop feels like school. It's forty seconds. Write down your last ten customers. Names are fine, it's your own paper. Next to them, one thing they have in common. Go."
-[The timer holds the page and keeps the motion alive. At zero it moves on. SPACE skips it.]
+**03-4 · 0:47** "Now, where does that data come from? We gather it. Every sale adds a row. Every inquiry adds a row. Every repeat adds a row. And at checkout, three quick questions, all optional: age group, sex, and who it's for. No data? You're guessing.
 
 **03-5 · 1:01** "Now watch Amberkloof's rows sort themselves. Sixty orders, an illustrative sample. Three groups. Gift planners, 24. Self-care regulars, 21. Guesthouses and spas, 15. [The assumption card cracks.] Look who's biggest. Not women 25 to 34. Gift planners. Mostly men, by the survey, 35 to 49, buying a present twice a year. The feeling was wrong. The answer was in the records all along."
 - **[ASK]** "Look at your own list. Is your biggest group the one you would have guessed? Hands up if it isn't."
@@ -120,35 +118,34 @@ Right, your turn. I know, writing things down in a workshop feels like school. I
 **03-6 · 0:36** "And that group becomes a person. Meet the Gift Planner. 35 to 49. Midrand and Centurion. Busy. Wants it wrapped and delivered. Finds us on Instagram, orders on WhatsApp. That's an ICP, and it works in any business. A salon counts bookings and rebookings. A plumber counts call-outs and repeat clients. [TAP B2B] And if you sell to other businesses, here's Tumelo Print & Pack, the printer that makes Amberkloof's gift box. Their best customer is the Launching Founder. A small product brand, one to ten staff, about to launch, needing 500 to 2,000 boxes before a market date."
 [NEXT. The "found us on" field pops off and becomes the hub of the platform wheel.]
 
-### Scene 04 · Engage: Where? · 4:10 (10:45 to 14:55)
+### Scene 04 · Engage: Skills and what to use when, then Where? · 4:10 (10:45 to 14:55)
 
-- **New here:** don't try to be everywhere. Pick two or three platforms where your customer already spends time, and know why. AI can research where they are, but your records win.
-- **On screen:** the volunteer's consent card; the run tray; the "where do they live online" infographic; seven platform tiles burst out of a mouse click and spin like a carousel; the phone comes alive on the chosen platform.
+- **New here:** a skill is a job you teach AI once, and you need to know which one to use when. Then: don't try to be everywhere. Pick two or three platforms where your customer already spends time, and know why.
+- **On screen:** nine skill cards, each with what it does and when to use it. Then the questionnaire on the left and the run list on the right. Start the runs plays each run in turn. It is a demo, not a live run. After the runs, the three tools that run them. Then the "where do they live online" research, the platform wheel with each platform's icon, and the verdict.
+- **Rebuilt 2026-10-29** from rehearsal r-20261028-184822 (changes 1-7): no volunteer, no consent card, no 30/60/90 items here.
 
-**04-1 · 0:35** **[VOLUNTEER]** "Now I need some help. [Name] from [business] agreed to be our real business for today. Come on up. Give them a hand.
-Before anything runs on your business, here's what you're saying yes to. I'll read it out so everyone hears it."
-**Consent line (read word for word):** "We'll scan your public website and your public social pages, and use the answers you gave us about your business. Claude from Anthropic, Firecrawl and Apify do that work. Tool A, at the end, also uses Supabase and Resend. We don't touch any of your customers' details. And we delete all of it after 30 days. Are you happy with that?"
-[Wait for a clear yes. CLICK Accept. Nothing runs before this click.]
-[If they say no: "That's completely fine, thank you." They sit down. Run everything on Amberkloof.]
+**04-1 · 0:35** "Right. Skills, and what to use when. A skill is a job you teach AI once. After that, it does that job the same way every time. [Point down the cards.] There's one that takes all of your data and puts it aside, so every other skill starts from the same facts. Then a competitor scan. A B2B finder, for when you sell to businesses. A content scanner. Last 30 days, for what people are saying right now. Trending keywords. And the website ones. An SEO check, backlinks and citations."
 
-**04-2 · 0:25** "[Name] answered six questions at the door. What they sell, who buys most, their area, where people find them, and whether they sell to businesses or the public. [Read two of their answers aloud.] [CLICK Submit] That's every tool starting at once, on [business]. Some take a minute or two, so they get a head start now. You'll see the results land one by one as we go."
+**04-2 · 0:20** "Every one of them starts from the same six answers. What you sell, who buys most, your area, where people find you, and whether you sell to people or to businesses. [The demo answers type in.] Here it's Amberkloof."
 
-**04-3 · 0:15** "Back to our Gift Planner. We know who. Now, where do they spend their time?"
+**04-3 · 0:30** [CLICK Start the runs.] "Watch. First it gathers the data. Then the competitor scan runs. Then the B2B finder. Then the content scan. One by one, down the list. [Let it play to the end.] This is a picture of the runs, not a live run. Done for real, some take a minute or two. So you start them early and let them work while you get on with your day."
 
-**04-4 · 0:30** "We asked AI to research where these people live online, with sources. Google still handles more than nine in ten searches in South Africa. And of South Africans on social media, about 94 in every 100 use WhatsApp. For our Gift Planner, it says: searches Google, scrolls Facebook and TikTok, orders on WhatsApp. But our own records said they found us on Instagram. When the research and your records disagree, your records win. That's why the tag says: check it against your own data."
+**04-4 · 0:25** "So what runs all of this for us? Apify. That's a Google scraper. Last 30 days is an official skill. It checks things like YouTube and Reddit, and even X or Twitter. And then there's an MCP called DataForSEO. It finds the right keywords, the backlinks and the citations we need to put into our website."
 
-**04-5 · 0:15** [The mouse clicks; seven tiles burst into an arc.] "Seven places you could be. WhatsApp. Facebook. Instagram. TikTok. LinkedIn. Google Business Profile. And your website on Google search. Most of us try to be on all seven. Let's not."
+**04-5 · 0:30** "Back to our Gift Planner. Where do they spend their time? We asked AI to research it, with sources. Google still handles more than nine in ten searches in South Africa. And of South Africans on social media, about 94 in every 100 use WhatsApp. For our Gift Planner, it says: searches Google, scrolls Facebook and TikTok, orders on WhatsApp. But our own records said they found us on Instagram. When the research and your records disagree, your records win."
 
-**04-6 · 0:30** [CLICK to spin.] "Let's spin it for the Gift Planner. [It lands on Instagram.] Instagram. Why? Because that's where our records say they found us, and people find gift ideas by browsing pictures. So this is where Amberkloof gets seen."
+**04-6 · 0:15** [The mouse clicks; seven tiles burst into an arc.] "Seven places you could be. WhatsApp. Facebook. Instagram. TikTok. LinkedIn. Google Business Profile. And your website on Google search. Most of us try to be on all seven. Let's not."
 
-**04-7 · 0:30** [Next landing: WhatsApp.] "WhatsApp. Why? Because that's where they buy. Nobody wants a checkout form for a birthday present. They want to send a message and have it sorted."
+**04-7 · 0:25** [CLICK to spin.] "Let's spin it for the Gift Planner. [It lands on Instagram.] Instagram. Why? Because that's where our records say they found us, and people find gift ideas by browsing pictures. So this is where Amberkloof gets seen."
+
+**04-8 · 0:20** [Next landing: WhatsApp.] "WhatsApp. Why? Because that's where they buy. Nobody wants a checkout form for a birthday present. They want to send a message and have it sorted."
 [Google Business Profile comes alive only if you click it: "And Google Business, for the self-care regulars who search for something nearby."]
 
-**04-9 · 0:25** [B2B swap.] "Same wheel for Tumelo. [It lands.] Google search and LinkedIn. A founder searches Google for a printer, then checks them out on LinkedIn before asking for a quote."
+**04-9 · 0:15** [B2B swap.] "Same wheel for Tumelo. [It lands.] Google search and LinkedIn. A founder searches Google for a printer, then checks them out on LinkedIn before asking for a quote."
 
-**04-10 · 0:25** "So here's Amberkloof's verdict. Instagram to be seen. WhatsApp to sell. Google Business to be found. TikTok, later. Average is the same post copied to all seven, and calling that being everywhere. Good is two or three, each with a reason you can say out loud. Fewer places. Better reasons."
+**04-10 · 0:20** "So here's Amberkloof's verdict. Instagram to be seen. WhatsApp to sell. Google Business to be found. TikTok, later. Average is the same post copied to all seven, and calling that being everywhere. Good is two or three, each with a reason you can say out loud. Fewer places. Better reasons."
 
-**04-11 · 0:20** - **[ASK]** "Now [business]. Their customers are [read their 'who buys most' answer]. Which two or three would you pick for them? Hands up for... [point at the tiles one by one]." [Any tile can be clicked.]
+**04-11 · 0:15** - **[ASK]** "Now you. Which two or three fit your business? Hands up for... [point at the tiles one by one]." [Any tile can be clicked.]
 [NEXT. The Instagram post slides off the phone onto a shelf.]
 
 ### Scene 05 · Engage: What? · 4:25 (14:55 to 19:20)
@@ -484,7 +481,7 @@ Be found. Be chosen. Keep learning. Thank you."
 | 01 | The promise of the hour and the product that carries it | |
 | 02 | The ECO loop; capture details; failures vs successes, why, to whom | |
 | 03 | Data, not a feeling: gather, group, persona; B2B persona | |
-| 04 | Two or three platforms with a reason; records beat research | who the customer is (03) |
+| 04 | Which skill to use when; two or three platforms with a reason; records beat research | who the customer is (03) |
 | 05 | Education vs promotion by group; the competitor recipe; the gap; B2B find | where they are (04) |
 | 06 | AI drafts; skills and how to run one; bare prompt looks like everyone's; brand guideline; real ads; voice (slopmonster); Last 30 Days; habit week | "Copy what works. Then fill the gap." (said once, in 05) |
 | 07 | Website and Google; AI searches the web; SEO, AEO, GEO; four checks; authority; 30/60/90 | copying competitors' social formats (05; trimmed from 07-8) |
@@ -555,4 +552,4 @@ The retired catering example (Amina's Kitchen) and its portion question: zero us
 | em dash and en dash count | both files | 0 and 0 |
 | slopmonster rival-model cleanse (`cleanse.sh`) | | not run: the task asked for the lint, and the deadline came first |
 
-Next action: pick your opener (A, B or C) and read scene 04 aloud once with the consent line.
+Next action: pick your opener (A, B or C) and read scene 04 aloud once.

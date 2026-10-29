@@ -119,3 +119,47 @@ test('mapScan maps Firecrawl branding into the stage contract and keeps only quo
   assert.equal(d.product.proofDropped, 1);
   assert.match(stage.scanBrief(d, 'fixture.example.com'), /Corner radius/);
 });
+
+test('relevantTo keeps searches about what the site sells and drops unrelated ones', () => {
+  const ok = stage.relevantTo(['online grocery delivery', "women's clothing online", 'food hampers south africa']);
+  assert.equal(ok('grocery store near me'), true);
+  assert.equal(ok('woolies food'), true);
+  assert.equal(ok("father's day"), false);        // the "'s" once matched "women's"
+  assert.equal(ok('weather cape town'), false);
+  const ai = stage.relevantTo(['ai automation', 'business chatbot developer']);
+  assert.equal(ai('ai agency'), true);
+  assert.equal(ai('automated solutions'), true);    // automation / automated share a stem
+  assert.equal(ai('hollywoodbets login'), false);
+});
+
+test('validateStageRequest keeps competitor hosts for the website check, minus the site itself', () => {
+  const r = stage.validateStageRequest('stage-sitecheck', { consent: true, target: 'edenfm.co.za', context: { brief: '', competitors: [
+    { name: 'Algoa FM', url: 'https://www.algoafm.co.za/' }, { name: 'Self', url: 'https://edenfm.co.za/' }, { name: 'Plain http', url: 'http://heartbeatfmsa.co.za' }, { name: 'Bad', url: 'not a url' },
+  ] } });
+  assert.deepEqual(r.request.competitors, [{ name: 'Algoa FM', host: 'algoafm.co.za' }, { name: 'Plain http', host: 'heartbeatfmsa.co.za' }]);
+});
+
+test('mapScan keeps product photos in page order with their product names', () => {
+  const md = 'Top sellers [![PnP UHT Full Cream Milk 6 x 1L](https://cdn.example.test/milk.jpg)](https://shop.example.test/milk) '
+    + '[![Lean Beef Mince](https://cdn.example.test/mince.jpg)](https://shop.example.test/mince)';
+  const d = stage.mapScan({ markdown: md, json: { name: 'Shop', what: 'Groceries', proof: [], productImages: ['https://cdn.example.test/milk.jpg', 'https://cdn.example.test/mince.jpg', 'https://cdn.example.test/not-on-page.jpg'] } }, 'https://shop.example.test/');
+  const products = d.assets.filter((a) => a.kind === 'product');
+  assert.deepEqual(products.map((p) => [p.url.split('/').pop(), p.alt]), [['milk.jpg', 'PnP UHT Full Cream Milk 6 x 1L'], ['mince.jpg', 'Lean Beef Mince']]);
+});
+
+test('mapScan takes product names from the extractor and the homepage picture', () => {
+  const md = '![](https://cdn.example.test/hero.jpg) [![](https://cdn.example.test/oil.jpg)](https://shop.example.test/oil)';
+  const d = stage.mapScan({ markdown: md, json: { name: 'Shop', what: 'Oils', proof: [], heroImage: 'https://cdn.example.test/hero.jpg', products: [{ name: 'Marula Face Oil 30 ml', imageUrl: 'https://cdn.example.test/oil.jpg' }] } }, 'https://shop.example.test/');
+  assert.deepEqual(d.assets.filter((a) => a.kind === 'product').map((a) => a.alt), ['Marula Face Oil 30 ml']);
+  assert.equal(d.assets.find((a) => a.kind === 'hero').url, 'https://cdn.example.test/hero.jpg');
+});
+
+test('pickStart: the idea product photo, else the homepage picture, never a different product', () => {
+  const d = { assets: [{ kind: 'product', url: 'https://x.test/milk.jpg', alt: 'PnP UHT Full Cream Milk 6 x 1L' }, { kind: 'product', url: 'https://x.test/mince.jpg', alt: 'Lean Beef Mince' }, { kind: 'ogImage', url: 'https://x.test/og.jpg' }], screenshot: 'https://x.test/shot.png' };
+  assert.deepEqual(stage.pickStart(d, 'pnp uht full cream milk 6 x 1l'), { url: 'https://x.test/milk.jpg', what: 'PnP UHT Full Cream Milk 6 x 1L', mode: 'product' });
+  assert.equal(stage.pickStart(d, 'Albany Bread'), null);                       // no photo of it: no video
+  assert.equal(stage.pickStart(d, '').mode, 'brand');                            // no product named
+  assert.equal(stage.pickStart({ assets: [{ kind: 'hero', url: 'https://x.test/hero.jpg' }] }, '').url, 'https://x.test/hero.jpg');
+  assert.equal(stage.pickStart({ assets: [], screenshot: 'https://x.test/shot.png' }, '').url, 'https://x.test/shot.png');
+  assert.equal(stage.pickStart({ assets: [] }, ''), null);
+});

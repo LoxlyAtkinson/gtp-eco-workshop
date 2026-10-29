@@ -1,0 +1,81 @@
+HOW TO USE YOUR SKILLS (the way we did it on stage)
+
+Start here: open claude.ai on a computer and upload one skill. Takes 3 minutes.
+
+
+PART 1. PUT THE SKILLS INTO CLAUDE (once, about 3 minutes per skill)
+
+1. Open claude.ai and sign in. The free plan works.
+2. Go to Settings > Capabilities. Switch on "Code execution and file creation"
+   (newer layout: "Create and edit files").
+3. Go to Customize > Skills. Click +, then "Create skill", then "Upload a skill".
+4. Open the folder upload-to-claude in your zip. Upload ONE zip, for example
+   campaign-plan.zip. Don't unzip it. One zip is one skill. Repeat for the others.
+5. Check the switch next to each skill is on.
+
+Using Claude Code? Copy the skill folders into ~/.claude/skills/ instead.
+
+
+PART 2. RUN THE STAGE DEMO ON YOUR OWN BUSINESS
+
+Do these in ONE chat, in this order. Each step uses what the step before found.
+Swap the words in [brackets] for your own.
+
+Step 1. Know your website
+"Use the seo-audit skill on [yourwebsite.co.za]. Tell me what I sell, who it's
+for, and the 5 things to fix first so people in South Africa find me on Google."
+
+Step 2. Know your competitors
+"Use the competitive-brief skill. Find the businesses in South Africa that sell
+what I sell to the same people. For each one: what they say, what they charge if
+it's on their site, and one thing they do that I don't."
+
+Step 3. Know what people are saying (needs the last30days setup in its SKILL.md)
+"Use the last30days skill on [your product or industry]. What are people asking
+about this month?" It reads YouTube and Reddit, plus X.
+
+Step 4. Make a 30-day plan
+"Use the campaign-plan skill. Using my website, my competitors and what people
+are saying, make a 30-day plan. 5 steps. One platform. One number to check
+every Friday."
+
+Step 5. Get ad ideas
+"Use the ad-creative skill. Give me 5 ad ideas for [one product]. Each one
+needs a hook, the words on the ad, and why it beats the competitors above."
+
+Step 6. Make it sound like you
+"Use the slopmonster skill on idea number [2]. Take out anything that sounds
+like AI wrote it. Keep the facts."
+
+Step 7. Write the ad and the follow-up
+"Use the draft-content skill to write the final ad for Instagram. Then use the
+email-sequence skill to write 3 follow-up emails for people who reply."
+
+
+PART 3. KEEP GOING (15 minutes, every weekday)
+
+- Monday: brand-review. Paste your post and ask "Does this sound like my brand?"
+- Wednesday: content-creation. "Turn this week's best post into a WhatsApp
+  message and a Facebook post."
+- Friday: performance-report. Paste your numbers and ask "What worked, and what
+  do I do next week?"
+
+
+TIPS
+
+- Name the skill in your message: "Use the [skill name] skill to..."
+- Give it facts: your website, your prices, who buys from you.
+- Read every draft before it goes out. Your edit is what makes it yours.
+- Claude says a skill won't upload? Attach its SKILL.md file to a normal chat
+  and say "Follow these instructions."
+
+
+WHAT'S IN THE ZIP
+
+Eight skills by Anthropic (Apache 2.0 licence).
+Three skills from the live demo (MIT licence), by Corey Haines, Jack Roberts
+and Matt Van Horn.
+The folder names tell you which is which.
+Each skill keeps its licence file. Free to keep and share.
+
+GTP ECO workshop, South Africa

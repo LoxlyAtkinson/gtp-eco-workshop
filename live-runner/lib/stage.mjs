@@ -1,4 +1,4 @@
-// Stage chapter: the audience's websites, the presenter's list and six stage kinds.
+// Stage chapter: the audience's websites, the presenter's list and seven stage kinds.
 //
 // Intake: the public join page posts to Supabase (anon INSERT only). The presenter
 // reads that table here with SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY (env only,
@@ -9,9 +9,13 @@
 //   stage-scan         Firecrawl v2 scrape with the branding format. No Claude.
 //   stage-ideas        claude -p + ad skill (ad-creative): 3 ideas, each on a quoted page fact.
 //   stage-competitors  claude -p + competitor-analysis, fed by Apify when APIFY_API_TOKEN is set.
-//   stage-keywords     DataForSEO Labs (South Africa, en). BLOCKED_KEY without its login.
+//   stage-keywords     DataForSEO (South Africa, en) from the site's search phrases. BLOCKED_KEY without its login.
+//   stage-sitecheck    DataForSEO: Google top 10 + AI answer, AI citations, links, keyword gap, Google Business.
+//   stage-plan         claude -p + marketing-plan: a 5-step 30-day plan from scan, competitors and keywords.
+//   stage-unslop       slopmonster skill: lint, claude -p rewrite, rival-model cleanse (Codex), lint again.
 //   stage-ad-plain     claude -p with NO skill and no tools: "Plain prompt, no skill".
-//   stage-ad-video     claude -p with ONLY the Higgsfield MCP + higgsfield-generate skill.
+//   stage-ad-video     higgsfield-generate skill writes the shot; Veo 3.1 (fal, FAL_KEY) animates a product photo from
+//                      the scan. Without FAL_KEY or if Veo refuses the job: Higgsfield MCP + higgsfield-generate.
 import { spawn } from 'node:child_process';
 import { lookup } from 'node:dns/promises';
 import { isIP } from 'node:net';
@@ -206,9 +210,13 @@ function normalizeContext(ctx) {
   let idea = null;
   if (ctx.idea && typeof ctx.idea === 'object') {
     idea = {};
-    for (const f of ['title', 'hook', 'fact', 'format']) idea[f] = clean(ctx.idea[f], 400);
-  } else if (typeof ctx.idea === 'string') idea = { title: clean(ctx.idea, 400), hook: '', fact: '', format: '' };
-  return { text: clean(ctx.brief, 6000), idea };
+    for (const f of ['title', 'hook', 'fact', 'format', 'product']) idea[f] = clean(ctx.idea[f], 400);
+  } else if (typeof ctx.idea === 'string') idea = { title: clean(ctx.idea, 400), hook: '', fact: '', format: '', product: '' };
+  // Competitors from the competitors step, for the website check (name + public host only).
+  const competitors = (Array.isArray(ctx.competitors) ? ctx.competitors : []).slice(0, 5)
+    .map((c) => ({ name: clean(c && c.name, 100), host: normalizeWebsite(String((c && c.url) || '').replace(/^http:\/\//i, 'https://')).host }))
+    .filter((c) => c.host);
+  return { text: clean(ctx.brief, 6000), idea, competitors };
 }
 
 export function validateStageRequest(kindName, body) {
@@ -220,7 +228,7 @@ export function validateStageRequest(kindName, body) {
   if (n.error) return { error: `target: ${n.error}`, code: 'BAD_WEBSITE' };
   const c = normalizeContext(body.context);
   if (c.error) return { error: c.error };
-  return { kind, request: { target: n.website, url: n.website, host: n.host, business: n.host, context: c.text, idea: c.idea } };
+  return { kind, request: { target: n.website, url: n.website, host: n.host, business: n.host, context: c.text, idea: c.idea, competitors: (c.competitors || []).filter((x) => x.host !== n.host) } };
 }
 
 // ---------- scans (stage-scan writes, the other kinds read) ----------
@@ -261,6 +269,13 @@ function factsFromMarkdown(md, max = 5) {
   return [...new Set(picks)].slice(0, max);
 }
 
+// Never a product photo or a video start: icons, logos, badges, payment and app-store marks, footer art.
+// (Seen live on woolworths.co.za: the extractor offered footer "Store card" / "100% Secure" icons.)
+export function junkImage(u, alt = '') {
+  return /\.svg(\?|$)|\/footer\/|logo|icon|sprite|badge|payment|secure|favicon|placeholder|spacer|app-?store|store-(app|play)|google-?play|app-?gallery/i.test(String(u))
+    || /logo|icon|download on|get it on|secure|card|loan|payment/i.test(String(alt));
+}
+
 export function mapScan(doc, url) {
   const b = doc.branding || {};
   const colors = [];
@@ -287,6 +302,18 @@ export function mapScan(doc, url) {
   const md = String(doc.markdown || '');
   const corpus = normText(md);
   const j = doc.json && typeof doc.json === 'object' ? doc.json : {};
+  // Product photos for the ad ideas and the video: only URLs that really appear in the page markdown,
+  // in page order, each named as the page names it (extractor name, else the photo's alt text; the
+  // saved markdown is clipped, so read it here). Older scans sent productImages as plain URLs.
+  const altOf = (u) => { const m = md.match(new RegExp(`!\\[([^\\]]{1,120})\\]\\(${u.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)`)); return m && m[1] !== 'null' ? clip(m[1], 80) : ''; };
+  const listed = Array.isArray(j.products) ? j.products.map((p) => ({ url: httpUrl(p && p.imageUrl), name: str(p && p.name, 80) }))
+    : (Array.isArray(j.productImages) ? j.productImages : []).map((u) => ({ url: httpUrl(u), name: '' }));
+  const shots = listed.filter((p) => p.url && md.includes(p.url) && !junkImage(p.url, p.name || altOf(p.url)) && !assets.some((a) => a.url === p.url)).slice(0, 3)
+    .map((p) => ({ url: p.url, kind: 'product', alt: p.name || altOf(p.url) }));
+  // The homepage's main picture: the video for a site without product photos starts from it.
+  const hero = httpUrl(j.heroImage);
+  if (hero && md.includes(hero) && !junkImage(hero, altOf(hero)) && !shots.some((s) => s.url === hero)) assets.unshift({ url: hero, kind: 'hero' });
+  assets.unshift(...shots);
   const claimed = Array.isArray(j.proof) ? j.proof.filter((p) => typeof p === 'string') : [];
   let proof = claimed.filter((p) => quoteFound(p, corpus)).map((p) => clip(p, 220));
   const dropped = claimed.length - proof.length;
@@ -316,6 +343,7 @@ export function mapScan(doc, url) {
       proof,
       proofFrom,
       proofDropped: dropped,
+      searches: (Array.isArray(j.searches) ? j.searches : []).map((q) => clip(String(q).toLowerCase(), 60)).filter((q) => q.split(' ').length <= 5).slice(0, 4),
     },
   };
 }
@@ -548,8 +576,8 @@ async function runScan({ kindName, kind, request, emit, signal }) {
       { type: 'screenshot', fullPage: false, viewport: { width: 1440, height: 900 } },
       {
         type: 'json',
-        prompt: 'From this page only: the product or service name, what it is in one sentence, who it is for, and 3 to 6 short facts copied word for word from the page text (numbers, features, prices, claims). Copy facts exactly; never paraphrase.',
-        schema: { type: 'object', properties: { name: { type: 'string' }, what: { type: 'string' }, who: { type: 'string' }, proof: { type: 'array', items: { type: 'string' } } }, required: ['name', 'what', 'proof'] },
+        prompt: 'From this page only: the product or service name, what it is in one sentence, who it is for, 3 to 6 short facts copied word for word from the page text (numbers, features, prices, claims), and 4 Google searches (no brand names) a South African customer would type to find what this business sells: 2 broad ones of 1 or 2 words naming the product or service category, then 2 specific ones of 3 or 4 words. Also up to 3 products shown with a photo on this page: each product\'s name as the page writes it and the full URL of its photo (the product itself, not a logo, icon or person). And the full URL of the main large picture at the top of the page (not a logo), if there is one. Copy facts, names and URLs exactly; never paraphrase.',
+        schema: { type: 'object', properties: { name: { type: 'string' }, what: { type: 'string' }, who: { type: 'string' }, proof: { type: 'array', items: { type: 'string' } }, searches: { type: 'array', items: { type: 'string' } }, products: { type: 'array', items: { type: 'object', properties: { name: { type: 'string' }, imageUrl: { type: 'string' } } } }, heroImage: { type: 'string' } }, required: ['name', 'what', 'proof'] },
       },
     ],
     onlyMainContent: false,
@@ -584,10 +612,16 @@ async function runScan({ kindName, kind, request, emit, signal }) {
 
 async function runIdeas({ kindName, kind, request, emit, signal }) {
   const facts = await pageFacts(request, emit, kindName);
+  // Owner 2026-10-29: ideas are written about the products the scan has a photo of, so the
+  // video ad can always show the real product. A site with no product photos gets free ideas.
+  const products = facts.data ? facts.data.assets.filter((a) => a.kind === 'product' && a.alt).map((a) => a.alt) : [];
   const prompt = [
     `Use the Skill tool to load the ${kind.skill} skill first, then follow it. Load no other skill. ${NON_INTERACTIVE}`,
     `Task: write exactly 3 ad ideas for the business at ${request.target}. Each idea rests on ONE fact copied word for word from the page data below; put that exact text in "fact". "format" is the ad format and placement (for example "Instagram Reel 9:16, 15 s" or "Google search ad"). Title at most 8 words, hook at most 25 words. Use only what the page says; invent no numbers, prices or claims.`,
-    'Final answer: only JSON in a ```json fence, shaped {"ideas":[{"title":"","hook":"","fact":"","format":""}]}.',
+    products.length
+      ? `Each idea is about ONE of these products that have a photo on the page; copy its name exactly into "product" (use each product at most once if you can): ${products.map((p) => `"${p}"`).join(', ')}.`
+      : 'This page shows no product photos: write ideas about the business or its service and leave "product" empty.',
+    'Final answer: only JSON in a ```json fence, shaped {"ideas":[{"title":"","hook":"","fact":"","format":"","product":""}]}.',
     DATA_RULE,
     factsBlock(facts) + contextBlock(request),
   ].join('\n');
@@ -596,6 +630,7 @@ async function runIdeas({ kindName, kind, request, emit, signal }) {
   const corpus = normText(`${facts.markdown}\n${facts.data ? facts.data.product.proof.join('\n') : ''}`);
   const ideas = (parsed && Array.isArray(parsed.ideas) ? parsed.ideas : []).slice(0, 5).map((i) => ({
     title: str(i.title, 120), hook: str(i.hook, 300), fact: str(i.fact, 300), format: str(i.format, 120), factFound: quoteFound(i.fact, corpus),
+    product: products.find((p) => p.toLowerCase() === str(i.product, 120).toLowerCase()) || '',
   })).filter((i) => i.title && i.hook);
   if (!ideas.length) throw stageError('BAD_OUTPUT', 'The skill answered without usable ideas', { raw: clip(run.text, 600) });
   const text = ideas.map((i, n) => `${n + 1}. **${i.title}** (${i.format})\n   ${i.hook}\n   Fact: "${i.fact}"${i.factFound ? '' : ' (not found word for word on the page)'}`).join('\n');
@@ -655,9 +690,32 @@ async function runCompetitors({ kindName, kind, request, emit, signal }) {
   emit('result', { ...resultBase(kindName, kind, request, run), data: { competitors, gaps, source }, text });
 }
 
+// The presenter sends the scan brief, competitors, gaps and keywords as context.
+async function runPlan({ kindName, kind, request, emit, signal }) {
+  const facts = await pageFacts(request, emit, kindName);
+  const prompt = [
+    `Use the Skill tool to load the ${kind.skill} skill first, then follow it. Load no other skill. ${NON_INTERACTIVE}`,
+    `Quick stage mode: write a 30-day plan for the business at ${request.target}, in exactly 5 steps, built on the page data, competitors, gaps and keywords below. Each step: "when" (for example "Week 1"), a title of at most 8 words, "do" (what to do, at most 30 words) and "why" (at most 20 words, naming the competitor gap, keyword or page fact it comes from). Add "oneLine": the whole plan in one sentence of at most 20 words.`,
+    'Write it the way a friendly South African business coach talks to a small-business owner: short sentences, everyday words, no marketing jargon, no em dashes. Use only what the data says; invent no numbers, prices or results.',
+    'Final answer: only JSON in a ```json fence, shaped {"oneLine":"","plan":[{"when":"","title":"","do":"","why":""}]}.',
+    DATA_RULE,
+    factsBlock(facts, { markdownChars: 4000 }) + contextBlock(request),
+  ].join('\n');
+  const run = await runClaude({ kindName, skill: kind.skill, args: stageClaudeArgs({ tools: 'Skill', allowed: 'Skill' }), prompt, emit, signal });
+  const parsed = extractJson(run.text);
+  const plan = (parsed && Array.isArray(parsed.plan) ? parsed.plan : []).slice(0, 6).map((s) => ({
+    when: str(s.when, 30), title: str(s.title, 100), do: str(s.do, 260), why: str(s.why, 200),
+  })).filter((s) => s.title && s.do);
+  if (!plan.length) throw stageError('BAD_OUTPUT', 'The skill answered without a plan', { raw: clip(run.text, 600) });
+  const oneLine = str(parsed.oneLine, 200);
+  const text = `${oneLine ? `${oneLine}\n\n` : ''}${plan.map((s, n) => `${n + 1}. **${s.when ? `${s.when}: ` : ''}${s.title}**\n   ${s.do}\n   Why: ${s.why}`).join('\n')}`;
+  emit('result', { ...resultBase(kindName, kind, request, run), data: { oneLine, plan, skill: kind.skill, factsFrom: facts.from }, text });
+}
+
+/** One live DataForSEO task (`path` like "dataforseo_labs/google/ranked_keywords"). Returns task.result. */
 async function dataForSeo(path, payload, signal) {
   const auth = Buffer.from(`${process.env.DATAFORSEO_LOGIN}:${process.env.DATAFORSEO_PASSWORD}`).toString('base64');
-  const res = await fetch(`https://api.dataforseo.com/v3/dataforseo_labs/google/${path}/live`, {
+  const res = await fetch(`https://api.dataforseo.com/v3/${path}${/\/live(\/|$)/.test(path) ? '' : '/live'}`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: `Basic ${auth}` },
     body: JSON.stringify([payload]),
@@ -667,44 +725,312 @@ async function dataForSeo(path, payload, signal) {
   if (!res.ok || !body) throw stageError('RUN_FAILED', `DataForSEO ${path} HTTP ${res.status}`);
   if (body.status_code !== 20000) throw stageError(body.status_code === 40100 || body.status_code === 40101 ? 'BLOCKED_KEY' : 'RUN_FAILED', `DataForSEO ${path}: ${clip(body.status_message, 160)}`);
   const task = (body.tasks || [])[0] || {};
+  if (task.status_code === 40102) return []; // "No Search Results": an answer, not a failure
   if (task.status_code !== 20000) throw stageError('RUN_FAILED', `DataForSEO ${path}: ${clip(task.status_message, 160)}`);
   logSpend({ event: 'dataforseo', kind: 'stage-keywords', class: 'dataforseo', endpoint: path, cost_usd: body.cost ?? null });
-  return ((task.result || [])[0] || {}).items || [];
+  return task.result || [];
+}
+const labs = (path, payload, signal) => dataForSeo(`dataforseo_labs/google/${path}`, payload, signal).then((r) => (r[0] || {}).items || []);
+
+// Words that say nothing about what a business sells: a keyword must share a word other than these.
+const KW_GENERIC = new Set('a an and the for of in to on with at by near me my best top cheap online free south africa african sa za cape town johannesburg durban pretoria services service solutions solution company companies business businesses shop buy price prices cost'.split(' '));
+const kwWords = (s) => String(s || '').toLowerCase().replace(/'s\b/g, '').split(/[^a-z0-9]+/).filter((w) => w.length >= 2 && !KW_GENERIC.has(w));
+const kwStem = (w) => (w.length > 5 ? w.slice(0, 5) : w); // automation / automated / automate
+export function relevantTo(seeds) {
+  const core = new Set(seeds.flatMap(kwWords).map(kwStem));
+  return (phrase) => !core.size || kwWords(phrase).some((w) => core.has(kwStem(w)));
 }
 
+// What people would type into Google for this business: from the scan, else one short Claude call
+// (kept for the keywords and website-check runs of the same site).
+const seedCache = new Map();
+async function keywordSeeds(request, emit, kindName, signal) {
+  const s = loadScan(request.host, SCAN_CONTEXT_MS);
+  const saved = s && s.data.product.searches;
+  if (saved && saved.length >= 2) return { seeds: saved, from: 'the website scan' };
+  const hit = seedCache.get(request.host);
+  if (hit && Date.now() - hit.at < SCAN_CONTEXT_MS) return hit;
+  const facts = await pageFacts(request, emit, kindName);
+  const prompt = [
+    NON_INTERACTIVE,
+    `Give 4 Google searches (lowercase, no brand names) that a South African customer would type to find what the business at ${request.target} sells: 2 broad ones of 1 or 2 words naming the product or service category (like "cork coasters"), then 2 specific ones of 3 or 4 words. Reply only with JSON {"searches":[""]}.`,
+    DATA_RULE,
+    factsBlock(facts, { markdownChars: 2500 }),
+  ].join('\n');
+  const run = await runClaude({ kindName, step: 'seeds', skill: null, args: stageClaudeArgs({ tools: '', allowed: null, noSkills: true, budget: 0.3 }), prompt, emit, signal });
+  const p = extractJson(run.text) || {};
+  const seeds = (Array.isArray(p.searches) ? p.searches : []).map((q) => clip(String(q).toLowerCase(), 60)).filter(Boolean).slice(0, 4);
+  if (!seeds.length) throw stageError('BAD_OUTPUT', 'Could not work out what this website sells', { raw: clip(run.text, 300) });
+  const out = { seeds, from: 'Claude, reading the page', at: Date.now() };
+  seedCache.set(request.host, out);
+  return out;
+}
+
+// The word filter keeps a list on topic; this keeps it about THIS business: one short Claude pass
+// drops other businesses' brand names, job searches and anything a customer of this site would not type.
+// On any failure the word-filtered list stands, and the progress line says so.
+async function keepRelevant(request, phrases, emit, kindName, signal) {
+  if (phrases.length < 4) return { kept: new Set(phrases), checked: false };
+  const s = loadScan(request.host, SCAN_CONTEXT_MS);
+  const p = s ? s.data.product : {};
+  const prompt = [
+    NON_INTERACTIVE,
+    `Business: ${p.name || request.host} (${request.target}). What it sells: ${p.what || 'see the website'}. Customers: ${p.who || 'not stated'}.`,
+    'From the Google searches below, keep only the ones a customer of THIS business might type when looking for what it sells, plus searches for its own name. Drop other businesses\' brand or station names, job and course searches, and anything off topic. Copy kept searches exactly.',
+    'Reply only with JSON {"keep":[""]}.',
+    DATA_RULE,
+    `<<<RESULTS\n${phrases.map((x) => `- ${x}`).join('\n')}\nRESULTS>>>`,
+  ].join('\n');
+  try {
+    const run = await runClaude({ kindName, step: 'filter', skill: null, args: stageClaudeArgs({ tools: '', allowed: null, noSkills: true, budget: 0.3 }), prompt, emit, signal });
+    const j = extractJson(run.text) || {};
+    const kept = new Set((Array.isArray(j.keep) ? j.keep : []).map((x) => String(x).toLowerCase().trim()).filter((x) => phrases.includes(x)));
+    return kept.size ? { kept, checked: true } : { kept: new Set(phrases), checked: false };
+  } catch (e) {
+    if (signal.aborted) throw e;
+    emit('progress', { step: 'note', text: `Relevance check skipped (${clip(redact(e.message), 60)}); showing the word-filtered list` });
+    return { kept: new Set(phrases), checked: false };
+  }
+}
+
+// Keywords start from what the business sells (seed searches), not from the domain alone:
+// for a small site DataForSEO's keywords_for_site falls back to the country's biggest searches.
 async function runKeywords({ kindName, kind, request, emit, signal }) {
   const domain = request.host;
-  emit('progress', { step: 'tool', text: `DataForSEO Labs: keywords ${domain} ranks for in South Africa` });
-  const base = { target: domain, location_code: 2710, language_code: 'en', limit: 30 };
-  const [ranked, suggested] = await Promise.all([
-    dataForSeo('ranked_keywords', { ...base, order_by: ['keyword_data.keyword_info.search_volume,desc'] }, signal),
-    dataForSeo('keywords_for_site', { ...base, order_by: ['keyword_info.search_volume,desc'] }, signal),
+  const { seeds, from } = await keywordSeeds(request, emit, kindName, signal);
+  emit('progress', { step: 'note', text: `Search phrases (from ${from}): ${seeds.join(', ')}` });
+  emit('progress', { step: 'tool', text: `DataForSEO: where ${domain} ranks, plus Google searches around those phrases (South Africa)` });
+  const loc = { location_code: 2710, language_code: 'en' };
+  const calls = await Promise.allSettled([
+    labs('ranked_keywords', { target: domain, ...loc, limit: 100, order_by: ['keyword_data.keyword_info.search_volume,desc'] }, signal),
+    dataForSeo('keywords_data/google_ads/keywords_for_keywords', { keywords: seeds, ...loc, sort_by: 'search_volume' }, signal),
+    ...seeds.slice(0, 3).map((keyword) => labs('keyword_suggestions', { keyword, ...loc, limit: 20, order_by: ['keyword_info.search_volume,desc'] }, signal)),
   ]);
-  emit('progress', { step: 'tool', text: `DataForSEO: ${ranked.length} ranking keywords, ${suggested.length} suggestions` });
+  if (signal.aborted) throw stageError('CANCELLED', 'Run stopped');
+  const ok = calls.filter((c) => c.status === 'fulfilled');
+  if (!ok.length) throw (calls.find((c) => c.reason && c.reason.code === 'BLOCKED_KEY') || calls[0]).reason;
+  const [rankedC, plannerC, ...suggC] = calls;
+  const ranked = rankedC.status === 'fulfilled' ? rankedC.value : [];
+  const planner = plannerC.status === 'fulfilled' ? plannerC.value : [];
+  const suggested = suggC.flatMap((c) => (c.status === 'fulfilled' ? c.value : []));
+  // Searches for the business's own name count too ("eden fm live"); Claude's pass below drops other brands.
+  const brand = (loadScan(domain, SCAN_CONTEXT_MS) || { data: { product: {} } }).data.product.name || domain.split('.')[0];
+  const relevant = relevantTo([...seeds, brand]);
   const rows = new Map();
+  let rankedKept = 0;
   for (const it of ranked) {
     const kd = it.keyword_data || {};
     const phrase = kd.keyword;
-    if (!phrase) continue;
-    rows.set(phrase, { phrase, volume: kd.keyword_info ? kd.keyword_info.search_volume ?? null : null, difficulty: kd.keyword_properties ? kd.keyword_properties.keyword_difficulty ?? null : null,
-      position: it.ranked_serp_element && it.ranked_serp_element.serp_item ? it.ranked_serp_element.serp_item.rank_absolute ?? null : null });
+    const position = it.ranked_serp_element && it.ranked_serp_element.serp_item ? it.ranked_serp_element.serp_item.rank_absolute ?? null : null;
+    // Past page five a "ranking" is noise for a small business.
+    if (!phrase || !relevant(phrase) || (position && position > 50)) continue;
+    rankedKept += 1;
+    rows.set(phrase, { phrase, volume: kd.keyword_info ? kd.keyword_info.search_volume ?? null : null, difficulty: kd.keyword_properties ? kd.keyword_properties.keyword_difficulty ?? null : null, position });
   }
   for (const it of suggested) {
-    if (!it.keyword || rows.has(it.keyword)) continue;
+    if (!it.keyword || rows.has(it.keyword) || !relevant(it.keyword)) continue;
     rows.set(it.keyword, { phrase: it.keyword, volume: it.keyword_info ? it.keyword_info.search_volume ?? null : null, difficulty: it.keyword_properties ? it.keyword_properties.keyword_difficulty ?? null : null, position: null });
   }
-  const keywords = [...rows.values()].sort((a, b) => (b.volume || 0) - (a.volume || 0)).slice(0, 20);
+  for (const it of planner) {
+    if (!it.keyword || rows.has(it.keyword) || !relevant(it.keyword) || !it.search_volume) continue;
+    rows.set(it.keyword, { phrase: it.keyword, volume: it.search_volume, difficulty: null, position: null });
+  }
+  const failed = calls.length - ok.length;
+  emit('progress', { step: 'tool', text: `DataForSEO: ${rankedKept} of ${ranked.length} ranking keywords match what the site sells; ${suggested.length + planner.length} related searches checked${failed ? ` (${failed} call${failed > 1 ? 's' : ''} failed)` : ''}` });
+  const candidates = [...rows.values()].sort((a, b) => (b.volume || 0) - (a.volume || 0)).slice(0, 40);
+  const { kept, checked } = await keepRelevant(request, candidates.map((k) => k.phrase.toLowerCase()), emit, kindName, signal);
+  const keywords = candidates.filter((k) => kept.has(k.phrase.toLowerCase())).slice(0, 20);
+  if (checked) emit('progress', { step: 'note', text: `Claude kept ${keywords.length} of ${candidates.length} searches that a customer of ${domain} would type` });
+  rankedKept = keywords.filter((k) => k.position).length;
   const advice = [];
   const defend = keywords.filter((k) => k.position && k.position <= 10).slice(0, 2);
   for (const k of defend) advice.push(`Defend "${k.phrase}": you are at position ${k.position} for about ${k.volume ?? '?'} searches a month.`);
   const push = keywords.filter((k) => k.position && k.position > 10 && k.position <= 30).slice(0, 2);
   for (const k of push) advice.push(`Push "${k.phrase}" from position ${k.position} onto page one: improve the page that ranks and link to it from the homepage.`);
   const target = keywords.filter((k) => !k.position && (k.difficulty == null || k.difficulty < 40)).slice(0, 3);
-  for (const k of target) advice.push(`Rank for "${k.phrase}" (about ${k.volume ?? '?'} searches a month, difficulty ${k.difficulty ?? '?'}): give it its own page with the phrase in the title and first heading.`);
-  if (!ranked.length) advice.unshift(`Google shows no ranking keywords for ${domain} in South Africa yet: start with the lowest-difficulty phrases below.`);
-  if (!keywords.length) throw stageError('BAD_OUTPUT', `DataForSEO has no keyword data for ${domain} in South Africa`);
-  const text = `| Phrase | Volume | Difficulty | Position |\n|---|---|---|---|\n${keywords.slice(0, 12).map((k) => `| ${k.phrase} | ${k.volume ?? '-'} | ${k.difficulty ?? '-'} | ${k.position ?? '-'} |`).join('\n')}\n\n${advice.map((a) => `- ${a}`).join('\n')}`;
-  emit('result', { ...resultBase(kindName, kind, request), data: { keywords, advice, location: 'South Africa (2710)', language: 'en' }, text });
+  for (const k of target) advice.push(`Rank for "${k.phrase}" (about ${k.volume ?? '?'} searches a month${k.difficulty != null ? `, difficulty ${k.difficulty}` : ''}): give it its own page with the phrase in the title and first heading.`);
+  if (!rankedKept) advice.unshift(`Google shows no ranking keywords for ${domain} in South Africa that match what it sells yet: start with the phrases below.`);
+  if (!keywords.length) throw stageError('BAD_OUTPUT', `DataForSEO has no South African search data for ${seeds.join(', ')}`);
+  const text = `Search phrases: ${seeds.join(', ')}\n\n| Phrase | Volume | Difficulty | Position |\n|---|---|---|---|\n${keywords.slice(0, 12).map((k) => `| ${k.phrase} | ${k.volume ?? '-'} | ${k.difficulty ?? '-'} | ${k.position ?? '-'} |`).join('\n')}\n\n${advice.map((a) => `- ${a}`).join('\n')}`;
+  emit('result', { ...resultBase(kindName, kind, request), data: { keywords, advice, seeds, seedsFrom: from, relevanceChecked: checked, location: 'South Africa (2710)', language: 'en' }, text });
+}
+
+// ---------- unslop (skill slopmonster) ----------
+// The skill's own four steps on the chosen ad idea: lint (tools/deslop.py), rewrite (claude -p
+// with the slopmonster skill), cleanse with a rival model (tools/cleanse.sh -> codex), lint again.
+const SLOP_TOOLS = () => join(SKILLS_DIR, 'slopmonster', 'tools');
+const PYTHON = process.env.LIVE_RUNNER_PYTHON || 'python';
+const GIT_BASH = process.env.LIVE_RUNNER_BASH || (process.platform === 'win32' ? 'C:\\Program Files\\Git\\bin\\bash.exe' : 'bash');
+
+function spawnText(cmd, args, { input = null, timeoutMs = 60_000, signal, env = {} } = {}) {
+  return new Promise((resolve) => {
+    let out = '';
+    let err = '';
+    let p;
+    try { p = spawn(cmd, args, { shell: false, windowsHide: true, env: { ...process.env, PYTHONIOENCODING: 'utf-8', ...env } }); } catch (e) { resolve({ code: -1, out: '', err: e.message }); return; }
+    const stop = () => { try { p.kill(); } catch { /* gone */ } };
+    const timer = setTimeout(stop, timeoutMs);
+    signal?.addEventListener('abort', stop, { once: true });
+    p.stdout.on('data', (c) => { out += c; });
+    p.stderr.on('data', (c) => { err = (err + c).slice(-4000); });
+    p.on('error', (e) => { clearTimeout(timer); resolve({ code: -1, out, err: e.code || e.message }); });
+    p.on('close', (code) => { clearTimeout(timer); signal?.removeEventListener('abort', stop); resolve({ code, out, err }); });
+    p.stdin.on('error', () => {});
+    p.stdin.end(input ?? '');
+  });
+}
+
+async function slopLint(text, signal) {
+  const r = await spawnText(PYTHON, ['-I', join(SLOP_TOOLS(), 'deslop.py'), '--text', text], { timeoutMs: 20_000, signal });
+  const m = r.out.match(/score (\d)\/5/);
+  const tells = [...r.out.matchAll(/^\s{3,}\S\s+(.+?)\s+\(\d+\)\s*$/gm)].map((x) => clip(x[1], 60)).slice(0, 8);
+  return { score: m ? Number(m[1]) : null, tells, error: m ? null : clip(redact(r.err || r.out || `exit ${r.code}`), 120) };
+}
+
+async function runUnslop({ kindName, kind, request, emit, signal }) {
+  const idea = request.idea;
+  if (!idea || !(idea.title || idea.hook)) throw stageError('BAD_REQUEST', 'Choose an ad idea first');
+  const draft = [idea.title, idea.hook].filter(Boolean).join('\n');
+  emit('progress', { step: 'tool', text: 'slopmonster step 1: lint (tools/deslop.py)' });
+  const before = await slopLint(draft, signal);
+  if (before.score === null) throw stageError('RUN_FAILED', `The slopmonster lint did not run (${before.error})`);
+  emit('progress', { step: 'note', text: `Before: ${before.score}/5${before.tells.length ? `, tells: ${before.tells.join(', ')}` : ''}` });
+  const prompt = [
+    `Use the Skill tool to load the ${kind.skill} skill first, then do its Step 2 (Rewrite) on the ad below. Load no other skill. ${NON_INTERACTIVE}`,
+    'You have no Bash: the runner already ran Step 1 (the lint) and runs Step 3 (the rival-model cleanse) and Step 4 (the re-lint) itself.',
+    `Lint result: ${before.score}/5${before.tells.length ? `; tells found: ${before.tells.join(', ')}` : ''}.`,
+    'Rewrite the title (at most 8 words) and the hook (at most 25 words) so they sound like a South African small-business owner talking: plain everyday words, no hype, no em dashes. Keep the facts and numbers; invent none.',
+    'Final answer: only JSON in a ```json fence, shaped {"title":"","hook":""}.',
+    DATA_RULE,
+    `<<<CONTEXT\nTitle: ${idea.title}\nHook: ${idea.hook}${idea.fact ? `\nFact from the page: ${idea.fact}` : ''}\nCONTEXT>>>`,
+  ].join('\n');
+  const run = await runClaude({ kindName, step: 'rewrite', skill: kind.skill, args: stageClaudeArgs({ tools: 'Skill', allowed: 'Skill' }), prompt, emit, signal });
+  const j = extractJson(run.text) || {};
+  let title = str(j.title, 120) || idea.title;
+  let hook = str(j.hook, 300) || idea.hook;
+  // Step 3: a different model family hears the accent Claude cannot.
+  emit('progress', { step: 'tool', text: 'slopmonster step 3: cleanse with a rival model (tools/cleanse.sh, GPT via Codex)' });
+  let cleansed = false;
+  let notes = [];
+  const c = existsSync(GIT_BASH) || GIT_BASH === 'bash'
+    ? await spawnText(GIT_BASH, [join(SLOP_TOOLS(), 'cleanse.sh').replace(/\\/g, '/'), '-'], { input: `${title}\n${hook}\n`, timeoutMs: 120_000, signal, env: { TIMEOUT: '100' } })
+    : { code: -1, out: '', err: 'Git Bash not found' };
+  if (signal.aborted) throw stageError('CANCELLED', 'Run stopped');
+  const lines = c.out.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  if (c.code === 0 && lines.length >= 2) {
+    title = str(lines[0], 120);
+    hook = str(lines.slice(1).join(' '), 300);
+    cleansed = true;
+    notes = c.err.split(/\r?\n/).filter((l) => /^\s*-\s/.test(l)).map((l) => clip(l.replace(/^\s*-\s*/, ''), 160)).slice(0, 4);
+  } else {
+    emit('progress', { step: 'note', text: `Rival-model cleanse skipped (${clip(redact(c.err.split(/\r?\n/).filter(Boolean).pop() || `exit ${c.code}`), 80)}); keeping the skill's rewrite` });
+  }
+  emit('progress', { step: 'tool', text: 'slopmonster step 4: lint again' });
+  const after = await slopLint(`${title}\n${hook}`, signal);
+  const data = { before: { title: idea.title, hook: idea.hook, ...before }, after: { title, hook, score: after.score, tells: after.tells }, fact: idea.fact || '', format: idea.format || '', cleansed, notes, skill: kind.skill,
+    steps: ['lint: tools/deslop.py', `rewrite: claude -p + ${kind.skill} skill`, cleansed ? 'cleanse: tools/cleanse.sh (GPT via Codex)' : 'cleanse: skipped', 'lint again: tools/deslop.py'] };
+  emit('result', { ...resultBase(kindName, kind, request, run), data, text: `Before ${before.score}/5: ${idea.title} / ${idea.hook}\nAfter ${after.score ?? '?'}/5: ${title} / ${hook}` });
+}
+
+// ---------- website check (DataForSEO, no skill) ----------
+// Six checks at once for the site and the competitors from step 5: Google top 10 and its AI answer
+// for the main search, AI citations, links from other sites, the competitors' keyword gap and
+// Google Business profiles. Every line on screen comes from a DataForSEO answer.
+const sameSite = (a, b) => { const x = String(a || '').toLowerCase().replace(/^www\./, ''); const y = String(b || '').toLowerCase().replace(/^www\./, ''); return !!x && !!y && (x === y || x.endsWith(`.${y}`) || y.endsWith(`.${x}`)); };
+const settled = (c, fallback) => (c.status === 'fulfilled' ? c.value : fallback);
+
+function profileOf(items, host) {
+  const it = (items[0] || {}).items ? items[0].items[0] : null;
+  if (!it) return { found: false };
+  return { found: true, title: str(it.title, 100), domain: str(it.domain, 100), matchesSite: host ? sameSite(it.domain, host) : null,
+    rating: it.rating ? it.rating.value ?? null : null, reviews: it.rating ? it.rating.votes_count ?? null : null, category: str(it.category, 80), address: str(it.address, 160) };
+}
+
+async function runSiteCheck({ kindName, kind, request, emit, signal }) {
+  const site = request.host;
+  const s = loadScan(site, SCAN_CONTEXT_MS);
+  const name = clip((s && s.data.product.name) || site.split('.')[0], 80);
+  const { seeds } = await keywordSeeds(request, emit, kindName, signal);
+  const main = seeds[0];
+  const rivals = (request.competitors || []).slice(0, 3);
+  const loc = { location_code: 2710, language_code: 'en' };
+  emit('progress', { step: 'tool', text: `DataForSEO: Google top 10 and AI answer for "${main}", AI citations, links, keyword gap and Google Business for ${site}${rivals.length ? ` and ${rivals.length} competitors` : ''}` });
+  const [serpC, aiC, linksC, bizC, ...rest] = await Promise.allSettled([
+    dataForSeo('serp/google/organic/live/advanced', { keyword: main, ...loc, depth: 10, load_async_ai_overview: true }, signal),
+    dataForSeo('ai_optimization/llm_mentions/search_mentions', { target: [{ domain: site }], platform: 'google', ...loc, limit: 5, order_by: ['ai_search_volume,desc'] }, signal),
+    dataForSeo('backlinks/bulk_referring_domains', { targets: [site, ...rivals.map((r) => r.host)] }, signal),
+    dataForSeo('business_data/google/my_business_info', { keyword: name, ...loc }, signal),
+    ...rivals.slice(0, 2).map((r) => labs('domain_intersection', { target1: r.host, target2: site, intersections: false, ...loc, limit: 30, order_by: ['keyword_data.keyword_info.search_volume,desc'] }, signal)),
+    // "Knysna FM (Wave Broadcasting)" or "A / B" finds nothing on Google Maps; the plain name does.
+    ...rivals.filter((r) => r.name).map((r) => dataForSeo('business_data/google/my_business_info', { keyword: r.name.replace(/\s*\([^)]*\)/g, '').split(/\s+\/\s+/)[0].trim(), ...loc }, signal)),
+  ]);
+  if (signal.aborted) throw stageError('CANCELLED', 'Run stopped');
+  const all = [serpC, aiC, linksC, bizC, ...rest];
+  if (all.every((c) => c.status === 'rejected')) throw (all.find((c) => c.reason && c.reason.code === 'BLOCKED_KEY') || serpC).reason;
+  const gapCalls = rest.slice(0, Math.min(2, rivals.length));
+  const rivalBizCalls = rest.slice(gapCalls.length);
+  const failed = all.filter((c) => c.status === 'rejected').map((c) => clip(redact(c.reason && c.reason.message), 80));
+  const isRival = (d) => rivals.some((r) => sameSite(d, r.host));
+
+  // 1 + 2. Google top 10 and its AI answer for the main search.
+  const serpItems = ((settled(serpC, [])[0] || {}).items) || [];
+  const top10 = serpItems.filter((i) => i.type === 'organic').slice(0, 10).map((i) => ({ rank: i.rank_group, domain: str(i.domain, 80).replace(/^www\./, ''), title: str(i.title, 120), url: httpUrl(i.url), you: sameSite(i.domain, site), rival: isRival(i.domain) }));
+  const yourRank = (top10.find((t) => t.you) || {}).rank ?? null;
+  const ov = serpItems.find((i) => i.type === 'ai_overview');
+  const refs = ov ? [...new Map((ov.references || []).filter((r) => r.domain).map((r) => [r.domain.replace(/^www\./, ''), { domain: r.domain.replace(/^www\./, ''), title: str(r.title, 120), url: httpUrl(r.url) }])).values()].slice(0, 6) : [];
+  const aiAnswer = { shown: !!ov, text: ov ? clip(String(ov.text || ov.markdown || '').replace(/\[\[\d+\]\]\([^)]*\)/g, '').replace(/[`*#]/g, ''), 320) : '', cites: refs.map((r) => ({ ...r, you: sameSite(r.domain, site), rival: isRival(r.domain) })) };
+  const mapPack = serpItems.filter((i) => i.type === 'local_pack').slice(0, 3).map((i) => ({ title: str(i.title, 100), domain: str(i.domain, 80), rating: i.rating ? i.rating.value ?? null : null, reviews: i.rating ? i.rating.votes_count ?? null : null, you: sameSite(i.domain, site) }));
+
+  // 3. AI citations: how many Google AI answers cite this site, and for which questions.
+  const ai0 = (settled(aiC, [])[0]) || {};
+  const aiCitations = aiC.status === 'fulfilled' ? { total: ai0.total_count ?? 0, questions: (ai0.items || []).slice(0, 3).map((i) => ({ question: str(i.question, 140), volume: i.ai_search_volume ?? null })) } : null;
+
+  // 4. Links from other websites, next to the competitors.
+  const linkItems = ((settled(linksC, [])[0] || {}).items) || [];
+  const links = linkItems.map((i) => ({ domain: str(i.target, 80), referringDomains: i.referring_domains ?? 0, you: sameSite(i.target, site) }));
+
+  // 5. Keyword gap: searches a competitor shows up for (top 20) and this site does not.
+  const relevant = relevantTo(seeds);
+  const gapRows = new Map();
+  gapCalls.forEach((c, n) => {
+    for (const it of settled(c, [])) {
+      const kd = it.keyword_data || {};
+      const rank = it.first_domain_serp_element ? it.first_domain_serp_element.rank_absolute : null;
+      if (!kd.keyword || gapRows.has(kd.keyword) || !relevant(kd.keyword) || !rank || rank > 20) continue;
+      gapRows.set(kd.keyword, { phrase: kd.keyword, volume: kd.keyword_info ? kd.keyword_info.search_volume ?? null : null, competitor: rivals[n].name || rivals[n].host, theirRank: rank });
+    }
+  });
+  const gapAll = [...gapRows.values()].sort((a, b) => (b.volume || 0) - (a.volume || 0)).slice(0, 25);
+  const { kept: gapKept } = await keepRelevant(request, gapAll.map((g) => g.phrase.toLowerCase()), emit, kindName, signal);
+  const gap = gapAll.filter((g) => gapKept.has(g.phrase.toLowerCase())).slice(0, 8);
+
+  // 6. Google Business profiles.
+  const you = bizC.status === 'fulfilled' ? profileOf(bizC.value, site) : null;
+  const rivalProfiles = rivalBizCalls.map((c, n) => ({ name: rivals.filter((r) => r.name)[n].name, ...(c.status === 'fulfilled' ? profileOf(c.value, null) : { found: false }) }));
+
+  // What to fix, strongest first. Each line names the number it rests on.
+  const fixes = [];
+  const bestRival = rivalProfiles.filter((p) => p.found && p.reviews).sort((a, b) => b.reviews - a.reviews)[0];
+  if (you && (!you.found || you.matchesSite === false)) fixes.push(`No Google Business profile came up for "${name}". Claim one for free: it is how people find you on Google Maps.${bestRival ? ` ${bestRival.name} has ${bestRival.rating ?? '?'} stars from ${bestRival.reviews} reviews.` : ''}`);
+  if (you && you.found && you.matchesSite !== false && bestRival && (you.reviews || 0) < bestRival.reviews) fixes.push(`Ask happy customers for Google reviews: you have ${you.reviews || 0}, ${bestRival.name} has ${bestRival.reviews}.`);
+  if (aiAnswer.shown && !aiAnswer.cites.some((c) => c.you)) fixes.push(`Google's AI answer for "${main}" quotes ${aiAnswer.cites.slice(0, 3).map((c) => c.domain).join(', ') || 'other sites'}, not you. Add a page that answers that question in plain words.`);
+  if (aiCitations && !aiCitations.total) fixes.push('No Google AI answer cites your website yet.');
+  if (yourRank === null) fixes.push(`You are not on Google's first page for "${main}".`);
+  const topLinks = links.filter((l) => !l.you).sort((a, b) => b.referringDomains - a.referringDomains)[0];
+  const yourLinks = links.find((l) => l.you);
+  if (topLinks && yourLinks && topLinks.referringDomains > yourLinks.referringDomains) fixes.push(`${topLinks.domain} has ${topLinks.referringDomains} websites linking to it; you have ${yourLinks.referringDomains}. Get listed on South African directories, suppliers and partners.`);
+  for (const g of gap.slice(0, 2)) fixes.push(`${g.competitor} shows up at #${g.theirRank} for "${g.phrase}" (${g.volume ?? '?'} searches a month); you don't. Give it its own page.`);
+
+  emit('progress', { step: 'tool', text: `DataForSEO: ${top10.length} Google results, AI answer ${aiAnswer.shown ? 'found' : 'not shown'}, ${links.length} link counts, ${gap.length} gap searches${failed.length ? `; ${failed.length} check(s) failed` : ''}` });
+  const text = [
+    `Main search: "${main}"`,
+    `Google top 10: ${top10.map((t) => `${t.rank}. ${t.domain}${t.you ? ' (you)' : ''}`).join(', ')}`,
+    `AI answer cites: ${aiAnswer.cites.map((c) => c.domain).join(', ') || 'none shown'}`,
+    `Links: ${links.map((l) => `${l.domain} ${l.referringDomains}`).join(', ')}`,
+    `Keyword gap: ${gap.map((g) => `${g.phrase} (${g.competitor})`).join(', ') || 'none found'}`,
+    ...fixes.map((f) => `- ${f}`),
+  ].join('\n');
+  emit('result', { ...resultBase(kindName, kind, request), data: { search: main, seeds, top10, yourRank, aiAnswer, aiCitations, mapPack, links, gap, business: { you, competitors: rivalProfiles }, fixes, failed, location: 'South Africa (2710)' }, text });
 }
 
 async function runAdPlain({ kindName, kind, request, emit, signal }) {
@@ -756,7 +1082,108 @@ function higgsfieldCost(modelId, genArgs, prompt, signal) {
   });
 }
 
-async function runAdVideo({ kindName, kind, request, emit, signal }) {
+// ---------- the video ad: Veo 3.1 first, Higgsfield second (owner 2026-10-29) ----------
+const FAL_VIDEO_MODEL = process.env.LIVE_RUNNER_FAL_VIDEO_MODEL || 'fal-ai/veo3.1/image-to-video';
+const FAL_USD_PER_SECOND = 0.4;   // fal pricing for Veo 3.1 image-to-video, checked 2026-10-29
+const FAL_SECONDS = 8;
+const FAL_MAX_USD = Number(process.env.LIVE_RUNNER_FAL_MAX_USD || 4);
+const wait = (ms, signal) => new Promise((resolve, reject) => {
+  const onAbort = () => { clearTimeout(t); reject(stageError('CANCELLED', 'Run stopped')); };
+  const t = setTimeout(() => { signal.removeEventListener('abort', onAbort); resolve(); }, ms);
+  signal.addEventListener('abort', onAbort, { once: true });
+});
+
+async function runAdVideo(args) {
+  const { emit, signal } = args;
+  const fallback = (why) => {
+    emit('progress', { step: 'note', text: `Veo 3.1 not used (${why}): making the video with Higgsfield instead` });
+    return runAdVideoHiggsfield({ ...args, kind: { ...args.kind, skill: 'higgsfield-generate' } });
+  };
+  if (!process.env.FAL_KEY) return fallback('FAL_KEY is not set in .env.local');
+  try { return await runAdVideoFal(args); } catch (e) {
+    // Never pay twice: once a Veo job is submitted, its failure is the answer.
+    if (signal.aborted || e.code === 'HELD_SPEND' || e.code === 'NO_PHOTO' || (e.data && e.data.submitted)) throw e;
+    return fallback(clip(redact(e.message), 90));
+  }
+}
+
+/**
+ * The picture a video ad starts from (owner 2026-10-29): the scan's photo of the idea's product,
+ * matched by the name the page gives it; a site without product photos gets its homepage picture
+ * (hero, else og:image, else the screenshot). An idea naming a product with no photo gets null.
+ */
+export function pickStart(d, product) {
+  const assets = Array.isArray(d && d.assets) ? d.assets : [];
+  const want = String(product || '').toLowerCase().trim();
+  const photos = assets.filter((a) => a.kind === 'product' && a.url);
+  const exact = want && photos.find((a) => String(a.alt || '').toLowerCase().trim() === want);
+  if (exact) return { url: exact.url, what: exact.alt, mode: 'product' };
+  if (want && photos.length) return null;
+  const brand = assets.find((a) => a.kind === 'hero') || assets.find((a) => a.kind === 'ogImage' && !junkImage(a.url));
+  const url = (brand && brand.url) || (d && d.screenshot) || null;
+  return url && /^https:\/\//.test(url) ? { url, what: 'homepage picture', mode: 'brand' } : null;
+}
+
+async function runAdVideoFal({ kindName, kind, request, emit, signal }) {
+  const s = loadScan(request.host, SCAN_CONTEXT_MS);
+  if (!s) throw stageError('BAD_REQUEST', 'Scan the website first: the video starts from a photo on it', { submitted: false });
+  const d = s.data;
+  const idea = request.idea || {};
+  const start = pickStart(d, idea.product);
+  if (!start) throw stageError('NO_PHOTO', idea.product ? `The scan has no photo of "${idea.product}", so no video was made. Pick an idea about a product with a photo.` : `The scan of ${request.host} found no picture to start a video from`, { submitted: false });
+  const cost = FAL_USD_PER_SECOND * FAL_SECONDS;
+  if (cost > FAL_MAX_USD) throw stageError('HELD_SPEND', `Held: this video costs about $${cost.toFixed(2)}; the cap is $${FAL_MAX_USD} (LIVE_RUNNER_FAL_MAX_USD)`);
+  const vertical = /9:16|reel|story|stories|tiktok|short/i.test(idea.format || '');
+  // The skill half of "plain prompt vs skill" (owner: "The Idea behind video Creation is using a skill"):
+  // the higgsfield-generate skill writes the shot. Headless runs cannot Read files, so its own
+  // prompt guide is passed in from the skill folder.
+  let guide = '';
+  try { guide = readFileSync(join(SKILLS_DIR, kind.skill, 'references', 'prompt-engineering.md'), 'utf8').slice(0, 4000); } catch { /* the skill's SKILL.md still loads */ }
+  const prompt = [
+    `Use the Skill tool to load the ${kind.skill} skill first, then follow its prompt guidance. Load no other skill. ${NON_INTERACTIVE}`,
+    'This run writes the video prompt only: skip the skill\'s Step 0 and every CLI or MCP step (there is no Bash and no Higgsfield tool here); Veo 3.1 renders the prompt.',
+    guide ? `The skill's references/prompt-engineering.md, for you to follow:\n<<<GUIDE\n${guide}\nGUIDE>>>` : '',
+    start.mode === 'product'
+      ? `Task: write ONE image-to-video prompt for an ${FAL_SECONDS}-second ${vertical ? 'vertical 9:16' : 'landscape 16:9'} ad that starts from their own photo of "${start.what}", the product in the chosen idea.`
+      : `Task: this business shows no product photos, so write ONE image-to-video prompt for an ${FAL_SECONDS}-second ${vertical ? 'vertical 9:16' : 'landscape 16:9'} brand video that starts from the main picture on their homepage.`,
+    'Following the guide: describe the motion (camera move, what moves, light, mood, sound) and do not redescribe what is in the picture or its labels, so it stays exactly as it is; add no other products or brands. Base the angle on the chosen idea, the competitors\' gaps and the keywords below. On-screen text: at most one short line of 5 words or fewer in South African English spelling (litres, colour), or none. No faces of real people. No claims that are not on the page. Under 200 tokens.',
+    'Final answer: only JSON in a ```json fence, shaped {"prompt":"","why":"one sentence on which gap or keyword this ad goes after"}.',
+    DATA_RULE,
+    factsBlock({ data: d, markdown: '', brief: s.text }, { markdownChars: 0 }) + contextBlock(request),
+  ].join('\n');
+  const run = await runClaude({ kindName, step: 'shot', skill: kind.skill, args: stageClaudeArgs({ tools: 'Skill', allowed: 'Skill' }), prompt, emit, signal });
+  const shot = extractJson(run.text) || {};
+  const videoPrompt = clip(shot.prompt, 1500);
+  if (!videoPrompt) throw stageError('BAD_OUTPUT', 'The skill answered without a video prompt', { raw: clip(run.text, 400), submitted: false });
+  emit('progress', { step: 'tool', text: `Veo 3.1: animating ${start.mode === 'product' ? `their photo of "${start.what}"` : 'their homepage picture'} (${FAL_SECONDS} s, ${vertical ? '9:16' : '16:9'}, about $${cost.toFixed(2)})` });
+  const headers = { 'content-type': 'application/json', authorization: `Key ${process.env.FAL_KEY}` };
+  const t = Date.now();
+  logSpend({ event: 'start', kind: kindName, class: 'fal', model: FAL_VIDEO_MODEL, est_usd: cost });
+  const sub = await fetch(`https://queue.fal.run/${FAL_VIDEO_MODEL}`, {
+    method: 'POST', headers, signal: AbortSignal.any([signal, AbortSignal.timeout(30_000)]),
+    body: JSON.stringify({ prompt: videoPrompt, image_url: start.url, aspect_ratio: vertical ? '9:16' : '16:9', duration: `${FAL_SECONDS}s`, resolution: '720p', generate_audio: true }),
+  });
+  const q = await sub.json().catch(() => null);
+  if (!sub.ok || !q || !q.request_id) throw stageError(sub.status === 401 || sub.status === 403 ? 'BLOCKED_KEY' : 'RUN_FAILED', `Veo 3.1 did not accept the job (HTTP ${sub.status}${q && q.detail ? `: ${clip(redact(JSON.stringify(q.detail)), 140)}` : ''})`, { submitted: false });
+  let status = q.status || 'IN_QUEUE';
+  let last = '';
+  while (status !== 'COMPLETED') {
+    if (Date.now() - t > 420_000) throw stageError('RUN_FAILED', `Veo 3.1 is still rendering after 7 minutes (job ${q.request_id})`, { submitted: true });
+    await wait(5000, signal);
+    const st = await fetch(q.status_url, { headers, signal }).then((r) => r.json()).catch(() => ({}));
+    status = st.status || status;
+    const line = status === 'IN_QUEUE' ? `Veo 3.1: waiting in the queue${st.queue_position != null ? ` (position ${st.queue_position})` : ''}` : `Veo 3.1: rendering · ${Math.round((Date.now() - t) / 1000)} s`;
+    if (line !== last && !signal.aborted) { emit('progress', { step: 'tool', text: line }); last = line; }
+  }
+  const out = await fetch(q.response_url, { headers, signal }).then((r) => r.json()).catch(() => null);
+  const videoUrl = out && out.video ? httpUrl(out.video.url) : null;
+  logSpend({ event: 'end', kind: kindName, class: 'fal', model: FAL_VIDEO_MODEL, est_usd: cost, wall_ms: Date.now() - t, ok: !!videoUrl });
+  if (!videoUrl) throw stageError('RUN_FAILED', `Veo 3.1 finished without a video (${clip(redact(JSON.stringify(out && (out.detail || out.error) || 'no detail')), 140)})`, { submitted: true });
+  const data = { status: 'completed', videoUrl, model: 'Veo 3.1', costUsd: cost, startImage: start.url, startFrom: start.mode === 'product' ? clip(start.what, 60) : 'their homepage picture', prompt: videoPrompt, why: str(shot.why, 200), skill: kind.skill, jobId: q.request_id };
+  emit('result', { ...resultBase(kindName, kind, request, run), data, text: `Video ready: ${videoUrl} (Veo 3.1, ${FAL_SECONDS} s, about $${cost.toFixed(2)})` });
+}
+
+async function runAdVideoHiggsfield({ kindName, kind, request, emit, signal }) {
   const s = loadScan(request.host, SCAN_CONTEXT_MS);
   const brief = [request.context || (s ? s.text : `Website: ${request.target}`), s ? `Facts: ${s.data.product.proof.slice(0, 3).join(' | ')}` : ''].filter(Boolean).join('\n');
   const idea = request.idea ? Object.entries(request.idea).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join(' | ') : 'none chosen: pick the strongest fact';
@@ -836,9 +1263,12 @@ export const STAGE_KINDS = {
   'stage-scan': { skill: 'none: Firecrawl v2 scrape (branding, screenshot, summary, json)', label: 'Design scan', type: 'stage', class: 'firecrawl', timeoutMs: 150_000, requiresEnv: ['FIRECRAWL_API_KEY'], run: runScan },
   'stage-ideas': { skill: IDEAS_SKILL, label: `Ad ideas (skill ${IDEAS_SKILL})`, type: 'stage', class: 'claude-p', timeoutMs: 300_000, run: runIdeas },
   'stage-competitors': { skill: 'competitor-analysis', label: 'Competitors (skill competitor-analysis)', type: 'stage', class: 'claude-p', timeoutMs: 420_000, run: runCompetitors },
-  'stage-keywords': { skill: 'none: DataForSEO Labs ranked_keywords + keywords_for_site', label: 'Keywords (DataForSEO, South Africa)', type: 'stage', class: 'dataforseo', timeoutMs: 120_000, requiresEnv: ['DATAFORSEO_LOGIN', 'DATAFORSEO_PASSWORD'], run: runKeywords },
+  'stage-keywords': { skill: 'none: DataForSEO ranked_keywords + keyword_suggestions + Google Ads keywords_for_keywords, from the site\'s search phrases', label: 'Keywords (DataForSEO, South Africa)', type: 'stage', class: 'dataforseo', timeoutMs: 180_000, requiresEnv: ['DATAFORSEO_LOGIN', 'DATAFORSEO_PASSWORD'], run: runKeywords },
+  'stage-sitecheck': { skill: 'none: DataForSEO SERP + AI answer, LLM mentions, backlinks, Labs domain_intersection, Business Data', label: 'Website check (DataForSEO, South Africa)', type: 'stage', class: 'dataforseo', timeoutMs: 150_000, requiresEnv: ['DATAFORSEO_LOGIN', 'DATAFORSEO_PASSWORD'], run: runSiteCheck },
+  'stage-unslop': { skill: 'slopmonster', label: 'Unslop (skill slopmonster)', type: 'stage', class: 'claude-p', timeoutMs: 240_000, run: runUnslop },
+  'stage-plan': { skill: 'marketing-plan', label: '30-day plan (skill marketing-plan)', type: 'stage', class: 'claude-p', timeoutMs: 300_000, run: runPlan },
   'stage-ad-plain': { skill: 'none', label: 'Plain prompt, no skill', type: 'stage', class: 'claude-p', timeoutMs: 180_000, run: runAdPlain },
-  'stage-ad-video': { skill: 'higgsfield-generate', label: 'With a skill: Higgsfield video', type: 'stage', class: 'claude-p', timeoutMs: 900_000, run: runAdVideo },
+  'stage-ad-video': { skill: 'higgsfield-generate', label: 'With a skill: video generation', type: 'stage', class: 'claude-p', timeoutMs: 900_000, run: runAdVideo },
 };
 
 export const isStageKind = (name) => Object.prototype.hasOwnProperty.call(STAGE_KINDS, name);
