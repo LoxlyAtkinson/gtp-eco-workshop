@@ -23,6 +23,10 @@ jobs:
           mkdir -p _site/assets _site/candidate
           cp index.html styles.css cinematic.css scroll-experience.css scroll-presentation.js presentation-qr.svg _site/
           cp assets/eco-compass.png assets/amina-lunch-3d.webp assets/amina-ad-motion.mp4 assets/amina-ad-motion-poster.jpg _site/assets/
+          # Public channel/AI marks used by the deck. Keep source notes and reference clips out of Pages.
+          mkdir -p _site/assets/icons _site/assets/logos
+          cp assets/icons/*.svg _site/assets/icons/
+          cp assets/logos/*.png _site/assets/logos/
           cp -R vendor _site/vendor
           cp -R tool _site/tool
           cp -R motion-examples _site/motion-examples
