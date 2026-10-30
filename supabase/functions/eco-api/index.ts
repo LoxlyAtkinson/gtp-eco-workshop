@@ -106,11 +106,47 @@ async function queuePdf(scanId: string, who: { name: string; email: string; mark
   if (contactError) throw new Error('Could not save report request.');
   const { data: job, error: jobError } = await db().from('gtp_eco_jobs').insert({ scan_id: scanId, contact_id: contactId }).select('id,created_at').single();
   if (jobError || !job) throw new Error('Could not queue the report.');
+  const { data: scanRow } = await db().from('gtp_eco_scans').select('input_json').eq('id', scanId).maybeSingle();
+  await sendWelcome(who, scanRow?.input_json || {});
   const [{ count }, { data: worker }] = await Promise.all([
     db().from('gtp_eco_jobs').select('id', { count: 'exact', head: true }).in('status', ['queued', 'running']).lt('created_at', job.created_at),
     db().from('gtp_eco_worker').select('seen_at').order('seen_at', { ascending: false }).limit(1).maybeSingle()
   ]);
   return { jobsAhead: count ?? 0, workerSeenAt: worker?.seen_at || null };
+}
+
+// Welcome email the moment a PDF job is queued (owner 2026-10-30): what we scan, what they get, the wait, the free skills.
+const SKILLS_URL = 'https://loxlyatkinson.github.io/gtp-eco-workshop/skills/get/';
+async function sendWelcome(who: { name: string; email: string }, input: any) {
+  const name = cleanText(input.businessName, 80) || 'your business';
+  const text = `Hi ${who.name},
+
+Thanks for using the GTP scanner. We have started on ${name} (${input.website}). Here is what happens next.
+
+WHAT WE ARE CHECKING
+1. Your website: what it says, who it speaks to, and whether a visitor knows what to do next.
+2. How Google sees you: the searches you show up for, where you rank, and the searches you are missing.
+3. Your competitors: who shows up next to you, what they rank for, and what they do better.
+4. The basics: page titles, descriptions, site map, and whether Google and AI search tools can read your site properly.
+5. Your reputation online: how many other websites link to you, and your Google Business listing.
+
+WHAT YOU GET
+A PDF report in your own brand colours. It shows where you stand against your competitors, the first fixes that will bring in more enquiries, a few ad ideas you can use this week, and a simple 30, 60 and 90 day plan in plain English.
+
+HOW LONG IT TAKES
+The scan runs a lot of checks, so it takes a while. If many people are scanning at the same time, you are in a short queue. Please be patient: your report will reach you, usually within the hour, and on busy days later the same day. You do not need to fill in the form again.
+
+WANT TO RUN IT YOURSELF?
+The skills we use for this scan are free to download from the skills page in the workshop presentation:
+${SKILLS_URL}
+Each skill comes with a guide that walks you through it step by step.
+
+Loxly Atkinson
+Smart AI Solutions
+072 283 1551 | loxly@smartaisolutions.co.za | https://smartaisolutions.co.za
+
+You get this email because you asked for a report on the GTP workshop scanner. It does not subscribe you to marketing.`;
+  await sendMail(who.email, { subject: `We are scanning ${name} now. Here is what to expect`, text }).catch(() => {});
 }
 
 // Worker hands back a finished (or failed) job. Emails the PDF once, then deletes the stored file.
@@ -206,11 +242,31 @@ async function scan(req: Request, headers: object) {
   if (!input) return error('Check the business name, public website, location, offer and goal.', 400, headers);
   const who = contactOf(body);
   if (!who) return error('Enter your name and a valid email address so we can send the report.', 400, headers);
+  // Never turn a participant away (owner 2026-10-30): when the quick scan cannot run, save their
+  // details and queue the full PDF report for the report worker instead of showing an error.
+  let deferTried = false;
+  const deferred = async (reason: string) => {
+    if (deferTried) throw new Error('Deferral already failed.');
+    deferTried = true;
+    const id = crypto.randomUUID();
+    const { error: dbError } = await db().from('gtp_eco_scans').insert({ id, input_json: input, report_json: { deferred: true, reason, createdAt: stamp() }, expires_at: expires() });
+    if (dbError) throw new Error('Could not save scan.');
+    console.log(JSON.stringify({ event: 'scan.deferred', reason }));
+    return answer({ scanId: id, deferred: true, pdfQueued: true, emailed: false, email: who.email, ...await queuePdf(id, who) }, 200, headers);
+  };
+  try {
+    return await quickScan(req, input, who, headers, deferred);
+  } catch {
+    return await deferred('scan-error');
+  }
+}
+
+async function quickScan(req: Request, input: any, who: { name: string; email: string; marketingConsent: boolean }, headers: object, deferred: (reason: string) => Promise<Response>) {
   // Counted after validation, so a typo does not use up a scan. 15 per hour: a workshop room shares one Wi-Fi address.
-  if (!await limited(req, 'scan', 15)) return error('Scan limit reached for this hour. Please try later.', 429, headers);
-  if (!await dailyBudget()) return error('Today’s scan capacity is full. Please try again tomorrow.', 429, headers);
+  if (!await limited(req, 'scan', 15)) return await deferred('hourly-limit');
+  if (!await dailyBudget()) return await deferred('daily-budget');
   let page;
-  try { page = await websitePage(input.website); } catch (e) { return error(`The website could not be read: ${e instanceof Error ? e.message : 'unknown error'}`, 422, headers); }
+  try { page = await websitePage(input.website); } catch { return await deferred('website-unreadable'); }
   const secondaryUrls = (page.internalUrls || []).filter((url): url is string => typeof url === 'string').filter((url) => /\/(service|product|menu|shop|pricing|faq|blog|about|contact)/i.test(new URL(url).pathname)).slice(0, 2);
   const [candidateResult, socialResult, pageResult] = await Promise.allSettled([
     competitorCandidates(input),
