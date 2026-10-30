@@ -26,7 +26,8 @@ async function bodyOf(req: Request) {
 function inputOf(value: any) {
   if (!value || typeof value !== 'object') return null;
   for (const field of ['businessName', 'website', 'location', 'businessType', 'mainGoal']) if (typeof value[field] !== 'string' || !value[field].trim()) return null;
-  const website = publicUrl(value.website);
+  // A stray leading dot (".example.co.za") was typed at the workshop; strip it before parsing.
+  const website = publicUrl(value.website.trim().replace(/^(https?:\/\/)?\.+/i, '$1'));
   if (!website || !['more-inquiries', 'more-sales', 'better-visibility', 'consistent-content'].includes(value.mainGoal)) return null;
   const socialProfiles = (Array.isArray(value.socialProfiles) ? value.socialProfiles : []).slice(0, 3).filter((p: any) => p && ['instagram', 'facebook', 'tiktok'].includes(p.platform) && publicUrl(p.url)).map((p: any) => ({ platform: p.platform, url: publicUrl(p.url)!.href }));
   return { businessName: cleanText(value.businessName, 100), website: website.href, location: cleanText(value.location, 100), businessType: cleanText(value.businessType, 180), mainGoal: value.mainGoal, socialProfiles };
@@ -36,6 +37,22 @@ function contactOf(value: any) {
   const name = cleanText(value?.name, 100), email = String(value?.email || '').trim().toLowerCase();
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) return null;
   return { name, email, marketingConsent: value?.marketingConsent === true };
+}
+
+// Common misspellings of big mail domains; a match asks the participant to correct the address.
+const DOMAIN_TYPOS: Record<string, string> = {
+  'gmial.com': 'gmail.com', 'gmai.com': 'gmail.com', 'gmal.com': 'gmail.com', 'gamil.com': 'gmail.com', 'gnail.com': 'gmail.com', 'gmaill.com': 'gmail.com', 'gmail.co': 'gmail.com', 'gmail.con': 'gmail.com', 'gmail.co.za': 'gmail.com', 'gmail.cm': 'gmail.com',
+  'yahooo.com': 'yahoo.com', 'yaho.com': 'yahoo.com', 'yahoo.con': 'yahoo.com', 'hotmial.com': 'hotmail.com', 'hotmal.com': 'hotmail.com', 'hotmail.con': 'hotmail.com',
+  'outlok.com': 'outlook.com', 'outllook.com': 'outlook.com', 'outlook.con': 'outlook.com', 'iclod.com': 'icloud.com', 'icloud.con': 'icloud.com'
+};
+
+// Returns a message when the address cannot receive mail: a known domain typo, or a domain with no mail server.
+async function emailProblem(email: string) {
+  const domain = email.split('@')[1];
+  if (DOMAIN_TYPOS[domain]) return `Check your email address. Did you mean ${email.split('@')[0]}@${DOMAIN_TYPOS[domain]}?`;
+  const found = async (type: 'MX' | 'A') => { try { return (await Deno.resolveDns(domain, type)).length > 0; } catch { return false; } };
+  if (await found('MX') || await found('A')) return null;
+  return `We could not find a mailbox at @${domain}. Check your email address so the report reaches you.`;
 }
 
 const esc = (value: unknown) => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
@@ -308,6 +325,8 @@ async function scan(req: Request, headers: object) {
   if (!input) return error('Check the business name, public website, location, offer and goal.', 400, headers);
   const who = contactOf(body);
   if (!who) return error('Enter your name and a valid email address so we can send the report.', 400, headers);
+  const problem = await emailProblem(who.email);
+  if (problem) { console.log(JSON.stringify({ event: 'email.rejected', domain: who.email.split('@')[1] })); return error(problem, 400, headers); }
   // Never turn a participant away (owner 2026-10-30): when the quick scan cannot run, save their
   // details and queue the full PDF report for the report worker instead of showing an error.
   let deferTried = false;
@@ -359,6 +378,8 @@ async function reportRequest(req: Request, headers: object) {
   const value = await bodyOf(req);
   const who = contactOf(value);
   if (!who || !/^[0-9a-f-]{36}$/.test(value?.scanId || '')) return error('Check your name and email.', 400, headers);
+  const problem = await emailProblem(who.email);
+  if (problem) return error(problem, 400, headers);
   const { data: scan, error: lookupError } = await db().from('gtp_eco_scans').select('id,expires_at,report_json').eq('id', value.scanId).maybeSingle();
   if (lookupError) throw new Error('Scan lookup failed.');
   if (!scan || scan.expires_at < stamp()) return error('This scan has expired. Please run it again.', 410, headers);
