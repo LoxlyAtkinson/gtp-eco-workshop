@@ -107,7 +107,7 @@ async function queuePdf(scanId: string, who: { name: string; email: string; mark
   const { data: job, error: jobError } = await db().from('gtp_eco_jobs').insert({ scan_id: scanId, contact_id: contactId }).select('id,created_at').single();
   if (jobError || !job) throw new Error('Could not queue the report.');
   const { data: scanRow } = await db().from('gtp_eco_scans').select('input_json').eq('id', scanId).maybeSingle();
-  await sendWelcome(who, scanRow?.input_json || {});
+  await sendWelcome(who, scanRow?.input_json || {}, contactId);
   const [{ count }, { data: worker }] = await Promise.all([
     db().from('gtp_eco_jobs').select('id', { count: 'exact', head: true }).in('status', ['queued', 'running']).lt('created_at', job.created_at),
     db().from('gtp_eco_worker').select('seen_at').order('seen_at', { ascending: false }).limit(1).maybeSingle()
@@ -115,38 +115,82 @@ async function queuePdf(scanId: string, who: { name: string; email: string; mark
   return { jobsAhead: count ?? 0, workerSeenAt: worker?.seen_at || null };
 }
 
+// Smart AI Solutions email signature and wrapper: table layout, inline styles only (mail clients strip <style>).
+const LOGO_URL = 'https://www.smartaisolutions.co.za/images/logo-smartai.png';
+const SIGNATURE_HTML = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:28px 0 0 0;border-top:2px solid #28CEE0;padding-top:16px;width:100%;max-width:520px;">
+<tr><td style="padding:16px 16px 0 0;vertical-align:top;width:150px;"><img src="${LOGO_URL}" width="140" alt="Smart AI Solutions" style="display:block;width:140px;height:auto;border:0;"></td>
+<td style="padding:16px 0 0 0;vertical-align:top;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#15343F;">
+<p style="margin:0;font-size:15px;font-weight:bold;color:#020617;">Loxly Atkinson</p>
+<p style="margin:0 0 6px 0;font-size:13px;color:#15343F;">Founder, Smart AI Solutions</p>
+<p style="margin:0;font-size:13px;color:#15343F;"><a href="tel:+27722831551" style="color:#15343F;text-decoration:none;">072 283 1551</a></p>
+<p style="margin:0;font-size:13px;"><a href="mailto:loxly@smartaisolutions.co.za" style="color:#0e7f8c;text-decoration:none;">loxly@smartaisolutions.co.za</a></p>
+<p style="margin:0;font-size:13px;"><a href="https://smartaisolutions.co.za" style="color:#0e7f8c;text-decoration:none;font-weight:bold;">smartaisolutions.co.za</a></p>
+<p style="margin:6px 0 0 0;font-size:12px;color:#5c6b70;">AI automation, websites and SEO for South African businesses</p>
+</td></tr></table>`;
+const SIGNATURE_TEXT = `Loxly Atkinson
+Founder, Smart AI Solutions
+072 283 1551 | loxly@smartaisolutions.co.za | https://smartaisolutions.co.za`;
+const emP = (text: string) => `<p style="margin:0 0 14px 0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#1d1b16;">${text}</p>`;
+const emH = (text: string) => `<p style="margin:22px 0 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;letter-spacing:1.5px;color:#0e7f8c;">${text}</p>`;
+const emailShell = (inner: string, footer: string, pixel = '') => `<div style="margin:0;padding:24px 12px;background-color:#f4f8fa;"><div style="max-width:600px;margin:0 auto;padding:28px 28px 24px 28px;background-color:#ffffff;border-radius:10px;border-top:4px solid #28CEE0;">${inner}${SIGNATURE_HTML}<p style="margin:22px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.5;color:#5c6b70;">${footer}</p></div>${pixel}</div>`;
+
+// Open tracking (owner 2026-10-30; the form's privacy notice says so): a signed 1x1 image per contact.
+const openSig = async (contactId: string) => (await hash(`${env('WORKER_TOKEN')}:open:${contactId}`)).slice(0, 32);
+const GIF = Uint8Array.from(atob('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'), c => c.charCodeAt(0));
+async function trackOpen(url: URL) {
+  const c = url.searchParams.get('c') || '', s = url.searchParams.get('s') || '';
+  if (/^[0-9a-f-]{36}$/.test(c) && s === await openSig(c)) {
+    const { data } = await db().from('gtp_eco_contacts').select('open_count,opened_at').eq('id', c).maybeSingle();
+    if (data) await db().from('gtp_eco_contacts').update({ open_count: (data.open_count || 0) + 1, opened_at: data.opened_at || stamp() }).eq('id', c);
+  }
+  return new Response(GIF, { status: 200, headers: { 'content-type': 'image/gif', 'cache-control': 'no-store' } });
+}
+
 // Welcome email the moment a PDF job is queued (owner 2026-10-30): what we scan, what they get, the wait, the free skills.
 const SKILLS_URL = 'https://loxlyatkinson.github.io/gtp-eco-workshop/skills/get/';
-async function sendWelcome(who: { name: string; email: string }, input: any) {
+const FOOTER = 'You get this email because you asked for a report on the GTP workshop scanner. It does not subscribe you to marketing. We record when this email is opened so we know the report arrived.';
+const pixelFor = async (contactId: string) => `<img src="${env('SUPABASE_URL')}/functions/v1/eco-api/v1/open?c=${contactId}&s=${await openSig(contactId)}" width="1" height="1" alt="" style="display:block;width:1px;height:1px;border:0;">`;
+const CHECKS = [
+  ['Your website', 'what it says, who it speaks to, and whether a visitor knows what to do next.'],
+  ['How Google sees you', 'the searches you show up for, where you rank, and the searches you are missing.'],
+  ['Your competitors', 'who shows up next to you, what they rank for, and what they do better.'],
+  ['The basics', 'page titles, descriptions, site map, and whether Google and AI search tools can read your site properly.'],
+  ['Your reputation online', 'how many other websites link to you, and your Google Business listing.'],
+];
+async function sendWelcome(who: { name: string; email: string }, input: any, contactId: string) {
   const name = cleanText(input.businessName, 80) || 'your business';
+  const site = cleanText(input.website, 200);
+  const get = 'A PDF report in your own brand colours. It shows where you stand against your competitors, the first fixes that will bring in more enquiries, a few ad ideas you can use this week, and a simple 30, 60 and 90 day plan in plain English.';
+  const wait = 'The scan runs a lot of checks, so it takes a while. If many people are scanning at the same time, you are in a short queue. Please be patient: your report will reach you, usually within the hour, and on busy days later the same day. You do not need to fill in the form again.';
   const text = `Hi ${who.name},
 
-Thanks for using the GTP scanner. We have started on ${name} (${input.website}). Here is what happens next.
+Thanks for using the GTP scanner. We have started on ${name} (${site}). Here is what happens next.
 
 WHAT WE ARE CHECKING
-1. Your website: what it says, who it speaks to, and whether a visitor knows what to do next.
-2. How Google sees you: the searches you show up for, where you rank, and the searches you are missing.
-3. Your competitors: who shows up next to you, what they rank for, and what they do better.
-4. The basics: page titles, descriptions, site map, and whether Google and AI search tools can read your site properly.
-5. Your reputation online: how many other websites link to you, and your Google Business listing.
+${CHECKS.map(([t, d], i) => `${i + 1}. ${t}: ${d}`).join('\n')}
 
 WHAT YOU GET
-A PDF report in your own brand colours. It shows where you stand against your competitors, the first fixes that will bring in more enquiries, a few ad ideas you can use this week, and a simple 30, 60 and 90 day plan in plain English.
+${get}
 
 HOW LONG IT TAKES
-The scan runs a lot of checks, so it takes a while. If many people are scanning at the same time, you are in a short queue. Please be patient: your report will reach you, usually within the hour, and on busy days later the same day. You do not need to fill in the form again.
+${wait}
 
 WANT TO RUN IT YOURSELF?
 The skills we use for this scan are free to download from the skills page in the workshop presentation:
 ${SKILLS_URL}
 Each skill comes with a guide that walks you through it step by step.
 
-Loxly Atkinson
-Smart AI Solutions
-072 283 1551 | loxly@smartaisolutions.co.za | https://smartaisolutions.co.za
+${SIGNATURE_TEXT}
 
-You get this email because you asked for a report on the GTP workshop scanner. It does not subscribe you to marketing.`;
-  await sendMail(who.email, { subject: `We are scanning ${name} now. Here is what to expect`, text }).catch(() => {});
+${FOOTER}`;
+  const html = emailShell(
+    emP(`Hi ${esc(who.name)},`) + emP(`Thanks for using the GTP scanner. We have started on <b>${esc(name)}</b> (<a href="${esc(site)}" style="color:#0e7f8c;">${esc(site)}</a>). Here is what happens next.`) +
+    emH('WHAT WE ARE CHECKING') + `<ol style="margin:0 0 6px 0;padding-left:20px;">${CHECKS.map(([t, d]) => `<li style="margin:0 0 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#1d1b16;"><b>${t}:</b> ${d}</li>`).join('')}</ol>` +
+    emH('WHAT YOU GET') + emP(get) + emH('HOW LONG IT TAKES') + emP(wait) +
+    emH('WANT TO RUN IT YOURSELF?') + emP('The skills we use for this scan are free to download from the skills page in the workshop presentation. Each skill comes with a guide that walks you through it step by step.') +
+    `<p style="margin:4px 0 0 0;"><a href="${SKILLS_URL}" style="display:inline-block;padding:11px 18px;background-color:#020617;color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;text-decoration:none;border-radius:6px;">Download the free skills</a></p>`,
+    FOOTER, await pixelFor(contactId));
+  await sendMail(who.email, { subject: `We are scanning ${name} now. Here is what to expect`, text, html }).catch(() => {});
 }
 
 // Worker hands back a finished (or failed) job. Emails the PDF once, then deletes the stored file.
@@ -179,9 +223,15 @@ async function completeJob(req: Request, headers: object) {
   const name = cleanText(input.businessName, 80) || 'your business';
   const filename = `${name.replace(/[^\w -]/g, '').trim().replace(/\s+/g, '-') || 'ECO'}-ECO-report.pdf`;
   try {
+    const intro = `Your ECO report for ${name} is attached as a PDF. It shows how Google sees your business, who your competitors are and what they do better, how ready your website is, a few ad ideas, and a plan for the next 30, 60 and 90 days.`;
+    const next = 'Start with the first fixes on the "Your scores at a glance" page. They are the quickest wins.';
     const messageId = await sendMail(contact.email, {
       subject: `Your ECO report for ${name}`,
-      text: `Hello ${contact.name},\n\nYour ECO report for ${name} is attached as a PDF. It covers what your website says today, how you compare with similar businesses, and what to work on first.\n\nYou asked for this report on the GTP workshop scanner. This email does not subscribe you to marketing.\n\nLoxly\nSmart AI Solutions`,
+      text: `Hello ${contact.name},\n\n${intro}\n\n${next}\n\nWant us to handle these fixes for you? Book a free call and we will go through your report with you.\nBook a call: https://smartaisolutions.co.za/?booking=open\nView packages: https://smartaisolutions.co.za/packages\n\n${SIGNATURE_TEXT}\n\n${FOOTER}`,
+      html: emailShell(
+        emP(`Hello ${esc(contact.name)},`) + emP(esc(intro)) + emP(esc(next)) +
+        `<div style="margin:22px 0 4px 0;padding:20px;background-color:#020617;border-radius:8px;"><p style="margin:0 0 10px 0;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;font-weight:bold;color:#ffffff;">Want us to handle these fixes for you?</p><p style="margin:0 0 16px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#d6f6fa;">Book a free call and we will go through your report with you.</p><a href="https://smartaisolutions.co.za/?booking=open" style="display:inline-block;margin:0 8px 8px 0;padding:11px 18px;background-color:#28CEE0;color:#020617;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;text-decoration:none;border-radius:6px;">Book a call</a><a href="https://smartaisolutions.co.za/packages" style="display:inline-block;margin:0 0 8px 0;padding:10px 17px;border:1px solid #28CEE0;color:#28CEE0;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;text-decoration:none;border-radius:6px;">View packages</a></div>`,
+        FOOTER, await pixelFor(job.contact_id)),
       attachments: [{ filename, content: pdf, contentType: 'application/pdf' }]
     });
     await db().from('gtp_eco_contacts').update({ delivery_status: 'sent', provider_message_id: messageId }).eq('id', job.contact_id);
@@ -347,6 +397,7 @@ Deno.serve(async req => {
     if (path === '/v1/scans' && req.method === 'POST') return await scan(req, headers);
     if (path === '/v1/reports/request' && req.method === 'POST') return await reportRequest(req, headers);
     if (path === '/v1/jobs/complete' && req.method === 'POST') return await completeJob(req, headers);
+    if (path === '/v1/open' && req.method === 'GET') return await trackOpen(new URL(req.url));
     if (['/v1/reports/read', '/v1/reports/opt-out', '/v1/reports/delete'].includes(path) && req.method === 'POST') return await reportAction(req, path, headers);
     if (path === '/v1/admin/contacts' && req.method === 'GET') return await admin(req, headers);
     return error('Route not found.', 404, headers);

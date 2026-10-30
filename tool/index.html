@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../styles.css?v=4">
   <link rel="stylesheet" href="./tool.css?v=5">
   <script defer src="./config.js"></script>
-  <script defer src="./tool.js?v=7"></script>
+  <script defer src="./tool.js?v=8"></script>
 </head>
 <body class="tool-page">
   <a class="skip-link" href="#main">Skip to tool</a>
@@ -32,7 +32,7 @@
             <div class="field"><label for="contactName">Your name</label><input id="contactName" name="contactName" autocomplete="name" maxlength="100" required><small class="field-error" id="contactNameError"></small></div>
             <div class="field"><label for="contactEmail">Email address</label><span class="field-help">We email the full report here as soon as the scan finishes.</span><input id="contactEmail" name="contactEmail" type="email" inputmode="email" autocomplete="email" maxlength="254" required><small class="field-error" id="contactEmailError"></small></div>
             <label class="consent-choice"><input id="marketingConsent" name="marketingConsent" type="checkbox"><span>Yes, I would also like occasional sales and marketing tips from GTP. I can opt out later.</span></label>
-            <details class="optional-fields"><summary>How your details are used</summary><div class="privacy-notice"><p>GTP uses your business inputs to prepare the scan and your name and email to send you the report. Supabase stores the report and contact choice; Firecrawl reads public website pages; the Smart AI Solutions mail server sends the email. If you add a public social profile, Apify may sample its public posts. GTP keeps stored scan and contact records for 30 days, then purges them. Marketing is sent only if you tick the box above. To ask about your data or request deletion, email <a href="mailto:loxly@smartaisolutions.co.za">loxly@smartaisolutions.co.za</a>.</p></div></details>
+            <details class="optional-fields"><summary>How your details are used</summary><div class="privacy-notice"><p>GTP uses your business inputs to prepare the scan and your name and email to send you the report. Supabase stores the report and contact choice; Firecrawl reads public website pages; the Smart AI Solutions mail server sends the email. If you add a public social profile, Apify may sample its public posts. GTP keeps stored scan and contact records for 30 days, then purges them. We record when our report emails are opened, so we know they arrived. Marketing is sent only if you tick the box above. To ask about your data or request deletion, email <a href="mailto:loxly@smartaisolutions.co.za">loxly@smartaisolutions.co.za</a>.</p></div></details>
             <button class="button button--primary tool-submit" type="submit">Scan my public presence <span aria-hidden="true">→</span></button><p class="form-footnote">Only submit a business you own or are authorized to assess. We do not access private accounts.</p>
           </form>
         </section>
