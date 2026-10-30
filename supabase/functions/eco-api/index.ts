@@ -66,7 +66,7 @@ function reportEmail(name: string, report: any, link: string) {
   return { subject: `Your ECO report for ${b.name}`, text, html };
 }
 
-async function sendMail(to: string, content: { subject: string; text: string; html: string }) {
+async function sendMail(to: string, content: { subject: string; text: string; html?: string; attachments?: { filename: string; content: Uint8Array; contentType: string }[] }) {
   const port = Number(env('SMTP_PORT') || 465);
   const transport = nodemailer.createTransport({ host: env('SMTP_HOST'), port, secure: port === 465, auth: { user: env('SMTP_USER'), pass: env('SMTP_PASS') }, connectionTimeout: 10000, greetingTimeout: 10000, socketTimeout: 15000 });
   const from = env('ECO_MAIL_FROM') || `"${env('SMTP_FROM_NAME') || 'Smart AI Solutions'}" <${env('SMTP_FROM') || env('SMTP_USER')}>`;
@@ -91,6 +91,71 @@ async function deliver(scanId: string, who: { name: string; email: string; marke
 }
 
 const mailReady = () => need('SMTP_HOST', 'SMTP_USER', 'SMTP_PASS', 'NOTICE_VERSION', 'FRONTEND_REPORT_URL');
+
+// JOBS_MODE: off = basic email only; owner = PDF jobs only for JOBS_OWNER_EMAILS; all = PDF jobs for everyone.
+function pdfJobFor(email: string) {
+  const mode = env('JOBS_MODE');
+  if (mode === 'all') return true;
+  return mode === 'owner' && env('JOBS_OWNER_EMAILS').toLowerCase().split(',').map(x => x.trim()).includes(email);
+}
+
+// Records the contact and queues the PDF job. The worker builds the PDF; /v1/jobs/complete emails it.
+async function queuePdf(scanId: string, who: { name: string; email: string; marketingConsent: boolean }) {
+  const contactId = crypto.randomUUID();
+  const { error: contactError } = await db().from('gtp_eco_contacts').insert({ id: contactId, scan_id: scanId, name: who.name, email: who.email, marketing_consent: who.marketingConsent, notice_version: env('NOTICE_VERSION'), expires_at: expires(), report_hash: await hash(secret()), delivery_status: 'queued' });
+  if (contactError) throw new Error('Could not save report request.');
+  const { data: job, error: jobError } = await db().from('gtp_eco_jobs').insert({ scan_id: scanId, contact_id: contactId }).select('id,created_at').single();
+  if (jobError || !job) throw new Error('Could not queue the report.');
+  const [{ count }, { data: worker }] = await Promise.all([
+    db().from('gtp_eco_jobs').select('id', { count: 'exact', head: true }).in('status', ['queued', 'running']).lt('created_at', job.created_at),
+    db().from('gtp_eco_worker').select('seen_at').order('seen_at', { ascending: false }).limit(1).maybeSingle()
+  ]);
+  return { jobsAhead: count ?? 0, workerSeenAt: worker?.seen_at || null };
+}
+
+// Worker hands back a finished (or failed) job. Emails the PDF once, then deletes the stored file.
+async function completeJob(req: Request, headers: object) {
+  const supplied = (req.headers.get('authorization') || '').replace(/^Bearer /, '');
+  if (!env('WORKER_TOKEN') || !supplied || await hash(supplied) !== await hash(env('WORKER_TOKEN'))) return error('Unauthorized.', 401, headers);
+  const value = await bodyOf(req);
+  if (!/^[0-9a-f-]{36}$/.test(value?.jobId || '')) return error('Missing job id.', 400, headers);
+  const { data: job, error: jobError } = await db().from('gtp_eco_jobs').select('id,status,attempts,scan_id,contact_id,gtp_eco_contacts(name,email),gtp_eco_scans(input_json)').eq('id', value.jobId).maybeSingle();
+  if (jobError) throw new Error('Job lookup failed.');
+  if (!job) return error('Job not found.', 404, headers);
+  if (job.status === 'done') return answer({ status: 'done', alreadySent: true }, 200, headers);
+  const contact: any = Array.isArray(job.gtp_eco_contacts) ? job.gtp_eco_contacts[0] : job.gtp_eco_contacts;
+  const input: any = (Array.isArray(job.gtp_eco_scans) ? job.gtp_eco_scans[0] : job.gtp_eco_scans)?.input_json || {};
+  const path = `${job.id}.pdf`;
+  if (value.ok !== true) {
+    const final = job.attempts >= 3;
+    await db().from('gtp_eco_jobs').update({ status: final ? 'failed' : 'queued', error: cleanText(value.error, 500) || 'unknown', finished_at: final ? stamp() : null }).eq('id', job.id);
+    if (final) {
+      await db().from('gtp_eco_contacts').update({ delivery_status: 'failed' }).eq('id', job.contact_id);
+      const owner = env('OWNER_ALERT_EMAIL') || env('SMTP_FROM') || env('SMTP_USER');
+      await sendMail(owner, { subject: `GTP report job failed: ${input.businessName || job.id}`, text: `Job ${job.id} for ${input.website || 'unknown site'} failed after ${job.attempts} attempts.\nLast error: ${cleanText(value.error, 500)}\nThe participant was not emailed.` }).catch(() => {});
+    }
+    return answer({ status: final ? 'failed' : 'requeued' }, 200, headers);
+  }
+  const { data: file, error: fileError } = await db().storage.from('gtp-eco-reports').download(path);
+  if (fileError || !file) return error('PDF not found in storage.', 409, headers);
+  const pdf = new Uint8Array(await file.arrayBuffer());
+  if (pdf.length < 2000 || String.fromCharCode(...pdf.slice(0, 5)) !== '%PDF-') return error('Stored file is not a valid PDF.', 422, headers);
+  const name = cleanText(input.businessName, 80) || 'your business';
+  const filename = `${name.replace(/[^\w -]/g, '').trim().replace(/\s+/g, '-') || 'ECO'}-ECO-report.pdf`;
+  try {
+    const messageId = await sendMail(contact.email, {
+      subject: `Your ECO report for ${name}`,
+      text: `Hello ${contact.name},\n\nYour ECO report for ${name} is attached as a PDF. It covers what your website says today, how you compare with similar businesses, and what to work on first.\n\nYou asked for this report on the GTP workshop scanner. This email does not subscribe you to marketing.\n\nLoxly\nSmart AI Solutions`,
+      attachments: [{ filename, content: pdf, contentType: 'application/pdf' }]
+    });
+    await db().from('gtp_eco_contacts').update({ delivery_status: 'sent', provider_message_id: messageId }).eq('id', job.contact_id);
+    await db().from('gtp_eco_jobs').update({ status: 'done', finished_at: stamp(), error: null }).eq('id', job.id);
+  } catch {
+    return error('The PDF email could not be sent.', 502, headers);
+  }
+  await db().storage.from('gtp-eco-reports').remove([path]);
+  return answer({ status: 'done' }, 200, headers);
+}
 
 async function limited(req: Request, kind: string, max: number) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
@@ -158,8 +223,10 @@ async function scan(req: Request, headers: object) {
   const id = crypto.randomUUID();
   const { error: dbError } = await db().from('gtp_eco_scans').insert({ id, input_json: input, report_json: report, expires_at: expires() });
   if (dbError) throw new Error('Could not save scan.');
+  const preview = { scanId: id, summary: report.summary, findings: report.findings.slice(0, 4), unknowns: report.unknowns, checkedAt: report.createdAt, email: who.email };
+  if (pdfJobFor(who.email)) return answer({ ...preview, emailed: false, pdfQueued: true, ...await queuePdf(id, who) }, 200, headers);
   const emailed = await deliver(id, who, report);
-  return answer({ scanId: id, summary: report.summary, findings: report.findings.slice(0, 4), unknowns: report.unknowns, checkedAt: report.createdAt, emailed, email: who.email }, 200, headers);
+  return answer({ ...preview, emailed }, 200, headers);
 }
 
 // Re-sends the full report for an existing scan, for when the first email did not arrive.
@@ -222,6 +289,7 @@ Deno.serve(async req => {
   try {
     if (path === '/v1/scans' && req.method === 'POST') return await scan(req, headers);
     if (path === '/v1/reports/request' && req.method === 'POST') return await reportRequest(req, headers);
+    if (path === '/v1/jobs/complete' && req.method === 'POST') return await completeJob(req, headers);
     if (['/v1/reports/read', '/v1/reports/opt-out', '/v1/reports/delete'].includes(path) && req.method === 'POST') return await reportAction(req, path, headers);
     if (path === '/v1/admin/contacts' && req.method === 'GET') return await admin(req, headers);
     return error('Route not found.', 404, headers);
