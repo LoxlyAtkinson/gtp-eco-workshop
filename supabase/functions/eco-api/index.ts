@@ -201,12 +201,13 @@ async function competitorCandidates(input: any) {
 
 async function scan(req: Request, headers: object) {
   if (!need('FIRECRAWL_API_KEY', 'RATE_LIMIT_SALT', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'DAILY_SCAN_LIMIT') || !mailReady()) return error('The scan service is not fully configured.', 503, headers);
-  if (!await limited(req, 'scan', 5)) return error('Scan limit reached for this hour. Please try later.', 429, headers);
   const body = await bodyOf(req);
   const input = inputOf(body);
   if (!input) return error('Check the business name, public website, location, offer and goal.', 400, headers);
   const who = contactOf(body);
   if (!who) return error('Enter your name and a valid email address so we can send the report.', 400, headers);
+  // Counted after validation, so a typo does not use up a scan. 15 per hour: a workshop room shares one Wi-Fi address.
+  if (!await limited(req, 'scan', 15)) return error('Scan limit reached for this hour. Please try later.', 429, headers);
   if (!await dailyBudget()) return error('Today’s scan capacity is full. Please try again tomorrow.', 429, headers);
   let page;
   try { page = await websitePage(input.website); } catch (e) { return error(`The website could not be read: ${e instanceof Error ? e.message : 'unknown error'}`, 422, headers); }
