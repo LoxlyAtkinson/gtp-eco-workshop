@@ -712,6 +712,10 @@ async function runPlan({ kindName, kind, request, emit, signal }) {
   emit('result', { ...resultBase(kindName, kind, request, run), data: { oneLine, plan, skill: kind.skill, factsFrom: facts.from }, text });
 }
 
+// Report worker lean mode (owner 2026-10-30): skip the two dearest calls, Google Ads volumes and AI mentions
+// (about $0.19 of $0.31 a scan). The live stage in the deck never sets it.
+const DFS_LEAN = process.env.LIVE_RUNNER_DFS_LEAN === '1';
+
 /** One live DataForSEO task (`path` like "dataforseo_labs/google/ranked_keywords"). Returns task.result. */
 async function dataForSeo(path, payload, signal) {
   const auth = Buffer.from(`${process.env.DATAFORSEO_LOGIN}:${process.env.DATAFORSEO_PASSWORD}`).toString('base64');
@@ -803,7 +807,7 @@ async function runKeywords({ kindName, kind, request, emit, signal }) {
   const loc = { location_code: 2710, language_code: 'en' };
   const calls = await Promise.allSettled([
     labs('ranked_keywords', { target: domain, ...loc, limit: 100, order_by: ['keyword_data.keyword_info.search_volume,desc'] }, signal),
-    dataForSeo('keywords_data/google_ads/keywords_for_keywords', { keywords: seeds, ...loc, sort_by: 'search_volume' }, signal),
+    DFS_LEAN ? Promise.resolve([]) : dataForSeo('keywords_data/google_ads/keywords_for_keywords', { keywords: seeds, ...loc, sort_by: 'search_volume' }, signal),
     ...seeds.slice(0, 3).map((keyword) => labs('keyword_suggestions', { keyword, ...loc, limit: 20, order_by: ['keyword_info.search_volume,desc'] }, signal)),
   ]);
   if (signal.aborted) throw stageError('CANCELLED', 'Run stopped');
@@ -957,7 +961,7 @@ async function runSiteCheck({ kindName, kind, request, emit, signal }) {
   emit('progress', { step: 'tool', text: `DataForSEO: Google top 10 and AI answer for "${main}", AI citations, links, keyword gap and Google Business for ${site}${rivals.length ? ` and ${rivals.length} competitors` : ''}` });
   const [serpC, aiC, linksC, bizC, ...rest] = await Promise.allSettled([
     dataForSeo('serp/google/organic/live/advanced', { keyword: main, ...loc, depth: 10, load_async_ai_overview: true }, signal),
-    dataForSeo('ai_optimization/llm_mentions/search_mentions', { target: [{ domain: site }], platform: 'google', ...loc, limit: 5, order_by: ['ai_search_volume,desc'] }, signal),
+    DFS_LEAN ? Promise.resolve([]) : dataForSeo('ai_optimization/llm_mentions/search_mentions', { target: [{ domain: site }], platform: 'google', ...loc, limit: 5, order_by: ['ai_search_volume,desc'] }, signal),
     dataForSeo('backlinks/bulk_referring_domains', { targets: [site, ...rivals.map((r) => r.host)] }, signal),
     dataForSeo('business_data/google/my_business_info', { keyword: name, ...loc }, signal),
     ...rivals.slice(0, 2).map((r) => labs('domain_intersection', { target1: r.host, target2: site, intersections: false, ...loc, limit: 30, order_by: ['keyword_data.keyword_info.search_volume,desc'] }, signal)),
