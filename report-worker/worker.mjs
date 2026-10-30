@@ -52,8 +52,8 @@ async function upload(jobId, pdfPath) {
   }
   throw new Error(`PDF upload HTTP ${status}`);
 }
-async function complete(jobId, ok, error = '') {
-  const res = await fetch(`${API}/v1/jobs/complete`, { method: 'POST', headers: { authorization: `Bearer ${env.WORKER_TOKEN}`, 'content-type': 'application/json' }, body: JSON.stringify({ jobId, ok, error: String(error).slice(0, 500) }) });
+async function complete(jobId, ok, error = '', summary = null) {
+  const res = await fetch(`${API}/v1/jobs/complete`, { method: 'POST', headers: { authorization: `Bearer ${env.WORKER_TOKEN}`, 'content-type': 'application/json' }, body: JSON.stringify({ jobId, ok, error: String(error).slice(0, 500), summary }) });
   const body = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(`complete HTTP ${res.status}: ${body.error || ''}`);
   return body;
@@ -90,7 +90,21 @@ async function gather(input, dir, firstName) {
   writeFileSync(join(dir, 'data', 'stages.json'), JSON.stringify(stages, null, 1));
   writeFileSync(join(dir, 'data', 'seo-checks.json'), JSON.stringify(seo, null, 1));
   const steps = Object.fromEntries(Object.entries(stages).map(([k, v]) => [k, v.error ? 'failed' : 'ok']));
-  return { brand: brand.fromSite, hero, steps, seoScore: seo.score };
+  // Short results summary for the CRM and the participants sheet (the PDF has the full story).
+  const kws = Array.isArray(stages.keywords?.data?.keywords) ? stages.keywords.data.keywords : [];
+  const ranked = kws.filter(k => Number(k.position) > 0).sort((x, y) => x.position - y.position);
+  const links = Array.isArray(stages.check?.data?.links) ? stages.check.data.links : [];
+  const summary = {
+    aiReadiness: seo.score ?? null,
+    basicsPassed: Array.isArray(seo.basics) ? `${seo.basics.filter(b => b.pass).length}/${seo.basics.length}` : null,
+    rankedSearches: `${ranked.length}/${kws.length}`,
+    bestRanking: ranked[0] ? `${ranked[0].phrase} #${ranked[0].position}` : 'none in top 100',
+    linkingSites: links.find(l => l.you)?.referringDomains ?? null,
+    googleBusiness: stages.check?.data?.business?.you?.found ?? null,
+    competitors: (stages.competitors?.data?.competitors || []).map(c => c.name).slice(0, 5),
+    stepsFailed: Object.entries(steps).filter(([, v]) => v === 'failed').map(([k]) => k),
+  };
+  return { brand: brand.fromSite, hero, steps, seoScore: seo.score, summary };
 }
 
 // Slopmonster linter (the skill's own tools/deslop.py) on the report's visible text: 5/5 or it is rewritten once.
@@ -178,7 +192,7 @@ async function work(job) {
     const [contact] = await rest(`/rest/v1/gtp_eco_contacts?id=eq.${job.contact_id}&select=name`) || [];
     const result = await buildReport(input, dir, String(contact?.name || '').split(' ')[0]);
     await upload(job.id, result.pdf);
-    const done = await complete(job.id, true);
+    const done = await complete(job.id, true, '', result.summary);
     log('job.done', { job: job.id, attempt: job.attempts, status: done.status, pages: result.pages, bytes: result.bytes, steps: result.steps, slopScore: result.slopScore, costUsd: result.costUsd, totalMs: result.totalMs });
     rmSync(dir, { recursive: true, force: true });
   } catch (e) {

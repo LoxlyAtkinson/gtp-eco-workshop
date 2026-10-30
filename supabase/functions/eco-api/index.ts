@@ -107,12 +107,25 @@ async function queuePdf(scanId: string, who: { name: string; email: string; mark
   const { data: job, error: jobError } = await db().from('gtp_eco_jobs').insert({ scan_id: scanId, contact_id: contactId }).select('id,created_at').single();
   if (jobError || !job) throw new Error('Could not queue the report.');
   const { data: scanRow } = await db().from('gtp_eco_scans').select('input_json').eq('id', scanId).maybeSingle();
+  await crmUpsert(contactId, who, scanRow?.input_json || {}, { scanId, jobId: job.id, report: 'queued' });
   await sendWelcome(who, scanRow?.input_json || {}, contactId);
   const [{ count }, { data: worker }] = await Promise.all([
     db().from('gtp_eco_jobs').select('id', { count: 'exact', head: true }).in('status', ['queued', 'running']).lt('created_at', job.created_at),
     db().from('gtp_eco_worker').select('seen_at').order('seen_at', { ascending: false }).limit(1).maybeSingle()
   ]);
   return { jobsAhead: count ?? 0, workerSeenAt: worker?.seen_at || null };
+}
+
+// Smart AI Solutions CRM (crm_leads, same project): one lead per scanner request, keyed like the
+// geo-audit bridge on (lead_source, source_lead_id). A CRM failure is logged, never blocks the report.
+async function crmUpsert(contactId: string, who: { name: string; email: string; marketingConsent?: boolean }, input: any, extra: Record<string, unknown>) {
+  const { data: existing } = await db().from('crm_leads').select('form_data').eq('lead_source', 'gtp_workshop').eq('source_lead_id', contactId).maybeSingle();
+  const { error: crmError } = await db().from('crm_leads').upsert({
+    lead_source: 'gtp_workshop', source_lead_id: contactId, email: who.email, contact_name: who.name || null,
+    company: cleanText(input.businessName, 120) || null, location_city: cleanText(input.location, 100) || null, pipeline_stage: 'new',
+    form_data: { ...(existing?.form_data || {}), source: 'GTP ECO workshop scanner', website: input.website, offer: input.businessType, mainGoal: input.mainGoal, marketingConsent: !!who.marketingConsent, ...extra },
+  }, { onConflict: 'lead_source,source_lead_id' });
+  if (crmError) console.error(JSON.stringify({ event: 'crm.failed', code: crmError.code, message: crmError.message }));
 }
 
 // Smart AI Solutions email signature and wrapper: table layout, inline styles only (mail clients strip <style>).
@@ -193,7 +206,7 @@ ${FOOTER}`;
   await sendMail(who.email, { subject: `We are scanning ${name} now. Here is what to expect`, text, html }).catch(() => {});
 }
 
-// Worker hands back a finished (or failed) job. Emails the PDF once, then deletes the stored file.
+// Worker hands back a finished (or failed) job. Emails the PDF once and records the result in the CRM.
 async function completeJob(req: Request, headers: object) {
   const supplied = (req.headers.get('authorization') || '').replace(/^Bearer /, '');
   if (!env('WORKER_TOKEN') || !supplied || await hash(supplied) !== await hash(env('WORKER_TOKEN'))) return error('Unauthorized.', 401, headers);
@@ -211,6 +224,7 @@ async function completeJob(req: Request, headers: object) {
     await db().from('gtp_eco_jobs').update({ status: final ? 'failed' : 'queued', error: cleanText(value.error, 500) || 'unknown', finished_at: final ? stamp() : null }).eq('id', job.id);
     if (final) {
       await db().from('gtp_eco_contacts').update({ delivery_status: 'failed' }).eq('id', job.contact_id);
+      await crmUpsert(job.contact_id, contact, input, { report: 'failed', reportError: cleanText(value.error, 300) });
       const owner = env('OWNER_ALERT_EMAIL') || env('SMTP_FROM') || env('SMTP_USER');
       await sendMail(owner, { subject: `GTP report job failed: ${input.businessName || job.id}`, text: `Job ${job.id} for ${input.website || 'unknown site'} failed after ${job.attempts} attempts.\nLast error: ${cleanText(value.error, 500)}\nThe participant was not emailed.` }).catch(() => {});
     }
@@ -239,7 +253,9 @@ async function completeJob(req: Request, headers: object) {
   } catch {
     return error('The PDF email could not be sent.', 502, headers);
   }
-  await db().storage.from('gtp-eco-reports').remove([path]);
+  // The PDF stays in the private bucket so the CRM and the participants sheet can link to it (30-day signed link, the retention period).
+  const { data: signed } = await db().storage.from('gtp-eco-reports').createSignedUrl(path, 30 * 86_400);
+  await crmUpsert(job.contact_id, contact, input, { report: 'sent', reportSentAt: stamp(), reportPdf: signed?.signedUrl || null, results: value.summary && typeof value.summary === 'object' ? value.summary : null });
   return answer({ status: 'done' }, 200, headers);
 }
 
