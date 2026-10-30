@@ -1,2 +1,2 @@
-// Set this to the deployed protected API origin after the service and privacy notice pass release checks.
-window.GTP_API_BASE = '';
+// Protected API origin (Supabase Edge Function eco-api). Leave empty to switch the live scan off.
+window.GTP_API_BASE = 'https://efkgdafxzbsdhjbspavs.supabase.co/functions/v1/eco-api';

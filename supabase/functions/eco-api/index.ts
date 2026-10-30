@@ -1,4 +1,6 @@
 import { createClient } from 'npm:@supabase/supabase-js@2.118.0';
+// @deno-types="npm:@types/nodemailer@6"
+import nodemailer from 'npm:nodemailer@8';
 import { buildAssessment, cleanText, extractPage, publicUrl } from '../../../api/analysis.js';
 import { samplePublicSocial } from '../../../api/social.js';
 
@@ -29,6 +31,66 @@ function inputOf(value: any) {
   const socialProfiles = (Array.isArray(value.socialProfiles) ? value.socialProfiles : []).slice(0, 3).filter((p: any) => p && ['instagram', 'facebook', 'tiktok'].includes(p.platform) && publicUrl(p.url)).map((p: any) => ({ platform: p.platform, url: publicUrl(p.url)!.href }));
   return { businessName: cleanText(value.businessName, 100), website: website.href, location: cleanText(value.location, 100), businessType: cleanText(value.businessType, 180), mainGoal: value.mainGoal, socialProfiles };
 }
+
+function contactOf(value: any) {
+  const name = cleanText(value?.name, 100), email = String(value?.email || '').trim().toLowerCase();
+  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) return null;
+  return { name, email, marketingConsent: value?.marketingConsent === true };
+}
+
+const esc = (value: unknown) => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+const goals: Record<string, string> = { 'more-inquiries': 'More qualified inquiries', 'more-sales': 'More sales from inquiries', 'better-visibility': 'Better search visibility', 'consistent-content': 'More consistent content' };
+
+// Plain HTML with inline styles only, so mail clients keep the layout.
+function reportEmail(name: string, report: any, link: string) {
+  const b = report.business || {};
+  const plan = [['First 30 days', report.plan?.days30], ['Days 31 to 60', report.plan?.days60], ['Days 61 to 90', report.plan?.days90]] as [string, string[]][];
+  const text = [
+    `Hello ${name},`, '',
+    `Here is the ECO scan for ${b.name} (${b.website}).`, `Goal: ${goals[b.goal] || b.goal}`, '',
+    'WHAT WE FOUND',
+    ...(report.findings || []).map((f: any, i: number) => `${i + 1}. [${f.area}] ${f.title}\n   ${f.observation}\n   Next step: ${f.nextStep}\n   Source: ${f.sourceUrl}`), '',
+    'YOUR 30/60/90-DAY PLAN',
+    ...plan.flatMap(([label, items]) => [label, ...(items || []).map(x => `- ${x}`), '']),
+    'KEYWORD IDEAS TO CHECK', ...(report.keywordIdeas || []).map((k: any) => `- ${k.query}`), '',
+    'WHAT THIS SCAN CANNOT SEE', ...(report.unknowns || []).map((u: string) => `- ${u}`), '',
+    `Open the report online (private link, valid 30 days): ${link}`, '',
+    'You asked for this report on the GTP ECO workshop tool. This email does not subscribe you to marketing.'
+  ].join('\n');
+  const p = 'margin:0 0 12px 0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#1d1b16;';
+  const h = 'margin:28px 0 12px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:2px;color:#8a5a00;';
+  const findings = (report.findings || []).map((f: any) => `<div style="margin:0 0 14px 0;padding:14px 16px;border:1px solid #e3dccb;border-radius:8px;background-color:#ffffff;"><p style="margin:0 0 6px 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:1px;color:#8a5a00;">${esc(String(f.area).toUpperCase())} · ${esc(String(f.confidence).toUpperCase())}</p><p style="margin:0 0 6px 0;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:bold;color:#1d1b16;">${esc(f.title)}</p><p style="${p}">${esc(f.observation)}</p><p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#1d1b16;"><b>Next step:</b> ${esc(f.nextStep)} <a href="${esc(f.sourceUrl)}" style="color:#8a5a00;">Source</a></p></div>`).join('');
+  const planHtml = plan.map(([label, items]) => `<p style="margin:0 0 6px 0;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold;color:#1d1b16;">${label}</p><ul style="margin:0 0 16px 0;padding-left:20px;">${(items || []).map(x => `<li style="${p}">${esc(x)}</li>`).join('')}</ul>`).join('');
+  const list = (items: string[]) => `<ul style="margin:0 0 16px 0;padding-left:20px;">${items.map(x => `<li style="${p}">${esc(x)}</li>`).join('')}</ul>`;
+  const html = `<div style="margin:0;padding:24px 12px;background-color:#f5f1e8;"><div style="max-width:620px;margin:0 auto;"><p style="${p}">Hello ${esc(name)},</p><p style="${p}">Here is the ECO scan for <b>${esc(b.name)}</b> (<a href="${esc(b.website)}" style="color:#8a5a00;">${esc(b.website)}</a>). Goal: ${esc(goals[b.goal] || b.goal)}.</p><p style="${h}">WHAT WE FOUND</p>${findings}<p style="${h}">YOUR 30/60/90-DAY PLAN</p>${planHtml}<p style="${h}">KEYWORD IDEAS TO CHECK</p>${list((report.keywordIdeas || []).map((k: any) => k.query))}<p style="${h}">WHAT THIS SCAN CANNOT SEE</p>${list(report.unknowns || [])}<p style="margin:24px 0;"><a href="${esc(link)}" style="display:inline-block;padding:12px 20px;background-color:#1d1b16;color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:15px;text-decoration:none;border-radius:6px;">Open the report online</a></p><p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.5;color:#5c574c;">The online link is private and works for 30 days. You asked for this report on the GTP ECO workshop tool. This email does not subscribe you to marketing.</p></div></div>`;
+  return { subject: `Your ECO report for ${b.name}`, text, html };
+}
+
+async function sendMail(to: string, content: { subject: string; text: string; html: string }) {
+  const port = Number(env('SMTP_PORT') || 465);
+  const transport = nodemailer.createTransport({ host: env('SMTP_HOST'), port, secure: port === 465, auth: { user: env('SMTP_USER'), pass: env('SMTP_PASS') }, connectionTimeout: 10000, greetingTimeout: 10000, socketTimeout: 15000 });
+  const from = env('ECO_MAIL_FROM') || `"${env('SMTP_FROM_NAME') || 'Smart AI Solutions'}" <${env('SMTP_FROM') || env('SMTP_USER')}>`;
+  const info = await transport.sendMail({ from, to, ...content });
+  return String(info?.messageId || '');
+}
+
+// Saves the contact, emails the full report and records the outcome. Returns true when the email went out.
+async function deliver(scanId: string, who: { name: string; email: string; marketingConsent: boolean }, report: any) {
+  const id = crypto.randomUUID(), token = secret();
+  const link = `${env('FRONTEND_REPORT_URL').replace(/#.*$/, '')}#${token}`;
+  const { error: insertError } = await db().from('gtp_eco_contacts').insert({ id, scan_id: scanId, name: who.name, email: who.email, marketing_consent: who.marketingConsent, notice_version: env('NOTICE_VERSION'), expires_at: expires(), report_hash: await hash(token), delivery_status: 'pending' });
+  if (insertError) throw new Error('Could not save report request.');
+  try {
+    const messageId = await sendMail(who.email, reportEmail(who.name, report, link));
+    await db().from('gtp_eco_contacts').update({ delivery_status: 'sent', provider_message_id: messageId }).eq('id', id);
+    return true;
+  } catch {
+    await db().from('gtp_eco_contacts').update({ delivery_status: 'failed' }).eq('id', id);
+    return false;
+  }
+}
+
+const mailReady = () => need('SMTP_HOST', 'SMTP_USER', 'SMTP_PASS', 'NOTICE_VERSION', 'FRONTEND_REPORT_URL');
 
 async function limited(req: Request, kind: string, max: number) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
@@ -73,10 +135,13 @@ async function competitorCandidates(input: any) {
 }
 
 async function scan(req: Request, headers: object) {
-  if (!need('FIRECRAWL_API_KEY', 'RATE_LIMIT_SALT', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'DAILY_SCAN_LIMIT')) return error('The scan service is not fully configured.', 503, headers);
+  if (!need('FIRECRAWL_API_KEY', 'RATE_LIMIT_SALT', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'DAILY_SCAN_LIMIT') || !mailReady()) return error('The scan service is not fully configured.', 503, headers);
   if (!await limited(req, 'scan', 5)) return error('Scan limit reached for this hour. Please try later.', 429, headers);
-  const input = inputOf(await bodyOf(req));
+  const body = await bodyOf(req);
+  const input = inputOf(body);
   if (!input) return error('Check the business name, public website, location, offer and goal.', 400, headers);
+  const who = contactOf(body);
+  if (!who) return error('Enter your name and a valid email address so we can send the report.', 400, headers);
   if (!await dailyBudget()) return error('Today’s scan capacity is full. Please try again tomorrow.', 429, headers);
   let page;
   try { page = await websitePage(input.website); } catch (e) { return error(`The website could not be read: ${e instanceof Error ? e.message : 'unknown error'}`, 422, headers); }
@@ -93,33 +158,22 @@ async function scan(req: Request, headers: object) {
   const id = crypto.randomUUID();
   const { error: dbError } = await db().from('gtp_eco_scans').insert({ id, input_json: input, report_json: report, expires_at: expires() });
   if (dbError) throw new Error('Could not save scan.');
-  return answer({ scanId: id, summary: report.summary, findings: report.findings.slice(0, 4), unknowns: report.unknowns, checkedAt: report.createdAt }, 200, headers);
+  const emailed = await deliver(id, who, report);
+  return answer({ scanId: id, summary: report.summary, findings: report.findings.slice(0, 4), unknowns: report.unknowns, checkedAt: report.createdAt, emailed, email: who.email }, 200, headers);
 }
 
+// Re-sends the full report for an existing scan, for when the first email did not arrive.
 async function reportRequest(req: Request, headers: object) {
-  if (!need('RESEND_API_KEY', 'MAIL_FROM', 'NOTICE_VERSION', 'FRONTEND_REPORT_URL')) return error('Report delivery is not yet available.', 503, headers);
+  if (!mailReady()) return error('Report delivery is not yet available.', 503, headers);
   if (!await limited(req, 'report', 8)) return error('Report request limit reached for this hour. Please try later.', 429, headers);
   const value = await bodyOf(req);
-  const name = cleanText(value?.name, 100), email = String(value?.email || '').trim().toLowerCase();
-  if (!name || !/^\S+@\S+\.\S+$/.test(email) || email.length > 254 || typeof value?.marketingConsent !== 'boolean' || value?.noticeVersion !== env('NOTICE_VERSION') || !/^[0-9a-f-]{36}$/.test(value?.scanId || '')) return error('Check your name, email and notice version.', 400, headers);
-  const { data: scan, error: lookupError } = await db().from('gtp_eco_scans').select('id,expires_at').eq('id', value.scanId).maybeSingle();
+  const who = contactOf(value);
+  if (!who || !/^[0-9a-f-]{36}$/.test(value?.scanId || '')) return error('Check your name and email.', 400, headers);
+  const { data: scan, error: lookupError } = await db().from('gtp_eco_scans').select('id,expires_at,report_json').eq('id', value.scanId).maybeSingle();
   if (lookupError) throw new Error('Scan lookup failed.');
   if (!scan || scan.expires_at < stamp()) return error('This scan has expired. Please run it again.', 410, headers);
-  const id = crypto.randomUUID(), token = secret();
-  const link = `${env('FRONTEND_REPORT_URL').replace(/#.*$/, '')}#${token}`;
-  const { error: insertError } = await db().from('gtp_eco_contacts').insert({ id, scan_id: value.scanId, name, email, marketing_consent: value.marketingConsent, notice_version: env('NOTICE_VERSION'), expires_at: expires(), report_hash: await hash(token), delivery_status: 'pending' });
-  if (insertError) throw new Error('Could not save report request.');
-  try {
-    const res = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { authorization: `Bearer ${env('RESEND_API_KEY')}`, 'content-type': 'application/json' }, body: JSON.stringify({ from: env('MAIL_FROM'), to: [email], subject: 'Your GTP ECO business report', text: `Hello ${name},\n\nYour ECO report is ready. Open this private link within 30 days:\n${link}\n\nYou requested this report after scanning your business. This email does not subscribe you to marketing.\n\nIf you did not request it, ignore this message.` }) });
-    if (!res.ok) throw new Error(`Email provider returned HTTP ${res.status}.`);
-    const sent = await res.json();
-    const { error: updateError } = await db().from('gtp_eco_contacts').update({ delivery_status: 'sent', provider_message_id: String(sent.id || '') }).eq('id', id);
-    if (updateError) throw new Error('Delivery state could not be saved.');
-  } catch {
-    await db().from('gtp_eco_contacts').delete().eq('id', id);
-    return error('The report email could not be sent. Please try again later.', 502, headers);
-  }
-  return answer({ message: 'We sent a private report link to the address you entered. Please check your inbox.' }, 200, headers);
+  if (!await deliver(scan.id, who, scan.report_json)) return error('The report email could not be sent. Please try again later.', 502, headers);
+  return answer({ message: 'We sent the full report to the address you entered. Please check your inbox.' }, 200, headers);
 }
 
 async function contact(token: string) {
